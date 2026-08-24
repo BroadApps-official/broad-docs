@@ -14,7 +14,8 @@
 
 - Platform set: `1.0.0`.
 - Minimum iOS: `17.0`.
-- Swift tools: `6.0`.
+- Swift language mode: `5`.
+- SwiftPM tools/manifest: `6.0`.
 - BroadCore: [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadExtensions: [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadMonetization: [`1.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
@@ -29,12 +30,17 @@ purchase, restore и RU payments не запускались.
 Host app может подключить один нужный release или их сочетание. Статус всего
 set не превращает integration repository в обязательную dependency.
 
+> `Swift 5` и `swift-tools-version: 6.0` не противоречат друг другу. Первое
+> задаёт language mode production sources и host example; второе — формат
+> Package.swift и минимальную способность SwiftPM toolchain прочитать manifest.
+
 ## Schema
 
 ```yaml
 schema: 1
 platform_set: "1.0.0"
 ios: "17.0"
+swift_language_mode: "5"
 swift_tools: "6.0"
 modules:
   BroadCore: "1.0.0"

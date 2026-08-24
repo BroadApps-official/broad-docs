@@ -12,9 +12,37 @@
 
 Сайт агрегирует контент и даёт поиск. Он не становится единственной копией API docs.
 
+## README или сайт
+
+| Источник | Задача |
+|---|---|
+| Integration README | Быстро выбрать product, увидеть platform boundaries и перейти к следующему шагу |
+| Public site | Искать по cross-module guides, читать migration, compatibility и release process |
+| Module README/DocC | Работать с API конкретного Core, Extensions, Monetization или UIFlows tag |
+| Compatibility YAML | Зафиксировать exact versions и evidence проверенного integration set |
+
+В README остаётся маршрут и минимальный quick start. Подробный cross-module
+текст пишется здесь один раз и появляется на сайте; module API не копируется на
+сайт, если canonical описание уже принадлежит module repository.
+
 ## Edit this page
 
 Внизу каждой страницы есть `Edit this page`. Ссылка открывает canonical Markdown-файл на GitHub. После merge public pipeline пересобирает сайт.
+
+## Как открыть сайт локально
+
+Нужны Node.js `22.13+` и pnpm `10.15.1`.
+
+```bash
+git clone https://github.com/BroadApps-official/broad-docs.git
+cd broad-docs
+pnpm install --frozen-lockfile
+pnpm run dev
+```
+
+Откройте адрес `Local`, напечатанный dev server; по умолчанию это
+`http://localhost:3000`. Перед pull request выполните `pnpm run check`: команда
+проверяет content contract, lint и production build без unit-test runner.
 
 ## Проверка перед merge
 

@@ -33,7 +33,7 @@ export function SiteFooter() {
           <Link href="/docs/architecture">Архитектура</Link><Link href="/docs/special-offer">Special Offer</Link>
           <Link href="/docs/compatibility">Совместимость</Link><Link href="/docs/release-process">Release policy</Link>
         </nav>
-        <div className="footer-meta">PUBLIC / EDITABLE<br />iOS 17+ · Swift 6</div>
+        <div className="footer-meta">PUBLIC / EDITABLE<br />iOS 17+ · Swift 5 mode</div>
       </div>
     </footer>
   );

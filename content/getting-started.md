@@ -6,6 +6,14 @@ Host app подключает только те public repositories и products,
 
 > Если app импортирует public API модуля напрямую, добавьте этот product в app target явно.
 
+## Swift version
+
+Модули и host example собираются в **Swift 5 language mode**. Заголовок
+`swift-tools-version: 6.0` в package manifests задаёт версию SwiftPM manifest и
+toolchain, а не Swift 6 language mode для production sources. Поэтому app target
+может оставаться на `SWIFT_VERSION = 5.0`, но package resolve должен выполняться
+toolchain, который понимает SwiftPM tools `6.0`.
+
 ## Выбор product
 
 - `BroadExtensions` — utility без других platform dependencies.

@@ -111,7 +111,10 @@ export default function Home() {
             <span className="section-index">03</span>
             <h2>Документация,<br />которую можно <em>найти.</em></h2>
             <p>Markdown и DocC остаются рядом с кодом. Этот сайт добавляет единую навигацию, поиск и прямую ссылку на редактирование.</p>
-            <Link className="primary-action" href="/search">Искать по всей базе <span>⌕</span></Link>
+            <div className="hero-actions">
+              <Link className="primary-action" href="/search">Искать по всей базе <span>⌕</span></Link>
+              <Link className="secondary-action" href="/docs/documentation">README или сайт?</Link>
+            </div>
           </div>
           <div className="knowledge-panel">
             <div className="fake-search"><span>⌕</span><b>special offer</b><kbd>⌘ K</kbd></div>
@@ -126,7 +129,7 @@ export default function Home() {
           <div className="section-wrap release-inner">
             <div><span className="live-dot" /><small>CURRENT CATALOG</small><b>Federation rollout</b></div>
             <div><small>PLATFORM</small><b>iOS 17+</b></div>
-            <div><small>TOOLCHAIN</small><b>Swift 6.0</b></div>
+            <div><small>LANGUAGE</small><b>Swift 5 mode</b></div>
             <div><small>POLICY</small><b>No test targets</b></div>
             <Link href="/docs/compatibility">Compatibility ↗</Link>
           </div>
