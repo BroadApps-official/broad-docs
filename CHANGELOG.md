@@ -4,6 +4,8 @@
 
 ### Added
 
+- BroadExtensions `1.0.0` release status, direct installation snippet and links
+  to its public repository, release and editable module guide;
 - public multi-page BroadApps iOS documentation site;
 - searchable index over editable Markdown sources;
 - module selection, architecture, compatibility, migration and release guides;
