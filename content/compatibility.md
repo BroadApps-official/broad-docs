@@ -6,6 +6,8 @@
 [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration)
 хранит machine-readable набор exact versions, который прошёл общую сборку и probes.
 
+[Открыть integration release 1.0.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.0.0).
+
 > Каталог не является runtime umbrella. Host app может взять из него версию только одного нужного product.
 
 ## Проверенный platform set 1.0.0
