@@ -14,12 +14,22 @@
 ## Порядок flow
 
 ```text
+Adapty.getPaywall
+        ↓
+Adapty.getPaywallProducts
+        ↓ map всего provider array
+store exact raw product references
+        ↓ qualify parsed provider payload
 subscription paywall
-        ↓ close без purchase
-SpecialOffer resolver
+        ↓ close без purchase/restore
+Special Offer resolver
         ↓ explicit special_offer = true
 second paywall
 ```
+
+До Special Offer gate должен существовать полный `PaywallPayload` со всеми
+products. Массив нельзя `filter`, `compactMap`, `sorted`, truncate или
+deduplicate; provider order и каждое product occurrence часть контракта.
 
 Special Offer никогда не является первым paywall. Confirmed purchase/restore первого paywall ведёт в main и обходит downsell.
 
@@ -42,3 +52,4 @@ Purchase второго paywall использует raw product из того �
 - raw product registry continuity.
 
 Эти сценарии выполняются fixture/probe-кодом без настоящих purchase, restore и RU payment.
+Они входят в [BroadMonetization 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).

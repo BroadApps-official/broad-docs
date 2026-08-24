@@ -12,6 +12,21 @@
 
 SDK models не выходят из Infrastructure/Data boundary. Presentation не импортирует Adapty или StoreKit.
 
+## Подключение 1.0.0
+
+```swift
+dependencies: [
+    .package(
+        url: "https://github.com/BroadApps-official/broad-monetization-ios.git",
+        exact: "1.0.0"
+    )
+]
+```
+
+Host app добавляет product `BroadMonetization` только если ему нужны
+monetization contracts/adapters. Обязательного `BroadPlatform` нет;
+совместимый `BroadCore 1.0.0`, Adapty и Swinject приходят транзитивно.
+
 ## Финансовые инварианты
 
 - Purchase/restore response сам по себе не открывает premium.
@@ -24,4 +39,4 @@ SDK models не выходят из Infrastructure/Data boundary. Presentation �
 
 Special Offer — второй paywall после крестика обычного subscription paywall без покупки. Полный contract: [Special Offer](/docs/special-offer).
 
-[Открыть public repository](https://github.com/BroadApps-official/broad-monetization-ios).
+[Открыть public repository](https://github.com/BroadApps-official/broad-monetization-ios) · [release 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).

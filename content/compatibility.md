@@ -13,13 +13,13 @@
 - Swift tools: `6.0`.
 - BroadCore: [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadExtensions: [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
-- BroadMonetization: `pending`.
+- BroadMonetization: [`1.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadUIFlows: `pending`.
 - Verification: `pending` до clean-clone acceptance всех repositories.
 
 `pending` у всего platform set не отменяе уже выпущенные модули: host app
-может сейчас подключить `BroadCore 1.0.0`, `BroadExtensions 1.0.0` или
-оба product вместе, не ожидая остальные модули.
+может сейчас подключить `BroadCore 1.0.0`, `BroadExtensions 1.0.0`,
+`BroadMonetization 1.0.0` или нужное сочетание этих products, не ожидая UIFlows.
 
 ## Schema
 

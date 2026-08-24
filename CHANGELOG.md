@@ -8,6 +8,8 @@
   to its public repository, release and editable module guide;
 - BroadCore `1.0.0` release status, corrected public API names and links to its
   public repository/release;
+- BroadMonetization `1.0.0` release status, direct installation and exact
+  Special Offer pipeline after complete provider-products parsing;
 - public multi-page BroadApps iOS documentation site;
 - searchable index over editable Markdown sources;
 - module selection, architecture, compatibility, migration and release guides;

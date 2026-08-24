@@ -8,9 +8,9 @@ Contracts → Docs → Extensions → Core → Monetization → UIFlows → Cuto
 
 Порядок идёт снизу вверх, чтобы dependent package никогда не ссылался на ещё не опубликованный dependency tag.
 
-Сейчас завершены Extensions и Core: оба модуля выпущены как `1.0.0`,
-прошли standalone/remote/release/integration gates и собираются из exact tags.
-Следующий шаг — BroadMonetization.
+Сейчас завершены Extensions, Core и Monetization: все три модуля
+выпущены как `1.0.0`, прошли standalone/remote/release/integration gates
+и собираются из exact tags. Следующий шаг — BroadUIFlows.
 
 ## После каждого шага
 
