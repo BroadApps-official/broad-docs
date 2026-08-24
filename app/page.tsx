@@ -52,6 +52,7 @@ export default function Home() {
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Начать подключение <span>↗</span></Link>
               <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
+              <Link className="secondary-action" href="/docs/legacy-app-migration">Мигрировать старое app</Link>
             </div>
           </div>
 

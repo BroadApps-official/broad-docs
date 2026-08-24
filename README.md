@@ -8,7 +8,7 @@ README/DocC модулей, но не удаляет и не заменяет и
 | Источник | Используйте для |
 |---|---|
 | Integration README | первого входа, выбора product и обязательных правил платформы |
-| Этот сайт | поиска, cross-module сценариев, migration, compatibility и release process |
+| Этот сайт | поиска, cross-module сценариев, legacy migration, compatibility и release process |
 | Module README и DocC | public API и usage конкретного module tag |
 | `Compatibility/current.yml` | exact-набора версий, прошедшего integration gate |
 
@@ -19,7 +19,7 @@ README/DocC модулей, но не удаляет и не заменяет и
 
 - выбор нужного Swift Package product без обязательного umbrella;
 - architecture и ownership repositories;
-- Special Offer, compatibility, migration и release-правила;
+- Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем public Markdown-страницам;
 - `Edit this page` для обычного public pull request.
 

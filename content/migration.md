@@ -1,4 +1,9 @@
-# Миграция
+# Разделение platform repository
+
+> Эта страница описывает перенос **кода самой платформы** из прежнего общего
+> repository в независимые module repositories. Если нужно перевести уже
+> работающее host-приложение со старого BroadApps monolith/local sources,
+> откройте [«Миграция старого app»](/docs/legacy-app-migration).
 
 ## Порядок
 

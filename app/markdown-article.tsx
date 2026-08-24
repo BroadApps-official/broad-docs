@@ -12,7 +12,20 @@ function inline(text: string): ReactNode[] {
   });
 }
 
-type Block = { type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol"; level?: number; text?: string; items?: string[] };
+type Block = {
+  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table";
+  level?: number;
+  text?: string;
+  items?: string[];
+  headers?: string[];
+  rows?: string[][];
+};
+
+function tableCells(line: string): string[] | null {
+  const value = line.trim();
+  if (!value.startsWith("|") || !value.endsWith("|")) return null;
+  return value.slice(1, -1).split("|").map((cell) => cell.trim());
+}
 
 function parse(markdown: string): Block[] {
   const blocks: Block[] = [];
@@ -24,19 +37,40 @@ function parse(markdown: string): Block[] {
   const flushParagraph = () => { if (paragraph.length) blocks.push({ type: "paragraph", text: paragraph.join(" ") }); paragraph = []; };
   const flushList = () => { if (list) blocks.push(list); list = null; };
 
-  for (const line of lines) {
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+    const line = lines[lineIndex];
     if (line.startsWith("```")) {
       flushParagraph(); flushList();
       if (code) { blocks.push({ type: "code", text: code.join("\n") }); code = null; } else { code = []; }
       continue;
     }
     if (code) { code.push(line); continue; }
+    const tableHeader = tableCells(line);
+    const tableSeparator = tableCells(lines[lineIndex + 1] ?? "");
+    if (tableHeader && tableSeparator && tableHeader.length === tableSeparator.length && tableSeparator.every((cell) => /^:?-{3,}:?$/.test(cell))) {
+      flushParagraph(); flushList();
+      const rows: string[][] = [];
+      lineIndex += 2;
+      while (lineIndex < lines.length) {
+        const cells = tableCells(lines[lineIndex]);
+        if (!cells) { lineIndex -= 1; break; }
+        rows.push(cells);
+        lineIndex += 1;
+      }
+      blocks.push({ type: "table", headers: tableHeader, rows });
+      continue;
+    }
     const heading = line.match(/^(#{1,3})\s+(.+)$/);
     if (heading) { flushParagraph(); flushList(); blocks.push({ type: "heading", level: heading[1].length, text: heading[2] }); continue; }
     const unordered = line.match(/^[-*]\s+(.+)$/);
     if (unordered) { flushParagraph(); if (!list || list.type !== "ul") { flushList(); list = { type: "ul", items: [] }; } list.items.push(unordered[1]); continue; }
     const ordered = line.match(/^\d+\.\s+(.+)$/);
     if (ordered) { flushParagraph(); if (!list || list.type !== "ol") { flushList(); list = { type: "ol", items: [] }; } list.items.push(ordered[1]); continue; }
+    if (list && /^\s{2,}\S/.test(line)) {
+      const lastItem = list.items.length - 1;
+      list.items[lastItem] = `${list.items[lastItem]} ${line.trim()}`;
+      continue;
+    }
     if (line.startsWith("> ")) { flushParagraph(); flushList(); blocks.push({ type: "quote", text: line.slice(2) }); continue; }
     if (!line.trim()) { flushParagraph(); flushList(); continue; }
     paragraph.push(line.trim());
@@ -57,6 +91,14 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "paragraph") return <p key={index}>{inline(block.text ?? "")}</p>;
     if (block.type === "quote") return <blockquote key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
     if (block.type === "code") return <pre key={index}><code>{block.text}</code></pre>;
+    if (block.type === "table") return (
+      <div className="docs-table-wrap" key={index}>
+        <table>
+          <thead><tr>{block.headers?.map((cell, cellIndex) => <th key={cellIndex}>{inline(cell)}</th>)}</tr></thead>
+          <tbody>{block.rows?.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{inline(cell)}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    );
     const List = block.type === "ol" ? "ol" : "ul";
     return <List key={index}>{block.items?.map((item, itemIndex) => <li key={itemIndex}>{inline(item)}</li>)}</List>;
   })}</>;

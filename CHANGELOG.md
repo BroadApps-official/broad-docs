@@ -4,6 +4,11 @@
 
 ### Added
 
+- public legacy host-app migration entry point with separate manual and
+  staged Codex/Claude routes;
+- homepage migration action and search/navigation metadata for the new guide;
+- Markdown table rendering and wrapped-list handling for readable public guides;
+- grouped sidebar layout that keeps long guide titles out of article content;
 - clear README/site/module DocC ownership guidance and reproducible local-site
   startup instructions;
 - explicit Swift 5 language-mode wording, separated from SwiftPM tools `6.0`,
@@ -32,6 +37,12 @@
 Код модулей делится на отдельные repositories, поэтому нужна единая
 поисковая точка входа. Сайт не заменяет repository docs: исходники остаются
 публично редактируемыми и versioned в Git.
+
+Миграция работающего приложения и историческое разделение platform repository
+имеют разные риски. Отдельная legacy page сначала направляет разработчика к
+baseline/inventory, затем к одному атомарному dependency boundary и одному
+проверяемому slice, поэтому старую и новую реализацию не приходится линковать
+одновременно или переписывать целиком.
 
 SwiftPM manifest version раньше отображалась как просто `Swift 6.0`, из-за чего
 разработчик мог ошибочно решить, что host app нужно переводить со Swift 5
