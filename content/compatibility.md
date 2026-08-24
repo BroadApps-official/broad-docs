@@ -11,14 +11,15 @@
 - Platform set: `unreleased-federation`.
 - Minimum iOS: `17.0`.
 - Swift tools: `6.0`.
-- BroadCore: `pending`.
+- BroadCore: [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadExtensions: [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
 - BroadMonetization: `pending`.
 - BroadUIFlows: `pending`.
 - Verification: `pending` до clean-clone acceptance всех repositories.
 
-`pending` у всего platform set не отменяе уже выпущенный Extensions: host app
-может подключить только `BroadExtensions 1.0.0`, не ожидая остальные модули.
+`pending` у всего platform set не отменяе уже выпущенные модули: host app
+может сейчас подключить `BroadCore 1.0.0`, `BroadExtensions 1.0.0` или
+оба product вместе, не ожидая остальные модули.
 
 ## Schema
 
