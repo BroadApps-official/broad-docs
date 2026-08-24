@@ -1,0 +1,40 @@
+import Link from "next/link";
+
+export function SiteHeader() {
+  return (
+    <header className="site-header">
+      <div className="site-header-inner section-wrap">
+        <Link className="brand" href="/"><span className="brand-mark">B◇</span><span>BroadApps <em>iOS</em></span></Link>
+        <nav className="site-nav" aria-label="Основная навигация">
+          <Link href="/#modules">Модули</Link>
+          <Link href="/docs/architecture">Архитектура</Link>
+          <Link href="/docs/compatibility">Совместимость</Link>
+          <Link href="/docs/release-process">Releases</Link>
+        </nav>
+        <div className="header-tools">
+          <Link className="header-search" href="/search" aria-label="Искать в документации"><span>⌕</span><span>Поиск по докам</span><kbd>⌘ K</kbd></Link>
+          <a className="github-link" href="https://github.com/BroadApps-official" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-inner section-wrap">
+        <div>
+          <Link className="brand" href="/"><span className="brand-mark">B◇</span><span>BroadApps <em>iOS</em></span></Link>
+          <p className="footer-copy">Публичная модульная iOS-платформа. Код, docs, reviews и releases открыты для редактирования.</p>
+        </div>
+        <nav className="footer-links" aria-label="Навигация в подвале">
+          <Link href="/docs/getting-started">Getting Started</Link><Link href="/docs/module-selection">Выбор модуля</Link>
+          <Link href="/docs/architecture">Архитектура</Link><Link href="/docs/special-offer">Special Offer</Link>
+          <Link href="/docs/compatibility">Совместимость</Link><Link href="/docs/release-process">Release policy</Link>
+        </nav>
+        <div className="footer-meta">PUBLIC / EDITABLE<br />iOS 17+ · Swift 6</div>
+      </div>
+    </footer>
+  );
+}
