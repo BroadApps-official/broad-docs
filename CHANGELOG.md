@@ -10,6 +10,12 @@
   public repository/release;
 - BroadMonetization `1.0.0` release status, direct installation and exact
   Special Offer pipeline after complete provider-products parsing;
+- BroadUIFlows `1.0.0` release status, direct installation, public iPhone
+  Gallery, standalone UI contracts and Special Offer presentation boundary;
+- public `broad-platform-integration` with exact SwiftPM/Xcode lockfiles,
+  direct-module host example and a clean-runner cross-module gate;
+- verified platform set `1.0.0` after public clean-clone module gates and the
+  clean `macos-15` integration runner;
 - public multi-page BroadApps iOS documentation site;
 - searchable index over editable Markdown sources;
 - module selection, architecture, compatibility, migration and release guides;

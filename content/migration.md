@@ -8,9 +8,14 @@ Contracts → Docs → Extensions → Core → Monetization → UIFlows → Cuto
 
 Порядок идёт снизу вверх, чтобы dependent package никогда не ссылался на ещё не опубликованный dependency tag.
 
-Сейчас завершены Extensions, Core и Monetization: все три модуля
-выпущены как `1.0.0`, прошли standalone/remote/release/integration gates
-и собираются из exact tags. Следующий шаг — BroadUIFlows.
+Extensions, Core, Monetization и UIFlows выпущены как `1.0.0`, прошли
+standalone/remote/release gates и собираются из exact tags. Локальные дубликаты
+production sources удалены из integration checkout после byte-for-byte
+сравнения. `BroadAppTemplate` подключает каждый нужный product напрямую.
+
+Публичный [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration)
+хранит exact-набор, host example, Xcode/SwiftPM lockfiles и cross-module gate.
+Он не является runtime umbrella и не требуется host app.
 
 ## После каждого шага
 
@@ -28,4 +33,8 @@ Contracts → Docs → Extensions → Core → Monetization → UIFlows → Cuto
 
 ## Cutover
 
-После четырёх standalone releases integration repository фиксирует exact tags, обновляет BroadAppTemplate на remote packages, проходит clean-clone acceptance и только затем публикует catalog со статусом `passed`.
+После четырёх standalone releases integration repository фиксирует exact tags,
+обновляет BroadAppTemplate на remote packages, проходит clean-clone acceptance
+и только затем публикует catalog со статусом `passed`. Тот же набор остаётся
+доступен по отдельности: host app выбирает один или несколько модулей по своей
+задаче.
