@@ -4,6 +4,12 @@
 
 ### Added
 
+- a dedicated `/docs` catalog so the Documentation navigation item always
+  opens visible content instead of relying on a homepage anchor;
+- independent full-text and alphabetical document finders with Russian and
+  Latin initial-letter filters, result counts and accessible reset controls;
+- a working global `Command/Ctrl + K` shortcut for the search affordance shown
+  in the site header;
 - an early homepage architecture map that separates app dependencies from the
   integration catalog and documentation repository;
 - six plain-language architecture benefits covering dependency scope, review,
@@ -51,6 +57,12 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+Пунк «Документация» раньше вёл только к якорю далеко внизу главной
+страницы, а `/docs` возвращал `404`. В итоге навигация выглядела как
+пустой экран. Теперь `/docs` — самостоятельная карта всех материалов.
+Поиск нормализует пунктуацию, `Ё/Е`, регистр и многословные запросы,
+а алфавитный указатель не зависит от текстового поля.
 
 Главная раньше начинала с карточек модулей, а роль documentation repository
 объясняла только в пятом блоке смешанными русско-английскими терминами. При этом
