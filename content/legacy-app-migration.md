@@ -41,11 +41,29 @@ legacy app
 найти; подробный исполняемый процесс остаётся в integration repository рядом с
 compatibility catalog и host example.
 
+## Откуда агент читает данные
+
+| Источник | Что находится внутри | Режим |
+|---|---|---|
+| Repository приложения | `AGENTS.md`/`CLAUDE.md`, README, app-код и `Documentation/AppIntegrationPlan.md` | рабочий, изменения только в подтверждённом stage |
+| [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration) | canonical migration workflow, plan template и `Compatibility/current.yml` | read-only |
+| Private `BroadApps-official/BroadCore`, local package или copied sources | доказательство того, как подключена старая платформа | legacy read-only до cleanup checkpoint |
+| Public `broad-*-ios` repositories | новые module releases из compatibility catalog | подключаются по exact SemVer |
+
+Предварительно «закидывать» агенту скрытую информацию о platform repository не
+нужно. Обновлённый [стартовый prompt](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/LegacyAppMigrationAgent.md#стартовый-prompt-для-codex-или-claude)
+сам содержит canonical public URL, разделяет host/platform/legacy и требует
+записать прочитанный commit SHA вместе с `platform_set`. Если public source или
+catalog недоступны, агент возвращает `APP MIGRATION · BLOCKED`, а не выбирает
+private mirror или версию по памяти.
+
 ## Общая безопасная граница
 
 - Старый `BroadApps-official/BroadCore` является private monolith. Замените его
   на нужные public `broad-*-ios.git` references; не добавляйте password, token
   или API key в app. [Диагностика Keychain prompt](/docs/public-package-access).
+- Возможность открыть private repository из рабочего GitHub account не делает
+  его canonical: актуальный workflow живёт в public integration repository.
 - Не создавайте новое приложение или второй app target вместо migration.
 - Не подключайте одновременно old/new source owners, экспортирующие одинаковый
   Swift module.

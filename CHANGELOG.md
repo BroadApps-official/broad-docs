@@ -4,6 +4,9 @@
 
 ### Added
 
+- a canonical source map for legacy migration that separates host app files,
+  public platform workflow, private legacy evidence and exact module releases,
+  plus a direct link to the self-contained Codex/Claude prompt;
 - a separate keyword search across 91 README, guide, changelog, example and
   compatibility files from all six public BroadApps repositories, with
   repository filters, synonym-aware matching and direct GitHub links;
