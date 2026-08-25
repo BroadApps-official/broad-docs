@@ -4,6 +4,10 @@
 
 ### Added
 
+- a two-stage alphabetical directory with section filters, per-section and
+  per-letter counts, reset-on-section-change behavior and visually separated
+  letter groups; monetization, architecture and development pages can now be
+  browsed independently without entering a text query;
 - a complete, current top-level map for “what this is”, quick task routing,
   all product flows, app-level QA readiness and what to open after cloning;
   each route now points to the public module/integration owner instead of the

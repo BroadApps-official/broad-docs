@@ -154,11 +154,32 @@ function DocCards({ docs }: { docs: DocsIndexEntry[] }) {
 export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; githubDocs: GitHubDocument[] }) {
   const [query, setQuery] = useState("");
   const [letter, setLetter] = useState("Все");
+  const [alphabetGroup, setAlphabetGroup] = useState("Все");
   const [githubQuery, setGithubQuery] = useState("");
   const [githubRepository, setGithubRepository] = useState("Все");
   const githubInputRef = useRef<HTMLInputElement>(null);
   const sortedDocs = useMemo(() => [...docs].sort((left, right) => collator.compare(left.title, right.title)), [docs]);
-  const letters = useMemo(() => Array.from(new Set(sortedDocs.map((doc) => firstLetter(doc.title)))), [sortedDocs]);
+  const documentGroups = useMemo(() => Array.from(new Set(docs.map((doc) => doc.group))), [docs]);
+  const groupCounts = useMemo(
+    () => new Map(documentGroups.map((group) => [group, docs.filter((doc) => doc.group === group).length])),
+    [docs, documentGroups],
+  );
+  const alphabetGroupDocs = useMemo(
+    () => alphabetGroup === "Все" ? sortedDocs : sortedDocs.filter((doc) => doc.group === alphabetGroup),
+    [alphabetGroup, sortedDocs],
+  );
+  const letterCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    alphabetGroupDocs.forEach((doc) => {
+      const initial = firstLetter(doc.title);
+      counts.set(initial, (counts.get(initial) ?? 0) + 1);
+    });
+    return counts;
+  }, [alphabetGroupDocs]);
+  const letters = useMemo(
+    () => Array.from(letterCounts.keys()).sort((left, right) => collator.compare(left, right)),
+    [letterCounts],
+  );
   const searchResults = useMemo(() => searchDocs(docs, query), [docs, query]);
   const githubRepositories = useMemo(() => {
     const byRepository = new Map(githubDocs.map((doc) => [doc.repository, doc.repositoryLabel]));
@@ -169,8 +190,14 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
     [githubDocs, githubQuery, githubRepository],
   );
   const alphabetResults = useMemo(
-    () => letter === "Все" ? sortedDocs : sortedDocs.filter((doc) => firstLetter(doc.title) === letter),
-    [letter, sortedDocs],
+    () => letter === "Все" ? alphabetGroupDocs : alphabetGroupDocs.filter((doc) => firstLetter(doc.title) === letter),
+    [alphabetGroupDocs, letter],
+  );
+  const alphabetSections = useMemo(
+    () => letters
+      .map((initial) => ({ initial, docs: alphabetResults.filter((doc) => firstLetter(doc.title) === initial) }))
+      .filter((section) => section.docs.length > 0),
+    [alphabetResults, letters],
   );
 
   return (
@@ -260,8 +287,31 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
       <section className="alphabet-block" aria-labelledby="alphabet-title">
         <div className="docs-index-heading">
           <div><span>03</span><h2 id="alphabet-title">Алфавитный указатель</h2></div>
-          <p>Отдельный поиск по первой букве названия — без текстового запроса.</p>
+          <p>Самостоятельный справочник: сначала ограничьте область разделом, затем выберите первую букву. Текстовый запрос не нужен.</p>
         </div>
+        <div className="alphabet-filter-label"><span>01</span><b>Выберите раздел</b></div>
+        <div className="alphabet-section-filters" role="group" aria-label="Фильтр алфавитного указателя по разделу">
+          <button
+            className={alphabetGroup === "Все" ? "active" : ""}
+            type="button"
+            aria-pressed={alphabetGroup === "Все"}
+            onClick={() => { setAlphabetGroup("Все"); setLetter("Все"); }}
+          >
+            <span>Все разделы</span><b>{docs.length}</b>
+          </button>
+          {documentGroups.map((group) => (
+            <button
+              className={alphabetGroup === group ? "active" : ""}
+              type="button"
+              aria-pressed={alphabetGroup === group}
+              onClick={() => { setAlphabetGroup(group); setLetter("Все"); }}
+              key={group}
+            >
+              <span>{group}</span><b>{groupCounts.get(group)}</b>
+            </button>
+          ))}
+        </div>
+        <div className="alphabet-filter-label"><span>02</span><b>Выберите букву</b></div>
         <div className="alphabet-controls" role="group" aria-label="Фильтр по первой букве">
           {["Все", ...letters].map((item) => (
             <button
@@ -271,15 +321,27 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
               onClick={() => setLetter(item)}
               key={item}
             >
-              {item}
+              <span>{item}</span><b>{item === "Все" ? alphabetGroupDocs.length : letterCounts.get(item)}</b>
             </button>
           ))}
         </div>
         <div className="alphabet-summary" aria-live="polite">
-          <b>{letter === "Все" ? "Все документы" : `Буква ${letter}`}</b>
+          <b>{alphabetGroup === "Все" ? "Все разделы" : alphabetGroup} · {letter === "Все" ? "все буквы" : `буква ${letter}`}</b>
           <span>{alphabetResults.length} из {docs.length}</span>
         </div>
-        <DocCards docs={alphabetResults} />
+        {alphabetSections.length ? (
+          <div className="alphabet-letter-groups">
+            {alphabetSections.map((section) => (
+              <section className="alphabet-letter-group" aria-labelledby={`alphabet-letter-${section.initial}`} key={section.initial}>
+                <div className="alphabet-letter-heading">
+                  <span aria-hidden="true">{section.initial}</span>
+                  <div><h3 id={`alphabet-letter-${section.initial}`}>Буква {section.initial}</h3><p>{section.docs.length} {section.docs.length === 1 ? "документ" : "документов"}</p></div>
+                </div>
+                <DocCards docs={section.docs} />
+              </section>
+            ))}
+          </div>
+        ) : <div className="empty-search">В выбранном разделе нет документов на эту букву.</div>}
       </section>
     </div>
   );
