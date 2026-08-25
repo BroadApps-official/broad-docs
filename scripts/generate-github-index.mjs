@@ -1,11 +1,11 @@
-import { writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 
 const owner = "BroadApps-official";
 const sources = [
-  { repository: "broad-core-ios", ref: "1.0.0", label: "BroadCore" },
-  { repository: "broad-extensions-ios", ref: "1.0.0", label: "BroadExtensions" },
-  { repository: "broad-monetization-ios", ref: "1.0.0", label: "BroadMonetization" },
-  { repository: "broad-ui-flows-ios", ref: "1.0.0", label: "BroadUIFlows" },
+  { repository: "broad-core-ios", ref: "main", label: "BroadCore" },
+  { repository: "broad-extensions-ios", ref: "main", label: "BroadExtensions" },
+  { repository: "broad-monetization-ios", ref: "main", label: "BroadMonetization" },
+  { repository: "broad-ui-flows-ios", ref: "main", label: "BroadUIFlows" },
   { repository: "broad-platform-integration", ref: "main", label: "Integration" },
   { repository: "broad-docs", ref: "main", label: "Docs" },
 ];
@@ -77,21 +77,42 @@ async function fetchText(url) {
   return response.text();
 }
 
-const documents = [];
+async function sourcePaths(source) {
+  if (source.repository === "broad-docs") {
+    const contentEntries = await readdir(new URL("../content/", import.meta.url), { withFileTypes: true });
+    return ["README.md", "CONTRIBUTING.md", "CHANGELOG.md"]
+      .concat(contentEntries
+        .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+        .map((entry) => `content/${entry.name}`))
+      .sort((left, right) => left.localeCompare(right, "en"));
+  }
 
-for (const source of sources) {
   const treeUrl = `https://api.github.com/repos/${owner}/${source.repository}/git/trees/${encodeURIComponent(source.ref)}?recursive=1`;
   const tree = JSON.parse(await fetchText(treeUrl));
   if (tree.truncated) throw new Error(`GitHub tree is truncated for ${source.repository}@${source.ref}`);
 
-  const paths = tree.tree
+  return tree.tree
     .filter((entry) => entry.type === "blob" && includePath(source.repository, entry.path))
     .map((entry) => entry.path)
     .sort((left, right) => left.localeCompare(right, "en"));
+}
+
+async function sourceBody(source, path) {
+  if (source.repository === "broad-docs") {
+    return readFile(new URL(`../${path}`, import.meta.url), "utf8");
+  }
+
+  const rawUrl = `https://raw.githubusercontent.com/${owner}/${source.repository}/${source.ref}/${path}`;
+  return fetchText(rawUrl);
+}
+
+const documents = [];
+
+for (const source of sources) {
+  const paths = await sourcePaths(source);
 
   for (const path of paths) {
-    const rawUrl = `https://raw.githubusercontent.com/${owner}/${source.repository}/${source.ref}/${path}`;
-    const body = await fetchText(rawUrl);
+    const body = await sourceBody(source, path);
     documents.push({
       id: `${source.repository}:${path}`,
       repository: source.repository,

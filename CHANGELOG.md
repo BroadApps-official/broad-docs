@@ -4,6 +4,18 @@
 
 ### Added
 
+- first-class visual guides for Adapty setup, onboarding/ATT, adaptive paywall,
+  token paywall, RU Billing, runtime reliability and Usedesk;
+- responsive Markdown image/GIF blocks that restore the vetted visual atlas
+  from the last full platform README;
+- current references for 0/1/N products, loader without flicker, Special Offer
+  sequencing, token packages and RU checkout, explicitly separated from
+  app-owned design and production payment evidence;
+- a provenance audit that excludes obsolete umbrella installation and an
+  internal chat screenshot while preserving its current rules as public text;
+- search snapshots for module documentation now follow each public `main`
+  branch, while compatibility/release pages continue to identify the verified
+  `1.0.0` code set explicitly;
 - a universal legacy migration topology model: the agent derives
   `Cutover topology`, `Legacy owner`, `Conflicting targets` and each
   `Atomic cutover group` from the host package graph, then migrates
@@ -77,6 +89,19 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+The federated repository migration shortened the old 2,829-line README and
+left useful GIFs, screenshots and operational explanations discoverable mostly
+through Git history. The restored pages make the site the primary readable
+reference while keeping module README/DocC beside the code and preserving the
+new ownership/dependency boundaries.
+
+Internal conversation screenshots are not suitable as duplicated public
+documentation. Their verified Adapty rules are represented as searchable
+tables, while product UI captures remain labelled fixture/reference material
+rather than a mandatory design or proof of a real payment.
+
+### Previous reasons
 
 The site previously searched only the fourteen cross-module pages stored in
 `broad-docs`. Developers still had to open each module repository separately

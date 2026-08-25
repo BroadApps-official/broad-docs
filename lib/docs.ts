@@ -12,6 +12,13 @@ import moduleSelection from "@/content/module-selection.md?raw";
 import publicPackageAccess from "@/content/public-package-access.md?raw";
 import releaseProcess from "@/content/release-process.md?raw";
 import specialOffer from "@/content/special-offer.md?raw";
+import adaptySetup from "@/content/adapty-setup.md?raw";
+import onboardingATT from "@/content/onboarding-att.md?raw";
+import paywallUI from "@/content/paywall-ui.md?raw";
+import ruBilling from "@/content/ru-billing.md?raw";
+import runtimeReliability from "@/content/runtime-reliability.md?raw";
+import tokenPaywall from "@/content/token-paywall.md?raw";
+import usedesk from "@/content/usedesk.md?raw";
 
 export type DocEntry = {
   slug: string;
@@ -32,6 +39,13 @@ export const docs: DocEntry[] = [
   { slug: "broad-ui-flows", title: "BroadUIFlows", description: "SwiftUI onboarding, AppFlow, paywall и payment sheets.", group: "Модули", body: broadUIFlows },
   { slug: "architecture", title: "Архитектура", description: "Границы repositories, products и однонаправленный dependency graph.", group: "Архитектура", body: architecture },
   { slug: "special-offer", title: "Special Offer", description: "Второй paywall, provider authorization и безопасные fallback.", group: "Архитектура", body: specialOffer },
+  { slug: "adapty-setup", title: "Adapty и placements", description: "Paywall names, placements, Remote Config и provenance flags.", group: "Архитектура", body: adaptySetup },
+  { slug: "onboarding-att", title: "Onboarding и ATT", description: "Динамические страницы, lifecycle и момент системного запроса.", group: "Архитектура", body: onboardingATT },
+  { slug: "paywall-ui", title: "Paywall UI", description: "0…N products, loader без моргания и визуальные reference.", group: "Архитектура", body: paywallUI },
+  { slug: "token-paywall", title: "Token paywall", description: "Consumable packages, exactly-once fulfillment и balance recovery.", group: "Архитектура", body: tokenPaywall },
+  { slug: "ru-billing", title: "RU Billing", description: "Fail-closed availability, checkout sequence и backend reconciliation.", group: "Архитектура", body: ruBilling },
+  { slug: "runtime-reliability", title: "Runtime и надёжность", description: "Bootstrap, cache, entitlement, pending и network interruptions.", group: "Архитектура", body: runtimeReliability },
+  { slug: "usedesk", title: "Usedesk", description: "Опциональный чат из Settings и account-scoped token recovery.", group: "Разработка", body: usedesk },
   { slug: "compatibility", title: "Совместимость", description: "Known-good наборы версий и machine-readable catalog.", group: "Разработка", body: compatibility },
   { slug: "release-process", title: "Release process", description: "SemVer, public API review и порядок cross-repository release.", group: "Разработка", body: releaseProcess },
   { slug: "migration", title: "Разделение platform repository", description: "Как platform code был вынесен в независимые repositories.", group: "Разработка", body: migration },

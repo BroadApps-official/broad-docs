@@ -27,3 +27,6 @@ Core не импортирует Monetization или UIFlows. В нём нет A
 Standalone gate проверяет format, lint, architecture, privacy manifest, Swift build, generic iOS compile, executable probes, DocC и iPhone sandbox. Tests/test targets/XCTest не добавляются.
 
 [Открыть public repository](https://github.com/BroadApps-official/broad-core-ios).
+
+[Runtime, cache и recovery →](/docs/runtime-reliability) ·
+[Onboarding и ATT boundary →](/docs/onboarding-att)

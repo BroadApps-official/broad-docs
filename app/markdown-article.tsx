@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- Markdown media includes GIF/SVG/PNG with runtime paths and no compile-time dimensions. */
 import type { ReactNode } from "react";
 import { slugifyHeading } from "@/lib/docs";
 
@@ -13,12 +14,14 @@ function inline(text: string): ReactNode[] {
 }
 
 type Block = {
-  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table";
+  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table" | "image";
   level?: number;
   text?: string;
   items?: string[];
   headers?: string[];
   rows?: string[][];
+  alt?: string;
+  src?: string;
 };
 
 function tableCells(line: string): string[] | null {
@@ -45,6 +48,12 @@ function parse(markdown: string): Block[] {
       continue;
     }
     if (code) { code.push(line); continue; }
+    const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (image) {
+      flushParagraph(); flushList();
+      blocks.push({ type: "image", alt: image[1], src: image[2] });
+      continue;
+    }
     const tableHeader = tableCells(line);
     const tableSeparator = tableCells(lines[lineIndex + 1] ?? "");
     if (tableHeader && tableSeparator && tableHeader.length === tableSeparator.length && tableSeparator.every((cell) => /^:?-{3,}:?$/.test(cell))) {
@@ -91,6 +100,11 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "paragraph") return <p key={index}>{inline(block.text ?? "")}</p>;
     if (block.type === "quote") return <blockquote key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
     if (block.type === "code") return <pre key={index}><code>{block.text}</code></pre>;
+    if (block.type === "image") return (
+      <figure className="docs-media" key={index}>
+        <img alt={block.alt ?? ""} loading="lazy" src={block.src} />
+      </figure>
+    );
     if (block.type === "table") return (
       <div className="docs-table-wrap" key={index}>
         <table>
