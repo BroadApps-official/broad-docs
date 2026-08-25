@@ -22,6 +22,7 @@ README/DocC модулей, но не удаляет и не заменяет и
 - Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - визуальные карты architecture ownership, compatibility, Special Offer и legacy migration;
+- anonymous public-package installation и диагностика Keychain/private URL;
 - `Edit this page` для обычного public pull request.
 
 ## Редактирование

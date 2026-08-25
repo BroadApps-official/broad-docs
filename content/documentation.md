@@ -20,6 +20,7 @@
 |---|---|
 | Integration README | Быстро выбрать product, увидеть platform boundaries и перейти к следующему шагу |
 | Public site | Искать по страницам docs repository, читать migration, compatibility и release process |
+| Public package access | Проверить anonymous SwiftPM resolve и убрать старый private package URL |
 | Module README/DocC | Работать с API конкретного Core, Extensions, Monetization или UIFlows tag |
 | Compatibility YAML | Зафиксировать exact versions и evidence проверенного integration set |
 

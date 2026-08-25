@@ -30,11 +30,16 @@ toolchain, который понимает SwiftPM tools `6.0`.
 ```swift
 dependencies: [
     .package(
-        url: "https://github.com/BroadApps-official/broad-core-ios",
+        url: "https://github.com/BroadApps-official/broad-core-ios.git",
         from: "1.0.0"
     )
 ]
 ```
+
+Public module repositories скачиваются без GitHub account, password, token или
+API key. Если Xcode открывает `git-credential-osxkeychain`, проверьте, что host
+project не хранит старый private URL `BroadApps-official/BroadCore`, затем
+сбросьте package cache. [Пошаговая диагностика](/docs/public-package-access).
 
 ## Composition root
 

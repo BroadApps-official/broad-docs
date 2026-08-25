@@ -4,6 +4,12 @@
 
 ### Added
 
+- public package access guide with exact public module URLs, a no-Keychain
+  verification command, old private-monolith migration steps and App Store/CI
+  explanation;
+- anonymous package-flow visual and homepage access notice so developers see
+  before installation that GitHub login, password, token and API key are not
+  required;
 - visual architecture ownership, legacy migration, compatibility and Special
   Offer explainers built with responsive HTML/CSS;
 - homepage sections showing repository ownership and the reversible migration
@@ -59,3 +65,8 @@ contract может вызвать cascade. Version explainer также отд�
 SwiftPM manifest version раньше отображалась как просто `Swift 6.0`, из-за чего
 разработчик мог ошибочно решить, что host app нужно переводить со Swift 5
 language mode. Теперь language mode и tools version показаны отдельно.
+
+Старый private monolith URL сохраняется внутри host `.xcodeproj` и продолжает
+вызывать credential helper даже после обновления документации платформы. Новая
+страница отделяет этот legacy reference от public product name `BroadCore`,
+запрещает небезопасный client API key и даёт воспроизводимый anonymous resolve.

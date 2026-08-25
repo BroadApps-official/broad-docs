@@ -84,10 +84,34 @@ function LegacyMigrationVisual() {
   );
 }
 
+function PublicPackageAccessVisual() {
+  const steps = [
+    ["01", "Public HTTPS", "broad-*-ios.git без login и token"],
+    ["02", "SwiftPM resolve", "SemVer tag скачивается во время build"],
+    ["03", "Compiled app", "module code входит в собранный binary"],
+    ["04", "App Store", "пользователь не обращается к GitHub"],
+  ];
+  return (
+    <section className="doc-visual" aria-label="Публичная установка Swift package без GitHub credentials">
+      <div className="doc-visual-head"><span>ANONYMOUS PACKAGE FLOW</span><b>GitHub credential не является runtime-зависимостью app</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="visual-callout"><b>Видите Keychain prompt?</b><span>Ищите private <code>BroadApps-official/BroadCore</code> в repository URL, а не product name <code>BroadCore</code></span></div>
+    </section>
+  );
+}
+
 export function DocVisual({ slug }: DocVisualProps) {
   if (slug === "architecture") return <ArchitectureVisual />;
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;
   if (slug === "legacy-app-migration") return <LegacyMigrationVisual />;
+  if (slug === "public-package-access") return <PublicPackageAccessVisual />;
   return null;
 }

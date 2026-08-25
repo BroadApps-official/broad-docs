@@ -56,6 +56,7 @@ export default function Home() {
               <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
               <Link className="secondary-action" href="/docs/legacy-app-migration">Мигрировать старое app</Link>
             </div>
+            <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>PUBLIC HTTPS</b> Без GitHub account, password, token и API key <i>↗</i></Link>
           </div>
 
           <div className="hero-system" aria-label="Схема подключения модулей">

@@ -9,6 +9,7 @@ import gettingStarted from "@/content/getting-started.md?raw";
 import legacyAppMigration from "@/content/legacy-app-migration.md?raw";
 import migration from "@/content/migration.md?raw";
 import moduleSelection from "@/content/module-selection.md?raw";
+import publicPackageAccess from "@/content/public-package-access.md?raw";
 import releaseProcess from "@/content/release-process.md?raw";
 import specialOffer from "@/content/special-offer.md?raw";
 
@@ -23,6 +24,7 @@ export type DocEntry = {
 export const docs: DocEntry[] = [
   { slug: "getting-started", title: "Getting Started", description: "Подключение нужных Swift Package products к host app.", group: "Старт", body: gettingStarted },
   { slug: "module-selection", title: "Выбор модуля", description: "Как выбрать Extensions, Core, Monetization или UIFlows.", group: "Старт", body: moduleSelection },
+  { slug: "public-package-access", title: "Public package access", description: "Установка без GitHub account, password, token и Keychain.", group: "Старт", body: publicPackageAccess },
   { slug: "legacy-app-migration", title: "Миграция старого app", description: "Безопасный переход legacy host app: вручную или через coding agent.", group: "Старт", body: legacyAppMigration },
   { slug: "broad-core", title: "BroadCore", description: "Bootstrap, cache, state, retry, logging и ATT boundary.", group: "Модули", body: broadCore },
   { slug: "broad-extensions", title: "BroadExtensions", description: "Независимые utility-расширения без platform dependencies.", group: "Модули", body: broadExtensions },

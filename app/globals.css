@@ -66,6 +66,7 @@ button, input { font: inherit; }
 .hero h1 em { color: var(--cobalt); font-style: normal; }
 .hero-lede { max-width: 620px; margin: 28px 0 34px; color: #53627a; font-size: 18px; line-height: 1.68; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-access { width: fit-content; margin-top: 18px; display: flex; align-items: center; gap: 9px; color: #5c6b81; font-size: 12px; line-height: 1.45; }.hero-access b { color: var(--money); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: .08em; }.hero-access i { color: var(--cobalt); font-style: normal; }.hero-access:hover { color: var(--ink); }
 .primary-action, .secondary-action { min-height: 50px; padding: 0 19px; display: inline-flex; align-items: center; justify-content: center; gap: 14px; border-radius: 12px; font-size: 14px; font-weight: 760; transition: transform .2s ease, box-shadow .2s ease; }
 .primary-action { color: white; background: var(--cobalt); box-shadow: 0 14px 32px rgba(37,99,235,.25); }
 .primary-action:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(37,99,235,.32); }

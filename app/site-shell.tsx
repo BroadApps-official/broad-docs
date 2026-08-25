@@ -30,6 +30,7 @@ export function SiteFooter() {
         </div>
         <nav className="footer-links" aria-label="Навигация в подвале">
           <Link href="/docs/getting-started">Getting Started</Link><Link href="/docs/module-selection">Выбор модуля</Link>
+          <Link href="/docs/public-package-access">Public package access</Link><Link href="/docs/legacy-app-migration">Миграция app</Link>
           <Link href="/docs/architecture">Архитектура</Link><Link href="/docs/special-offer">Special Offer</Link>
           <Link href="/docs/compatibility">Совместимость</Link><Link href="/docs/release-process">Release policy</Link>
         </nav>

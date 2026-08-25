@@ -43,6 +43,9 @@ compatibility catalog и host example.
 
 ## Общая безопасная граница
 
+- Старый `BroadApps-official/BroadCore` является private monolith. Замените его
+  на нужные public `broad-*-ios.git` references; не добавляйте password, token
+  или API key в app. [Диагностика Keychain prompt](/docs/public-package-access).
 - Не создавайте новое приложение или второй app target вместо migration.
 - Не подключайте одновременно old/new source owners, экспортирующие одинаковый
   Swift module.
