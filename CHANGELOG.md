@@ -4,6 +4,12 @@
 
 ### Added
 
+- an updated `Создание приложения` start guide that restores the useful
+  “choose a path / Codex or Claude / manual” navigation from the legacy README
+  without restoring its private monolith URLs or obsolete umbrella setup;
+- eighteen quick-search chips for app workflow, monetization, reliability,
+  support, migration and release topics, with synonym groups for agent stages,
+  Adapty, Special Offer, tokens, recovery and Usedesk;
 - a dedicated `Монетизация` navigation group for Special Offer, Adapty,
   Paywall UI, Token paywall and RU Billing, so product payment guides are no
   longer mixed with repository and runtime architecture;
@@ -92,6 +98,12 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+The legacy README exposed the two development routes prominently, while the
+new site described package installation but did not give new-app developers an
+equally visible choice between staged agent work and the same workflow done
+manually. The new guide preserves the useful entry points and points every
+canonical action to the current public integration repository.
 
 Monetization workflows have a distinct owner and developer task. Grouping them
 under architecture made the documentation hierarchy misleading even though the

@@ -63,9 +63,35 @@ const githubKeywordGroups = [
   ["релиз", "release", "semver", "version", "tag"],
   ["онбординг", "onboarding", "att", "tracking"],
   ["ошибка", "error", "retry", "timeout", "offline", "pending"],
+  ["агент", "agent", "codex", "claude", "preflight", "prompt", "checkpoint"],
+  ["план", "plan", "integration", "appintegrationplan", "skeleton", "slice"],
+  ["adapty", "placement", "placements", "remote", "config", "remote config"],
+  ["special", "offer", "special offer", "downsell"],
+  ["токен", "токены", "token", "tokens", "consumable", "balance", "fulfillment"],
+  ["restore", "recovery", "reinstall", "восстановление", "переустановка"],
+  ["usedesk", "support", "чат", "chat"],
 ].map((group) => group.map(normalize));
 
-const githubQuickKeywords = ["ATT", "paywall", "ru_pay", "entitlement", "Keychain", "migration", "SemVer"];
+const githubQuickKeywords = [
+  "Codex",
+  "Integration Plan",
+  "ATT",
+  "onboarding",
+  "paywall",
+  "Adapty",
+  "Special Offer",
+  "ru_pay",
+  "tokens",
+  "purchase",
+  "restore",
+  "pending",
+  "entitlement",
+  "Usedesk",
+  "Keychain",
+  "migration",
+  "Remote Config",
+  "SemVer",
+];
 
 function termVariants(term: string) {
   return githubKeywordGroups.find((group) => group.includes(term)) ?? [term];

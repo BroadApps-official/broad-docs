@@ -1,4 +1,5 @@
 import architecture from "@/content/architecture.md?raw";
+import appCreation from "@/content/app-creation.md?raw";
 import broadCore from "@/content/broad-core.md?raw";
 import broadExtensions from "@/content/broad-extensions.md?raw";
 import broadMonetization from "@/content/broad-monetization.md?raw";
@@ -30,6 +31,7 @@ export type DocEntry = {
 
 export const docs: DocEntry[] = [
   { slug: "getting-started", title: "Getting Started", description: "Подключение нужных Swift Package products к host app.", group: "Старт", body: gettingStarted },
+  { slug: "app-creation", title: "Создание приложения", description: "Актуальные маршруты: с Codex/Claude, вручную или через legacy migration.", group: "Старт", body: appCreation },
   { slug: "module-selection", title: "Выбор модуля", description: "Как выбрать Extensions, Core, Monetization или UIFlows.", group: "Старт", body: moduleSelection },
   { slug: "public-package-access", title: "Public package access", description: "Установка без GitHub account, password, token и Keychain.", group: "Старт", body: publicPackageAccess },
   { slug: "legacy-app-migration", title: "Миграция старого app", description: "Package graph, cutover topology, atomic groups и runtime slices.", group: "Старт", body: legacyAppMigration },
