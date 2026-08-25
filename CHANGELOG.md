@@ -4,6 +4,12 @@
 
 ### Added
 
+- visual architecture ownership, legacy migration, compatibility and Special
+  Offer explainers built with responsive HTML/CSS;
+- homepage sections showing repository ownership and the reversible migration
+  path for manual and coding-agent workflows;
+- a site-specific social preview card matching the modular architecture visual
+  language and current Swift 5/iOS 17+ positioning;
 - public legacy host-app migration entry point with separate manual and
   staged Codex/Claude routes;
 - homepage migration action and search/navigation metadata for the new guide;
@@ -43,6 +49,12 @@
 baseline/inventory, затем к одному атомарному dependency boundary и одному
 проверяемому slice, поэтому старую и новую реализацию не приходится линковать
 одновременно или переписывать целиком.
+
+Architecture labels раньше звучали как абсолютная гарантия независимого review
+и release. Новые схемы показывают реальную границу: owner module можно менять и
+выпускать отдельно, но dependent gates остаются обязательными, а breaking
+contract может вызвать cascade. Version explainer также отделяет module
+`from`-range от exact integration/migration set.
 
 SwiftPM manifest version раньше отображалась как просто `Swift 6.0`, из-за чего
 разработчик мог ошибочно решить, что host app нужно переводить со Swift 5

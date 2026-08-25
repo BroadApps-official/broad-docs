@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DocVisual } from "@/app/doc-visual";
 import { MarkdownArticle } from "@/app/markdown-article";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
 import { docGroups, docs, getDoc, slugifyHeading } from "@/lib/docs";
@@ -45,6 +46,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
             ))}
           </nav>
           <article className="docs-article">
+            <DocVisual slug={doc.slug} />
             <MarkdownArticle markdown={doc.body} />
             <div className="docs-edit">
               <span>Нашли неточность?</span>

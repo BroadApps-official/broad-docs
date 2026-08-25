@@ -10,6 +10,19 @@
 
 > Каталог не является runtime umbrella. Host app может взять из него версию только одного нужного product.
 
+## Exact и range решают разные задачи
+
+| Где | Правило | Зачем |
+|---|---|---|
+| Module dependency | `from: "1.0.0"` / up to next major | Принимать совместимые patch/minor releases без каскадного перевыпуска |
+| Integration candidate | `exact: "1.0.0"` | Воспроизвести набор, который проходит общий gate |
+| Legacy migration | Exact catalog versions на время acceptance | Не менять одновременно архитектуру и выбранные dependency versions |
+| Host после migration | Выбранная командой version policy | Exact или range фиксируются явно; фактический resolve хранит `Package.resolved` |
+
+`from: "1.0.0"` не означает exact `1.0.0`: SwiftPM может выбрать более новый
+совместимый release до `2.0.0`. Поэтому статус `passed` относится к catalog
+versions, а не автоматически ко всем будущим версиям диапазона.
+
 ## Проверенный platform set 1.0.0
 
 - Platform set: `1.0.0`.
@@ -28,7 +41,8 @@ BroadAppTemplate и две compile-only live Adapty configurations. Настоя
 purchase, restore и RU payments не запускались.
 
 Host app может подключить один нужный release или их сочетание. Статус всего
-set не превращает integration repository в обязательную dependency.
+set не превращает integration repository в обязательную dependency и не
+заменяет app-level functional review.
 
 > `Swift 5` и `swift-tools-version: 6.0` не противоречат друг другу. Первое
 > задаёт language mode production sources и host example; второе — формат

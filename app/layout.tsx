@@ -13,18 +13,18 @@ export async function generateMetadata(): Promise<Metadata> {
       default: "BroadApps iOS — документация",
       template: "%s · BroadApps iOS",
     },
-    description: "Публичная документация модулей BroadApps iOS, матрица совместимости и release-правила.",
+    description: "Публичная документация BroadApps iOS: выбор модулей, архитектурные схемы, compatibility и безопасная migration.",
     openGraph: {
       title: "BroadApps iOS",
-      description: "Модули. Документация. Совместимость.",
-      images: [{ url: `${origin}/og.png`, width: 1200, height: 630 }],
+      description: "Модули · Совместимость · Migration",
+      images: [{ url: `${origin}/og-v2.png`, width: 1200, height: 630 }],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: "BroadApps iOS",
-      description: "Модули. Документация. Совместимость.",
-      images: [`${origin}/og.png`],
+      description: "Модули · Совместимость · Migration",
+      images: [`${origin}/og-v2.png`],
     },
   };
 }

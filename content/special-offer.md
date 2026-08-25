@@ -11,6 +11,18 @@
 
 Так provider cache не блокирует Special Offer до парсинга subscriptions и одновременно не ослабляет финансовое правило RU Billing.
 
+## Почему порядок критичен
+
+| Если сделать неправильно | Что сломается |
+|---|---|
+| Проверить freshness до `getPaywallProducts` | Provider-managed cache ошибочно удалит Special Offer до разбора subscriptions |
+| Отфильтровать products до registry | Потеряется provider order и exact raw reference для purchase |
+| Использовать platform cache как authorization | Устаревшее приложение сможет повторно включить offer |
+| Применить правило `special_offer` к `ru_pay` | Финансовый method станет доступен без verified-fresh evidence |
+
+Поэтому presentation continuity и financial availability — две разные
+capability, даже если обе читаются из paywall payload.
+
 ## Порядок flow
 
 ```text

@@ -20,7 +20,8 @@ README/DocC модулей, но не удаляет и не заменяет и
 - выбор нужного Swift Package product без обязательного umbrella;
 - architecture и ownership repositories;
 - Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
-- client-side поиск по всем public Markdown-страницам;
+- client-side поиск по всем canonical страницам этого docs repository;
+- визуальные карты architecture ownership, compatibility, Special Offer и legacy migration;
 - `Edit this page` для обычного public pull request.
 
 ## Редактирование

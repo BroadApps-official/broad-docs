@@ -10,20 +10,26 @@
 - Cross-module architecture, selection, compatibility и migration — `broad-docs`.
 - Compatibility YAML и integration evidence — `broad-platform-integration`.
 
-Сайт агрегирует контент и даёт поиск. Он не становится единственной копией API docs.
+Сайт агрегирует cross-module content и даёт поиск по страницам из
+`broad-docs/content/*.md`. Он не индексирует автоматически каждый module README
+или DocC catalog и не становится единственной копией API docs.
 
 ## README или сайт
 
 | Источник | Задача |
 |---|---|
 | Integration README | Быстро выбрать product, увидеть platform boundaries и перейти к следующему шагу |
-| Public site | Искать по cross-module guides, читать migration, compatibility и release process |
+| Public site | Искать по страницам docs repository, читать migration, compatibility и release process |
 | Module README/DocC | Работать с API конкретного Core, Extensions, Monetization или UIFlows tag |
 | Compatibility YAML | Зафиксировать exact versions и evidence проверенного integration set |
 
 В README остаётся маршрут и минимальный quick start. Подробный cross-module
 текст пишется здесь один раз и появляется на сайте; module API не копируется на
 сайт, если canonical описание уже принадлежит module repository.
+
+Если нужного API-символа нет в поиске сайта, откройте README/DocC release-а
+со страницы соответствующего модуля. Это намеренная граница ownership, а не
+пропущенная копия документации.
 
 ## Edit this page
 

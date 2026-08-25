@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { docs } from "@/lib/docs";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
 const modules = [
@@ -47,7 +48,8 @@ export default function Home() {
             <h1>Собирайте платформу<br /><em>по модулям.</em></h1>
             <p className="hero-lede">
               Host app подключает ровно те Swift Package products, которые ему
-              нужны. Без обязательного umbrella, с отдельным review и release.
+              нужны. Без обязательного umbrella, с отдельными границами для
+              review, release и проверки совместимости.
             </p>
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Начать подключение <span>↗</span></Link>
@@ -76,8 +78,8 @@ export default function Home() {
 
         <section className="module-section section-wrap" id="modules">
           <div className="section-heading">
-            <div><span className="section-index">01</span><h2>Четыре независимых product</h2></div>
-            <p>Каждый репозиторий можно открыть, проверить, изменить и выпустить отдельно.</p>
+            <div><span className="section-index">01</span><h2>Четыре module product</h2></div>
+            <p>Каждый repository можно открыть и выпустить отдельно; зависимости между слоями остаются явными.</p>
           </div>
           <div className="module-grid">
             {modules.map((module, index) => (
@@ -107,13 +109,57 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="ownership-section section-wrap">
+          <div className="section-heading">
+            <div><span className="section-index">03</span><h2>У каждой части один владелец</h2></div>
+            <p>Repository separation работает только тогда, когда понятно, где менять код, где доказывать совместимость и где хранить решения приложения.</p>
+          </div>
+          <div className="ownership-board">
+            <div className="ownership-path" aria-label="Путь изменения от модуля до приложения">
+              <article className="ownership-card owner-module"><span>01 · MODULE REPO</span><b>Код и SemVer tag</b><p>Public API, implementation, README, DocC и module gate.</p><small>review boundary</small></article>
+              <div className="ownership-arrow" aria-hidden="true">→</div>
+              <article className="ownership-card owner-integration"><span>02 · INTEGRATION</span><b>Exact known-good set</b><p>Host example, resolved pins и полный cross-module gate.</p><small>compatibility evidence</small></article>
+              <div className="ownership-arrow" aria-hidden="true">→</div>
+              <article className="ownership-card owner-docs"><span>03 · DOCS</span><b>Общее объяснение</b><p>Выбор модуля, migration, compatibility и поиск по guides.</p><small>discovery layer</small></article>
+              <div className="ownership-arrow" aria-hidden="true">→</div>
+              <article className="ownership-card owner-host"><span>04 · HOST APP</span><b>Product decisions</b><p>Keys, URLs, placements, backend adapters, strings и assets.</p><small>app ownership</small></article>
+            </div>
+            <div className="ownership-note">
+              <div><span className="status-dot green" /><b>Что действительно независимо</b><p>Repository, changelog и SemVer release одного модуля.</p></div>
+              <div><span className="status-dot amber" /><b>Что всё равно связано</b><p>Breaking contract требует повторных gates и может потребовать releases consumers.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="migration-home section-wrap">
+          <div className="section-heading">
+            <div><span className="section-index">04</span><h2>Старое app мигрирует с rollback</h2></div>
+            <p>Не создаём второй target и не переписываем всё сразу: один owner, один slice, одна точка review.</p>
+          </div>
+          <div className="migration-home-grid">
+            <div className="migration-home-flow" aria-label="Четыре шага миграции">
+              <div><span>01</span><b>Baseline</b><small>сборка + inventory</small></div>
+              <i>→</i>
+              <div><span>02</span><b>Boundary</b><small>atomic package switch</small></div>
+              <i>→</i>
+              <div><span>03</span><b>Slice</b><small>один рабочий flow</small></div>
+              <i>→</i>
+              <div><span>04</span><b>Cleanup</b><small>usages + review</small></div>
+            </div>
+            <div className="migration-home-routes">
+              <Link href="/docs/legacy-app-migration#выберите-подход"><span>MANUAL</span><b>Мигрировать вручную</b><small>Для разработчика, который сам ведёт package graph и проверяет flows.</small><i>↗</i></Link>
+              <Link href="/docs/legacy-app-migration#что-делает-ии"><span>AI ROUTE</span><b>Передать Codex / Claude</b><small>Audit, plan и один stage за раз с обязательной остановкой на review.</small><i>↗</i></Link>
+            </div>
+          </div>
+        </section>
+
         <section className="knowledge-section section-wrap">
           <div className="knowledge-copy">
-            <span className="section-index">03</span>
+            <span className="section-index">05</span>
             <h2>Документация,<br />которую можно <em>найти.</em></h2>
-            <p>Markdown и DocC остаются рядом с кодом. Этот сайт добавляет единую навигацию, поиск и прямую ссылку на редактирование.</p>
+            <p>Сайт ищет по cross-module guides из public docs repository. README и DocC конкретного tag остаются рядом с кодом и открываются через ссылки на owner module.</p>
             <div className="hero-actions">
-              <Link className="primary-action" href="/search">Искать по всей базе <span>⌕</span></Link>
+              <Link className="primary-action" href="/search">Искать по guides <span>⌕</span></Link>
               <Link className="secondary-action" href="/docs/documentation">README или сайт?</Link>
             </div>
           </div>
@@ -122,13 +168,13 @@ export default function Home() {
             <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>authorization · placement · provider payload</small></div><i>↗</i></div>
             <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
             <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
-            <div className="search-meta"><span>12 results</span><span>public · editable</span></div>
+            <div className="search-meta"><span>{docs.length} pages indexed</span><span>public · editable by PR</span></div>
           </div>
         </section>
 
         <section className="release-strip">
           <div className="section-wrap release-inner">
-            <div><span className="live-dot" /><small>CURRENT CATALOG</small><b>Federation rollout</b></div>
+            <div><span className="live-dot" /><small>CURRENT CATALOG</small><b>Platform set 1.0.0</b></div>
             <div><small>PLATFORM</small><b>iOS 17+</b></div>
             <div><small>LANGUAGE</small><b>Swift 5 mode</b></div>
             <div><small>POLICY</small><b>No test targets</b></div>

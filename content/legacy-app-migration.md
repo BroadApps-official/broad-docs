@@ -9,13 +9,13 @@ platform sources. Она не относится к историческому
 
 Раньше код Core, Monetization, UI flows и часть extensions находились в одной
 области изменений. Теперь host app подключает напрямую только нужные public
-products, каждый module имеет собственный review и SemVer release, а
+products, каждый module имеет отдельную область review и SemVer release, а
 integration repository фиксирует exact known-good набор версий.
 
 Это даёт четыре практических преимущества:
 
-1. diff и review ограничены владельцем одного module;
-2. исправление одного слоя не требует выпуска всей платформы;
+1. diff и review можно ограничить владельцем одного module;
+2. backward-compatible исправление можно выпустить в owner module, повторив dependent gates;
 3. host app не получает лишние dependencies «на будущее»;
 4. совместимость берётся из проверенного catalog, а не угадывается.
 
@@ -59,6 +59,10 @@ compatibility catalog и host example.
 switch невозможен, сначала сделайте отдельное dependency-only переключение
 конфликтующих references. Поведение приложения всё равно мигрируется и
 проверяется небольшими slices.
+
+Exact versions нужны здесь намеренно: migration сначала воспроизводит уже
+проверенный catalog set. После acceptance команда отдельно решает, оставить
+exact requirement или перейти на совместимый `from`-диапазон.
 
 ## Что делает ИИ
 
