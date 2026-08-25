@@ -19,6 +19,11 @@ for (const file of contentFiles) {
       "APP MIGRATION · BLOCKED",
       "platform_set",
       "не перезаписывает его пустым",
+      "Cutover topology",
+      "Atomic cutover group",
+      "Legacy owner",
+      "Conflicting targets",
+      "Runtime slices after cutover",
     ]) {
       if (!body.includes(contract)) failures.push(`${file}: canonical source contract is missing: ${contract}`);
     }

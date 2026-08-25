@@ -48,9 +48,10 @@ function SpecialOfferVisual() {
 function LegacyMigrationVisual() {
   const steps = [
     ["01", "Baseline", "Собрать работающий app и снять dependency inventory"],
-    ["02", "Boundary", "Атомарно переключить одного source owner"],
-    ["03", "One slice", "Проверить один реальный пользовательский flow"],
-    ["04", "Cleanup", "Удалить legacy code только после usages и review"],
+    ["02", "Topology", "Найти legacy owners и conflicting target names"],
+    ["03", "Cutover group", "Переключить весь связанный dependency graph атомарно"],
+    ["04", "Runtime slices", "Проверять behavior по одному flow после cutover"],
+    ["05", "Cleanup", "Удалить legacy code только после usages и review"],
   ];
   return (
     <section className="doc-visual legacy-visual" aria-label="Безопасная последовательность миграции">
@@ -61,8 +62,8 @@ function LegacyMigrationVisual() {
         ))}
       </div>
       <div className="migration-routes">
-        <div><small>MANUAL</small><b>Разработчик ведёт каждый switch</b><span>package graph → build → functional review</span></div>
-        <div><small>CODEX / CLAUDE</small><b>Агент работает по checkpoint</b><span>audit → plan → switch → slice → cleanup</span></div>
+        <div><small>MANUAL</small><b>Разработчик ведёт каждую group</b><span>graph → topology → final resolve → runtime review</span></div>
+        <div><small>CODEX / CLAUDE</small><b>Агент выводит topology из evidence</b><span>audit → plan → group → slices → cleanup</span></div>
       </div>
     </section>
   );

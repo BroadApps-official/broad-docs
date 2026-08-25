@@ -25,7 +25,7 @@ export const docs: DocEntry[] = [
   { slug: "getting-started", title: "Getting Started", description: "Подключение нужных Swift Package products к host app.", group: "Старт", body: gettingStarted },
   { slug: "module-selection", title: "Выбор модуля", description: "Как выбрать Extensions, Core, Monetization или UIFlows.", group: "Старт", body: moduleSelection },
   { slug: "public-package-access", title: "Public package access", description: "Установка без GitHub account, password, token и Keychain.", group: "Старт", body: publicPackageAccess },
-  { slug: "legacy-app-migration", title: "Миграция старого app", description: "Безопасный переход legacy host app: вручную или через coding agent.", group: "Старт", body: legacyAppMigration },
+  { slug: "legacy-app-migration", title: "Миграция старого app", description: "Package graph, cutover topology, atomic groups и runtime slices.", group: "Старт", body: legacyAppMigration },
   { slug: "broad-core", title: "BroadCore", description: "Bootstrap, cache, state, retry, logging и ATT boundary.", group: "Модули", body: broadCore },
   { slug: "broad-extensions", title: "BroadExtensions", description: "Независимые utility-расширения без platform dependencies.", group: "Модули", body: broadExtensions },
   { slug: "broad-monetization", title: "BroadMonetization", description: "Adapty, StoreKit, entitlement, RU Billing и analytics.", group: "Модули", body: broadMonetization },

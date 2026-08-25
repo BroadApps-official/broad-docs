@@ -4,6 +4,13 @@
 
 ### Added
 
+- a universal legacy migration topology model: the agent derives
+  `Cutover topology`, `Legacy owner`, `Conflicting targets` and each
+  `Atomic cutover group` from the host package graph, then migrates
+  `Runtime slices after cutover` one at a time;
+- a migration visual and searchable guide that distinguish an independent
+  boundary from a multi-product atomic package cutover instead of prescribing
+  one hard-coded module order for every app;
 - a canonical source map for legacy migration that separates host app files,
   public platform workflow, private legacy evidence and exact module releases,
   plus a direct link to the self-contained Codex/Claude prompt;
@@ -102,10 +109,13 @@ Documentation, changelog, examples and the integration catalog.
 публично редактируемыми и versioned в Git.
 
 Миграция работающего приложения и историческое разделение platform repository
-имеют разные риски. Отдельная legacy page сначала направляет разработчика к
-baseline/inventory, затем к одному атомарному dependency boundary и одному
-проверяемому slice, поэтому старую и новую реализацию не приходится линковать
-одновременно или переписывать целиком.
+имеют разные риски. Legacy host graphs тоже не одинаковы: module-by-module
+порядок безопасен только для независимых owners без duplicate target names в
+промежуточном graph. Если один legacy owner объявляет несколько targets,
+конфликтующих с новыми packages, dependency switch становится одной atomic
+group, а resolve запускается только на final graph. После cutover behavior
+по-прежнему мигрируется небольшими runtime slices, поэтому atomic dependency
+group не превращается в один большой rewrite.
 
 Существующий App Integration Plan хранит фактическое состояние migration.
 Замена его пустым template стёрла бы уже принятые решения, blocker-ы и

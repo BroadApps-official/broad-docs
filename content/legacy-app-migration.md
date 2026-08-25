@@ -23,10 +23,11 @@ integration repository фиксирует exact known-good набор верси
 legacy app
   → baseline + dependency inventory
   → manual или staged AI route
-  → один dependency boundary
-  → один vertical slice
-  → build + developer review
-  → удалить только доказанный legacy owner
+  → Cutover topology из фактического package graph
+  → одна Atomic cutover group
+  → final graph: один owner на target
+  → Runtime slices after cutover по одному
+  → build + developer review → cleanup
   → повторить или передать в QA
 ```
 
@@ -63,6 +64,35 @@ template: он сохраняет все непустые значения,
 добавляет только отсутствующие поля и выносит любую замену на developer
 review с diff.
 
+## Как агент выбирает cutover topology
+
+Агент не получает фиксированный порядок modules. На audit stage он читает
+package manifests, Xcode package references, products, target membership и
+imports, а затем выбирает topology по фактическому graph.
+
+| `Cutover topology` | Признак | Безопасная граница |
+|---|---|---|
+| `atomic package cutover` | один legacy package/source owner объявляет несколько target names, конфликтующих с новыми packages | удалить legacy owner и добавить минимальный набор нужных public products одной group |
+| `independent package boundaries` | у modules разные owners и промежуточный graph не создаёт duplicate targets | переключать каждую boundary отдельной group |
+| `copied-source boundary` | platform `.swift`-файлы входят прямо в app target | добавить product и исключить совпадающие files из membership атомарно |
+| `wrapper boundary` | app-owned wrapper скрывает platform implementation | сохранить wrapper как adapter и заменить owner implementation |
+| `mixed` | app сочетает несколько схем | построить отдельную group на каждую связанную область конфликтов |
+
+В Integration Plan обязательно записываются:
+
+- `Legacy owner` — точный package identity/URL/ref, local path, copied target
+  membership или implementation за wrapper;
+- `Conflicting targets` — target/module names, которые получили бы двух owners
+  в промежуточном old/new graph;
+- `Atomic cutover group` — минимальный набор dependency/project/membership
+  изменений, который выполняется вместе;
+- `Runtime slices after cutover` — behavior-срезы, которые проверяются по одному
+  уже после принятого dependency switch.
+
+Одна atomic group может содержать несколько repositories/products, но не
+добавляет неиспользуемые modules «на будущее». Для independent topology group
+может состоять из одного boundary.
+
 ## Общая безопасная граница
 
 - Старый `BroadApps-official/BroadCore` является private monolith. Замените его
@@ -77,15 +107,23 @@ review с diff.
   [`Compatibility/current.yml`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 - Оставляйте keys, URLs, placements, DTO/adapters, strings, assets и product
   decisions в host app.
-- Переключайте один dependency boundary и один vertical slice за раз.
+- Переключайте одну подтверждённую cutover group; затем проверяйте один runtime
+  slice за раз.
 - Удаляйте legacy source только после поиска usages, сборок и developer review.
 - Не добавляйте `Tests/`, XCTest или Swift Testing.
 - Не выполняйте настоящие purchase, restore и RU payment.
 
-Если старый package экспортирует несколько одноимённых modules и частичный
-switch невозможен, сначала сделайте отдельное dependency-only переключение
-конфликтующих references. Поведение приложения всё равно мигрируется и
-проверяется небольшими slices.
+Перед resolve final graph должен иметь ровно одного source owner для каждого
+`Conflicting target`. Если один legacy package объявляет несколько
+конфликтующих targets, все нужные replacements и удаление old owner входят в
+одну atomic group; resolve промежуточного graph запрещён. `moduleAliases`,
+временный fork manifest или второй owner требуют отдельного architecture plan,
+а не используются агентом как автоматический обход. Поведение приложения всё
+равно мигрируется и проверяется небольшими runtime slices after cutover.
+
+Порядок «снизу вверх» нужен при выпуске зависимых platform repositories. Он не
+доказывает, что host app может поэтапно держать старый monolith рядом с новыми
+packages, объявляющими те же target names.
 
 Exact versions нужны здесь намеренно: migration сначала воспроизводит уже
 проверенный catalog set. После acceptance команда отдельно решает, оставить
@@ -102,8 +140,8 @@ exact requirement или перейти на совместимый `from`-ди�
 
 1. audit → `MIGRATION PREFLIGHT REVIEW REQUIRED`;
 2. план → `MIGRATION PLAN REVIEW REQUIRED`;
-3. dependency boundary → `DEPENDENCY SWITCH REVIEW REQUIRED`;
-4. vertical slice → `MIGRATION SLICE REVIEW REQUIRED`;
+3. одна cutover group → `DEPENDENCY SWITCH REVIEW REQUIRED`;
+4. один runtime slice after cutover → `MIGRATION SLICE REVIEW REQUIRED`;
 5. legacy cleanup → `LEGACY CLEANUP REVIEW REQUIRED`;
 6. acceptance → `READY FOR QA` или `APP MIGRATION · BLOCKED`.
 
