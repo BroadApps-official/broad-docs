@@ -57,6 +57,12 @@ compatibility catalog и host example.
 catalog недоступны, агент возвращает `APP MIGRATION · BLOCKED`, а не выбирает
 private mirror или версию по памяти.
 
+Существующий `Documentation/AppIntegrationPlan.md` — это журнал уже принятых
+решений, evidence, blocker-ов и checkpoint-ов. Агент не перезаписывает его пустым
+template: он сохраняет все непустые значения,
+добавляет только отсутствующие поля и выносит любую замену на developer
+review с diff.
+
 ## Общая безопасная граница
 
 - Старый `BroadApps-official/BroadCore` является private monolith. Замените его
@@ -87,10 +93,12 @@ exact requirement или перейти на совместимый `from`-ди�
 
 ## Что делает ИИ
 
-Перед началом скопируйте
-[`AppIntegrationPlan.md`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Templates/AppIntegrationPlan.md)
-в repository приложения. Агент проходит только один stage и завершает его
-точным checkpoint:
+Если в repository приложения ещё нет `Documentation/AppIntegrationPlan.md`,
+скопируйте его из
+[`canonical template`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Templates/AppIntegrationPlan.md).
+Если файл уже есть, не заменяйте его шаблоном: агент обновляет структуру
+только additive diff и не меняет непустые значения без review. Затем агент
+проходит только один stage и завершает его точным checkpoint:
 
 1. audit → `MIGRATION PREFLIGHT REVIEW REQUIRED`;
 2. план → `MIGRATION PLAN REVIEW REQUIRED`;

@@ -7,6 +7,10 @@
 - a canonical source map for legacy migration that separates host app files,
   public platform workflow, private legacy evidence and exact module releases,
   plus a direct link to the self-contained Codex/Claude prompt;
+- an explicit non-destructive Integration Plan rule: create the canonical
+  template only when the host file is absent; otherwise preserve decisions,
+  blockers, evidence and checkpoints, add only missing fields, and require
+  developer review for replacements;
 - a separate keyword search across 91 README, guide, changelog, example and
   compatibility files from all six public BroadApps repositories, with
   repository filters, synonym-aware matching and direct GitHub links;
@@ -102,6 +106,10 @@ Documentation, changelog, examples and the integration catalog.
 baseline/inventory, затем к одному атомарному dependency boundary и одному
 проверяемому slice, поэтому старую и новую реализацию не приходится линковать
 одновременно или переписывать целиком.
+
+Существующий App Integration Plan хранит фактическое состояние migration.
+Замена его пустым template стёрла бы уже принятые решения, blocker-ы и
+checkpoint-ы, поэтому обновление schema допустимо только как additive diff.
 
 Architecture labels раньше звучали как абсолютная гарантия независимого review
 и release. Новые схемы показывают реальную границу: owner module можно менять и
