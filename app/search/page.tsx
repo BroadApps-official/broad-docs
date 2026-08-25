@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
+import { Link } from "@/app/plain-link";
 import { docs } from "@/lib/docs";
 import { SearchClient } from "./search-client";
 

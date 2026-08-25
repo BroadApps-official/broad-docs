@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
 import { MarkdownArticle } from "@/app/markdown-article";
+import { Link } from "@/app/plain-link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
 import { docGroups, docs, getDoc, slugifyHeading } from "@/lib/docs";
 

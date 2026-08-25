@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
+import { Link } from "@/app/plain-link";
 
 type SearchDoc = { slug: string; title: string; description: string; group: string; body: string };
 

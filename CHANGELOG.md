@@ -4,6 +4,9 @@
 
 ### Added
 
+- native full-page navigation for every internal link so header, cards,
+  documentation sidebars and search results remain usable when the current
+  vinext client-side RSC prefetch runtime fails;
 - a dedicated `/docs` catalog so the Documentation navigation item always
   opens visible content instead of relying on a homepage anchor;
 - independent full-text and alphabetical document finders with Russian and
@@ -57,6 +60,12 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+Опубликованный vinext runtime падал во время RSC prefetch и клиентского
+перехода, поэтому Next Link менял focus, но не открывал новый route.
+Обычные anchors отдают переход браузеру и не зависят от сломанного
+клиентского router. Полная загрузка страницы здесь малозаметна, но зато
+гарантирует работу всей навигации.
 
 Пунк «Документация» раньше вёл только к якорю далеко внизу главной
 страницы, а `/docs` возвращал `404`. В итоге навигация выглядела как

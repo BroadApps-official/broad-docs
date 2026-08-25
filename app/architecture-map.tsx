@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "./plain-link";
 
 type ArchitectureMapProps = {
   showLink?: boolean;

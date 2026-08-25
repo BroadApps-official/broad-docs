@@ -1,12 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Link } from "./plain-link";
 
 export function HeaderSearchLink() {
-  const router = useRouter();
-
   useEffect(() => {
     function openSearch(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -16,13 +13,13 @@ export function HeaderSearchLink() {
           searchInput.focus();
           return;
         }
-        router.push("/search");
+        window.location.assign("/search");
       }
     }
 
     window.addEventListener("keydown", openSearch);
     return () => window.removeEventListener("keydown", openSearch);
-  }, [router]);
+  }, []);
 
   return (
     <Link className="header-search" href="/search" aria-label="Искать в документации">

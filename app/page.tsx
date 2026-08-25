@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "./plain-link";
 import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
 import { SiteFooter, SiteHeader } from "./site-shell";

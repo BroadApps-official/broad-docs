@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { HeaderSearchLink } from "./header-search-link";
+import { Link } from "./plain-link";
 
 export function SiteHeader() {
   return (
