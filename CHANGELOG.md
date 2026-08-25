@@ -4,6 +4,10 @@
 
 ### Added
 
+- a complete, current top-level map for “what this is”, quick task routing,
+  all product flows, app-level QA readiness and what to open after cloning;
+  each route now points to the public module/integration owner instead of the
+  legacy monolith layout;
 - an updated `Создание приложения` start guide that restores the useful
   “choose a path / Codex or Claude / manual” navigation from the legacy README
   without restoring its private monolith URLs or obsolete umbrella setup;
@@ -98,6 +102,11 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+The legacy README let a developer jump directly to the task they were doing,
+but those anchors were lost when the monolith guide was split. Restoring the
+navigation without its old repository assumptions makes the shorter site guide
+as practical as the historical README while preserving current ownership.
 
 The legacy README exposed the two development routes prominently, while the
 new site described package installation but did not give new-app developers an

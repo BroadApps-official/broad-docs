@@ -1,6 +1,6 @@
 # Создание приложения
 
-[🚀 С чего начать](#с-чего-начать) · [🤖 С Codex / Claude](#с-codex-claude) · [🛠️ Без агента](#без-агента)
+[💡 Что это](#что-это) · [⚡️ Быстрый маршрут](#быстрый-маршрут) · [🗺️ Все flow](#все-flow) · [🚦 Перед QA](#перед-qa) · [📂 Что открыть](#что-открыть) · [🚀 С чего начать](#с-чего-начать) · [🤖 С Codex / Claude](#с-codex-claude) · [🛠️ Без агента](#без-агента)
 
 Эта страница восстанавливает удобный выбор пути из старого большого README,
 но использует текущую federated-архитектуру. Canonical источник workflow,
@@ -8,6 +8,96 @@
 [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration).
 Private `BroadCore`, branch `vers_niiaz` и старый umbrella package могут быть
 только legacy evidence существующего приложения.
+
+## Что это
+
+BroadApps iOS Platform — не один package, который приложение обязано подключить
+целиком. Это набор независимых public modules, проверяемый integration catalog
+и общий сайт документации.
+
+| Часть | За что отвечает |
+|---|---|
+| `BroadCore` | Bootstrap, state, cache/retry, typed logging и ATT boundary |
+| `BroadExtensions` | Независимые utility без platform dependencies |
+| `BroadMonetization` | Adapty, StoreKit, entitlement, tokens и RU Billing contracts |
+| `BroadUIFlows` | Готовые onboarding, AppFlow, paywall и payment UI |
+| `broad-platform-integration` | Canonical workflow, exact compatibility set и проверяемый host example; не dependency приложения |
+| Этот сайт | Главный человекочитаемый справочник, visual guides и поиск по всем repositories |
+| Host app | Бренд, экраны, тексты, assets, backend, keys/IDs, product policy и composition root |
+
+Пример показывает способ соединения modules и безопасные fixture-сценарии, но
+не является дизайном нового приложения и не доказывает готовность его backend.
+
+## Быстрый маршрут
+
+Выберите одну строку и не проходите остальные маршруты заранее.
+
+| Что вы делаете | Начать | Собрать | Проверить |
+|---|---|---|---|
+| Посмотреть возможности платформы | [Открыть integration example](#что-открыть) | Запустить безопасный каталог на iPhone Simulator | Проверить fixture flow без purchase/restore/RU checkout |
+| Подключить один module | [Getting Started](/docs/getting-started) | Добавить нужный public product в host target | Debug/Release Simulator и generic unsigned compile |
+| Создать app с Codex/Claude | Выполнить только canonical Stage 0 | Отправлять stages по одному | Пройти все developer checkpoints и acceptance |
+| Создать app вручную | Заполнить тот же Integration Plan | Делать один vertical slice за итерацию | Functional review, visual review и handoff |
+| Перенести legacy app | [Определить cutover topology](/docs/legacy-app-migration) | Переключать atomic groups и runtime slices | Проверить final graph и удалить legacy только после review |
+| Подготовить app к QA | Открыть [Project Delivery](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/ProjectDelivery.md) | Собрать app-owned functional/visual/config evidence | Передать QA только после личного developer review |
+
+## Все flow
+
+Эта карта ведёт к актуальному owner каждого сценария.
+
+| Flow | Как начинается | Безопасный результат | Где читать |
+|---|---|---|---|
+| Создание приложения | Preflight реальных sources | Plan, slices и checkpoints без догадок | [Эта страница](#с-чего-начать) |
+| Первый запуск | Bootstrap и выбранная onboarding policy | ATT только после видимого первого слайда; premium только после entitlement | [Onboarding и ATT](/docs/onboarding-att) |
+| Subscription paywall | Initial policy, Settings или app-owned entry point | Все provider products сохранены; purchase/restore требуют entitlement refresh | [Paywall UI](/docs/paywall-ui) |
+| Special Offer | Только close первого paywall без confirmed purchase | Второй paywall либо безопасный переход в main | [Special Offer](/docs/special-offer) |
+| Token paywall | Баланс или платная consumable feature | Exactly-once fulfillment и полный backend balance snapshot | [Token paywall](/docs/token-paywall) |
+| RU Billing | Verified-fresh `ru_pay` плюс все host/backend/device gates | Checkout return остаётся pending до backend reconciliation | [RU Billing](/docs/ru-billing) |
+| Loading/error/offline | Любой SDK/backend use case | Spinner до первого `await`, блокировка double tap, Retry без ложного success | [Runtime и надёжность](/docs/runtime-reliability) |
+| Support chat | Явное действие `Настройки → Онлайн-чат` | Account-scoped token recovery без device ID identity | [Usedesk](/docs/usedesk) |
+| Legacy migration | Анализ реального package/source graph | Один owner каждого target и принятые runtime slices | [Legacy migration](/docs/legacy-app-migration) |
+
+![Запуск, onboarding, paywall, entitlement и main](/guides/readme/full-flow-light.svg)
+
+## Перед QA
+
+> Platform PASS не означает, что конкретное приложение готово к QA.
+
+| Уровень | Что должно быть подтверждено | Что не является доказательством |
+|---|---|---|
+| Платформа | Нужные module versions входят в current compatibility set | Одна успешная сборка host app |
+| Функции app | Routes, backend mapping, paywall, recovery и offline states приняты в Debug и Release | Наличие кнопки или похожего fixture UI |
+| Визуальная точность | Каждый обязательный экран сравнен со своим source frame на нужных iPhone-размерах | «Похожий» экран или общий цвет |
+| Внешняя готовность | App-owned products, placements, URLs, backend contracts, support и legal подтверждены владельцами | Значения из reference app или Debug override |
+| Handoff | Integration Plan и Project Delivery показывают `READY/BLOCKED/N/A`, developer лично прошёл review | Только platform gate, ответ агента или compile-only live scheme |
+
+Настоящие финансовые операции не выполняются platform gate. Обязательный
+app-level checklist находится в
+[`ProjectDelivery.md`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/ProjectDelivery.md).
+
+## Что открыть
+
+| Задача | Что открыть |
+|---|---|
+| Читать инструкции и искать правило | [Каталог документации](/docs) или [поиск](/search) |
+| Подключить module к своему app | Свой `.xcodeproj`/workspace → `File → Add Package Dependencies…` → URL нужного public module |
+| Посмотреть безопасный общий example | `broad-platform-integration/Examples/BroadAppTemplate/BroadAppTemplate.xcodeproj` |
+| Создать новый app с Codex/Claude | Отдельную папку host repository, затем [маршрут с агентом](#с-codex-claude) |
+| Создать новый app вручную | Новый Xcode `iOS → App`, затем [ручной маршрут](#без-агента) |
+| Продолжить существующий app | Его настоящий repository и существующий `Documentation/AppIntegrationPlan.md` |
+| Мигрировать private BroadCore/local sources | Repository существующего app и [legacy migration](/docs/legacy-app-migration), а не private platform как новый source |
+| Изменить module API | Repository конкретного module, его README/DocC и `Scripts/module_gate.sh` |
+
+Чтобы запустить текущий integration example:
+
+```bash
+git clone https://github.com/BroadApps-official/broad-platform-integration.git
+cd broad-platform-integration
+open Examples/BroadAppTemplate/BroadAppTemplate.xcodeproj
+```
+
+В Xcode выберите scheme `BroadAppTemplate`, любой iPhone Simulator и `Run`.
+Корневой `Package.swift` — integration package, а не проект нового продукта.
 
 ## С чего начать
 
