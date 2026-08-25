@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { docs } from "@/lib/docs";
+import { ArchitectureMap } from "./architecture-map";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
 const modules = [
@@ -47,13 +48,13 @@ export default function Home() {
             <div className="eyebrow"><span /> Public iOS platform</div>
             <h1>Собирайте платформу<br /><em>по модулям.</em></h1>
             <p className="hero-lede">
-              Host app подключает ровно те Swift Package products, которые ему
-              нужны. Без обязательного umbrella, с отдельными границами для
-              review, release и проверки совместимости.
+              Приложение подключает только нужные Swift Package products.
+              Код каждого модуля можно смотреть и выпускать отдельно, а точный
+              набор совместимых версий уже проверен в integration repository.
             </p>
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Начать подключение <span>↗</span></Link>
-              <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
+              <Link className="secondary-action" href="#architecture">Понять схему</Link>
               <Link className="secondary-action" href="/docs/legacy-app-migration">Мигрировать старое app</Link>
             </div>
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>PUBLIC HTTPS</b> Без GitHub account, password, token и API key <i>↗</i></Link>
@@ -64,7 +65,7 @@ export default function Home() {
             <div className="graph-row">
               <div className="graph-node node-ext"><b>EXT</b><small>standalone</small></div>
               <div className="graph-line dashed" />
-              <div className="graph-host" aria-hidden="true"><span /><b>HOST APP</b><small>selects products</small></div>
+              <div className="graph-host" aria-hidden="true"><span /><b>ВАШЕ APP</b><small>выбирает модули</small></div>
             </div>
             <div className="graph-stack">
               <div className="graph-node node-flow"><b>UI FLOWS</b><small>SwiftUI</small></div>
@@ -77,10 +78,50 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="architecture-section section-wrap" id="architecture">
+          <div className="section-heading">
+            <div><span className="section-index">01</span><h2>Как всё связано</h2></div>
+            <p>Одна схема показывает, что попадает в приложение, что приходит как зависимость и что остаётся только инструментом команды.</p>
+          </div>
+          <ArchitectureMap showLink />
+          <div className="benefit-grid" aria-label="Преимущества модульной архитектуры">
+            <article><span>01</span><b>Меньше лишнего</b><p>App не получает UI и SDK, которые ему не нужны.</p></article>
+            <article><span>02</span><b>Review проще</b><p>Изменение одного модуля видно в небольшом отдельном repository.</p></article>
+            <article><span>03</span><b>Release точнее</b><p>Совместимое исправление можно выпустить из repository-владельца, затем повторить зависимые проверки.</p></article>
+            <article><span>04</span><b>Версии не угадывают</b><p>Integration хранит точные tags, которые уже собирались и проверялись вместе.</p></article>
+            <article><span>05</span><b>Ответы находятся</b><p>Сайт ищет общие инструкции, а README и DocC остаются рядом с кодом модуля.</p></article>
+            <article><span>06</span><b>Старое app не переписывают</b><p>Миграция идёт по одной границе и одному рабочему сценарию за раз.</p></article>
+          </div>
+        </section>
+
+        <section className="knowledge-section section-wrap" id="documentation">
+          <div className="knowledge-copy">
+            <span className="section-index">02</span>
+            <h2>Где искать<br /><em>нужный ответ.</em></h2>
+            <p>Начните с сайта, если вопрос касается нескольких модулей, установки, совместимости или миграции. Для API одного модуля переходите в его README или DocC.</p>
+            <div className="knowledge-points">
+              <div><span>1</span><p><b>Сайт</b><small>как части работают вместе и какой модуль выбрать</small></p></div>
+              <div><span>2</span><p><b>README / DocC</b><small>как использовать API конкретной версии модуля</small></p></div>
+              <div><span>3</span><p><b>Edit this page</b><small>любую общую инструкцию можно исправить публичным pull request</small></p></div>
+            </div>
+            <div className="hero-actions">
+              <Link className="primary-action" href="/search">Открыть поиск <span>⌕</span></Link>
+              <Link className="secondary-action" href="/docs/documentation">Что читать и где?</Link>
+            </div>
+          </div>
+          <div className="knowledge-panel">
+            <div className="fake-search"><span>⌕</span><b>special offer</b><kbd>⌘ K</kbd></div>
+            <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>authorization · placement · provider payload</small></div><i>↗</i></div>
+            <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
+            <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
+            <div className="search-meta"><span>{docs.length} страниц в поиске</span><span>публично · правится через PR</span></div>
+          </div>
+        </section>
+
         <section className="module-section section-wrap" id="modules">
           <div className="section-heading">
-            <div><span className="section-index">01</span><h2>Четыре module product</h2></div>
-            <p>Каждый repository можно открыть и выпустить отдельно; зависимости между слоями остаются явными.</p>
+            <div><span className="section-index">03</span><h2>Четыре модуля</h2></div>
+            <p>У каждого своя задача, repository и версия. Вы подключаете только то, что использует приложение.</p>
           </div>
           <div className="module-grid">
             {modules.map((module, index) => (
@@ -96,8 +137,8 @@ export default function Home() {
 
         <section className="decision-section section-wrap">
           <div className="section-heading">
-            <div><span className="section-index">02</span><h2>Подключайте только нужное</h2></div>
-            <p>Выбор идёт от product-задачи, а не от требования тянуть всю платформу.</p>
+            <div><span className="section-index">04</span><h2>Как выбрать модуль</h2></div>
+            <p>Начните с задачи приложения. Подключать всю платформу или специальный umbrella package не требуется.</p>
           </div>
           <div className="decision-grid">
             <div className="decision-question"><span>IF</span><h3>Что нужно<br />вашему app?</h3><Link href="/docs/module-selection">Полная матрица →</Link></div>
@@ -110,32 +151,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="ownership-section section-wrap">
-          <div className="section-heading">
-            <div><span className="section-index">03</span><h2>У каждой части один владелец</h2></div>
-            <p>Repository separation работает только тогда, когда понятно, где менять код, где доказывать совместимость и где хранить решения приложения.</p>
-          </div>
-          <div className="ownership-board">
-            <div className="ownership-path" aria-label="Путь изменения от модуля до приложения">
-              <article className="ownership-card owner-module"><span>01 · MODULE REPO</span><b>Код и SemVer tag</b><p>Public API, implementation, README, DocC и module gate.</p><small>review boundary</small></article>
-              <div className="ownership-arrow" aria-hidden="true">→</div>
-              <article className="ownership-card owner-integration"><span>02 · INTEGRATION</span><b>Exact known-good set</b><p>Host example, resolved pins и полный cross-module gate.</p><small>compatibility evidence</small></article>
-              <div className="ownership-arrow" aria-hidden="true">→</div>
-              <article className="ownership-card owner-docs"><span>03 · DOCS</span><b>Общее объяснение</b><p>Выбор модуля, migration, compatibility и поиск по guides.</p><small>discovery layer</small></article>
-              <div className="ownership-arrow" aria-hidden="true">→</div>
-              <article className="ownership-card owner-host"><span>04 · HOST APP</span><b>Product decisions</b><p>Keys, URLs, placements, backend adapters, strings и assets.</p><small>app ownership</small></article>
-            </div>
-            <div className="ownership-note">
-              <div><span className="status-dot green" /><b>Что действительно независимо</b><p>Repository, changelog и SemVer release одного модуля.</p></div>
-              <div><span className="status-dot amber" /><b>Что всё равно связано</b><p>Breaking contract требует повторных gates и может потребовать releases consumers.</p></div>
-            </div>
-          </div>
-        </section>
-
         <section className="migration-home section-wrap">
           <div className="section-heading">
-            <div><span className="section-index">04</span><h2>Старое app мигрирует с rollback</h2></div>
-            <p>Не создаём второй target и не переписываем всё сразу: один owner, один slice, одна точка review.</p>
+            <div><span className="section-index">05</span><h2>Как перейти со старой платформы</h2></div>
+            <p>Не создаём второе app и не переписываем всё сразу: меняем одну границу, проверяем один рабочий сценарий и сохраняем путь назад.</p>
           </div>
           <div className="migration-home-grid">
             <div className="migration-home-flow" aria-label="Четыре шага миграции">
@@ -151,25 +170,6 @@ export default function Home() {
               <Link href="/docs/legacy-app-migration#выберите-подход"><span>MANUAL</span><b>Мигрировать вручную</b><small>Для разработчика, который сам ведёт package graph и проверяет flows.</small><i>↗</i></Link>
               <Link href="/docs/legacy-app-migration#что-делает-ии"><span>AI ROUTE</span><b>Передать Codex / Claude</b><small>Audit, plan и один stage за раз с обязательной остановкой на review.</small><i>↗</i></Link>
             </div>
-          </div>
-        </section>
-
-        <section className="knowledge-section section-wrap">
-          <div className="knowledge-copy">
-            <span className="section-index">05</span>
-            <h2>Документация,<br />которую можно <em>найти.</em></h2>
-            <p>Сайт ищет по cross-module guides из public docs repository. README и DocC конкретного tag остаются рядом с кодом и открываются через ссылки на owner module.</p>
-            <div className="hero-actions">
-              <Link className="primary-action" href="/search">Искать по guides <span>⌕</span></Link>
-              <Link className="secondary-action" href="/docs/documentation">README или сайт?</Link>
-            </div>
-          </div>
-          <div className="knowledge-panel">
-            <div className="fake-search"><span>⌕</span><b>special offer</b><kbd>⌘ K</kbd></div>
-            <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>authorization · placement · provider payload</small></div><i>↗</i></div>
-            <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
-            <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
-            <div className="search-meta"><span>{docs.length} pages indexed</span><span>public · editable by PR</span></div>
           </div>
         </section>
 

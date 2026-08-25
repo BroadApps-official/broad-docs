@@ -5,12 +5,15 @@ README/DocC модулей, но не удаляет и не заменяет и
 
 ## Что читать и когда
 
+Короткое правило: сайт объясняет, как части платформы работают вместе;
+README и DocC модуля объясняют его конкретный API.
+
 | Источник | Используйте для |
 |---|---|
-| Integration README | первого входа, выбора product и обязательных правил платформы |
-| Этот сайт | поиска, cross-module сценариев, legacy migration, compatibility и release process |
-| Module README и DocC | public API и usage конкретного module tag |
-| `Compatibility/current.yml` | exact-набора версий, прошедшего integration gate |
+| Integration README | первого запуска platform example и перехода к нужной инструкции |
+| Этот сайт | поиска, общей архитектуры, выбора модуля, миграции и совместимости |
+| Module README и DocC | API конкретной версии модуля |
+| `Compatibility/current.yml` | точного набора версий, уже проверенного вместе |
 
 Сайт не хранит вторую копию module API. Он помогает найти canonical owner и
 перейти к нужному repository.
@@ -18,7 +21,7 @@ README/DocC модулей, но не удаляет и не заменяет и
 ## Что здесь есть
 
 - выбор нужного Swift Package product без обязательного umbrella;
-- architecture и ownership repositories;
+- заметная схема «host app → нужные модули» и простое объяснение преимуществ;
 - Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - визуальные карты architecture ownership, compatibility, Special Offer и legacy migration;

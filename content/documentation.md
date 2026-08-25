@@ -1,40 +1,33 @@
 # Как править docs
 
-## Публичная модель
+## Самое короткое правило
 
-Все исходники открыты. Markdown и DocC живут в public GitHub repositories и редактируются обычным pull request. Закрытой CMS и роли «только чтение» нет.
+**Сайт отвечает на вопрос «как части платформы работают вместе». README и DocC
+модуля отвечают на вопрос «как использовать код этого модуля».**
 
-## Canonical owner
+Так мы не храним две расходящиеся копии одного API-описания.
 
-- Module API/usage docs — repository самого модуля.
-- Cross-module architecture, selection, compatibility и migration — `broad-docs`.
-- Compatibility YAML и integration evidence — `broad-platform-integration`.
+## Что открыть
 
-Сайт агрегирует cross-module content и даёт поиск по страницам из
-`broad-docs/content/*.md`. Он не индексирует автоматически каждый module README
-или DocC catalog и не становится единственной копией API docs.
-
-## README или сайт
-
-| Источник | Задача |
+| Если вам нужно | Откройте |
 |---|---|
-| Integration README | Быстро выбрать product, увидеть platform boundaries и перейти к следующему шагу |
-| Public site | Искать по страницам docs repository, читать migration, compatibility и release process |
-| Public package access | Проверить anonymous SwiftPM resolve и убрать старый private package URL |
-| Module README/DocC | Работать с API конкретного Core, Extensions, Monetization или UIFlows tag |
-| Compatibility YAML | Зафиксировать exact versions и evidence проверенного integration set |
+| Понять общую архитектуру, выбрать модуль или перенести старое app | этот сайт |
+| Найти инструкцию по ключевым словам | поиск сайта |
+| Подключить и вызвать API конкретного модуля | README или DocC этого module tag |
+| Узнать точные совместимые версии | `Compatibility/current.yml` в integration repository |
+| Быстро начать работу с platform example | integration README |
+| Исправить общую инструкцию | `Edit this page` внизу страницы |
 
-В README остаётся маршрут и минимальный quick start. Подробный cross-module
-текст пишется здесь один раз и появляется на сайте; module API не копируется на
-сайт, если canonical описание уже принадлежит module repository.
+Сайт ищет по общим страницам из `broad-docs/content/*.md`. Он не копирует
+автоматически весь README и DocC каждого модуля. Если нужного API-символа нет в
+поиске, откройте страницу модуля и перейдите в его README или DocC.
 
-Если нужного API-символа нет в поиске сайта, откройте README/DocC release-а
-со страницы соответствующего модуля. Это намеренная граница ownership, а не
-пропущенная копия документации.
+## Всё публично и редактируется
 
-## Edit this page
-
-Внизу каждой страницы есть `Edit this page`. Ссылка открывает canonical Markdown-файл на GitHub. После merge public pipeline пересобирает сайт.
+Markdown, README и DocC лежат в публичных GitHub repositories. Внизу каждой
+страницы сайта есть `Edit this page`: ссылка открывает её исходный Markdown.
+После обычного pull request и merge сайт пересобирается. Закрытая CMS, пароль
+читателя и роль «только просмотр» не нужны.
 
 ## Как открыть сайт локально
 
@@ -51,6 +44,10 @@ pnpm run dev
 `http://localhost:3000`. Перед pull request выполните `pnpm run check`: команда
 проверяет content contract, lint и production build без unit-test runner.
 
+Исходники страниц находятся в `content/*.md`. Измените Markdown и обновите
+страницу в локальном браузере — публиковать сайт для предварительного просмотра
+не требуется.
+
 ## Проверка перед merge
 
 1. Все local и external links валидны.
@@ -59,6 +56,8 @@ pnpm run dev
 4. Сайт собирается, а поиск находит новые keywords.
 5. Changelog обновлён, если изменился публичный contract.
 
-## Что не удаляется
+## Что остаётся рядом с кодом
 
-Появление сайта не удаляет README и Markdown из module repositories. Они нужны для versioned review, offline-работы и совпадения docs с кодом конкретного tag.
+Появление сайта не удаляет README, Markdown и DocC из module repositories. Они
+нужны для review, offline-работы и точного совпадения документации с кодом
+конкретного tag. Сайт добавляет удобную точку входа и поиск, а не заменяет их.

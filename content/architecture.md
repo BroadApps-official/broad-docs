@@ -1,20 +1,63 @@
 # Архитектура
 
-## Repository graph
+## Схема за 30 секунд
 
 ```text
-Host App
- ├─ broad-extensions-ios      optional, standalone
- ├─ broad-core-ios            optional foundation
- ├─ broad-monetization-ios    → BroadCore
- └─ broad-ui-flows-ios        → BroadMonetization → BroadCore
+Ваше iPhone-приложение (host app)
+ ├─ BroadExtensions                         самостоятельно
+ ├─ BroadCore                               фундамент
+ ├─ BroadMonetization ────────────────────→ BroadCore
+ └─ BroadUIFlows ─────→ BroadMonetization → BroadCore
+
+ broad-platform-integration   проверяет точный набор версий
+ broad-docs                   объясняет общие сценарии и даёт поиск
 ```
 
-Host app подключает любой нужный модуль. `broad-platform-integration` не является обязательной runtime dependency: он хранит known-good versions, integration example и cross-module evidence.
+Приложение подключает любой нужный модуль — один, несколько или все четыре.
+SwiftPM сам добавляет нижележащие зависимости. Например, вместе с
+`BroadUIFlows` придут `BroadMonetization` и `BroadCore`.
 
-«Отдельный модуль» означает отдельный source owner, changelog и SemVer release.
-Это не означает отсутствие зависимостей: UIFlows использует Monetization/Core,
-а Monetization использует Core. Graph остаётся направленным снизу вверх.
+`broad-platform-integration` и `broad-docs` в приложение не подключаются.
+Первый repository доказывает, что конкретные версии работают вместе, второй
+помогает найти инструкцию и перейти к владельцу нужного кода.
+
+## Почему этот подход удобнее
+
+- **Меньше лишнего.** App не получает UI или SDK, которые не использует.
+- **Review проще.** Изменение одного модуля видно в небольшом отдельном
+  repository, а не среди изменений всей платформы.
+- **Release точнее.** Backward-compatible исправление выпускает repository,
+  который владеет кодом. Проверки зависимых модулей всё равно повторяются.
+- **Совместимость не нужно угадывать.** Integration catalog хранит точные tags,
+  которые уже собирались и проверялись вместе.
+- **Документация не теряется.** Общие инструкции ищутся на сайте, а README и
+  DocC конкретной версии остаются рядом с её кодом.
+- **Старое app можно переносить по частям.** Сначала меняется одна граница и
+  один пользовательский flow; только затем удаляется старый код.
+
+## Какой модуль подключать
+
+| Задача приложения | Нужный product | Что придёт автоматически |
+|---|---|---|
+| Общие extensions | `BroadExtensions` | ничего |
+| Bootstrap, cache, logging, retry | `BroadCore` | platform dependencies Core |
+| Свой UI для оплаты | `BroadMonetization` | совместимый `BroadCore` |
+| Готовые onboarding, AppFlow и paywall | `BroadUIFlows` | совместимые Monetization и Core |
+
+Если app напрямую импортирует API нижележащего модуля, добавьте и его product в
+app target. Это делает прямую зависимость приложения видимой в Xcode.
+
+## Кто за что отвечает
+
+| Часть | Простыми словами |
+|---|---|
+| Module repository | код модуля, его README, DocC, changelog и SemVer release |
+| Integration repository | точные проверенные версии, целостный example и общая проверка |
+| Docs repository и сайт | общие инструкции, поиск и ссылки к нужному module repository |
+| Host app | ключи, URL, placements, backend adapters, строки, assets и решения продукта |
+
+Отдельный repository не означает, что модули никогда не зависят друг от друга.
+Он означает понятного владельца кода и отдельную область review.
 
 ## Границы внутри модуля
 
@@ -30,17 +73,10 @@ Presentation → Application → Domain
 - SDK/wire models не выходят за adapter boundary.
 - App strings, assets, real IDs/keys/URLs не попадают в shared package.
 
-## Ownership
+## Если изменение затрагивает несколько repositories
 
-Module repository владеет Swift-кодом, README, DocC, module gate и iPhone sandbox. `broad-docs` владеет cross-module guides и поисковой точкой входа. Integration repository владеет compatibility catalog и целостным example.
-
-| Изменение | Canonical owner |
-|---|---|
-| Public API или implementation одного product | Module repository |
-| Exact-набор совместимых tags | Integration repository |
-| Общее объяснение нескольких modules | Docs repository |
-| Keys, URLs, placements, DTO adapters, strings и assets | Host app |
-
-## Порядок изменения
-
-Cross-repository change идёт снизу вверх: сначала owner public API, затем dependent modules, затем integration catalog и docs. Каждый шаг имеет свой PASS до следующего release. Backward-compatible patch может выйти только в owner module, но dependent gates и integration acceptance всё равно повторяются. Breaking contract может потребовать новых releases consumers.
+Изменение идёт снизу вверх: сначала владелец public API, затем зависимые модули,
+после них integration catalog и общая документация. Backward-compatible patch
+может выйти только в repository-владельце, но зависимые проверки и общая
+integration-проверка повторяются. Breaking public contract может потребовать
+новых releases модулей-потребителей.

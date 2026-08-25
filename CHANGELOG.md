@@ -4,6 +4,12 @@
 
 ### Added
 
+- an early homepage architecture map that separates app dependencies from the
+  integration catalog and documentation repository;
+- six plain-language architecture benefits covering dependency scope, review,
+  release, verified versions, documentation discovery and legacy migration;
+- a three-step "site / README-DocC / Edit this page" documentation route placed
+  directly after the architecture explanation;
 - public package access guide with exact public module URLs, a no-Keychain
   verification command, old private-monolith migration steps and App Store/CI
   explanation;
@@ -45,6 +51,14 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+Главная раньше начинала с карточек модулей, а роль documentation repository
+объясняла только в пятом блоке смешанными русско-английскими терминами. При этом
+полную связь между host app, module repositories, integration и docs было видно
+только в отдельной статье. Теперь разработчик сразу видит одну читаемую схему,
+шесть практических преимуществ и простое правило выбора источника: сайт — для
+общих сценариев, README/DocC — для API конкретного модуля. Подробности остаются
+в статьях и не дублируются на главной.
 
 Код модулей делится на отдельные repositories, поэтому нужна единая
 поисковая точка входа. Сайт не заменяет repository docs: исходники остаются

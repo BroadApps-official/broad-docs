@@ -6,10 +6,10 @@ export function SiteHeader() {
       <div className="site-header-inner section-wrap">
         <Link className="brand" href="/"><span className="brand-mark">B◇</span><span>BroadApps <em>iOS</em></span></Link>
         <nav className="site-nav" aria-label="Основная навигация">
+          <Link href="/#architecture">Как устроено</Link>
+          <Link href="/#documentation">Документация</Link>
           <Link href="/#modules">Модули</Link>
-          <Link href="/docs/architecture">Архитектура</Link>
           <Link href="/docs/compatibility">Совместимость</Link>
-          <Link href="/docs/release-process">Releases</Link>
         </nav>
         <div className="header-tools">
           <Link className="header-search" href="/search" aria-label="Искать в документации"><span>⌕</span><span>Поиск по докам</span><kbd>⌘ K</kbd></Link>

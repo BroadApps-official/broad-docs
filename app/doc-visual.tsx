@@ -1,27 +1,11 @@
+import { ArchitectureMap } from "./architecture-map";
+
 type DocVisualProps = { slug: string };
 
 const Arrow = () => <span className="visual-arrow" aria-hidden="true">→</span>;
 
 function ArchitectureVisual() {
-  return (
-    <section className="doc-visual" aria-label="Карта ответственности repositories">
-      <div className="doc-visual-head"><span>ARCHITECTURE MAP</span><b>Код, совместимость и решения не смешиваются</b></div>
-      <div className="architecture-visual-grid">
-        <div className="visual-node host-node"><small>CONSUMER</small><b>Host app</b><p>Выбирает products и хранит app-owned configuration.</p></div>
-        <Arrow />
-        <div className="module-visual-stack">
-          <div className="visual-node flow-node"><b>UIFlows</b><small>готовые SwiftUI-flow</small></div>
-          <div className="visual-node money-node"><b>Monetization</b><small>purchase · entitlement</small></div>
-          <div className="visual-node core-node"><b>Core</b><small>runtime foundation</small></div>
-          <div className="visual-node extensions-node"><b>Extensions</b><small>standalone utility</small></div>
-        </div>
-      </div>
-      <div className="visual-support-row">
-        <div><span className="status-dot green" /><b>Integration</b><small>проверяет exact set, но не линкуется в app</small></div>
-        <div><span className="status-dot blue" /><b>Docs</b><small>объясняет cross-module решения и ведёт к owner</small></div>
-      </div>
-    </section>
-  );
+  return <ArchitectureMap />;
 }
 
 function CompatibilityVisual() {
