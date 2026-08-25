@@ -24,7 +24,7 @@ export type DocEntry = {
   slug: string;
   title: string;
   description: string;
-  group: "Старт" | "Модули" | "Архитектура" | "Разработка";
+  group: "Старт" | "Модули" | "Монетизация" | "Архитектура" | "Разработка";
   body: string;
 };
 
@@ -37,13 +37,13 @@ export const docs: DocEntry[] = [
   { slug: "broad-extensions", title: "BroadExtensions", description: "Независимые utility-расширения без platform dependencies.", group: "Модули", body: broadExtensions },
   { slug: "broad-monetization", title: "BroadMonetization", description: "Adapty, StoreKit, entitlement, RU Billing и analytics.", group: "Модули", body: broadMonetization },
   { slug: "broad-ui-flows", title: "BroadUIFlows", description: "SwiftUI onboarding, AppFlow, paywall и payment sheets.", group: "Модули", body: broadUIFlows },
+  { slug: "special-offer", title: "Special Offer", description: "Второй paywall, provider authorization и безопасные fallback.", group: "Монетизация", body: specialOffer },
+  { slug: "adapty-setup", title: "Adapty и placements", description: "Paywall names, placements, Remote Config и provenance flags.", group: "Монетизация", body: adaptySetup },
+  { slug: "paywall-ui", title: "Paywall UI", description: "0…N products, loader без моргания и визуальные reference.", group: "Монетизация", body: paywallUI },
+  { slug: "token-paywall", title: "Token paywall", description: "Consumable packages, exactly-once fulfillment и balance recovery.", group: "Монетизация", body: tokenPaywall },
+  { slug: "ru-billing", title: "RU Billing", description: "Fail-closed availability, checkout sequence и backend reconciliation.", group: "Монетизация", body: ruBilling },
   { slug: "architecture", title: "Архитектура", description: "Границы repositories, products и однонаправленный dependency graph.", group: "Архитектура", body: architecture },
-  { slug: "special-offer", title: "Special Offer", description: "Второй paywall, provider authorization и безопасные fallback.", group: "Архитектура", body: specialOffer },
-  { slug: "adapty-setup", title: "Adapty и placements", description: "Paywall names, placements, Remote Config и provenance flags.", group: "Архитектура", body: adaptySetup },
   { slug: "onboarding-att", title: "Onboarding и ATT", description: "Динамические страницы, lifecycle и момент системного запроса.", group: "Архитектура", body: onboardingATT },
-  { slug: "paywall-ui", title: "Paywall UI", description: "0…N products, loader без моргания и визуальные reference.", group: "Архитектура", body: paywallUI },
-  { slug: "token-paywall", title: "Token paywall", description: "Consumable packages, exactly-once fulfillment и balance recovery.", group: "Архитектура", body: tokenPaywall },
-  { slug: "ru-billing", title: "RU Billing", description: "Fail-closed availability, checkout sequence и backend reconciliation.", group: "Архитектура", body: ruBilling },
   { slug: "runtime-reliability", title: "Runtime и надёжность", description: "Bootstrap, cache, entitlement, pending и network interruptions.", group: "Архитектура", body: runtimeReliability },
   { slug: "usedesk", title: "Usedesk", description: "Опциональный чат из Settings и account-scoped token recovery.", group: "Разработка", body: usedesk },
   { slug: "compatibility", title: "Совместимость", description: "Known-good наборы версий и machine-readable catalog.", group: "Разработка", body: compatibility },
@@ -52,7 +52,7 @@ export const docs: DocEntry[] = [
   { slug: "documentation", title: "Как править docs", description: "Public Markdown, DocC, Edit this page и публикация.", group: "Разработка", body: documentation },
 ];
 
-export const docGroups = ["Старт", "Модули", "Архитектура", "Разработка"] as const;
+export const docGroups = ["Старт", "Модули", "Монетизация", "Архитектура", "Разработка"] as const;
 export function getDoc(slug: string) { return docs.find((doc) => doc.slug === slug); }
 export function slugifyHeading(value: string) {
   return value.toLocaleLowerCase("ru-RU").replace(/[`*_]/g, "").replace(/[^a-zа-яё0-9]+/gi, "-").replace(/^-|-$/g, "");

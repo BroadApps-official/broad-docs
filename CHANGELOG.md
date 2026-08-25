@@ -4,6 +4,9 @@
 
 ### Added
 
+- a dedicated `Монетизация` navigation group for Special Offer, Adapty,
+  Paywall UI, Token paywall and RU Billing, so product payment guides are no
+  longer mixed with repository and runtime architecture;
 - first-class visual guides for Adapty setup, onboarding/ATT, adaptive paywall,
   token paywall, RU Billing, runtime reliability and Usedesk;
 - responsive Markdown image/GIF blocks that restore the vetted visual atlas
@@ -89,6 +92,10 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+Monetization workflows have a distinct owner and developer task. Grouping them
+under architecture made the documentation hierarchy misleading even though the
+individual pages were correct.
 
 The federated repository migration shortened the old 2,829-line README and
 left useful GIFs, screenshots and operational explanations discoverable mostly
