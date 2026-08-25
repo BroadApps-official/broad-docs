@@ -62,17 +62,19 @@ export default function Home() {
 
           <div className="hero-system" aria-label="Схема подключения модулей">
             <div className="system-label">MODULE GRAPH <span>iOS 17+</span></div>
-            <div className="graph-row">
-              <div className="graph-node node-ext"><b>EXT</b><small>standalone</small></div>
-              <div className="graph-line dashed" />
+            <div className="graph-canvas">
+              <div className="graph-stack">
+                <div className="graph-node node-flow"><b>UI FLOWS</b><small>SwiftUI</small></div>
+                <div className="graph-arrow">↓</div>
+                <div className="graph-node node-money"><b>MONETIZATION</b><small>Adapty · StoreKit</small></div>
+                <div className="graph-arrow">↓</div>
+                <div className="graph-node node-core"><b>CORE</b><small>foundation</small></div>
+              </div>
+              <div className="graph-branch">
+                <div className="graph-node node-ext"><b>EXT</b><small>standalone</small></div>
+                <div className="graph-line dashed" />
+              </div>
               <div className="graph-host" aria-hidden="true"><span /><b>ВАШЕ APP</b><small>выбирает модули</small></div>
-            </div>
-            <div className="graph-stack">
-              <div className="graph-node node-flow"><b>UI FLOWS</b><small>SwiftUI</small></div>
-              <div className="graph-arrow">↓</div>
-              <div className="graph-node node-money"><b>MONETIZATION</b><small>Adapty · StoreKit</small></div>
-              <div className="graph-arrow">↓</div>
-              <div className="graph-node node-core"><b>CORE</b><small>foundation</small></div>
             </div>
             <div className="graph-note"><span className="pulse" /> known-good versions живут в integration catalog</div>
           </div>
