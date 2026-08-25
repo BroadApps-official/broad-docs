@@ -11,7 +11,7 @@ README и DocC модуля объясняют его конкретный API.
 | Источник | Используйте для |
 |---|---|
 | Integration README | первого запуска platform example и перехода к нужной инструкции |
-| Этот сайт | поиска, общей архитектуры, выбора модуля, миграции и совместимости |
+| Этот сайт | поиска по страницам сайта и публичным GitHub README/guides, общей архитектуры, выбора модуля, миграции и совместимости |
 | Module README и DocC | API конкретной версии модуля |
 | `Compatibility/current.yml` | точного набора версий, уже проверенного вместе |
 
@@ -24,14 +24,17 @@ README и DocC модуля объясняют его конкретный API.
 - заметная схема «host app → нужные модули» и простое объяснение преимуществ;
 - Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
+- отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;
 - визуальные карты architecture ownership, compatibility, Special Offer и legacy migration;
 - anonymous public-package installation и диагностика Keychain/private URL;
 - `Edit this page` для обычного public pull request.
 
 ## Редактирование
 
-Контент лежит в `content/*.md`. Метаданные страниц и поисковый индекс
-описаны в `lib/docs.ts`. Новая страница добавляется в оба места.
+Контент лежит в `content/*.md`. Метаданные страниц и локальный поисковый индекс
+описаны в `lib/docs.ts`. GitHub snapshot обновляется командой
+`pnpm run github-index:refresh` и сохраняется в generated-файле, поэтому поиск
+остаётся быстрым и не зависит от доступности GitHub во время запроса.
 
 Правила contribution: [CONTRIBUTING.md](CONTRIBUTING.md).
 

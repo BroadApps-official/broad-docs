@@ -12,6 +12,7 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "content:check": "node scripts/check-content.mjs",
+    "github-index:refresh": "node scripts/generate-github-index.mjs",
     "check": "pnpm run content:check && pnpm run lint && pnpm run build"
   },
   "dependencies": {

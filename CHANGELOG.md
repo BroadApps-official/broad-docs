@@ -4,6 +4,9 @@
 
 ### Added
 
+- a separate keyword search across 91 README, guide, changelog, example and
+  compatibility files from all six public BroadApps repositories, with
+  repository filters, synonym-aware matching and direct GitHub links;
 - native full-page navigation for every internal link so header, cards,
   documentation sidebars and search results remain usable when the current
   vinext client-side RSC prefetch runtime fails;
@@ -60,6 +63,12 @@
 - static content contract, lint and production build workflow without tests/test targets.
 
 ### Why
+
+The site previously searched only the fourteen cross-module pages stored in
+`broad-docs`. Developers still had to open each module repository separately
+to find an API rule or operational guide. The new generated public snapshot
+keeps Git canonical while giving `/docs` one fast search across module README,
+Documentation, changelog, examples and the integration catalog.
 
 Опубликованный vinext runtime падал во время RSC prefetch и клиентского
 перехода, поэтому Next Link менял focus, но не открывал новый route.
