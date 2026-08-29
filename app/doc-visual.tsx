@@ -1,13 +1,111 @@
 /* eslint-disable @next/next/no-img-element -- The module gallery reuses audited PNG fixtures from public documentation. */
 import type { CSSProperties } from "react";
-import { ArchitectureMap } from "./architecture-map";
 
 type DocVisualProps = { slug: string };
 
 const Arrow = () => <span className="visual-arrow" aria-hidden="true">→</span>;
 
 function ArchitectureVisual() {
-  return <ArchitectureMap />;
+  const choices = [
+    {
+      tone: "extensions",
+      number: "01",
+      need: "Нужны маленькие UI-утилиты",
+      product: "BroadExtensions",
+      arrives: "Только Extensions",
+      detail: "HEX-цвета · шрифты · клавиатура · жест назад",
+    },
+    {
+      tone: "core",
+      number: "02",
+      need: "Нужна основа запуска",
+      product: "BroadCore",
+      arrives: "Core + Swinject",
+      detail: "запуск · состояния загрузки · кеш · повторы · логи",
+    },
+    {
+      tone: "money",
+      number: "03",
+      need: "Нужна оплата со своим экраном",
+      product: "BroadMonetization",
+      arrives: "Monetization + Core + Adapty + Swinject",
+      detail: "все продукты · покупка · restore · проверка Premium",
+    },
+    {
+      tone: "flows",
+      number: "04",
+      need: "Нужны готовые экраны",
+      product: "BroadUIFlows",
+      arrives: "UIFlows + Monetization + Core + Adapty + Swinject",
+      detail: "onboarding · paywall · состояния · переход в приложение",
+    },
+  ];
+
+  return (
+    <section className="doc-visual architecture-explainer" aria-label="Как приложение выбирает одну библиотеку и что Xcode добавляет автоматически">
+      <div className="doc-visual-head">
+        <span>АРХИТЕКТУРА БЕЗ ЗАГАДОК</span>
+        <b>Вы выбираете одну функцию — Xcode достраивает её обязательную основу</b>
+      </div>
+
+      <div className="architecture-rule">
+        <div className="architecture-rule-step app-step">
+          <span>1 · РАЗРАБОТЧИК</span>
+          <b>Называет задачу приложения</b>
+          <small>Например: «нужен готовый экран подписки»</small>
+        </div>
+        <Arrow />
+        <div className="architecture-rule-step xcode-step">
+          <span>2 · XCODE</span>
+          <b>Добавляет выбранную библиотеку</b>
+          <small>И сам скачивает всё, без чего она не работает</small>
+        </div>
+        <Arrow />
+        <div className="architecture-rule-step result-step">
+          <span>3 · ПРИЛОЖЕНИЕ</span>
+          <b>Передаёт свои настройки</b>
+          <small>Ключ, placement, тексты, изображения и правила продукта</small>
+        </div>
+      </div>
+
+      <div className="architecture-choice-list">
+        <div className="architecture-choice-head" aria-hidden="true">
+          <span>ЗАДАЧА</span><span>ДОБАВИТЬ В TARGET</span><span>XCODE СКАЧАЕТ</span>
+        </div>
+        {choices.map((choice) => (
+          <div className={`architecture-choice-row ${choice.tone}`} key={choice.product}>
+            <span className="architecture-choice-number">{choice.number}</span>
+            <div className="architecture-choice-need"><b>{choice.need}</b><small>{choice.detail}</small></div>
+            <div className="architecture-choice-product"><small>ВЫБРАТЬ PRODUCT</small><b>{choice.product}</b></div>
+            <div className="architecture-choice-arrives"><small>АВТОМАТИЧЕСКИ</small><b>{choice.arrives}</b></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="architecture-owner-map">
+        <div className="owner-lane owner-app">
+          <span>ОСТАЁТСЯ В ВАШЕМ APP</span>
+          <b>То, что делает продукт именно вашим</b>
+          <small>ключи · placements · серверные адреса · тексты · изображения · цвета · правила показа</small>
+        </div>
+        <div className="owner-lane owner-platform">
+          <span>ЖИВЁТ В БИБЛИОТЕКАХ</span>
+          <b>Повторяемое поведение для разных приложений</b>
+          <small>запуск · состояния · покупка · restore · готовые SwiftUI-компоненты · безопасные утилиты</small>
+        </div>
+        <div className="owner-lane owner-tools">
+          <span>НЕ ДОБАВЛЯЕТСЯ В APP</span>
+          <b>Инструменты команды</b>
+          <small>integration проверяет сочетания версий · этот сайт объясняет сценарии и ведёт к точному API</small>
+        </div>
+      </div>
+
+      <div className="visual-callout safe">
+        <b>ГЛАВНОЕ</b>
+        <span>Не собирайте цепочку вручную. Добавьте верхнюю библиотеку вашей задачи; нижние зависимости Xcode загрузит сам.</span>
+      </div>
+    </section>
+  );
 }
 
 function GettingStartedVisual() {

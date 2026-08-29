@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the architecture guide is now a beginner-facing platform map: it explains the
+  four library choices, direct versus automatic SwiftPM dependencies, app-owned
+  configuration, an end-to-end purchase action, repository ownership and the
+  dependent-module release path with concrete diagrams and worked examples;
 - the documentation directory is now a task-first workbench: its search is in
   the first viewport, 16 common developer scenarios link directly to an
   actionable guide, site and GitHub search are adjacent modes, result cards
