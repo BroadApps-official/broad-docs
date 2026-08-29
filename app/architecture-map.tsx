@@ -4,58 +4,126 @@ type ArchitectureMapProps = {
   showLink?: boolean;
 };
 
+const choices = [
+  {
+    number: "01",
+    tone: "extensions",
+    need: "Нужны только маленькие Swift-утилиты",
+    examples: "HEX-цвета · шрифты · клавиатура · жест назад",
+    product: "BroadExtensions",
+    automatic: "Ничего дополнительного",
+    note: "Лёгкая самостоятельная библиотека",
+  },
+  {
+    number: "02",
+    tone: "core",
+    need: "Нужна надёжная основа запуска",
+    examples: "loading и error · кеш · повтор запроса · безопасные логи",
+    product: "BroadCore",
+    automatic: "Swinject",
+    note: "Техническая зависимость Core",
+  },
+  {
+    number: "03",
+    tone: "money",
+    need: "Нужна оплата, но экран вы рисуете сами",
+    examples: "все продукты Adapty · purchase · restore · Premium",
+    product: "BroadMonetization",
+    automatic: "BroadCore + Adapty + Swinject",
+    note: "Платёжная логика без готового paywall",
+  },
+  {
+    number: "04",
+    tone: "flows",
+    need: "Нужны готовые экраны и переходы",
+    examples: "onboarding · paywall · состояния · переход в main",
+    product: "BroadUIFlows",
+    automatic: "BroadMonetization + BroadCore + Adapty + Swinject",
+    note: "Вся обязательная основа готовых экранов",
+  },
+];
+
 export function ArchitectureMap({ showLink = false }: ArchitectureMapProps) {
   return (
-    <div className="platform-map" aria-label="Какие готовые части может подключить iPhone-приложение">
+    <div className="platform-map platform-map-guide" aria-label="Как выбрать одну библиотеку BroadApps и что Xcode добавит автоматически">
       <div className="platform-map-head">
         <div>
-          <span>КАК ЭТО РАБОТАЕТ</span>
-          <b>Приложение выбирает нужную функцию. Всё обязательное для неё Xcode добавляет автоматически.</b>
+          <span>ПЛАТФОРМА ЗА 1 МИНУТУ</span>
+          <b>Не подключайте все четыре библиотеки. Найдите ниже задачу приложения и добавьте только один указанный product.</b>
         </div>
-        {showLink ? <Link href="/docs/architecture">Полная схема и правила ↗</Link> : null}
+        {showLink ? <Link href="/docs/architecture">Подробная архитектура и правила ↗</Link> : null}
       </div>
 
-      <div className="platform-map-main">
-        <div className="map-host">
-          <span>ВАШ ПРОДУКТ</span>
-          <b>Ваше iPhone-приложение</b>
-          <small>ПРИЛОЖЕНИЕ</small>
-          <p>Добавляет только тот готовый код, который решает его задачу.</p>
+      <div className="map-howto" aria-label="Три шага подключения библиотеки">
+        <div><span>1</span><p><b>Найдите свою задачу</b><small>Смотрите первую колонку. Названия библиотек знать не нужно.</small></p></div>
+        <i aria-hidden="true">→</i>
+        <div><span>2</span><p><b>Добавьте один product</b><small>Его точное имя написано во второй колонке.</small></p></div>
+        <i aria-hidden="true">→</i>
+        <div><span>3</span><p><b>Остальное сделает Xcode</b><small>Всё из третьей колонки загрузится автоматически.</small></p></div>
+      </div>
+
+      <div className="map-choice-table">
+        <div className="map-choice-head" aria-hidden="true">
+          <span>ЧТО НУЖНО ПРИЛОЖЕНИЮ</span>
+          <span>ВЫ ДОБАВЛЯЕТЕ В XCODE</span>
+          <span>XCODE СКАЧИВАЕТ САМ</span>
         </div>
-
-        <div className="map-choice" aria-hidden="true"><span>выбирает</span>→</div>
-
-        <div className="map-products">
-          <div className="map-products-label">ЧТО НУЖНО ВАШЕМУ ПРИЛОЖЕНИЮ?</div>
-          <div className="map-products-grid">
-            <div className="map-product map-extensions">
-              <b>Extensions</b>
-              <small>цвета, клавиатура и навигация</small>
-              <em>подключается отдельно</em>
+        {choices.map((choice) => (
+          <div className={`map-choice-row ${choice.tone}`} key={choice.product}>
+            <span className="map-choice-number">{choice.number}</span>
+            <div className="map-choice-need">
+              <small>ВАША ЗАДАЧА</small>
+              <b>{choice.need}</b>
+              <p>{choice.examples}</p>
             </div>
-
-            <div className="map-chain" aria-label="Готовые экраны используют оплату, а оплата использует основу запуска">
-              <div className="map-product map-flows"><b>Готовые экраны</b><small>UIFlows</small></div>
-              <div className="map-dependency"><span>получают</span>↓</div>
-              <div className="map-product map-money"><b>Оплата</b><small>Monetization</small></div>
-              <div className="map-dependency"><span>получает</span>↓</div>
-              <div className="map-product map-core"><b>Запуск и ошибки</b><small>Core</small></div>
+            <div className="map-choice-product">
+              <small>ДОБАВИТЬ ОДИН PRODUCT</small>
+              <b>{choice.product}</b>
+            </div>
+            <div className="map-choice-auto">
+              <small>АВТОМАТИЧЕСКИ · РУКАМИ НЕ ДОБАВЛЯТЬ</small>
+              <b>{choice.automatic}</b>
+              <p>{choice.note}</p>
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="map-example" aria-label="Разобранный пример для готового paywall">
+        <div className="map-example-title"><span>ПРИМЕР</span><b>Нужен готовый экран подписки</b></div>
+        <div className="map-example-flow">
+          <div><small>ВАША ЗАДАЧА</small><b>Показать paywall</b></div>
+          <i aria-hidden="true">→</i>
+          <div className="example-pick"><small>ВЫ ДОБАВЛЯЕТЕ</small><b>BroadUIFlows</b></div>
+          <i aria-hidden="true">→</i>
+          <div><small>XCODE ДОБАВЛЯЕТ САМ</small><b>Monetization, Core, Adapty и Swinject</b></div>
+          <i aria-hidden="true">→</i>
+          <div className="example-result"><small>ПРИЛОЖЕНИЕ ПЕРЕДАЁТ</small><b>Adapty key, placement, тексты и изображения</b></div>
+        </div>
+        <p><strong>Итог:</strong> в Xcode вы выбираете только <code>BroadUIFlows</code>. Цепочку зависимостей вручную собирать не нужно.</p>
+      </div>
+
+      <div className="map-boundaries" aria-label="Что попадает в приложение, а что остаётся снаружи">
+        <div className="map-boundary app-owned">
+          <span>ОСТАЁТСЯ В ВАШЕМ APP</span>
+          <b>Настройки конкретного продукта</b>
+          <p>ключи · placement names · тексты · изображения · цвета · server URLs · правила показа</p>
+        </div>
+        <div className="map-boundary package-owned">
+          <span>ПОПАДАЕТ В APP ИЗ БИБЛИОТЕК</span>
+          <b>Готовое повторяемое поведение</b>
+          <p>запуск · состояния · кеш · purchase · restore · paywall · Swift-утилиты</p>
+        </div>
+        <div className="map-boundary tools-only">
+          <span>НЕ ПОПАДАЕТ В APP</span>
+          <b>Инструменты разработчика</b>
+          <p>integration repository проверяет версии · этот сайт объясняет подключение и использование</p>
         </div>
       </div>
 
-      <div className="platform-map-support">
-        <div>
-          <span className="status-dot green" />
-          <p><b>Проверка версий</b><small>Хранит точный набор библиотек, которые уже собирали вместе.</small></p>
-          <em>только инструмент команды</em>
-        </div>
-        <div>
-          <span className="status-dot blue" />
-          <p><b>Инструкции и поиск</b><small>Объясняют сценарии и ведут к точной документации нужной версии.</small></p>
-          <em>только для разработчика</em>
-        </div>
+      <div className="map-main-rule">
+        <b>ГЛАВНОЕ ПРАВИЛО</b>
+        <span>Обычно достаточно одного product. Добавляйте второй только тогда, когда в коде самого приложения есть, например, <code>import BroadCore</code> и вы напрямую вызываете его API.</span>
       </div>
     </div>
   );
