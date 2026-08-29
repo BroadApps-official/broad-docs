@@ -1,90 +1,63 @@
-"use client";
-
-import { useEffect, useState, type MouseEvent } from "react";
+import { docs, docGroups } from "@/lib/docs";
 import { Link } from "./plain-link";
 
-const sections = [
-  { id: "top", number: "00", label: "Начало", detail: "Что это за платформа" },
-  { id: "architecture", number: "01", label: "Как всё связано", detail: "Что добавится автоматически" },
-  { id: "documentation", number: "02", label: "Где искать ответ", detail: "Объяснение, подключение и точный код" },
-  { id: "modules", number: "03", label: "Четыре части", detail: "Задача каждой библиотеки" },
-  { id: "selection", number: "04", label: "Как выбрать", detail: "Одна библиотека для вашей задачи" },
-  { id: "migration", number: "05", label: "Переход", detail: "Замена старого BroadCore" },
-  { id: "compatibility", number: "06", label: "Текущие версии", detail: "Точные проверенные номера" },
-] as const;
+const groupDescriptions = {
+  "Старт": "Начать и перейти",
+  "Части платформы": "Четыре библиотеки",
+  "Монетизация": "Оплата и Premium",
+  "Архитектура": "Как всё устроено",
+  "Разработка": "Версии и процессы",
+} as const;
 
 export function HomeSectionMap() {
-  const [activeSection, setActiveSection] = useState<(typeof sections)[number]["id"]>("top");
-  const activeIndex = sections.findIndex((section) => section.id === activeSection);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateActiveSection = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const marker = window.scrollY + window.innerHeight * 0.28;
-        let nextSection: (typeof sections)[number]["id"] = "top";
-
-        for (const section of sections) {
-          const element = document.getElementById(section.id);
-          if (element && element.offsetTop <= marker) nextSection = section.id;
-        }
-
-        setActiveSection(nextSection);
-      });
-    };
-
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
-    };
-  }, []);
-
-  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: (typeof sections)[number]["id"]) => {
-    const target = document.getElementById(sectionId);
-    if (!target) return;
-
-    event.preventDefault();
-    setActiveSection(sectionId);
-    window.history.pushState(null, "", `#${sectionId}`);
-
-    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
-  };
-
   return (
-    <aside className="home-section-map" aria-label="Карта разделов главной страницы">
+    <aside className="home-section-map" aria-label="Карта сайта со всеми документами">
       <div className="home-map-heading">
-        <span>КАРТА ГЛАВНОЙ</span>
-        <b>{String(activeIndex + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}</b>
+        <span>КАРТА САЙТА</span>
+        <b>{docs.length} ДОКУМЕНТА</b>
       </div>
-      <div className="home-map-progress" aria-hidden="true"><span style={{ width: `${((activeIndex + 1) / sections.length) * 100}%` }} /></div>
-      <nav aria-label="Разделы главной страницы">
-        {sections.map((section) => {
-          const isActive = activeSection === section.id;
+
+      <div className="home-map-roots" aria-label="Основные страницы сайта">
+        <Link className="home-map-root active" href="#top" aria-current="page">
+          <span>00</span><b>Главная</b><i aria-hidden="true">→</i>
+        </Link>
+        <Link className="home-map-root" href="/search">
+          <span>⌕</span><b>Поиск</b><i aria-hidden="true">→</i>
+        </Link>
+      </div>
+
+      <nav aria-label={`Все ${docs.length} документов по разделам`}>
+        {docGroups.map((group, groupIndex) => {
+          const groupDocs = docs.filter((doc) => doc.group === group);
+
           return (
-            <Link
-              className={isActive ? "active" : undefined}
-              href={`#${section.id}`}
-              aria-current={isActive ? "location" : undefined}
-              onClick={(event) => navigateToSection(event, section.id)}
-              key={section.id}
-            >
-              <span className="home-map-node">{section.number}</span>
-              <span className="home-map-copy"><b>{section.label}</b><small>{section.detail}</small></span>
-              <i aria-hidden="true">→</i>
-            </Link>
+            <section className="home-map-group" aria-labelledby={`home-map-group-${groupIndex}`} key={group}>
+              <div className="home-map-group-title" id={`home-map-group-${groupIndex}`}>
+                <span>{String(groupIndex + 1).padStart(2, "0")}</span>
+                <div><b>{group}</b><small>{groupDescriptions[group]}</small></div>
+                <em>{groupDocs.length}</em>
+              </div>
+              <div className="home-map-group-links">
+                {groupDocs.map((doc) => {
+                  const documentNumber = docs.findIndex((item) => item.slug === doc.slug) + 1;
+
+                  return (
+                    <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                      <span className="home-map-node">{String(documentNumber).padStart(2, "0")}</span>
+                      <span className="home-map-copy"><b>{doc.title}</b></span>
+                      <i aria-hidden="true">→</i>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
           );
         })}
       </nav>
+
       <Link className="home-map-docs-link" href="/docs">
-        <span>НУЖНА СТАТЬЯ?</span>
-        <b>Все 24 документа →</b>
+        <span>{docs.length} / {docs.length} В КАРТЕ</span>
+        <b>Каталог и поиск →</b>
       </Link>
     </aside>
   );

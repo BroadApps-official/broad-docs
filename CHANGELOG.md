@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the fixed homepage panel is now a complete site map: it links to the homepage,
+  search and all 24 documents grouped into Start, Platform Parts,
+  Monetization, Architecture and Development; the document list scrolls inside
+  the full-height panel on shorter screens;
 - the homepage migration routes now say explicitly whether the developer is
   working manually or with a Claude/Codex agent, and each card explains what
   happens after it is opened;
