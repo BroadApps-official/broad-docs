@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
 import { DocOrientation } from "@/app/doc-orientation";
+import { DocReadingTools } from "@/app/doc-reading-tools";
 import { MarkdownArticle } from "@/app/markdown-article";
 import { Link } from "@/app/plain-link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
@@ -33,6 +34,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
     const match = line.match(/^##\s+(.+)$/);
     return match ? [{ label: match[1], id: slugifyHeading(match[1]) }] : [];
   });
+  const readingMinutes = Math.max(2, Math.ceil(doc.body.split(/\s+/).filter(Boolean).length / 180));
 
   return (
     <div className="site-shell">
@@ -47,6 +49,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               <span className="docs-group-badge"><i aria-hidden="true" />{doc.group.toUpperCase()}</span>
               <h1>{doc.title}</h1>
               <p>{doc.description}</p>
+              <div className="docs-hero-meta"><span>{headings.length} разделов</span><span>≈ {readingMinutes} мин чтения</span><span>обновляется вместе с GitHub</span></div>
               <div className="docs-hero-actions">
                 <a className="docs-primary-action" href={sourceHref} target="_blank" rel="noreferrer">Открыть Markdown на GitHub <span>↗</span></a>
                 <a href={historyHref} target="_blank" rel="noreferrer">История изменений</a>
@@ -100,13 +103,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               </nav>
             </div>
           </article>
-          <aside className="docs-toc">
-            <div className="docs-toc-card">
-              <b>НА ЭТОЙ СТРАНИЦЕ</b>
-              <nav aria-label="Оглавление статьи">{headings.map((heading) => <a href={`#${heading.id}`} key={heading.id}>{heading.label}</a>)}</nav>
-              <div className="docs-toc-source"><span>Источник</span><a href={sourceHref} target="_blank" rel="noreferrer">{sourcePath} ↗</a></div>
-            </div>
-          </aside>
+          <DocReadingTools headings={headings} sourcePath={sourcePath} sourceHref={sourceHref} />
         </div>
       </main>
       <SiteFooter />

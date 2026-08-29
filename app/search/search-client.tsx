@@ -9,7 +9,7 @@ type SearchDoc = { slug: string; title: string; description: string; group: stri
 
 const quickQueries = [
   "Подключить оплату",
-  "Выбрать модуль",
+  "Выбрать библиотеку",
   "Перенести старое приложение",
   "Проверить совместимые версии",
   "Исправить ошибку сборки",
@@ -30,12 +30,12 @@ const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> =
 
 const resultReasons: Record<string, string> = {
   "getting-started": "Пошаговое первое подключение библиотеки к приложению.",
-  "module-selection": "Поможет выбрать один модуль под вашу задачу.",
+  "module-selection": "Поможет выбрать одну библиотеку под вашу задачу.",
   "broad-monetization": "Главная точка входа для оплаты, подписки и восстановления покупки.",
   "adapty-setup": "Показывает, куда передать ключ и имя нужного экрана Adapty.",
   "legacy-app-migration": "Безопасный порядок переноса существующего приложения.",
   "legacy-broadcore": "Объясняет, куда переехал старый BroadCore.",
-  compatibility: "Содержит готовый набор совместимых версий модулей.",
+  compatibility: "Содержит готовый набор совместимых версий библиотек.",
   "release-process": "Объясняет SemVer и выпуск связанных изменений.",
   "runtime-reliability": "Сценарии диагностики запуска, кеша и сетевых сбоев.",
   "broad-core": "Основа запуска, кеширования, логирования и повторов.",

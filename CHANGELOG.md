@@ -4,6 +4,14 @@
 
 ### Changed
 
+- documentation pages now expose a live reading progress bar, numbered
+  sections, an active table of contents, estimated reading time, clearer
+  emphasis, step-style ordered lists, semantic example/warning notes and
+  one-click code copying;
+- tables now emphasise the decision column, react to row focus, explain
+  horizontal scrolling on small screens, and media captions distinguish a
+  diagram from a reference screen; restrained reveal animation respects the
+  operating system's reduced-motion preference;
 - all 24 articles now include a page-specific visual “human action → platform
   action → visible result” explanation; long prose sections use stronger visual
   hierarchy, and exact technical terms are introduced only after a plain
@@ -81,6 +89,9 @@
 
 ### Fixed
 
+- the page-level overflow rule no longer disables sticky positioning: the
+  compact 24-page catalog and current-article navigation now remain visible
+  during long reads without introducing a second scrollbar;
 - the homepage sidebar is now a compact, clickable route map with a connected
   section path, per-section explanations, immediate active-state feedback and
   an explicit progress indicator instead of oversized stretched rows;

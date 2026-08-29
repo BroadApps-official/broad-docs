@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Markdown media includes GIF/SVG/PNG with runtime paths and no compile-time dimensions. */
 import type { ReactNode } from "react";
 import { slugifyHeading } from "@/lib/docs";
+import { CodeBlock } from "./code-block";
 
 function normalizeDocumentHref(href: string) {
   const localDocument = href.match(/^\.\/([a-z0-9-]+)\.md(#[^)]+)?$/i);
@@ -128,7 +129,10 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "heading") {
       const id = slugifyHeading(block.text ?? "");
       if (block.level === 1) return <h1 id={id} key={index}>{inline(block.text ?? "")}</h1>;
-      if (block.level === 2) return <h2 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h2>;
+      if (block.level === 2) {
+        const sectionNumber = blocks.slice(0, index).filter((item) => item.type === "heading" && item.level === 2).length + 1;
+        return <h2 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span className="heading-copy"><small>{String(sectionNumber).padStart(2, "0")}</small><span>{inline(block.text ?? "")}</span></span><span aria-hidden="true">#</span></a></h2>;
+      }
       return <h3 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h3>;
     }
     if (block.type === "paragraph") {
@@ -136,25 +140,25 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       const afterHeading = previous?.type === "heading" && (previous.level === 2 || previous.level === 3);
       return <p className={afterHeading ? "docs-section-lead" : undefined} key={index}>{inline(block.text ?? "")}</p>;
     }
-    if (block.type === "quote") return <blockquote key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
-    if (block.type === "code") return (
-      <div className="docs-code-block" key={index}>
-        <div className="docs-code-label"><span>{block.language || "ТЕКСТ"}</span><span>ПРИМЕР — СНАЧАЛА ПРОЧИТАЙТЕ ПОЯСНЕНИЕ</span></div>
-        <pre><code>{block.text}</code></pre>
-      </div>
-    );
+    if (block.type === "quote") {
+      const normalized = (block.text ?? "").toLocaleLowerCase("ru-RU");
+      const tone = normalized.includes("пример") ? " example" : normalized.includes("важно") || normalized.includes("правило") || normalized.includes("не ") ? " important" : "";
+      return <blockquote className={`docs-note${tone}`} key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
+    }
+    if (block.type === "code") return <CodeBlock code={block.text ?? ""} language={block.language} key={index} />;
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
       const reference = src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/");
       return (
         <figure className={`docs-media${reference ? " docs-media-reference" : ""}`} key={index}>
           <div className="docs-media-frame"><img alt={block.alt ?? ""} loading="lazy" src={src} /></div>
-          {block.alt ? <figcaption><span>REFERENCE</span>{block.alt}</figcaption> : null}
+          {block.alt ? <figcaption><span>{reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА"}</span>{block.alt}</figcaption> : null}
         </figure>
       );
     }
     if (block.type === "table") return (
-      <div className="docs-table-wrap" key={index}>
+      <div className="docs-table-wrap" role="region" aria-label="Таблица; на небольшом экране её можно прокрутить в сторону" key={index}>
+        <span className="docs-table-hint">← таблицу можно двигать →</span>
         <table>
           <thead><tr>{block.headers?.map((cell, cellIndex) => <th key={cellIndex}>{inline(cell)}</th>)}</tr></thead>
           <tbody>{block.rows?.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{inline(cell)}</td>)}</tr>)}</tbody>

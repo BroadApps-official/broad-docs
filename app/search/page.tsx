@@ -16,7 +16,7 @@ export default function SearchPage() {
       <main className="search-page section-wrap">
         <span className="section-index">ПОИСК ПО ЗАДАЧЕ</span>
         <h1>Что вы хотите сделать?</h1>
-        <p>Пишите обычными словами. Название модуля, API или точный термин знать не нужно.</p>
+        <p>Пишите обычными словами. Название библиотеки, метода или точный технический термин знать не нужно.</p>
         <SearchClient docs={index} />
         <div className="alphabet-search-link">
           <span>АБВ</span>
