@@ -1,11 +1,22 @@
 import { HeaderSearchLink } from "./header-search-link";
 import { Link } from "./plain-link";
 
+function BrandMark() {
+  return (
+    <span className="brand-mark" aria-hidden="true">
+      <span className="brand-tile brand-tile-top-left" />
+      <span className="brand-tile brand-tile-top-right" />
+      <span className="brand-tile brand-tile-bottom-left" />
+      <span className="brand-tile brand-tile-bottom-right" />
+    </span>
+  );
+}
+
 export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header-inner section-wrap">
-        <Link className="brand" href="/"><span className="brand-mark">B◇</span><span>BroadApps <em>iOS</em></span></Link>
+        <Link className="brand" href="/"><BrandMark /><span>BroadApps <em>iOS</em></span></Link>
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="/#architecture">Как устроено</Link>
           <Link href="/docs">Документация</Link>
@@ -26,7 +37,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="footer-inner section-wrap">
         <div>
-          <Link className="brand" href="/"><span className="brand-mark">B◇</span><span>BroadApps <em>iOS</em></span></Link>
+          <Link className="brand" href="/"><BrandMark /><span>BroadApps <em>iOS</em></span></Link>
           <p className="footer-copy">Публичная модульная iOS-платформа. Код, docs, reviews и releases открыты для редактирования.</p>
         </div>
         <nav className="footer-links" aria-label="Навигация в подвале">

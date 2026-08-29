@@ -42,10 +42,14 @@ button, input { font: inherit; }
 .site-header-inner { height: 74px; display: flex; align-items: center; gap: 34px; }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 820; letter-spacing: -0.035em; white-space: nowrap; }
 .brand-mark {
-  width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px;
-  color: white; background: var(--ink); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+  position: relative; width: 34px; height: 34px; flex: 0 0 34px; border-radius: 10px;
+  background: #0d1015; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 6px 16px rgba(7,17,31,.14);
 }
+.brand-tile { position: absolute; display: block; }
+.brand-tile-top-left { left: 9px; top: 9px; width: 9px; height: 9px; border-radius: 3px; background: #2799f5; }
+.brand-tile-top-right { left: 20px; top: 9px; width: 6px; height: 6px; border-radius: 2px; background: #2589df; }
+.brand-tile-bottom-left { left: 9px; top: 20px; width: 6px; height: 6px; border-radius: 2px; background: #1d7dd5; }
+.brand-tile-bottom-right { left: 17px; top: 17px; width: 9px; height: 9px; border-radius: 3px; background: #55b9f8; }
 .brand em { color: var(--cobalt); font-style: normal; }
 .site-nav { display: flex; align-items: center; gap: 26px; margin-right: auto; }
 .site-nav a { color: #425069; font-size: 14px; font-weight: 650; transition: color .2s ease; }

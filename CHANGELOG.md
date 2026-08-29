@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Знак `B◇` в общей шапке и подвале заменён на фирменную иконку BroadApps из четырёх синих плиток.
+
 ### Fixed
 
 - all article images now use repository-relative `../public/` paths, so the
