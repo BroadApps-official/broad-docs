@@ -2,7 +2,7 @@ import { Link } from "./plain-link";
 import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
 import { HomeSectionMap } from "./home-section-map";
-import { SearchIcon } from "./search-icon";
+import { SearchClient } from "./search/search-client";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
 const modules = [
@@ -149,29 +149,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="knowledge-section section-wrap" id="documentation">
-          <div className="knowledge-copy">
+        <section className="knowledge-section knowledge-search-section section-wrap" id="documentation">
+          <div className="knowledge-search-head">
             <span className="section-index">02</span>
-            <h2>Опишите задачу —<br /><em>найдите инструкцию.</em></h2>
-            <p>Название библиотеки знать не нужно. Напишите обычными словами, что хотите сделать с приложением, и поиск покажет подходящие страницы.</p>
-            <div className="knowledge-points">
-              <div><span>1</span><p><b>Сформулируйте задачу</b><small>например: «подключить оплату» или «перенести старое приложение»</small></p></div>
-              <div><span>2</span><p><b>Откройте готовый маршрут</b><small>в результате будет понятно, зачем нужна страница и что делать дальше</small></p></div>
-              <div><span>3</span><p><b>Сверьтесь с исходником</b><small>на каждой странице остаётся ссылка на Markdown в GitHub</small></p></div>
+            <div>
+              <small>ПОИСК РАБОТАЕТ ПРЯМО НА ГЛАВНОЙ</small>
+              <h2>Что вы хотите сделать?</h2>
+              <p>Опишите задачу обычными словами — например, «нужен готовый paywall» или «переношу старый BroadCore». Результаты появятся сразу; название библиотеки знать не нужно.</p>
             </div>
-            <div className="hero-actions">
-              <Link className="primary-action" href="/search">Найти инструкцию <SearchIcon /></Link>
-              <Link className="secondary-action" href="/docs">Все документы</Link>
-            </div>
+            <div className="knowledge-search-help"><b>Что будет в результате?</b><span>Зачем нужна страница</span><span>Что сделать по шагам</span><span>Где сверить исходник в GitHub</span></div>
           </div>
-          <div className="knowledge-panel">
-            <div className="knowledge-panel-head"><span>ПОИСК ПО ЗАДАЧЕ</span><b>Что хотите сделать?</b></div>
-            <Link className="search-result knowledge-task active" href="/search?q=подключить%20оплату"><span>ОПЛАТА</span><div><b>Подключить оплату и подписку</b><small>Adapty, продукты, покупка и восстановление</small></div><i>→</i></Link>
-            <Link className="search-result knowledge-task" href="/search?q=перенести%20старое%20приложение"><span>ПЕРЕНОС</span><div><b>Перенести старое приложение</b><small>граница перехода, порядок действий и проверка</small></div><i>→</i></Link>
-            <Link className="search-result knowledge-task" href="/search?q=проверить%20совместимые%20версии"><span>ВЕРСИИ</span><div><b>Проверить совместимые версии</b><small>готовый набор тегов, которые работают вместе</small></div><i>→</i></Link>
-            <Link className="search-result knowledge-task" href="/search?q=исправить%20ошибку%20сборки"><span>СБОРКА</span><div><b>Разобраться с ошибкой сборки</b><small>подключение библиотеки, запуск и диагностика</small></div><i>→</i></Link>
-            <div className="search-meta"><span>{docs.length} инструкций</span><span>названия библиотек знать не нужно</span></div>
-          </div>
+          <SearchClient docs={docs.map(({ slug, title, description, group, body }) => ({ slug, title, description, group, body }))} variant="home" />
         </section>
 
         <section className="module-section section-wrap" id="modules">
