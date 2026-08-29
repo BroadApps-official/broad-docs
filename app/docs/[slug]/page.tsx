@@ -52,10 +52,9 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               </div>
             </div>
             <aside className="docs-source-summary" aria-label="Источник документа">
-              <span>CANONICAL SOURCE</span>
-              <code>{sourcePath}</code>
-              <p>Сайт собирает эту страницу из публичного Markdown. GitHub остаётся резервным источником для сверки.</p>
-              <div><span>PUBLIC</span><span>VERSIONED</span><span>EDITABLE</span></div>
+              <span>ИСХОДНИК СТАТЬИ</span>
+              <a href={sourceHref} target="_blank" rel="noreferrer"><code>{sourcePath}</code><b>GitHub ↗</b></a>
+              <p>Нужен только для сверки, если сайт и файл разошлись.</p>
             </aside>
           </div>
         </section>
@@ -74,16 +73,16 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
           <article className="docs-article">
             <div className="docs-article-card">
               <div className="docs-source-note">
-                <span><i aria-hidden="true" /> PUBLIC MARKDOWN</span>
-                <p>Текст ниже совпадает с <a href={sourceHref} target="_blank" rel="noreferrer">файлом в GitHub</a> на момент последней публикации сайта.</p>
+                <i aria-hidden="true" />
+                <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
               <DocVisual slug={doc.slug} />
               <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>
-                  <span>ПРОВЕРИТЬ ПЕРВОИСТОЧНИК</span>
-                  <h2 id="source-card-title">Статья остаётся в Git</h2>
-                  <p>Если сайт и repository разошлись, сравните Markdown, историю коммитов и опубликованную страницу.</p>
+                  <span>ПЕРВОИСТОЧНИК</span>
+                  <h2 id="source-card-title">Проверить статью в GitHub</h2>
+                  <p>Если сайт и файл разошлись, сравните Markdown и историю изменений.</p>
                   <code>{sourcePath}</code>
                 </div>
                 <div className="docs-source-links">

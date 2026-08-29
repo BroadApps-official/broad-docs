@@ -4,6 +4,10 @@
 
 ### Changed
 
+- shared article chrome across all 23 documentation pages now keeps source
+  provenance visibly secondary: the oversized sync banner is a compact status
+  line, the hero source box is smaller, and the end-of-article GitHub panel no
+  longer competes with the article hierarchy;
 - the homepage migration section and legacy migration visual now explain in
   Russian what changes, what stays untouched and which four concrete actions a
   developer performs; internal terms remain only in the advanced part of the
