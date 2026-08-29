@@ -153,7 +153,7 @@ button, input { font: inherit; }
 .hero { min-height: 660px; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 54px; padding-block: 78px 74px; }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 26px; color: var(--cobalt); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 760; letter-spacing: .11em; text-transform: uppercase; }
 .eyebrow span { width: 8px; height: 8px; border-radius: 99px; background: var(--money); box-shadow: 0 0 0 5px rgba(16,185,129,.12); }
-.hero h1 { max-width: 590px; margin: 0; font-size: clamp(40px, 3.65vw, 52px); line-height: 1.05; letter-spacing: -.042em; font-weight: 650; text-wrap: balance; }
+.hero h1 { max-width: 590px; margin: 0; font-size: clamp(40px, 3.65vw, 52px); line-height: 1.05; letter-spacing: -.042em; font-weight: 520; text-wrap: balance; }
 .hero h1 em { color: var(--cobalt); font-style: normal; }
 .hero-lede { max-width: 620px; margin: 28px 0 34px; color: #53627a; font-size: 18px; line-height: 1.68; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
