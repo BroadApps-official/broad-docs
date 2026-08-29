@@ -50,8 +50,8 @@ export default function Home() {
           <div className="home-quick-routes-head">
             <div>
               <span>ПЛАТФОРМА ЗА 30 СЕКУНД</span>
-              <h2 id="platform-intro-title">BroadApps iOS — четыре открытые библиотеки с готовым общим кодом, который не нужно заново писать в каждом приложении.</h2>
-              <p>Готовые части для iOS-приложений компании</p>
+              <h2 id="platform-intro-title">Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h2>
+              <p>BroadApps iOS — четыре открытые библиотеки с готовым общим кодом, который не нужно заново писать в каждом приложении.</p>
             </div>
             <Link href="/docs/getting-started"><i className="status-dot green" />Я здесь впервые <b>→</b></Link>
           </div>
