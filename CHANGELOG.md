@@ -4,6 +4,11 @@
 
 ### Changed
 
+- Getting Started now begins with a normal two-route choice instead of two
+  oversized quote banners; shared blockquotes across all documentation pages
+  are compact supporting notes rather than primary visual cards, and
+  consecutive Markdown quote lines render as one note instead of several
+  disconnected boxes;
 - shared article chrome across all 23 documentation pages now keeps source
   provenance visibly secondary: the oversized sync banner is a compact status
   line, the hero source box is smaller, and the end-of-article GitHub panel no

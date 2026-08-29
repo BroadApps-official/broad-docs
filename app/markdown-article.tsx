@@ -104,7 +104,16 @@ function parse(markdown: string): Block[] {
       list.items[lastItem] = `${list.items[lastItem]} ${line.trim()}`;
       continue;
     }
-    if (line.startsWith("> ")) { flushParagraph(); flushList(); blocks.push({ type: "quote", text: line.slice(2) }); continue; }
+    if (line.startsWith("> ")) {
+      flushParagraph(); flushList();
+      const quoteLines = [line.slice(2)];
+      while ((lines[lineIndex + 1] ?? "").startsWith("> ")) {
+        lineIndex += 1;
+        quoteLines.push(lines[lineIndex].slice(2));
+      }
+      blocks.push({ type: "quote", text: quoteLines.join(" ") });
+      continue;
+    }
     if (!line.trim()) { flushParagraph(); flushList(); continue; }
     paragraph.push(line.trim());
   }
