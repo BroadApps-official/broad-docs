@@ -4,6 +4,9 @@
 
 ### Changed
 
+- the homepage migration routes now say explicitly whether the developer is
+  working manually or with a Claude/Codex agent, and each card explains what
+  happens after it is opened;
 - the desktop homepage map is wider and uses the full safe viewport height;
   its seven-section list scrolls independently on short screens while the map
   title, progress indicator and link to all 24 documents remain visible;
