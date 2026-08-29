@@ -1,7 +1,8 @@
 # Экран подписки
 
-Paywall показывает варианты подписки или покупки, которые вернул Adapty.
-Экран не выбирает тарифы сам и не открывает Premium без подтверждения оплаты.
+Экран подписки показывает все варианты, которые вернул Adapty. В технических
+названиях такой экран называется paywall. Он не выбирает тарифы самостоятельно
+и не открывает Premium без подтверждения оплаты.
 
 ## Любое количество продуктов
 
@@ -13,25 +14,25 @@ Paywall показывает варианты подписки или покуп
 - длинный список — прокрутка без исчезновения основной кнопки;
 - одинаковый SKU дважды — две отдельные карточки, если так вернул Adapty.
 
-![Paywall для разного количества продуктов](../public/guides/readme/adaptive-paywall.gif)
+![Один экран подписки для разного количества вариантов](../public/guides/readme/adaptive-paywall.gif)
 
-![Paywall empty state](../public/guides/readme/Screenshots/paywall-empty-ru-v2.png)
+![Экран подписки без доступных вариантов](../public/guides/readme/Screenshots/paywall-empty-ru-v2.png)
 
-![Paywall с одним продуктом](../public/guides/readme/Screenshots/paywall-one-ru-v2.png)
+![Экран подписки с одним вариантом](../public/guides/readme/Screenshots/paywall-one-ru-v2.png)
 
-![Paywall с большим числом продуктов](../public/guides/readme/Screenshots/paywall-many-ru-v2.png)
+![Экран подписки с большим числом вариантов](../public/guides/readme/Screenshots/paywall-many-ru-v2.png)
 
 Изображения показывают состояния, а не обязательный дизайн. Тексты, фон, цены,
 изображения и legal-ссылки задают приложение и Adapty.
 
 ## Загрузка без моргания
 
-Когда каталог обновляется или идёт покупка, уже показанный paywall остаётся на
+Когда список вариантов обновляется или идёт покупка, уже показанный экран остаётся на
 экране. Поверх него появляется индикатор загрузки.
 
-![Загрузка каталога поверх сохранённого paywall](../public/guides/readme/PaywallLoader/catalog-loading.gif)
+![Загрузка вариантов поверх уже показанного экрана](../public/guides/readme/PaywallLoader/catalog-loading.gif)
 
-![Purchase loader поверх сохранённого paywall](../public/guides/readme/PaywallLoader/purchase-loading-5115.gif)
+![Индикатор покупки поверх уже показанного экрана](../public/guides/readme/PaywallLoader/purchase-loading-5115.gif)
 
 Правила:
 
@@ -43,18 +44,18 @@ Paywall показывает варианты подписки или покуп
 
 ## Покупка и восстановление
 
-Restore остаётся отдельной кнопкой. Ответ покупки или восстановления означает,
-что нужно заново проверить право на Premium. Только подтверждённый активный доступ
-открывает Premium. Таймаут оставляет операцию незавершённой и не превращает её
-в ложный успех или отказ.
+Восстановление прошлых покупок (Restore) остаётся отдельной кнопкой. После
+покупки или восстановления приложение ещё раз проверяет право на Premium.
+Только подтверждённый активный доступ открывает Premium. Таймаут означает
+«результат пока неизвестен», а не успех или отказ.
 
 ## Второе предложение
 
-![Первый subscription paywall](../public/guides/readme/References/special-offer-step-1-paywall.png)
+![Первый экран подписки](../public/guides/readme/References/special-offer-step-1-paywall.png)
 
-![Special Offer как второй paywall](../public/guides/readme/References/special-offer-step-2-offer.png)
+![Special Offer как второе предложение](../public/guides/readme/References/special-offer-step-2-offer.png)
 
-Special Offer появляется только после закрытия первого paywall без
+Special Offer появляется только после закрытия первого экрана без
 подтверждённой покупки. Его таймер — визуальный цикл на 24 часа; ноль не скрывает
 экран и не блокирует кнопку.
 

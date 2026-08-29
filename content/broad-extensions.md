@@ -26,7 +26,8 @@
 https://github.com/BroadApps-official/broad-extensions-ios.git
 ```
 
-Выберите product `BroadExtensions` и добавьте его в основное iPhone-приложение.
+В списке библиотек выберите `BroadExtensions` и добавьте его в основное
+iPhone-приложение.
 Текущая проверенная версия —
 [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0).
 

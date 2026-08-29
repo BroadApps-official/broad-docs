@@ -25,7 +25,7 @@ https://github.com/BroadApps-official/broad-core-ios.git
 ```
 
 Затем выберите библиотеку `BroadCore` для основного iPhone-приложения. Если
-нужен готовый paywall, начинайте с `BroadUIFlows`, а Core загрузится
+нужен готовый экран подписки, начинайте с `BroadUIFlows`, а Core загрузится
 автоматически.
 
 ## Для существующего приложения

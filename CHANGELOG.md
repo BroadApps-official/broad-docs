@@ -4,6 +4,21 @@
 
 ### Changed
 
+- all 24 articles now include a page-specific visual “human action → platform
+  action → visible result” explanation; long prose sections use stronger visual
+  hierarchy, and exact technical terms are introduced only after a plain
+  Russian explanation;
+- Getting Started no longer leads with “Composition root” or mixed architecture
+  shorthand: it uses a concrete engine analogy, an application-versus-platform
+  responsibility table, a worked Adapty example and a good-versus-bad setup
+  comparison;
+- homepage, architecture map, module descriptions and monetization guides now
+  say “library”, “screen”, “server” and “purchase option” before exposing exact
+  Xcode or Adapty labels; the content gate also requires a visual explanation
+  for every public article and rejects the jargon regression shown in review;
+- 24 unused legacy media copies (old screenshots, unused dark diagram variants
+  and the replaced social card) were removed; the validated media manifest now
+  contains only the 29 assets still referenced by the site;
 - all public guide pages were editorially rebuilt around plain-language
   purpose, timing, action and success criteria; unexplained mixed-language
   checklists were replaced with concrete Russian instructions while exact API

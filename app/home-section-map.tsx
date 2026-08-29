@@ -5,12 +5,12 @@ import { Link } from "./plain-link";
 
 const sections = [
   { id: "top", number: "00", label: "Начало", detail: "Что это за платформа" },
-  { id: "architecture", number: "01", label: "Как всё связано", detail: "Модули и зависимости" },
-  { id: "documentation", number: "02", label: "Где искать ответ", detail: "Сайт, README и DocC" },
-  { id: "modules", number: "03", label: "Четыре модуля", detail: "Задача каждой библиотеки" },
-  { id: "selection", number: "04", label: "Как выбрать", detail: "Один модуль для приложения" },
-  { id: "migration", number: "05", label: "Миграция", detail: "Переход со старого кода" },
-  { id: "compatibility", number: "06", label: "Текущие версии", detail: "Проверенный набор tags" },
+  { id: "architecture", number: "01", label: "Как всё связано", detail: "Что добавится автоматически" },
+  { id: "documentation", number: "02", label: "Где искать ответ", detail: "Объяснение, подключение и точный код" },
+  { id: "modules", number: "03", label: "Четыре части", detail: "Задача каждой библиотеки" },
+  { id: "selection", number: "04", label: "Как выбрать", detail: "Одна библиотека для вашей задачи" },
+  { id: "migration", number: "05", label: "Переход", detail: "Замена старого BroadCore" },
+  { id: "compatibility", number: "06", label: "Текущие версии", detail: "Точные проверенные номера" },
 ] as const;
 
 export function HomeSectionMap() {

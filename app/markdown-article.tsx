@@ -123,18 +123,23 @@ function parse(markdown: string): Block[] {
 }
 
 export function MarkdownArticle({ markdown }: { markdown: string }) {
-  return <>{parse(markdown).map((block, index) => {
+  const blocks = parse(markdown);
+  return <>{blocks.map((block, index) => {
     if (block.type === "heading") {
       const id = slugifyHeading(block.text ?? "");
       if (block.level === 1) return <h1 id={id} key={index}>{inline(block.text ?? "")}</h1>;
       if (block.level === 2) return <h2 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h2>;
       return <h3 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h3>;
     }
-    if (block.type === "paragraph") return <p key={index}>{inline(block.text ?? "")}</p>;
+    if (block.type === "paragraph") {
+      const previous = blocks[index - 1];
+      const afterHeading = previous?.type === "heading" && (previous.level === 2 || previous.level === 3);
+      return <p className={afterHeading ? "docs-section-lead" : undefined} key={index}>{inline(block.text ?? "")}</p>;
+    }
     if (block.type === "quote") return <blockquote key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
     if (block.type === "code") return (
       <div className="docs-code-block" key={index}>
-        <div className="docs-code-label"><span>{block.language || "TEXT"}</span><span>READ-ONLY EXAMPLE</span></div>
+        <div className="docs-code-label"><span>{block.language || "ТЕКСТ"}</span><span>ПРИМЕР — СНАЧАЛА ПРОЧИТАЙТЕ ПОЯСНЕНИЕ</span></div>
         <pre><code>{block.text}</code></pre>
       </div>
     );

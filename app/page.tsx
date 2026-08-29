@@ -18,7 +18,7 @@ const modules = [
     name: "BroadMonetization",
     code: "MONEY",
     tone: "money",
-    summary: "Загрузка продуктов, покупка, восстановление и подтверждение Premium без готового UI.",
+    summary: "Загрузка вариантов покупки, оплата, восстановление и подтверждение Premium без готового экрана.",
     repository: "broad-monetization-ios",
     href: "/docs/broad-monetization",
   },
@@ -26,7 +26,7 @@ const modules = [
     name: "BroadUIFlows",
     code: "FLOWS",
     tone: "flows",
-    summary: "Готовые первые экраны, paywall, выбор оплаты и маршрутизация.",
+    summary: "Готовые первые экраны, подписка, выбор оплаты и переходы.",
     repository: "broad-ui-flows-ios",
     href: "/docs/broad-ui-flows",
   },
@@ -51,7 +51,7 @@ export default function Home() {
             <div>
               <span>ПЛАТФОРМА ЗА 30 СЕКУНД</span>
               <h2 id="platform-intro-title">Готовые части для iOS-приложений компании</h2>
-              <p>BroadApps iOS — четыре публичных Swift Package-модуля с общим кодом, который не нужно заново писать в каждом приложении.</p>
+              <p>BroadApps iOS — четыре открытые библиотеки с готовым общим кодом, который не нужно заново писать в каждом приложении.</p>
             </div>
             <Link href="/docs/getting-started"><i className="status-dot green" />Я здесь впервые <b>→</b></Link>
           </div>
@@ -68,7 +68,7 @@ export default function Home() {
             </Link>
             <Link className="intro-module-flows" href="/docs/broad-ui-flows">
               <span>UI</span>
-              <div><b>Готовые экраны</b><small>первые страницы · paywall · маршрутизация</small></div>
+              <div><b>Готовые экраны</b><small>первые страницы · подписка · переходы</small></div>
               <i>→</i>
             </Link>
             <Link className="intro-module-extensions" href="/docs/broad-extensions">
@@ -78,8 +78,8 @@ export default function Home() {
             </Link>
           </div>
           <div className="home-platform-reason">
-            <b>Зачем по модулям?</b>
-            <p>Чтобы приложение брало только нужное. Вы добавляете один модуль — его обязательные библиотеки приходят автоматически, а лишние SDK и экраны не попадают в приложение.</p>
+            <b>Почему четыре библиотеки?</b>
+            <p>Чтобы приложение брало только нужное. Вы добавляете одну библиотеку — всё обязательное приходит автоматически, а лишние платёжные сервисы и экраны не попадают в приложение.</p>
             <Link href="/docs/module-selection">Показать, что выбрать →</Link>
           </div>
         </section>
@@ -88,63 +88,63 @@ export default function Home() {
             <div className="eyebrow"><span /> BroadApps iOS простыми словами</div>
             <h1>Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h1>
             <p className="hero-lede">
-              Не один огромный SDK, а четыре независимые библиотеки Swift Package.
+              Не одна огромная библиотека, а четыре независимые части с понятными задачами.
               Выберите нужную функцию — запуск, оплату, готовые экраны или
-              утилиты — и подключите один модуль в Xcode. Его обязательные
-              зависимости придут автоматически.
+              утилиты — и подключите одну библиотеку в Xcode. Всё, без чего она
+              не работает, Xcode скачает автоматически.
             </p>
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Подключить впервые <span>↗</span></Link>
-              <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
+              <Link className="secondary-action" href="/docs/module-selection">Выбрать библиотеку</Link>
               <Link className="secondary-action" href="/docs/legacy-app-migration">Перенести старое приложение</Link>
             </div>
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>ПУБЛИЧНЫЙ HTTPS</b> Без аккаунта GitHub, пароля, токена и API key <i>↗</i></Link>
           </div>
 
-          <div className="hero-system module-selector" aria-label="Как выбрать модуль BroadApps">
-            <div className="system-label"><span>КАКОЙ МОДУЛЬ ПОДКЛЮЧАТЬ</span><em>iOS 17+</em></div>
+          <div className="hero-system module-selector" aria-label="Как выбрать библиотеку BroadApps">
+            <div className="system-label"><span>КАКУЮ БИБЛИОТЕКУ ДОБАВИТЬ</span><em>iOS 17+</em></div>
             <div className="selector-question">
               <span>1</span>
-              <div><b>Что нужно вашему приложению?</b><small>Выберите строку — справа написано, какой один модуль добавить в Xcode.</small></div>
+              <div><b>Что нужно вашему приложению?</b><small>Выберите строку — справа написано, какую одну библиотеку добавить в Xcode.</small></div>
             </div>
             <div className="selector-routes">
               <Link className="selector-route selector-flows" href="/docs/broad-ui-flows">
                 <span className="selector-route-number">01</span>
-                <div className="selector-route-copy"><b>Готовые экраны и переходы</b><small>первые страницы · paywall · маршрутизация</small></div>
+                <div className="selector-route-copy"><b>Готовые экраны и переходы</b><small>первые страницы · подписка · переходы</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadUIFlows</strong><small>Monetization, Core и Adapty придут автоматически</small></div>
               </Link>
               <Link className="selector-route selector-money" href="/docs/broad-monetization">
                 <span className="selector-route-number">02</span>
-                <div className="selector-route-copy"><b>Оплата со своим UI</b><small>покупка · Premium · восстановление</small></div>
+                <div className="selector-route-copy"><b>Оплата со своим экраном</b><small>покупка · Premium · восстановление</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadMonetization</strong><small>Core и Adapty придут автоматически</small></div>
               </Link>
               <Link className="selector-route selector-core" href="/docs/broad-core">
                 <span className="selector-route-number">03</span>
-                <div className="selector-route-copy"><b>Запуск и инфраструктура</b><small>порядок старта · кеш · логи · повтор</small></div>
+                <div className="selector-route-copy"><b>Запуск и ошибки</b><small>порядок старта · кеш · логи · повтор</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadCore</strong><small>без Monetization и готовых экранов</small></div>
               </Link>
               <Link className="selector-route selector-extensions" href="/docs/broad-extensions">
                 <span className="selector-route-number">04</span>
                 <div className="selector-route-copy"><b>Только Swift-утилиты</b><small>цвета · клавиатура · навигация</small></div>
-                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadExtensions</strong><small>самостоятельный модуль без SDK-зависимостей</small></div>
+                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadExtensions</strong><small>самостоятельная библиотека без остальных частей платформы</small></div>
               </Link>
             </div>
-            <div className="selector-note"><span className="pulse" /><b>Версии уже проверены вместе.</b><Link href="/docs/compatibility">Открыть каталог совместимости →</Link></div>
+            <div className="selector-note"><span className="pulse" /><b>Эти версии уже собирались вместе.</b><Link href="/docs/compatibility">Посмотреть точные номера →</Link></div>
           </div>
         </section>
 
         <section className="architecture-section section-wrap" id="architecture">
           <div className="section-heading">
             <div><span className="section-index">01</span><h2>Как всё связано</h2></div>
-            <p>Одна схема показывает, что попадает в приложение, что приходит как зависимость и что остаётся только инструментом команды.</p>
+            <p>Одна схема показывает, что добавляется в приложение автоматически, а что остаётся только инструментом команды.</p>
           </div>
           <ArchitectureMap showLink />
-          <div className="benefit-grid" aria-label="Преимущества модульной архитектуры">
-            <article><span>01</span><b>Меньше лишнего</b><p>Приложение не получает UI и SDK, которые ему не нужны.</p></article>
-            <article><span>02</span><b>Проще проверять</b><p>Изменение одного модуля видно в его небольшом отдельном репозитории.</p></article>
-            <article><span>03</span><b>Точные выпуски</b><p>Исправление выпускает только модуль-владелец, после чего зависимые модули проверяются снова.</p></article>
-            <article><span>04</span><b>Версии не угадывают</b><p>Интеграционный каталог хранит точные теги, уже собранные вместе.</p></article>
-            <article><span>05</span><b>Ответы находятся</b><p>Сайт ищет общие инструкции, а README и DocC остаются рядом с кодом модуля.</p></article>
+          <div className="benefit-grid" aria-label="Почему платформа разделена на четыре библиотеки">
+            <article><span>01</span><b>Меньше лишнего</b><p>Приложение не получает платёжные сервисы и готовые экраны, которые ему не нужны.</p></article>
+            <article><span>02</span><b>Проще проверять</b><p>Изменение одной библиотеки видно в её небольшом отдельном проекте GitHub.</p></article>
+            <article><span>03</span><b>Точные выпуски</b><p>Исправление выпускается в нужной библиотеке, затем всё использующее её собирается снова.</p></article>
+            <article><span>04</span><b>Версии не угадывают</b><p>Каталог хранит точные номера библиотек, которые уже собирались вместе.</p></article>
+            <article><span>05</span><b>Ответы находятся</b><p>Сайт ищет общие инструкции, а точная справка остаётся рядом с кодом библиотеки.</p></article>
             <article><span>06</span><b>Старое приложение не переписывают</b><p>Миграция идёт по одному подключению и рабочему сценарию за раз.</p></article>
           </div>
         </section>
@@ -153,7 +153,7 @@ export default function Home() {
           <div className="knowledge-copy">
             <span className="section-index">02</span>
             <h2>Опишите задачу —<br /><em>найдите инструкцию.</em></h2>
-            <p>Название модуля знать не нужно. Напишите обычными словами, что хотите сделать с приложением, и поиск покажет подходящие страницы.</p>
+            <p>Название библиотеки знать не нужно. Напишите обычными словами, что хотите сделать с приложением, и поиск покажет подходящие страницы.</p>
             <div className="knowledge-points">
               <div><span>1</span><p><b>Сформулируйте задачу</b><small>например: «подключить оплату» или «перенести старое приложение»</small></p></div>
               <div><span>2</span><p><b>Откройте готовый маршрут</b><small>в результате будет понятно, зачем нужна страница и что делать дальше</small></p></div>
@@ -170,14 +170,14 @@ export default function Home() {
             <Link className="search-result knowledge-task" href="/search?q=перенести%20старое%20приложение"><span>ПЕРЕНОС</span><div><b>Перенести старое приложение</b><small>граница перехода, порядок действий и проверка</small></div><i>→</i></Link>
             <Link className="search-result knowledge-task" href="/search?q=проверить%20совместимые%20версии"><span>ВЕРСИИ</span><div><b>Проверить совместимые версии</b><small>готовый набор тегов, которые работают вместе</small></div><i>→</i></Link>
             <Link className="search-result knowledge-task" href="/search?q=исправить%20ошибку%20сборки"><span>СБОРКА</span><div><b>Разобраться с ошибкой сборки</b><small>подключение библиотеки, запуск и диагностика</small></div><i>→</i></Link>
-            <div className="search-meta"><span>{docs.length} инструкций</span><span>названия модулей знать не нужно</span></div>
+            <div className="search-meta"><span>{docs.length} инструкций</span><span>названия библиотек знать не нужно</span></div>
           </div>
         </section>
 
         <section className="module-section section-wrap" id="modules">
           <div className="section-heading">
-            <div><span className="section-index">03</span><h2>Четыре модуля</h2></div>
-            <p>У каждого своя задача, репозиторий и версия. Вы подключаете только то, что использует приложение.</p>
+            <div><span className="section-index">03</span><h2>Четыре части платформы</h2></div>
+            <p>У каждой своя задача, отдельный проект GitHub и версия. Вы подключаете только то, что использует приложение.</p>
           </div>
           <div className="module-grid">
             {modules.map((module, index) => (
@@ -193,8 +193,8 @@ export default function Home() {
 
         <section className="decision-section section-wrap" id="selection">
           <div className="section-heading">
-            <div><span className="section-index">04</span><h2>Как выбрать модуль</h2></div>
-            <p>Начните с задачи приложения. Подключать всю платформу или специальный umbrella package не требуется.</p>
+            <div><span className="section-index">04</span><h2>Как выбрать библиотеку</h2></div>
+            <p>Начните с задачи приложения. Подключать сразу всю платформу не требуется.</p>
           </div>
           <div className="decision-grid">
             <div className="decision-question"><span>ЕСЛИ</span><h3>Что нужно<br />приложению?</h3><Link href="/docs/module-selection">Полная таблица →</Link></div>
@@ -210,17 +210,17 @@ export default function Home() {
         <section className="migration-home section-wrap" id="migration">
           <div className="section-heading">
             <div><span className="section-index">05</span><h2>Как перейти со старого BroadCore</h2></div>
-            <p>Приложение, экраны и бизнес-логику не переписываем. Убираем старое подключение BroadCore и добавляем только нужные новые модули.</p>
+            <p>Приложение, экраны и бизнес-логику не переписываем. Убираем старое подключение BroadCore и добавляем только нужные новые библиотеки.</p>
           </div>
           <div className="migration-home-summary" aria-label="Что меняется при переходе со старой платформы">
-            <div><span>МЕНЯЕМ</span><b>Подключение общего кода</b><small>старый BroadCore → нужные новые модули</small></div>
+            <div><span>МЕНЯЕМ</span><b>Подключение общего кода</b><small>старый BroadCore → нужные новые библиотеки</small></div>
             <div><span>НЕ ТРОГАЕМ</span><b>Само приложение</b><small>экраны, данные и бизнес-логика остаются на месте</small></div>
           </div>
           <div className="migration-home-grid">
             <div className="migration-home-flow" aria-label="Четыре шага миграции">
               <div><span>01</span><b>Проверить приложение</b><small>собрать и запустить его до изменений</small></div>
               <i>→</i>
-              <div><span>02</span><b>Подключить новые модули</b><small>убрать старый BroadCore и добавить нужные модули</small></div>
+              <div><span>02</span><b>Подключить новые библиотеки</b><small>убрать старый BroadCore и добавить нужные библиотеки</small></div>
               <i>→</i>
               <div><span>03</span><b>Проверить одну функцию</b><small>например запуск, оплату или первые экраны</small></div>
               <i>→</i>

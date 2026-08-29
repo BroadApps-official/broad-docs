@@ -22,7 +22,7 @@ export function SiteHeader() {
         <nav className="site-nav" aria-label="Основная навигация">
           <Link href="/#architecture">Как устроено</Link>
           <Link href="/docs">Документация</Link>
-          <Link href="/#modules">Модули</Link>
+          <Link href="/#modules">Части платформы</Link>
           <Link href="/docs/compatibility">Совместимость</Link>
         </nav>
         <div className="header-tools">
@@ -40,11 +40,11 @@ export function SiteFooter() {
       <div className="footer-inner section-wrap">
         <div>
           <Link className="brand" href="/"><BrandMark /><span>BroadApps <em>iOS</em></span></Link>
-          <p className="footer-copy">Публичная модульная iOS-платформа. Код, документация, проверки и версии открыты для просмотра и правок.</p>
+          <p className="footer-copy">Общий код для iOS-приложений компании. Библиотеки, инструкции, проверки и версии открыты для просмотра и правок.</p>
         </div>
         <nav className="footer-links" aria-label="Навигация в подвале">
           <Link href="/docs">Все документы</Link><Link href="/docs/getting-started">Первое подключение</Link>
-          <Link href="/docs/module-selection">Выбор модуля</Link><Link href="/docs/public-package-access">Подключение без пароля</Link>
+          <Link href="/docs/module-selection">Выбор библиотеки</Link><Link href="/docs/public-package-access">Подключение без пароля</Link>
           <Link href="/docs/legacy-app-migration">Миграция приложения</Link><Link href="/docs/architecture">Архитектура</Link>
           <Link href="/docs/special-offer">Special Offer</Link><Link href="/docs/compatibility">Совместимость</Link>
         </nav>
