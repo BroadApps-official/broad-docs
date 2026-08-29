@@ -31,7 +31,7 @@ export type DocEntry = {
 };
 
 export const docs: DocEntry[] = [
-  { slug: "getting-started", title: "Getting Started", description: "Подключение нужных Swift Package products к host app.", group: "Старт", body: gettingStarted },
+  { slug: "getting-started", title: "Первое подключение", description: "Как выбрать один нужный модуль, добавить его в Xcode и проверить приложение.", group: "Старт", body: gettingStarted },
   { slug: "app-creation", title: "Создание приложения", description: "Актуальные маршруты: с Codex/Claude, вручную или через legacy migration.", group: "Старт", body: appCreation },
   { slug: "module-selection", title: "Выбор модуля", description: "Как выбрать Extensions, Core, Monetization или UIFlows.", group: "Старт", body: moduleSelection },
   { slug: "public-package-access", title: "Public package access", description: "Установка без GitHub account, password, token и Keychain.", group: "Старт", body: publicPackageAccess },

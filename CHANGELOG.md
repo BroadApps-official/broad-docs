@@ -4,6 +4,10 @@
 
 ### Changed
 
+- Getting Started is now a visual, task-first onboarding guide: a three-step
+  diagram, plain-Russian module choice table, exact Xcode actions, public URLs,
+  product explanation, two existing architecture illustrations and a concrete
+  acceptance checklist replace the previous jargon-led introduction;
 - Getting Started now begins with a normal two-route choice instead of two
   oversized quote banners; shared blockquotes across all documentation pages
   are compact supporting notes rather than primary visual cards, and

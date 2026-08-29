@@ -8,6 +8,28 @@ function ArchitectureVisual() {
   return <ArchitectureMap />;
 }
 
+function GettingStartedVisual() {
+  const steps = [
+    ["01", "Выберите задачу", "запуск · оплата · готовые экраны · утилиты"],
+    ["02", "Добавьте один модуль", "Xcode → Add Package Dependencies"],
+    ["03", "Соберите приложение", "обязательные зависимости придут автоматически"],
+  ];
+  return (
+    <section className="doc-visual getting-started-visual" aria-label="Первое подключение платформы за три шага">
+      <div className="doc-visual-head"><span>ПЕРВОЕ ПОДКЛЮЧЕНИЕ · 3 ШАГА</span><b>В Xcode добавляется один нужный модуль</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="visual-callout safe"><b>ПРИМЕР</b><span>Нужен готовый paywall → добавьте BroadUIFlows. Monetization, Core и Adapty придут сами.</span></div>
+    </section>
+  );
+}
+
 function CompatibilityVisual() {
   return (
     <section className="doc-visual" aria-label="Разница между диапазоном и точной версией">
@@ -114,6 +136,7 @@ function LegacyBroadCoreVisual() {
 }
 
 export function DocVisual({ slug }: DocVisualProps) {
+  if (slug === "getting-started") return <GettingStartedVisual />;
   if (slug === "architecture") return <ArchitectureVisual />;
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;
