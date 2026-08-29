@@ -92,11 +92,34 @@ function PublicPackageAccessVisual() {
   );
 }
 
+function LegacyBroadCoreVisual() {
+  const steps = [
+    ["01", "Старый repository", "BroadApps-official/BroadCore остаётся только legacy evidence"],
+    ["02", "Выберите маршрут", "новое app — Getting Started; существующее — migration guide"],
+    ["03", "Текущий Core", "BroadApps-official/broad-core-ios и verified compatibility set"],
+  ];
+  return (
+    <section className="doc-visual legacy-repository-visual" aria-label="Переход со старого BroadCore на актуальную платформу">
+      <div className="doc-visual-head"><span>LEGACY BROADCORE</span><b>Старый код не является текущим контрактом</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="visual-callout safe"><b>Главная точка входа</b><span>Сайт → current module README/DocC → compatibility catalog.</span></div>
+    </section>
+  );
+}
+
 export function DocVisual({ slug }: DocVisualProps) {
   if (slug === "architecture") return <ArchitectureVisual />;
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;
   if (slug === "legacy-app-migration") return <LegacyMigrationVisual />;
+  if (slug === "legacy-broadcore") return <LegacyBroadCoreVisual />;
   if (slug === "public-package-access") return <PublicPackageAccessVisual />;
   return null;
 }

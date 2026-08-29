@@ -1,5 +1,9 @@
 # BroadCore
 
+> Пришли из старого `BroadApps-official/BroadCore`? Это legacy-репозиторий.
+> Откройте [страницу-переходник](./legacy-broadcore.md), чтобы выбрать правильный
+> current repository или безопасный маршрут миграции.
+
 ## Зачем нужен
 
 `BroadCore` — основа для iPhone-приложений: bootstrap engine, loadable state, versioned cache, retry/timeout, safe logging и Tracking Authorization boundary.

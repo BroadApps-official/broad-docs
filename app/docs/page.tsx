@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Link } from "@/app/plain-link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
 import { docs } from "@/lib/docs";
 import { githubDocuments } from "@/lib/github-docs.generated";
@@ -30,6 +31,11 @@ export default function DocsIndexPage() {
               Ищите по страницам сайта, по README и Markdown-файлам всех public repositories
               или откройте документы по разделу и букве. Все три способа работают независимо.
             </p>
+            <Link className="legacy-repo-notice" href="/docs/legacy-broadcore">
+              <span>LEGACY REPOSITORY</span>
+              <b>Открыли BroadApps-official/BroadCore?</b>
+              <small>Покажем актуальный Core и безопасный маршрут миграции →</small>
+            </Link>
           </div>
         </section>
         <DocsIndexClient docs={index} githubDocs={githubDocuments} />

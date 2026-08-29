@@ -51,6 +51,9 @@
 
 ### Added
 
+- a dedicated `Старый BroadCore: куда переехал` landing page and a prominent
+  documentation-index notice now route developers and agents away from
+  `BroadApps-official/BroadCore` to the current module or migration guide;
 - `public/media-manifest.json` records the exact source repository, commit,
   path, byte size and SHA-256 of every image, GIF and SVG copied into the site;
 

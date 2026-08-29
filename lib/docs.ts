@@ -7,6 +7,7 @@ import broadUIFlows from "@/content/broad-ui-flows.md?raw";
 import compatibility from "@/content/compatibility.md?raw";
 import documentation from "@/content/documentation.md?raw";
 import gettingStarted from "@/content/getting-started.md?raw";
+import legacyBroadCore from "@/content/legacy-broadcore.md?raw";
 import legacyAppMigration from "@/content/legacy-app-migration.md?raw";
 import migration from "@/content/migration.md?raw";
 import moduleSelection from "@/content/module-selection.md?raw";
@@ -34,6 +35,7 @@ export const docs: DocEntry[] = [
   { slug: "app-creation", title: "Создание приложения", description: "Актуальные маршруты: с Codex/Claude, вручную или через legacy migration.", group: "Старт", body: appCreation },
   { slug: "module-selection", title: "Выбор модуля", description: "Как выбрать Extensions, Core, Monetization или UIFlows.", group: "Старт", body: moduleSelection },
   { slug: "public-package-access", title: "Public package access", description: "Установка без GitHub account, password, token и Keychain.", group: "Старт", body: publicPackageAccess },
+  { slug: "legacy-broadcore", title: "Старый BroadCore: куда переехал", description: "Куда перейти из BroadApps-official/BroadCore и что делать с legacy app.", group: "Старт", body: legacyBroadCore },
   { slug: "legacy-app-migration", title: "Миграция старого app", description: "Package graph, cutover topology, atomic groups и runtime slices.", group: "Старт", body: legacyAppMigration },
   { slug: "broad-core", title: "BroadCore", description: "Bootstrap, cache, state, retry, logging и ATT boundary.", group: "Модули", body: broadCore },
   { slug: "broad-extensions", title: "BroadExtensions", description: "Независимые utility-расширения без platform dependencies.", group: "Модули", body: broadExtensions },
