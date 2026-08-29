@@ -1,5 +1,12 @@
 # Contributing
 
+## Рабочая копия
+
+Используйте отдельный clone `broad-docs`, расположенный рядом с
+`BroadAppsIOSPlatform`. Не вносите изменения в
+`BroadAppsIOSPlatform/.build/DocsSite/broad-docs`: автоматические проверки
+могут удалить и пересоздать эту кеш-копию без предупреждения.
+
 ## Маленькая правка
 
 1. Откройте ссылку `Edit this page`.

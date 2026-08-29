@@ -48,6 +48,20 @@ deployment ещё не успел обновиться. Изображения �
 
 Требования: Node.js `22.13+` и pnpm `10.15.1` из поля `packageManager`.
 
+Для постоянной работы держите repository сайта отдельной соседней папкой, а
+не внутри integration repository:
+
+```text
+workspace/
+├── BroadAppsIOSPlatform/     integration repository
+└── broad-docs/               canonical рабочая копия сайта
+```
+
+Папка `BroadAppsIOSPlatform/.build/DocsSite/broad-docs` может создаваться
+автоматическими проверками как clean clone. Это удаляемый кеш: не редактируйте
+в нём статьи и не храните там единственную копию изменений. Рабочие исходники,
+Git-история и `.openai/hosting.json` должны оставаться в соседнем `broad-docs/`.
+
 ```bash
 pnpm install --frozen-lockfile
 pnpm run dev

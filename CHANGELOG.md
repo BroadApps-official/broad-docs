@@ -5,6 +5,8 @@
 ### Changed
 
 - Знак `B◇` в общей шапке и подвале заменён на фирменную иконку BroadApps из четырёх синих плиток.
+- README и contribution guide закрепляют соседний `broad-docs/` как постоянную
+  рабочую копию и явно отделяют её от удаляемого `.build/DocsSite` cache clone.
 
 ### Fixed
 
