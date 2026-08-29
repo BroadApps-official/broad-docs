@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the documentation directory now shows all 24 site guides immediately in five
+  compact task groups; the oversized introduction and redundant alphabetical
+  directory were removed, the site search filters the visible catalog in place,
+  and the separate GitHub-wide search remains below the primary navigation;
 - the four public module guides are now complete beginner-facing product tours:
   BroadUIFlows opens with a real 0/1/N SwiftUI screen gallery and uses the
   existing onboarding, paywall, loader, Special Offer and token media; Core,

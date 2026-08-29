@@ -154,32 +154,13 @@ function DocCards({ docs }: { docs: DocsIndexEntry[] }) {
 
 export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; githubDocs: GitHubDocument[] }) {
   const [query, setQuery] = useState("");
-  const [letter, setLetter] = useState("Все");
-  const [alphabetGroup, setAlphabetGroup] = useState("Все");
   const [githubQuery, setGithubQuery] = useState("");
   const [githubRepository, setGithubRepository] = useState("Все");
   const githubInputRef = useRef<HTMLInputElement>(null);
-  const sortedDocs = useMemo(() => [...docs].sort((left, right) => collator.compare(left.title, right.title)), [docs]);
   const documentGroups = useMemo(() => Array.from(new Set(docs.map((doc) => doc.group))), [docs]);
-  const groupCounts = useMemo(
-    () => new Map(documentGroups.map((group) => [group, docs.filter((doc) => doc.group === group).length])),
+  const groupedDocs = useMemo(
+    () => documentGroups.map((group) => ({ group, docs: docs.filter((doc) => doc.group === group) })),
     [docs, documentGroups],
-  );
-  const alphabetGroupDocs = useMemo(
-    () => alphabetGroup === "Все" ? sortedDocs : sortedDocs.filter((doc) => doc.group === alphabetGroup),
-    [alphabetGroup, sortedDocs],
-  );
-  const letterCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    alphabetGroupDocs.forEach((doc) => {
-      const initial = firstLetter(doc.title);
-      counts.set(initial, (counts.get(initial) ?? 0) + 1);
-    });
-    return counts;
-  }, [alphabetGroupDocs]);
-  const letters = useMemo(
-    () => Array.from(letterCounts.keys()).sort((left, right) => collator.compare(left, right)),
-    [letterCounts],
   );
   const searchResults = useMemo(() => searchDocs(docs, query), [docs, query]);
   const githubRepositories = useMemo(() => {
@@ -190,25 +171,14 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
     () => searchGitHubDocuments(githubDocs, githubQuery, githubRepository),
     [githubDocs, githubQuery, githubRepository],
   );
-  const alphabetResults = useMemo(
-    () => letter === "Все" ? alphabetGroupDocs : alphabetGroupDocs.filter((doc) => firstLetter(doc.title) === letter),
-    [alphabetGroupDocs, letter],
-  );
-  const alphabetSections = useMemo(
-    () => letters
-      .map((initial) => ({ initial, docs: alphabetResults.filter((doc) => firstLetter(doc.title) === initial) }))
-      .filter((section) => section.docs.length > 0),
-    [alphabetResults, letters],
-  );
-
   return (
     <div className="docs-index-content section-wrap">
-      <section className="docs-search-block" aria-labelledby="text-search-title">
+      <section className="docs-directory-block" aria-labelledby="directory-title">
         <div className="docs-index-heading">
-          <div><span>01</span><h2 id="text-search-title">Поиск по тексту</h2></div>
-          <p>Ищет по названию, описанию и всему тексту Markdown-страниц.</p>
+          <div><span>01</span><h2 id="directory-title">Все {docs.length} документов</h2></div>
+          <p>Все статьи уже здесь. Поиск только сокращает этот список.</p>
         </div>
-        <div className="docs-search-box">
+        <div className="docs-search-box docs-directory-search">
           <SearchIcon />
           <input
             value={query}
@@ -223,7 +193,27 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
             <div className="search-count">{searchResults.length} {searchResults.length === 1 ? "результат" : "результатов"}</div>
             {searchResults.length ? <DocCards docs={searchResults} /> : <div className="empty-search">Ничего не нашли. Попробуйте меньше слов или название модуля.</div>}
           </div>
-        ) : <p className="docs-search-hint">Начните печатать — результаты появятся сразу.</p>}
+        ) : (
+          <div className="docs-directory-columns">
+            {groupedDocs.map(({ group, docs: groupDocs }) => (
+              <section className="docs-directory-group" aria-labelledby={`directory-${group}`} key={group}>
+                <div className="docs-directory-group-head">
+                  <h3 id={`directory-${group}`}>{group}</h3>
+                  <span>{groupDocs.length}</span>
+                </div>
+                <nav aria-label={`Раздел ${group}`}>
+                  {groupDocs.map((doc) => (
+                    <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                      <span>{doc.title}</span>
+                      <small>{doc.description}</small>
+                      <b aria-hidden="true">→</b>
+                    </Link>
+                  ))}
+                </nav>
+              </section>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="github-search-block" aria-labelledby="github-search-title">
@@ -285,65 +275,6 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
         ) : <div className="empty-search">Ничего не нашли. Попробуйте одно слово или выберите другой репозиторий.</div>}
       </section>
 
-      <section className="alphabet-block" aria-labelledby="alphabet-title">
-        <div className="docs-index-heading">
-          <div><span>03</span><h2 id="alphabet-title">Алфавитный указатель</h2></div>
-          <p>Самостоятельный справочник: сначала ограничьте область разделом, затем выберите первую букву. Текстовый запрос не нужен.</p>
-        </div>
-        <div className="alphabet-filter-label"><span>01</span><b>Выберите раздел</b></div>
-        <div className="alphabet-section-filters" role="group" aria-label="Фильтр алфавитного указателя по разделу">
-          <button
-            className={alphabetGroup === "Все" ? "active" : ""}
-            type="button"
-            aria-pressed={alphabetGroup === "Все"}
-            onClick={() => { setAlphabetGroup("Все"); setLetter("Все"); }}
-          >
-            <span>Все разделы</span><b>{docs.length}</b>
-          </button>
-          {documentGroups.map((group) => (
-            <button
-              className={alphabetGroup === group ? "active" : ""}
-              type="button"
-              aria-pressed={alphabetGroup === group}
-              onClick={() => { setAlphabetGroup(group); setLetter("Все"); }}
-              key={group}
-            >
-              <span>{group}</span><b>{groupCounts.get(group)}</b>
-            </button>
-          ))}
-        </div>
-        <div className="alphabet-filter-label"><span>02</span><b>Выберите букву</b></div>
-        <div className="alphabet-controls" role="group" aria-label="Фильтр по первой букве">
-          {["Все", ...letters].map((item) => (
-            <button
-              className={letter === item ? "active" : ""}
-              type="button"
-              aria-pressed={letter === item}
-              onClick={() => setLetter(item)}
-              key={item}
-            >
-              <span>{item}</span><b>{item === "Все" ? alphabetGroupDocs.length : letterCounts.get(item)}</b>
-            </button>
-          ))}
-        </div>
-        <div className="alphabet-summary" aria-live="polite">
-          <b>{alphabetGroup === "Все" ? "Все разделы" : alphabetGroup} · {letter === "Все" ? "все буквы" : `буква ${letter}`}</b>
-          <span>{alphabetResults.length} из {docs.length}</span>
-        </div>
-        {alphabetSections.length ? (
-          <div className="alphabet-letter-groups">
-            {alphabetSections.map((section) => (
-              <section className="alphabet-letter-group" aria-labelledby={`alphabet-letter-${section.initial}`} key={section.initial}>
-                <div className="alphabet-letter-heading">
-                  <span aria-hidden="true">{section.initial}</span>
-                  <div><h3 id={`alphabet-letter-${section.initial}`}>Буква {section.initial}</h3><p>{section.docs.length} {section.docs.length === 1 ? "документ" : "документов"}</p></div>
-                </div>
-                <DocCards docs={section.docs} />
-              </section>
-            ))}
-          </div>
-        ) : <div className="empty-search">В выбранном разделе нет документов на эту букву.</div>}
-      </section>
     </div>
   );
 }

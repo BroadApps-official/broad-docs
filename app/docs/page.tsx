@@ -24,17 +24,16 @@ export default function DocsIndexPage() {
       <SiteHeader />
       <main className="docs-index-page">
         <section className="docs-index-hero">
-          <div className="section-wrap">
-            <span className="section-index">DOCS / {docs.length}</span>
-            <h1>Документация</h1>
-            <p>
-              Ищите по страницам сайта, README и Markdown-файлам всех публичных репозиториев
-              или откройте документы по разделу и букве. Все три способа работают независимо.
-            </p>
+          <div className="section-wrap docs-index-hero-grid">
+            <div>
+              <span className="section-index">ВСЕ ДОКУМЕНТЫ / {docs.length}</span>
+              <h1>Документация</h1>
+              <p>Сразу выберите нужную статью или найдите ответ по словам.</p>
+            </div>
             <Link className="legacy-repo-notice" href="/docs/legacy-broadcore">
-              <span>СТАРЫЙ РЕПОЗИТОРИЙ</span>
-              <b>Открыли BroadApps-official/BroadCore?</b>
-              <small>Покажем актуальный Core и безопасный маршрут миграции →</small>
+              <span>LEGACY</span>
+              <b>Попали в старый BroadCore?</b>
+              <small>Открыть актуальный маршрут →</small>
             </Link>
           </div>
         </section>
