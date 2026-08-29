@@ -4,10 +4,12 @@ import { Link } from "./plain-link";
 function BrandMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
-      <span className="brand-tile brand-tile-top-left" />
-      <span className="brand-tile brand-tile-top-right" />
-      <span className="brand-tile brand-tile-bottom-left" />
-      <span className="brand-tile brand-tile-bottom-right" />
+      <span className="brand-glyph">
+        <span className="brand-tile brand-tile-top-left" />
+        <span className="brand-tile brand-tile-top-right" />
+        <span className="brand-tile brand-tile-bottom-left" />
+        <span className="brand-tile brand-tile-bottom-right" />
+      </span>
     </span>
   );
 }
