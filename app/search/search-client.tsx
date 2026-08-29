@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Link } from "@/app/plain-link";
+import { SearchIcon } from "@/app/search-icon";
 
 type SearchDoc = { slug: string; title: string; description: string; group: string; body: string };
 
@@ -43,7 +44,7 @@ export function SearchClient({ docs }: { docs: SearchDoc[] }) {
   return (
     <>
       <label className="search-form">
-        <span aria-hidden="true">⌕</span>
+        <SearchIcon />
         <input id="docs-search-input" ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Например: special offer, entitlement, SemVer…" aria-label="Поиск по документации" />
         {query ? <button type="button" onClick={() => { setQuery(""); inputRef.current?.focus(); }}>Сбросить</button> : null}
       </label>

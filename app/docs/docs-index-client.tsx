@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Link } from "@/app/plain-link";
+import { SearchIcon } from "@/app/search-icon";
 import type { GitHubDocument } from "@/lib/github-docs.generated";
 
 type DocsIndexEntry = {
@@ -208,7 +209,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           <p>Ищет по названию, описанию и всему тексту Markdown-страниц.</p>
         </div>
         <div className="docs-search-box">
-          <span aria-hidden="true">⌕</span>
+          <SearchIcon />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -236,7 +237,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           <span><b>README + DOCS</b> публичный снимок</span>
         </div>
         <div className="docs-search-box github-search-box">
-          <span aria-hidden="true">⌕</span>
+          <SearchIcon />
           <input
             ref={githubInputRef}
             value={githubQuery}

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Link } from "./plain-link";
+import { SearchIcon } from "./search-icon";
 
 export function HeaderSearchLink() {
   useEffect(() => {
@@ -23,7 +24,7 @@ export function HeaderSearchLink() {
 
   return (
     <Link className="header-search" href="/search" aria-label="Искать в документации">
-      <span aria-hidden="true">⌕</span>
+      <SearchIcon />
       <span>Поиск по докам</span>
       <kbd>⌘ K</kbd>
     </Link>
