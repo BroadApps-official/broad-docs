@@ -4,6 +4,9 @@
 
 ### Changed
 
+- the desktop homepage map is wider and uses the full safe viewport height;
+  its seven-section list scrolls independently on short screens while the map
+  title, progress indicator and link to all 24 documents remain visible;
 - the documentation directory now shows all 24 site guides immediately in five
   compact task groups; the oversized introduction and redundant alphabetical
   directory were removed, the site search filters the visible catalog in place,

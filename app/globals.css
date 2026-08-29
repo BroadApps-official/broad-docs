@@ -34,7 +34,7 @@ button, input { font: inherit; }
 
 .home-main {
   --home-map-left: max(24px, calc((100vw - 1440px) / 2));
-  --home-content-left: calc(var(--home-map-left) + 260px);
+  --home-content-left: calc(var(--home-map-left) + 316px);
 }
 .home-main > section { scroll-margin-top: 24px; }
 .home-section-map {
@@ -375,7 +375,26 @@ button, input { font: inherit; }
 .alphabet-search-link b { font-size: 15px; }.alphabet-search-link p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }.alphabet-search-link a { color: var(--cobalt); font-size: 13px; font-weight: 760; }
 
 @media (min-width: 900px) {
-  .home-section-map { position: fixed; z-index: 15; left: var(--home-map-left); top: 92px; width: 232px; margin: 0; }
+  .home-section-map {
+    position: fixed; z-index: 15; left: var(--home-map-left); top: 82px;
+    width: 288px; max-height: calc(100dvh - 96px); margin: 0; padding: 16px;
+    display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+  .home-section-map nav {
+    min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    padding: 12px 7px 12px 0; margin-right: -7px; scroll-padding-block: 10px;
+    scrollbar-width: thin; scrollbar-color: #4f78b5 #132743;
+  }
+  .home-section-map nav::-webkit-scrollbar { width: 7px; }
+  .home-section-map nav::-webkit-scrollbar-track { border-radius: 999px; background: #132743; }
+  .home-section-map nav::-webkit-scrollbar-thumb { border: 2px solid #132743; border-radius: 999px; background: #4f78b5; }
+  .home-section-map nav a { min-height: 68px; grid-template-columns: 40px minmax(0, 1fr) 14px; gap: 11px; }
+  .home-section-map nav::before { left: 27px; }
+  .home-map-node { width: 40px; height: 40px; font-size: 9px; }
+  .home-map-copy b { font-size: 12px; }
+  .home-map-copy small { font-size: 9px; line-height: 1.35; }
+  .home-map-docs-link { padding-top: 13px; }
+  .home-map-docs-link b { font-size: 12px; }
   .home-main > .section-wrap,
   .home-main .release-inner {
     width: min(1180px, calc(100vw - var(--home-content-left) - 28px));
