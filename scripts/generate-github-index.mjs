@@ -10,6 +10,14 @@ const sources = [
   { repository: "broad-docs", ref: "main", label: "Docs" },
 ];
 
+const localDirectories = {
+  "broad-core-ios": "broad-core-ios",
+  "broad-extensions-ios": "broad-extensions-ios",
+  "broad-monetization-ios": "broad-monetization-ios",
+  "broad-ui-flows-ios": "broad-ui-flows-ios",
+  "broad-platform-integration": "BroadAppsIOSPlatform",
+};
+
 const requestHeaders = {
   Accept: "application/vnd.github+json",
   "User-Agent": "BroadApps-docs-search-index",
@@ -77,6 +85,26 @@ async function fetchText(url) {
   return response.text();
 }
 
+async function localRepositoryPaths(directory, prefix = "") {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const paths = [];
+  for (const entry of entries) {
+    if (entry.name === ".git" || entry.name === ".build" || entry.name === ".swiftpm") continue;
+    const path = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      paths.push(...await localRepositoryPaths(new URL(`${entry.name}/`, directory), path));
+    } else if (entry.isFile()) {
+      paths.push(path);
+    }
+  }
+  return paths;
+}
+
+function localRepositoryURL(source) {
+  const directory = localDirectories[source.repository];
+  return directory ? new URL(`../../${directory}/`, import.meta.url) : null;
+}
+
 async function sourcePaths(source) {
   if (source.repository === "broad-docs") {
     const contentEntries = await readdir(new URL("../content/", import.meta.url), { withFileTypes: true });
@@ -84,6 +112,13 @@ async function sourcePaths(source) {
       .concat(contentEntries
         .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
         .map((entry) => `content/${entry.name}`))
+      .sort((left, right) => left.localeCompare(right, "en"));
+  }
+
+  const localRepository = localRepositoryURL(source);
+  if (localRepository) {
+    return (await localRepositoryPaths(localRepository))
+      .filter((path) => includePath(source.repository, path))
       .sort((left, right) => left.localeCompare(right, "en"));
   }
 
@@ -101,6 +136,9 @@ async function sourceBody(source, path) {
   if (source.repository === "broad-docs") {
     return readFile(new URL(`../${path}`, import.meta.url), "utf8");
   }
+
+  const localRepository = localRepositoryURL(source);
+  if (localRepository) return readFile(new URL(path, localRepository), "utf8");
 
   const rawUrl = `https://raw.githubusercontent.com/${owner}/${source.repository}/${source.ref}/${path}`;
   return fetchText(rawUrl);

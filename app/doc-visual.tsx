@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element -- The module gallery reuses audited PNG fixtures from public documentation. */
+import type { CSSProperties } from "react";
 import { ArchitectureMap } from "./architecture-map";
 
 type DocVisualProps = { slug: string };
@@ -26,6 +28,87 @@ function GettingStartedVisual() {
         ))}
       </div>
       <div className="visual-callout safe"><b>ПРИМЕР</b><span>Нужен готовый экран подписки → добавьте BroadUIFlows. Платёжная логика, Core и Adapty придут сами.</span></div>
+    </section>
+  );
+}
+
+function UIFlowsModuleVisual() {
+  const screens = [
+    ["0 ПРОДУКТОВ", "/guides/readme/Screenshots/paywall-empty-ru-v2.png", "Понятное пустое состояние и Retry"],
+    ["1 ПРОДУКТ", "/guides/readme/Screenshots/paywall-one-ru-v2.png", "Одна полноценная карточка без пустот"],
+    ["N ПРОДУКТОВ", "/guides/readme/Screenshots/paywall-many-ru-v2.png", "Весь список Adapty в исходном порядке"],
+  ];
+  return (
+    <section className="doc-visual module-showcase ui-flows-showcase" aria-label="Реальные состояния готового paywall BroadUIFlows">
+      <div className="doc-visual-head"><span>BROADUIFLOWS · ЭТО РЕАЛЬНЫЙ SWIFTUI</span><b>Один компонент адаптируется к ответу Adapty</b></div>
+      <div className="ui-screen-gallery">
+        {screens.map(([label, source, detail], index) => (
+          <figure className="ui-screen-example" key={label} style={{ "--screen-delay": `${index * 1.35}s` } as CSSProperties}>
+            <div className="ui-screen-device"><img src={source} alt={detail} /></div>
+            <figcaption><b>{label}</b><span>{detail}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="visual-callout safe"><b>НЕ МАКЕТ</b><span>Это fixture-кадры настоящих production-компонентов Gallery. Приложение заменяет контент и тему, а состояния остаются проверенными.</span></div>
+    </section>
+  );
+}
+
+function MonetizationModuleVisual() {
+  return (
+    <section className="doc-visual module-showcase monetization-showcase" aria-label="Граница между интерфейсом, платёжным модулем и Adapty или StoreKit">
+      <div className="doc-visual-head"><span>BROADMONETIZATION · ДВИЖОК БЕЗ ЭКРАНА</span><b>UI остаётся в приложении, финансовая операция — в модуле</b></div>
+      <div className="module-lane-flow">
+        <div className="module-lane ui-lane"><span>01 · ВИДИТ ЧЕЛОВЕК</span><b>Экран приложения</b><small>карточки · кнопка · loader · ошибка</small></div>
+        <Arrow />
+        <div className="module-lane engine-lane"><span>02 · ДЕЛАЕТ МОДУЛЬ</span><b>BroadMonetization</b><small>products · purchase · restore · Premium check</small><i aria-hidden="true" /></div>
+        <Arrow />
+        <div className="module-lane provider-lane"><span>03 · ДАЁТ ИСТИНУ</span><b>Adapty / StoreKit</b><small>placement · raw product · entitlement</small></div>
+      </div>
+      <div className="module-result-strip"><span>tap «Купить»</span><i>→</i><span>одна операция</span><i>→</i><span>повторная проверка</span><i>→</i><b>Premium подтверждён</b></div>
+      <div className="visual-callout safe"><b>ГЛАВНОЕ ПРАВИЛО</b><span>Ответ SDK не открывает доступ сам по себе. Main открывается после подтверждённого entitlement.</span></div>
+    </section>
+  );
+}
+
+function CoreModuleVisual() {
+  const states = [
+    ["СТАРТ", "критические шаги"],
+    ["СЕТЬ", "timeout и retry"],
+    ["КЕШ", "fresh / stale / missing"],
+    ["UI", "данные или понятная ошибка"],
+  ];
+  return (
+    <section className="doc-visual module-showcase core-showcase" aria-label="Как BroadCore помогает приложению запуститься при нормальной и плохой сети">
+      <div className="doc-visual-head"><span>BROADCORE · НЕВИДИМАЯ ОСНОВА</span><b>Пользователь видит результат: приложение не зависает</b></div>
+      <div className="core-runtime-line">
+        {states.map(([title, detail], index) => (
+          <div className="core-runtime-fragment" key={title}>
+            <div className="core-runtime-node"><span>{String(index + 1).padStart(2, "0")}</span><b>{title}</b><small>{detail}</small></div>
+            {index < states.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="core-outcomes">
+        <div><span className="status-dot" /><b>Сеть работает</b><small>актуальные данные → обычный экран</small></div>
+        <div><span className="status-dot warning-dot" /><b>Сети нет</b><small>допустимый кеш или ошибка с Retry</small></div>
+      </div>
+      <div className="visual-callout"><b>CORE НЕ РИСУЕТ UI</b><span>Он сообщает точное состояние. Экран создаёт приложение или BroadUIFlows.</span></div>
+    </section>
+  );
+}
+
+function ExtensionsModuleVisual() {
+  return (
+    <section className="doc-visual module-showcase extensions-showcase" aria-label="Четыре независимые UI утилиты BroadExtensions">
+      <div className="doc-visual-head"><span>BROADEXTENSIONS · БЕЗ ЛИШНИХ ЗАВИСИМОСТЕЙ</span><b>Четыре маленькие задачи — одна лёгкая библиотека</b></div>
+      <div className="extensions-demo-grid">
+        <div className="extension-demo color-demo"><span>HEX → COLOR</span><div className="color-swatches"><i /><i /><i /></div><code>#4F8CFF</code><small>точный SwiftUI / UIKit цвет</small></div>
+        <div className="extension-demo font-demo"><span>CUSTOM FONT</span><strong>Aa</strong><b>Dynamic Type</b><small>текст растёт вместе с настройками iPhone</small></div>
+        <div className="extension-demo keyboard-demo"><span>KEYBOARD</span><div className="fake-field">email@example.com</div><div className="fake-keyboard">tap снаружи ↓</div><small>кнопки под gesture продолжают работать</small></div>
+        <div className="extension-demo swipe-demo"><span>SWIPE BACK</span><div className="swipe-track"><i>←</i><b>Detail</b></div><small>системный жест возвращается локально</small></div>
+      </div>
+      <div className="visual-callout safe"><b>0 ДОП. ЗАВИСИМОСТЕЙ</b><span>Core, Adapty, StoreKit, Monetization и готовые paywall не загрузятся.</span></div>
     </section>
   );
 }
@@ -334,6 +417,10 @@ function SimpleVisual({ content }: { content: SimpleVisualContent }) {
 
 export function DocVisual({ slug }: DocVisualProps) {
   if (slug === "getting-started") return <GettingStartedVisual />;
+  if (slug === "broad-ui-flows") return <UIFlowsModuleVisual />;
+  if (slug === "broad-monetization") return <MonetizationModuleVisual />;
+  if (slug === "broad-core") return <CoreModuleVisual />;
+  if (slug === "broad-extensions") return <ExtensionsModuleVisual />;
   if (slug === "architecture") return <ArchitectureVisual />;
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;

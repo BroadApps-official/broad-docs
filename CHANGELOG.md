@@ -4,6 +4,12 @@
 
 ### Changed
 
+- the four public module guides are now complete beginner-facing product tours:
+  BroadUIFlows opens with a real 0/1/N SwiftUI screen gallery and uses the
+  existing onboarding, paywall, loader, Special Offer and token media; Core,
+  Monetization and Extensions each have a purpose-built animated responsibility
+  map, plain-language boundaries, worked scenarios, exact entry points and
+  integration checklists instead of a repeated generic three-card diagram;
 - documentation pages now expose a live reading progress bar, numbered
   sections, an active table of contents, estimated reading time, clearer
   emphasis, step-style ordered lists, semantic example/warning notes and
