@@ -29,6 +29,9 @@
 
 ### Fixed
 
+- the homepage sidebar is now a compact, clickable route map with a connected
+  section path, per-section explanations, immediate active-state feedback and
+  an explicit progress indicator instead of oversized stretched rows;
 - the homepage map now switches to its persistent vertical sidebar at ordinary
   notebook widths instead of expanding into a wide navigation banner;
 - article navigation now grows to its full content height and follows the page

@@ -34,7 +34,7 @@ button, input { font: inherit; }
 
 .home-main {
   --home-map-left: max(24px, calc((100vw - 1440px) / 2));
-  --home-content-left: calc(var(--home-map-left) + 244px);
+  --home-content-left: calc(var(--home-map-left) + 260px);
 }
 .home-main > section { scroll-margin-top: 24px; }
 .home-section-map {
@@ -42,17 +42,25 @@ button, input { font: inherit; }
   border: 1px solid #253754; border-radius: 18px; color: white;
   background: linear-gradient(145deg, #0a1424, #12213a); box-shadow: 0 18px 52px rgba(7,17,31,.18);
 }
-.home-map-heading { padding: 2px 3px 12px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-bottom: 1px solid #2a3d5d; }
+.home-map-heading { padding: 2px 3px 10px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .home-map-heading span { color: #7898c7; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
-.home-map-heading b { color: #dce8f8; font-size: 12px; }
-.home-section-map nav { padding-block: 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
-.home-section-map nav a { min-height: 48px; padding: 8px 9px; display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: center; gap: 9px; border: 1px solid transparent; border-radius: 10px; color: #a9bad0; transition: border-color .2s ease, color .2s ease, background .2s ease; }
-.home-section-map nav a > span { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; color: #78a0db; background: #172944; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 850; }
-.home-section-map nav a > b { min-width: 0; font-size: 12px; line-height: 1.25; }
+.home-map-heading b { color: #dce8f8; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: .08em; }
+.home-map-progress { height: 3px; overflow: hidden; border-radius: 999px; background: #203451; }
+.home-map-progress span { height: 100%; display: block; border-radius: inherit; background: linear-gradient(90deg, #38a3ff, #5d7cff); transition: width .25s ease; }
+.home-section-map nav { position: relative; padding-block: 10px; display: flex; flex-direction: column; gap: 3px; }
+.home-section-map nav::before { position: absolute; left: 23px; top: 30px; bottom: 30px; width: 1px; content: ""; background: #2b4263; }
+.home-section-map nav a { position: relative; min-height: 58px; padding: 8px 7px; display: grid; grid-template-columns: 34px minmax(0, 1fr) 12px; align-items: center; gap: 9px; border: 1px solid transparent; border-radius: 11px; color: #a9bad0; transition: transform .2s ease, border-color .2s ease, color .2s ease, background .2s ease; }
+.home-map-node { position: relative; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid #28405f; border-radius: 50%; color: #78a0db; background: #12243d; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 850; }
+.home-map-copy { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.home-map-copy b { font-size: 11px; line-height: 1.2; }
+.home-map-copy small { color: #7185a2; font-size: 8px; line-height: 1.25; }
+.home-section-map nav a > i { opacity: 0; color: #74a8ff; font-size: 11px; font-style: normal; transition: opacity .2s ease, transform .2s ease; }
 .home-section-map nav a:hover { border-color: #405a7d; color: white; background: rgba(255,255,255,.04); }
-.home-section-map nav a.active { border-color: #4c7ce0; color: white; background: linear-gradient(105deg, rgba(37,99,235,.34), rgba(37,99,235,.1)); box-shadow: inset 3px 0 0 #60a5fa; }
-.home-section-map nav a.active > span { color: white; background: #2563eb; }
-.home-map-docs-link { padding: 11px 10px 2px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #2a3d5d; }
+.home-section-map nav a:hover > i, .home-section-map nav a.active > i { opacity: 1; transform: translateX(2px); }
+.home-section-map nav a.active { border-color: #4c7ce0; color: white; background: linear-gradient(105deg, rgba(37,99,235,.3), rgba(37,99,235,.08)); box-shadow: inset 3px 0 0 #60a5fa; }
+.home-section-map nav a.active .home-map-node { border-color: #6ba5ff; color: white; background: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,.15); }
+.home-section-map nav a.active .home-map-copy small { color: #a8c3eb; }
+.home-map-docs-link { padding: 11px 6px 2px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #2a3d5d; }
 .home-map-docs-link span { color: #7e94b3; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; }
 .home-map-docs-link b { color: #8bb4ff; font-size: 11px; }
 .home-map-docs-link:hover b { color: white; }
@@ -325,9 +333,7 @@ button, input { font: inherit; }
 .alphabet-search-link b { font-size: 15px; }.alphabet-search-link p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }.alphabet-search-link a { color: var(--cobalt); font-size: 13px; font-weight: 760; }
 
 @media (min-width: 900px) {
-  .home-section-map { position: fixed; z-index: 15; left: var(--home-map-left); top: 92px; bottom: 22px; width: 216px; margin: 0; display: flex; flex-direction: column; }
-  .home-section-map nav { min-height: 0; flex: 1; grid-template-columns: 1fr; grid-template-rows: repeat(7, minmax(40px, 1fr)); gap: 2px; }
-  .home-section-map nav a { min-height: 40px; align-self: stretch; }
+  .home-section-map { position: fixed; z-index: 15; left: var(--home-map-left); top: 92px; width: 232px; margin: 0; }
   .home-main > .section-wrap,
   .home-main .release-inner {
     width: min(1180px, calc(100vw - var(--home-content-left) - 28px));
@@ -345,7 +351,8 @@ button, input { font: inherit; }
 }
 
 @media (max-width: 899px) {
-  .home-section-map nav { grid-template-columns: 1fr 1fr; }
+  .home-section-map nav { display: grid; grid-template-columns: 1fr 1fr; }
+  .home-section-map nav::before { display: none; }
   .home-quick-routes-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -358,7 +365,7 @@ button, input { font: inherit; }
 
 @media (max-width: 700px) {
   .home-section-map { width: min(100% - 28px, 1180px); padding: 12px; }
-  .home-section-map nav { grid-template-columns: 1fr 1fr; }
+  .home-section-map nav { grid-template-columns: 1fr; }
   .home-quick-routes { padding: 14px; }
   .home-quick-routes-head { align-items: flex-start; flex-direction: column; gap: 12px; }
   .home-quick-routes-head > a { width: 100%; justify-content: center; white-space: normal; }

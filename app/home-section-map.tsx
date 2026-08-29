@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { Link } from "./plain-link";
 
 const sections = [
-  { id: "top", number: "00", label: "Начало" },
-  { id: "architecture", number: "01", label: "Как всё связано" },
-  { id: "documentation", number: "02", label: "Где искать ответ" },
-  { id: "modules", number: "03", label: "Модули" },
-  { id: "selection", number: "04", label: "Как выбрать" },
-  { id: "migration", number: "05", label: "Миграция" },
-  { id: "compatibility", number: "06", label: "Текущие версии" },
+  { id: "top", number: "00", label: "Начало", detail: "Что это за платформа" },
+  { id: "architecture", number: "01", label: "Как всё связано", detail: "Products и зависимости" },
+  { id: "documentation", number: "02", label: "Где искать ответ", detail: "Сайт, README и DocC" },
+  { id: "modules", number: "03", label: "Четыре модуля", detail: "Задача каждого package" },
+  { id: "selection", number: "04", label: "Как выбрать", detail: "Один product для app" },
+  { id: "migration", number: "05", label: "Миграция", detail: "Переход со старого кода" },
+  { id: "compatibility", number: "06", label: "Текущие версии", detail: "Проверенный набор tags" },
 ] as const;
 
 export function HomeSectionMap() {
   const [activeSection, setActiveSection] = useState<(typeof sections)[number]["id"]>("top");
+  const activeIndex = sections.findIndex((section) => section.id === activeSection);
 
   useEffect(() => {
     let frame = 0;
@@ -45,12 +46,24 @@ export function HomeSectionMap() {
     };
   }, []);
 
+  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: (typeof sections)[number]["id"]) => {
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    event.preventDefault();
+    setActiveSection(sectionId);
+    window.history.pushState(null, "", `#${sectionId}`);
+
+    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+  };
+
   return (
     <aside className="home-section-map" aria-label="Карта разделов главной страницы">
       <div className="home-map-heading">
-        <span>КАРТА САЙТА</span>
-        <b>Главная</b>
+        <span>КАРТА ГЛАВНОЙ</span>
+        <b>{String(activeIndex + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}</b>
       </div>
+      <div className="home-map-progress" aria-hidden="true"><span style={{ width: `${((activeIndex + 1) / sections.length) * 100}%` }} /></div>
       <nav aria-label="Разделы главной страницы">
         {sections.map((section) => {
           const isActive = activeSection === section.id;
@@ -59,17 +72,19 @@ export function HomeSectionMap() {
               className={isActive ? "active" : undefined}
               href={`#${section.id}`}
               aria-current={isActive ? "location" : undefined}
+              onClick={(event) => navigateToSection(event, section.id)}
               key={section.id}
             >
-              <span>{section.number}</span>
-              <b>{section.label}</b>
+              <span className="home-map-node">{section.number}</span>
+              <span className="home-map-copy"><b>{section.label}</b><small>{section.detail}</small></span>
+              <i aria-hidden="true">→</i>
             </Link>
           );
         })}
       </nav>
       <Link className="home-map-docs-link" href="/docs">
-        <span>23 статьи</span>
-        <b>Все документы →</b>
+        <span>НУЖНА СТАТЬЯ?</span>
+        <b>Все 23 документа →</b>
       </Link>
     </aside>
   );
