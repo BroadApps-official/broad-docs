@@ -1,45 +1,60 @@
 # BroadCore
 
-> Пришли из старого `BroadApps-official/BroadCore`? Это legacy-репозиторий.
-> Откройте [страницу-переходник](./legacy-broadcore.md), чтобы выбрать правильный
-> current repository или безопасный маршрут миграции.
+`BroadCore` — основа запуска приложения. Он не показывает экраны и не выполняет
+оплату. Он даёт общие механизмы, которые нужны нескольким другим модулям.
 
-## Зачем нужен
+Если вы пришли из старого `BroadApps-official/BroadCore`, сначала откройте
+[страницу перехода](./legacy-broadcore.md): старый репозиторий больше не является
+актуальной платформой.
 
-`BroadCore` — основа для iPhone-приложений: bootstrap engine, loadable state, versioned cache, retry/timeout, safe logging и Tracking Authorization boundary.
+## Когда подключать
 
-Текущий проверенный release: [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0).
+Подключите `BroadCore`, если приложению нужно хотя бы одно из следующего:
 
-В следующем release готовятся два additive API: runtime `String` для
-`OSLogBroadLogger` и file-backed cache store. Пока новый tag не опубликован,
-integration catalog продолжает правильно указывать `1.0.0`.
+- выполнить шаги запуска в понятном порядке;
+- показать состояния «загрузка / данные / пусто / ошибка»;
+- сохранить небольшой кеш с версией и сроком жизни;
+- повторить сетевой запрос после ошибки или таймаута;
+- писать логи, не раскрывая ключи и пользовательские данные;
+- показать системный запрос ATT в правильный момент.
 
-## Dependency graph
+Если нужны только цвета, клавиатура или навигационные утилиты, выберите
+`BroadExtensions`. Если нужен готовый paywall, начинайте с `BroadUIFlows`.
 
-- Platform dependencies: нет.
-- External dependency: Swinject `2.10.0`.
-- Consumers: host apps, BroadMonetization, BroadUIFlows.
+## Что приложение получает
 
-Core не импортирует Monetization или UIFlows. В нём нет Adapty, StoreKit и SwiftUI-экранов.
+| Возможность | Простое объяснение |
+|---|---|
+| `AppBootstrapCoordinator` | Запускает обязательные и фоновые действия в записанном порядке |
+| `LoadableState` | Одно описание для загрузки, данных, пустого ответа и ошибки |
+| `VersionedJSONCacheRepository` | Хранит локальную копию данных и умеет определить, что она устарела |
+| `UserDefaultsKeyValueStore` | Хранит небольшие флаги и состояния |
+| `FileSystemKeyValueStore` | Хранит более крупные офлайн-данные в файлах с лимитом размера |
+| `BroadLoggerProtocol` | Записывает безопасные сообщения без ключей, токенов и сырых ответов SDK |
 
-## Public boundaries
+Точный список публичного API находится в README и DocC самого модуля. Эта
+страница объясняет выбор и поведение, а не заменяет справочник типов.
 
-- `AppBootstrapCoordinator` выполняет critical/background steps в явном порядке.
-- `LoadableState` описывает loading/content/empty/error/retry без знания о SwiftUI.
-- `VersionedJSONCacheRepository` хранит ограниченные снимки с TTL.
-- `UserDefaultsKeyValueStore` подходит для небольших flags/state.
-- `FileSystemKeyValueStore` хранит большие offline-каталоги атомарными файлами
-  с явным лимитом, namespace и compare-and-swap.
-- `BroadLoggerProtocol` не пропускает payload, keys, tokens и raw SDK errors.
-- `OSLogBroadLogger(subsystem: String)` позволяет использовать runtime bundle ID
-  без второй hardcoded строки в composition root.
-- Tracking adapter держит native ATT API в одном infrastructure boundary.
+## Зависимости
 
-## Проверка
+Приложение добавляет `BroadCore`. Xcode автоматически загрузит Swinject.
+`BroadCore` не загружает Adapty, StoreKit, `BroadMonetization`, готовые paywall
+или onboarding-экраны.
 
-Standalone gate проверяет format, lint, architecture, privacy manifest, Swift build, generic iOS compile, executable probes, DocC и iPhone sandbox. Tests/test targets/XCTest не добавляются.
+Текущая проверенная версия —
+[`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0).
 
-[Открыть public repository](https://github.com/BroadApps-official/broad-core-ios).
+## Как проверить
 
-[Runtime, cache и recovery →](./runtime-reliability.md) ·
-[Onboarding и ATT boundary →](./onboarding-att.md)
+1. Подключите публичный репозиторий и соберите Debug и Release.
+2. Запустите сценарий, ради которого добавлен Core.
+3. Отключите сеть и убедитесь, что виден понятный кеш или ошибка с Retry.
+4. Проверьте логи: в них не должно быть ключей, токенов и сырых данных SDK.
+5. Если используется ATT, запрос не должен появляться до первого видимого экрана.
+
+Автоматическая проверка модуля дополнительно проверяет формат, архитектурные
+границы, privacy manifest, документацию и сборку для iPhone без подписи.
+
+[Открыть публичный репозиторий](https://github.com/BroadApps-official/broad-core-ios) ·
+[Запуск, ошибки и восстановление](./runtime-reliability.md) ·
+[Первые экраны и ATT](./onboarding-att.md)

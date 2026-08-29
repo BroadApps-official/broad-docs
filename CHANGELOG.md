@@ -4,6 +4,20 @@
 
 ### Changed
 
+- all public guide pages were editorially rebuilt around plain-language
+  purpose, timing, action and success criteria; unexplained mixed-language
+  checklists were replaced with concrete Russian instructions while exact API
+  names remain available where developers need them;
+- every guide now opens with a compact “why / when / result” orientation and a
+  page-specific term explainer, backed by a new searchable “Словарь без
+  жаргона” page;
+- homepage module cards, architecture map, navigation map, documentation
+  directory, search hints, visual explainers and footer now use the same plain
+  Russian wording instead of switching back to internal English shorthand;
+- the GitHub-wide search snapshot was regenerated from the rewritten local
+  Markdown and current public repositories, and content validation now rejects
+  stale local search copies plus the specific jargon-only phrases that caused
+  the onboarding regression;
 - Getting Started is now a visual, task-first onboarding guide: a three-step
   diagram, plain-Russian module choice table, exact Xcode actions, public URLs,
   product explanation, two existing architecture illustrations and a concrete

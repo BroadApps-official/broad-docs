@@ -1,54 +1,67 @@
-# Совместимость
+# Какие версии ставить
 
-## Зачем нужен каталог
+У каждого модуля своя версия. Каталог совместимости отвечает на простой вопрос:
+**какие конкретные версии уже собирались и проверялись вместе?**
 
-Каждый модуль выпускается независимо. Публичный
+Каталог лежит в публичном
 [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration)
-хранит machine-readable набор exact versions, который прошёл общую сборку и probes.
+и читается как человеком, так и автоматическими скриптами.
 
-[Открыть integration release 1.0.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.0.0).
+## Готовый ответ
 
-> Каталог не является runtime umbrella. Host app может взять из него версию только одного нужного product.
+Текущий проверенный набор:
 
-## Exact и range решают разные задачи
+| Что | Версия |
+|---|---:|
+| iOS | 17.0 и новее |
+| Режим языка Swift | 5 |
+| Формат `Package.swift` | Swift tools 6.0 |
+| `BroadCore` | [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0) |
+| `BroadExtensions` | [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0) |
+| `BroadMonetization` | [`1.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0) |
+| `BroadUIFlows` | [`1.0.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0) |
+| Последняя общая проверка | 25 августа 2026 года |
 
-| Где | Правило | Зачем |
+Приложение не обязано подключать весь набор. Возьмите из таблицы версию только
+того модуля, который нужен приложению.
+
+## Exact или from
+
+В Xcode встречаются два способа выбрать версию:
+
+| Запись | Что делает | Когда использовать |
 |---|---|---|
-| Module dependency | `from: "1.0.0"` / up to next major | Принимать совместимые patch/minor releases без каскадного перевыпуска |
-| Integration candidate | `exact: "1.0.0"` | Воспроизвести набор, который проходит общий gate |
-| Legacy migration | Exact catalog versions на время acceptance | Не менять одновременно архитектуру и выбранные dependency versions |
-| Host после migration | Выбранная командой version policy | Exact или range фиксируются явно; фактический resolve хранит `Package.resolved` |
+| `exact: "1.0.0"` | Всегда берёт ровно `1.0.0` | Миграция, интеграционный пример и воспроизводимая проверка |
+| `from: "1.0.0"` | Разрешает Xcode выбрать более новую совместимую версию до `2.0.0` | Обычное приложение после решения команды |
 
-`from: "1.0.0"` не означает exact `1.0.0`: SwiftPM может выбрать более новый
-совместимый release до `2.0.0`. Поэтому статус `passed` относится к catalog
-versions, а не автоматически ко всем будущим версиям диапазона.
+`from: "1.0.0"` не гарантирует, что фактически будет скачана `1.0.0`.
+Выбранная Xcode версия записывается в `Package.resolved`. Поэтому статус
+«проверено» относится к точным версиям из таблицы, а не ко всем будущим
+обновлениям.
 
-## Проверенный platform set 1.0.0
+## Что именно было проверено
 
-- Platform set: `1.0.0`.
-- Minimum iOS: `17.0`.
-- Swift language mode: `5`.
-- SwiftPM tools/manifest: `6.0`.
-- BroadCore: [`1.0.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
-- BroadExtensions: [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
-- BroadMonetization: [`1.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
-- BroadUIFlows: [`1.0.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0) — standalone, remote quality, release и integration gates прошли.
-- Verification: `passed` 25 августа 2026 года.
+Для каждого модуля система:
 
-Каждый из четырёх tags отдельно прошёл `module_gate.sh` из public clean clone.
-Integration set прошёл полный clean-runner gate на `macos-15`, включая
-BroadAppTemplate и две compile-only live Adapty configurations. Настоящие
-purchase, restore и RU payments не запускались.
+1. скачала чистую копию публичного репозитория;
+2. собрала Swift Package;
+3. собрала демонстрационное iPhone-приложение в Debug и Release;
+4. проверила документацию, ссылки, privacy manifest и публичный API;
+5. затем собрала все четыре версии вместе в `BroadAppTemplate`.
 
-Host app может подключить один нужный release или их сочетание. Статус всего
-set не превращает integration repository в обязательную dependency и не
-заменяет app-level functional review.
+Безопасные демонстрационные сценарии не выполняли настоящую покупку,
+восстановление подписки или оплату картой/СБП. Готовность этих функций
+проверяется отдельно в конкретном приложении.
 
-> `Swift 5` и `swift-tools-version: 6.0` не противоречат друг другу. Первое
-> задаёт language mode production sources и host example; второе — формат
-> Package.swift и минимальную способность SwiftPM toolchain прочитать manifest.
+## Почему Swift 5 и tools 6.0 не конфликтуют
 
-## Schema
+Swift 5 — режим компиляции исходного кода платформы. `swift-tools-version: 6.0`
+— версия формата файла `Package.swift`, которую должен понимать установленный
+Xcode. Эта запись не переводит приложение на язык Swift 6.
+
+## Машиночитаемая запись
+
+Ниже тот же набор для скриптов. Разработчику обычно достаточно таблицы выше.
 
 ```yaml
 schema: 1
@@ -67,11 +80,4 @@ verification:
   checked_at: "2026-08-25"
 ```
 
-## Когда ставится passed
-
-1. Все module tags существуют в public repositories.
-2. Clean clone каждого package собирается.
-3. Standalone module gates и iPhone sandboxes прошли.
-4. Integration example собран с теми же exact versions.
-5. Cross-module probes завершились PASS.
-6. README, DocC, links и docs-site синхронизированы.
+[Открыть integration release 1.0.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.0.0)

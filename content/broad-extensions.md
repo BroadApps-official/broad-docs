@@ -1,36 +1,41 @@
 # BroadExtensions
 
-## Зачем нужен
+`BroadExtensions` — самая маленькая и независимая часть платформы. Она нужна,
+когда приложению требуются только общие Swift-утилиты, а запуск, оплата и
+готовые экраны не нужны.
 
-`BroadExtensions` — намеренно маленький standalone package для повторяемых utility: Hex Color, custom font registration, keyboard dismiss и scoped interactive swipe-back.
+## Что находится внутри
 
-Текущий проверенный release: [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0).
+- создание `Color` из HEX-значения;
+- регистрация собственных шрифтов;
+- закрытие клавиатуры;
+- управляемый жест возврата назад.
 
-```swift
-.package(
-    url: "https://github.com/BroadApps-official/broad-extensions-ios.git",
-    from: "1.0.0"
-)
+## Чего внутри нет
+
+Подключение `BroadExtensions` не загружает `BroadCore`, Adapty,
+`BroadMonetization` или `BroadUIFlows`. В модуле также не должно быть фирменных
+цветов, шрифтов конкретного приложения, изображений и правил навигации продукта.
+Эти значения остаются в приложении.
+
+## Как подключить
+
+В Xcode добавьте публичный адрес:
+
+```text
+https://github.com/BroadApps-official/broad-extensions-ios.git
 ```
 
-## Dependency graph
+Выберите product `BroadExtensions` и добавьте его в основное iPhone-приложение.
+Текущая проверенная версия —
+[`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0).
 
-- Platform dependencies: нет.
-- External dependencies: нет.
-- Consumers: host apps по надобности.
+## Как проверить
 
-Подключение Extensions не должно тянуть Core, Adapty или готовые UI flow.
+1. Xcode скачивает модуль без логина и пароля.
+2. Приложение собирается в Debug и Release.
+3. Работает именно использованная утилита, например HEX-цвет.
+4. В списке зависимостей не появились Core, Adapty или готовые UI-модули.
 
-## Ownership
-
-В package попадают только общие и атомарные extensions. Design tokens, brand fonts, app-specific navigation policy и assets остаются в host app.
-
-## Проверка
-
-Standalone gate доказал нулевой platform dependency graph, iOS 17+
-package compile, runtime hex probe, Debug/Release iPhone Gallery, DocC, public API
-report и отсутствие test targets/frameworks. Отдельные quality и release
-workflows прошли на clean GitHub runner.
-
-[Открыть public repository](https://github.com/BroadApps-official/broad-extensions-ios) ·
-[изменить module guide](https://github.com/BroadApps-official/broad-extensions-ios/edit/main/Documentation/BroadExtensions.md).
+[Открыть публичный репозиторий](https://github.com/BroadApps-official/broad-extensions-ios) ·
+[изменить документацию модуля](https://github.com/BroadApps-official/broad-extensions-ios/edit/main/Documentation/BroadExtensions.md)

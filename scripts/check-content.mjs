@@ -190,6 +190,16 @@ for (const file of contentFiles) {
   if (!registry.includes(`slug: "${slug}"`)) fail(`${file}: slug is missing from lib/docs.ts.`);
   if (/\b(?:sk_live|secret|bearer)\b/i.test(body)) fail(`${file}: possible secret-bearing text.`);
   if (/\]\(\/docs\//.test(body)) fail(`${file}: site-root document links break the GitHub Markdown fallback; use ./slug.md.`);
+  if (!githubIndex.includes(JSON.stringify(body))) fail(`${file}: GitHub search index is stale; run pnpm run github-index:refresh.`);
+  for (const phrase of [
+    "Package resolve завершается",
+    "Generic iOS compile",
+    "Fixture/probe",
+    "App-owned configuration",
+    "Host app подключает",
+  ]) if (body.toLocaleLowerCase("ru-RU").includes(phrase.toLocaleLowerCase("ru-RU"))) {
+    fail(`${file}: unexplained mixed-language phrase is forbidden: ${phrase}`);
+  }
 
   for (const match of body.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)) await registerMediaReference(file, match[2], match[1]);
   for (const match of body.matchAll(/<img\b[^>]*>/gi)) {

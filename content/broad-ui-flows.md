@@ -1,62 +1,56 @@
 # BroadUIFlows
 
-## Зачем нужен
+`BroadUIFlows` — готовые SwiftUI-экраны и переходы. Это самый верхний модуль:
+если добавить его, Xcode автоматически загрузит платёжную логику и Core.
 
-`BroadUIFlows` даёт готовые SwiftUI-сценарии: loader/error/retry, onboarding, ATT timing, AppFlow, adaptive paywall, RU payment sheet и subscription management.
+## Что можно получить готовым
 
-Текущий проверенный release: [`1.0.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0).
+- экран загрузки, пустого ответа, ошибки и повторной попытки;
+- любое количество первых onboarding-страниц;
+- правильный момент запроса ATT;
+- маршрут «запуск → onboarding → paywall → основное приложение»;
+- paywall для нуля, одного или многих продуктов;
+- второй paywall Special Offer;
+- выбор способа оплаты картой или СБП;
+- экран покупки токенов и управление подпиской.
 
-## Dependency graph
+Модуль даёт поведение и готовые компоненты, но приложение всё равно передаёт
+свои тексты, изображения, цвета, ссылки и продуктовые правила.
 
-- Platform dependencies: compatible `BroadCore` и `BroadMonetization`.
-- External dependency: Swinject.
-- Consumer: host app, который хочет готовые flow.
+## Как подключить
 
-## Подключение 1.0.0
+В Xcode добавьте:
 
-```swift
-dependencies: [
-    .package(
-        url: "https://github.com/BroadApps-official/broad-ui-flows-ios.git",
-        exact: "1.0.0"
-    )
-]
+```text
+https://github.com/BroadApps-official/broad-ui-flows-ios.git
 ```
 
-Добавьте product `BroadUIFlows` только в тот iPhone target, которому нужны
-готовые экраны. Подключать `broad-platform-integration` или все остальные
-модули не требуется: совместимые Core, Monetization, Adapty и Swinject приходят
-по dependency graph самого release.
+Выберите product `BroadUIFlows` для основного iPhone-приложения. Xcode сам
+загрузит совместимые `BroadMonetization`, `BroadCore`, Adapty и Swinject.
+Интеграционный репозиторий и остальные модули вручную добавлять не требуется.
 
-## UI boundaries
+Текущая проверенная версия —
+[`1.0.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0).
 
-View получает готовую ViewModel через `init`. View не вызывает SDK, repository или DI resolver. Тексты, assets, links, themes и product configuration передаются из host app.
+## Важные правила экранов
 
-## Критические flow
+- ATT появляется только после того, как пользователь увидел первый onboarding-экран.
+- Запрос оценки приложения не показывается внутри onboarding.
+- Paywall показывает все продукты, которые вернул Adapty: ноль, один или много.
+- Во время оплаты экран остаётся видимым, а повторное нажатие блокируется.
+- Special Offer может быть только вторым paywall после закрытия первого.
+- Ноль на таймере Special Offer не скрывает уже показанный экран.
+- SwiftUI View не обращается к Adapty или backend напрямую: он получает готовую ViewModel.
 
-- ATT запрашивается только после фактического появления первого onboarding-слайда.
-- Rate Us не находится в onboarding.
-- Adaptive paywall принимает 0, 1 или любое число products.
-- Нажатие не затемняет и не уменьшает product card; pending виден отдельно.
-- Special Offer показывается только как второй paywall.
-- Special Offer разрешается после закрытия первого subscription paywall и
-  после полного получения provider products; platform cache не блокирует
-  parsing и не авторизует offer.
-- Визуальный ноль countdown не скрывает и не отключает уже показанный offer.
+## Что доказывает Gallery
 
-## Публичная Gallery и проверка
+Gallery в репозитории показывает реальные состояния компонентов на iPhone
+Simulator. Она помогает проверить внешний вид, но не выполняет настоящую
+покупку, восстановление или российскую оплату и не является дизайном конкретного
+приложения.
 
-Standalone iPhone Gallery показывает реальные public UI-сценарии: onboarding,
-loader/empty/error/stale, subscription и Special Offer paywalls, token paywall
-и RU subscription management. Она не активирует SDK и не выполняет purchase,
-restore или RU payment.
-
-`bash Scripts/module_gate.sh` проверяет package structure, public API/DocC,
-архитектурные и UI contracts, Gallery в Debug/Release Simulator и unsigned
-generic iPhone compile. По решению владельца `Tests/`, XCTest и Swift Testing
-не добавляются.
-
-[Onboarding и ATT →](./onboarding-att.md) · [Paywall visual guide →](./paywall-ui.md) ·
-[Special Offer →](./special-offer.md) · [RU Billing UI →](./ru-billing.md)
-
-[Открыть public repository](https://github.com/BroadApps-official/broad-ui-flows-ios) · [release 1.0.0](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0).
+[Первые экраны и ATT](./onboarding-att.md) ·
+[Экран подписки](./paywall-ui.md) ·
+[Special Offer](./special-offer.md) ·
+[Оплата картой и СБП](./ru-billing.md) ·
+[Открыть публичный репозиторий](https://github.com/BroadApps-official/broad-ui-flows-ios)

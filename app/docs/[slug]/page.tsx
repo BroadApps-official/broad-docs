@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
+import { DocOrientation } from "@/app/doc-orientation";
 import { MarkdownArticle } from "@/app/markdown-article";
 import { Link } from "@/app/plain-link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
@@ -77,6 +78,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
               <DocVisual slug={doc.slug} />
+              <DocOrientation doc={doc} />
               <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>

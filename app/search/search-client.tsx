@@ -29,9 +29,9 @@ const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> =
 ];
 
 const resultReasons: Record<string, string> = {
-  "getting-started": "Пошаговое первое подключение package к приложению.",
+  "getting-started": "Пошаговое первое подключение библиотеки к приложению.",
   "module-selection": "Поможет выбрать один модуль под вашу задачу.",
-  "broad-monetization": "Главная точка входа для оплаты, подписки и restore.",
+  "broad-monetization": "Главная точка входа для оплаты, подписки и восстановления покупки.",
   "adapty-setup": "Показывает настройку ключа, placement и продуктов Adapty.",
   "legacy-app-migration": "Безопасный порядок переноса существующего приложения.",
   "legacy-broadcore": "Объясняет, куда переехал старый BroadCore.",

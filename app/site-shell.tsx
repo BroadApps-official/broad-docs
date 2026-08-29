@@ -40,15 +40,15 @@ export function SiteFooter() {
       <div className="footer-inner section-wrap">
         <div>
           <Link className="brand" href="/"><BrandMark /><span>BroadApps <em>iOS</em></span></Link>
-          <p className="footer-copy">Публичная модульная iOS-платформа. Код, docs, reviews и releases открыты для редактирования.</p>
+          <p className="footer-copy">Публичная модульная iOS-платформа. Код, документация, проверки и версии открыты для просмотра и правок.</p>
         </div>
         <nav className="footer-links" aria-label="Навигация в подвале">
-          <Link href="/docs">Все документы</Link><Link href="/docs/getting-started">Getting Started</Link>
-          <Link href="/docs/module-selection">Выбор модуля</Link><Link href="/docs/public-package-access">Public package access</Link>
-          <Link href="/docs/legacy-app-migration">Миграция app</Link><Link href="/docs/architecture">Архитектура</Link>
+          <Link href="/docs">Все документы</Link><Link href="/docs/getting-started">Первое подключение</Link>
+          <Link href="/docs/module-selection">Выбор модуля</Link><Link href="/docs/public-package-access">Подключение без пароля</Link>
+          <Link href="/docs/legacy-app-migration">Миграция приложения</Link><Link href="/docs/architecture">Архитектура</Link>
           <Link href="/docs/special-offer">Special Offer</Link><Link href="/docs/compatibility">Совместимость</Link>
         </nav>
-        <div className="footer-meta">PUBLIC / EDITABLE<br />iOS 17+ · Swift 5 mode</div>
+        <div className="footer-meta">ПУБЛИЧНО / РЕДАКТИРУЕМО<br />iOS 17+ · Swift 5</div>
       </div>
     </footer>
   );

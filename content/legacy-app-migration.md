@@ -1,161 +1,133 @@
-# Миграция старого приложения
+# Переход со старого BroadCore
 
-Эта инструкция — точка входа для уже работающего iPhone-приложения, которое
-использует прежний BroadApps monolith, local package checkout или скопированные
-platform sources. Она не относится к историческому
-[разделению самой платформы](./migration.md) на repositories.
+Эта инструкция относится к **уже работающему приложению**, в котором есть
+старый private BroadCore, package из локальной папки или скопированные Swift-файлы
+платформы. Новое приложение создавать не нужно.
 
-> **Простыми словами:** новое приложение создавать не нужно. Экраны, данные и
-> бизнес-логика остаются на месте. Мы заменяем только подключение старой
-> платформы на нужные новые Swift Packages, проверяем приложение и лишь затем
-> удаляем старый код.
+## Что мы меняем
 
-## Что меняется
-
-Раньше приложение получало почти всю платформу через один старый BroadCore.
-Теперь оно подключает только нужные части: основу запуска, оплату, готовые
-экраны или Swift-утилиты. Обязательные зависимости добавятся автоматически.
-
-Это даёт четыре практических преимущества:
-
-1. в приложение не попадают лишние SDK и экраны;
-2. изменения одного модуля проще проверить;
-3. модули можно обновлять отдельно;
-4. совместимые версии уже перечислены в готовом каталоге.
+Экраны, backend и бизнес-логика остаются на месте. Меняется только способ
+подключения общего кода:
 
 ```text
-работающее старое приложение
-  → проверить, что оно собирается до изменений
-  → записать, как подключён старый BroadCore
-  → заменить его нужными новыми packages
-  → проверить один важный сценарий
-  → удалить оставшиеся старые подключения
-  → передать приложение в QA
+старый BroadCore или локальная копия
+  → нужные публичные модули
+  → проверка одного рабочего сценария
+  → удаление оставшегося старого подключения
 ```
 
-## Выберите подход
+Главное правило: старый и новый код с одинаковым названием Swift-модуля не
+должны одновременно попадать в сборку.
 
-| Подход | Когда подходит | Canonical инструкция |
-|---|---|---|
-| Вручную | Разработчик сам проверяет подключённые packages, заменяет старую платформу и проходит важные сценарии | [Ручная миграция](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/MigrationGuide.md) |
-| Codex / Claude | Агент сначала изучает app и показывает план; каждый следующий шаг выполняется только после проверки разработчиком | [Конкретная инструкция для ИИ](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/LegacyAppMigrationAgent.md) |
+## Перед первым изменением
 
-Обе инструкции публичны и редактируются обычным pull request. Сайт помогает их
-найти; подробный исполняемый процесс остаётся в integration repository рядом с
-compatibility catalog и host example.
+1. Соберите и запустите приложение в текущем состоянии.
+2. Запишите рабочий commit, чтобы был понятный путь назад.
+3. В Xcode откройте Package Dependencies и найдите старый BroadCore.
+4. Поиск по проекту должен найти локальные packages и скопированные файлы
+   платформы.
+5. Запишите, какие функции старой платформы реально использует приложение.
+6. По [матрице выбора](./module-selection.md) определите минимальный набор новых
+   модулей.
+7. Возьмите точные версии из [каталога совместимости](./compatibility.md).
 
-## Откуда агент читает данные
+Не удаляйте старое подключение, пока не понятно, чем будет заменён каждый
+используемый модуль.
 
-| Источник | Что находится внутри | Режим |
-|---|---|---|
-| Repository приложения | `AGENTS.md`/`CLAUDE.md`, README, app-код и `Documentation/AppIntegrationPlan.md` | рабочий, изменения только в подтверждённом stage |
-| [`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration) | canonical migration workflow, plan template и `Compatibility/current.yml` | read-only |
-| Private `BroadApps-official/BroadCore`, local package или copied sources | доказательство того, как подключена старая платформа | legacy read-only до cleanup checkpoint |
-| Public `broad-*-ios` repositories | новые module releases из compatibility catalog | подключаются по exact SemVer |
+## Почему иногда нужно переключать несколько модулей вместе
 
-Предварительно «закидывать» агенту скрытую информацию о platform repository не
-нужно. Обновлённый [стартовый prompt](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/LegacyAppMigrationAgent.md#стартовый-prompt-для-codex-или-claude)
-сам содержит canonical public URL, разделяет host/platform/legacy и требует
-записать прочитанный commit SHA вместе с `platform_set`. Если public source или
-catalog недоступны, агент возвращает `APP MIGRATION · BLOCKED`, а не выбирает
-private mirror или версию по памяти.
+Один старый package мог одновременно предоставлять `BroadCore`, оплату и UI.
+Если удалить только одну часть, Xcode может увидеть две библиотеки с одинаковым
+именем: старую и новую. Поэтому сначала определяется минимальная группа
+изменений, которая должна быть выполнена одним шагом.
 
-Существующий `Documentation/AppIntegrationPlan.md` — это журнал уже принятых
-решений, evidence, blocker-ов и checkpoint-ов. Агент не перезаписывает его пустым
-template: он сохраняет все непустые значения,
-добавляет только отсутствующие поля и выносит любую замену на developer
-review с diff.
+| Что найдено в проекте | Безопасное действие |
+|---|---|
+| Один старый package предоставляет несколько конфликтующих модулей | Одновременно удалить старый package и добавить все реально нужные новые products |
+| Старые модули подключены независимо и не конфликтуют | Переключать их по одному |
+| Swift-файлы платформы скопированы прямо в приложение | Добавить новый product и тем же изменением убрать совпадающие файлы из target |
+| Приложение использует собственную обёртку над старым API | Сохранить обёртку и заменить реализацию внутри неё |
+| В проекте смешаны несколько способов | Разделить их на независимые группы и проверять каждую отдельно |
 
-## Как понять, что нужно заменить одновременно
+## Порядок переключения
 
-Иногда старый BroadCore предоставляет сразу несколько Swift-модулей. Тогда его
-нельзя удалять по кусочкам: Xcode временно увидит старую и новую копию одного
-модуля. Агент проверяет package manifests, ссылки Xcode, products, target
-membership и imports, чтобы определить минимальный набор изменений, который
-нужно выполнить вместе. В техническом плане этот набор называется `cutover
-group`.
+Для каждой группы выполняйте один и тот же цикл:
 
-| `Cutover topology` | Признак | Безопасная граница |
-|---|---|---|
-| `atomic package cutover` | один legacy package/source owner объявляет несколько target names, конфликтующих с новыми packages | удалить legacy owner и добавить минимальный набор нужных public products одной group |
-| `independent package boundaries` | у modules разные owners и промежуточный graph не создаёт duplicate targets | переключать каждую boundary отдельной group |
-| `copied-source boundary` | platform `.swift`-файлы входят прямо в app target | добавить product и исключить совпадающие files из membership атомарно |
-| `wrapper boundary` | app-owned wrapper скрывает platform implementation | сохранить wrapper как adapter и заменить owner implementation |
-| `mixed` | app сочетает несколько схем | построить отдельную group на каждую связанную область конфликтов |
+1. Удалите только подтверждённое старое подключение этой группы.
+2. Добавьте минимальный набор публичных модулей по HTTPS.
+3. Дождитесь, пока Xcode скачает зависимости без ошибок.
+4. Соберите Debug и Release для iPhone Simulator.
+5. Запустите один сценарий, который зависит от изменённого кода.
+6. Покажите результат разработчику и только после подтверждения продолжайте.
 
-В Integration Plan обязательно записываются:
+Если сборка перестала работать, верните всю группу целиком. Не оставляйте
+половину старого и половину нового подключения.
 
-- `Legacy owner` — точный package identity/URL/ref, local path, copied target
-  membership или implementation за wrapper;
-- `Conflicting targets` — target/module names, которые получили бы двух owners
-  в промежуточном old/new graph;
-- `Atomic cutover group` — минимальный набор dependency/project/membership
-  изменений, который выполняется вместе;
-- `Runtime slices after cutover` — behavior-срезы, которые проверяются по одному
-  уже после принятого dependency switch.
+## Что проверять после переключения
 
-Одна atomic group может содержать несколько repositories/products, но не
-добавляет неиспользуемые modules «на будущее». Для independent topology group
-может состоять из одного boundary.
+- запуск и восстановление после ошибки;
+- onboarding и момент ATT, если они используются;
+- загрузку всех продуктов paywall;
+- покупку и восстановление без автоматического списания денег;
+- повторный запуск незавершённой операции;
+- СБП или карту только на безопасных тестовых данных;
+- отсутствие старых package-ссылок и скопированных файлов;
+- отсутствие ключей, токенов и пользовательских данных в репозиториях модулей.
 
-## Общая безопасная граница
+## Работа с Codex или Claude
 
-- Старый `BroadApps-official/BroadCore` является private monolith. Замените его
-  на нужные public `broad-*-ios.git` references; не добавляйте password, token
-  или API key в app. [Диагностика Keychain prompt](./public-package-access.md).
-- Возможность открыть private repository из рабочего GitHub account не делает
-  его canonical: актуальный workflow живёт в public integration repository.
-- Не создавайте новое приложение или второй app target вместо migration.
-- Не подключайте одновременно old/new source owners, экспортирующие одинаковый
-  Swift module.
-- Берите exact versions из
-  [`Compatibility/current.yml`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
-- Оставляйте keys, URLs, placements, DTO/adapters, strings, assets и product
-  decisions в host app.
-- Переключайте одну подтверждённую cutover group; затем проверяйте один runtime
-  slice за раз.
-- Удаляйте legacy source только после поиска usages, сборок и developer review.
-- Не добавляйте `Tests/`, XCTest или Swift Testing.
-- Не выполняйте настоящие purchase, restore и RU payment.
+Откройте именно **Repository приложения**. Публичный
+[`broad-platform-integration`](https://github.com/BroadApps-official/broad-platform-integration)
+и старый BroadCore используются только для чтения.
 
-Перед resolve final graph должен иметь ровно одного source owner для каждого
-`Conflicting target`. Если один legacy package объявляет несколько
-конфликтующих targets, все нужные replacements и удаление old owner входят в
-одну atomic group; resolve промежуточного graph запрещён. `moduleAliases`,
-временный fork manifest или второй owner требуют отдельного architecture plan,
-а не используются агентом как автоматический обход. Поведение приложения всё
-равно мигрируется и проверяется небольшими runtime slices after cutover.
+Готовая инструкция агенту находится в
+[`LegacyAppMigrationAgent.md`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/LegacyAppMigrationAgent.md).
+Агент работает этапами:
 
-Порядок «снизу вверх» нужен при выпуске зависимых platform repositories. Он не
-доказывает, что host app может поэтапно держать старый monolith рядом с новыми
-packages, объявляющими те же target names.
+1. читает проект и показывает найденные подключения;
+2. показывает план без изменения кода;
+3. переключает одну подтверждённую группу;
+4. проверяет один пользовательский сценарий;
+5. после подтверждения удаляет остатки старого подключения;
+6. передаёт результат разработчику.
 
-Exact versions нужны здесь намеренно: migration сначала воспроизводит уже
-проверенный catalog set. После acceptance команда отдельно решает, оставить
-exact requirement или перейти на совместимый `from`-диапазон.
+Если публичная инструкция или каталог версий недоступны, агент сообщает
+`APP MIGRATION · BLOCKED`. Он не выбирает версию по памяти и не использует
+private BroadCore как актуальный источник.
 
-## Что делает ИИ
+`Documentation/AppIntegrationPlan.md` хранит уже принятые решения. Если файл
+существует, агент **не перезаписывает его пустым** шаблоном: он сохраняет
+заполненные поля и предлагает отдельное изменение только для недостающих данных.
 
-Если в repository приложения ещё нет `Documentation/AppIntegrationPlan.md`,
-скопируйте его из
-[`canonical template`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Templates/AppIntegrationPlan.md).
-Если файл уже есть, не заменяйте его шаблоном: агент обновляет структуру
-только additive diff и не меняет непустые значения без review. Затем агент
-проходит только один шаг и останавливается, чтобы разработчик проверил результат:
+## Технические поля плана
 
-1. изучает текущее приложение → `MIGRATION PREFLIGHT REVIEW REQUIRED`;
-2. показывает план без изменений кода → `MIGRATION PLAN REVIEW REQUIRED`;
-3. заменяет одну подтверждённую группу packages → `DEPENDENCY SWITCH REVIEW REQUIRED`;
-4. проверяет один сценарий приложения → `MIGRATION SLICE REVIEW REQUIRED`;
-5. удаляет старые подключения → `LEGACY CLEANUP REVIEW REQUIRED`;
-6. передаёт результат разработчику → `READY FOR QA` или `APP MIGRATION · BLOCKED`.
+Эти английские названия нужны, чтобы разработчик и агент одинаково записали
+результат аудита. Их смысл указан рядом.
 
-Готовый стартовый prompt и prompt возобновления находятся внутри
-[AI migration instruction](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/LegacyAppMigrationAgent.md).
+| Поле | Что записать обычными словами |
+|---|---|
+| `platform_set` | Номер проверенного набора версий из каталога |
+| `Cutover topology` | Каким способом старый код подключён к приложению |
+| `Legacy owner` | Точный URL package, локальная папка, target или обёртка, которые сейчас владеют старым кодом |
+| `Conflicting targets` | Названия модулей, которые появились бы дважды при одновременном старом и новом подключении |
+| `Atomic cutover group` | Минимальный набор удалений и добавлений, выполняемый одним шагом |
+| `Runtime slices after cutover` | Пользовательские сценарии, которые проверяются по одному после переключения |
 
-## Когда миграция завершена
+Эти поля не являются отдельной архитектурой. Они просто не дают забыть, что
+именно удаляется, чем заменяется и как будет доказан результат.
 
-Миграция готова к QA, когда app использует exact catalog versions, local paths
-и copied platform sources удалены, Debug/Release Simulator и unsigned generic
-iOS compile прошли, а разработчик проверил затронутые flows. Реальные
-финансовые операции в автоматическую проверку не входят.
+## Когда миграция закончена
+
+Миграцию можно передавать в QA, когда:
+
+- используются точные проверенные версии новых модулей;
+- в Xcode нет старого `BroadApps-official/BroadCore`;
+- package не подключаются из папок на компьютере;
+- скопированные файлы платформы удалены из target;
+- Debug и Release собираются;
+- сборка для физического iPhone проходит без подписи;
+- разработчик лично прошёл затронутые пользовательские сценарии;
+- настоящий платёж не запускался автоматической проверкой.
+
+[Ручная подробная инструкция](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/MigrationGuide.md) ·
+[Подключение без пароля](./public-package-access.md)

@@ -1,54 +1,55 @@
 # BroadMonetization
 
-## Зачем нужен
+`BroadMonetization` содержит общую логику оплаты, но не навязывает готовый
+экран. Приложение может нарисовать собственный paywall и использовать модуль
+для загрузки продуктов, покупки, восстановления и проверки Premium.
 
-`BroadMonetization` изолирует placements, Adapty paywalls/products, StoreKit purchase/restore, Entitlement Engine, RU Billing, token flow и analytics.
+## Когда подключать
 
-Базовая mental model простая: **Adapty key + placements загружают paywall**, UI
-получает весь массив products, а StoreKit отдельно подтверждает Apple
-entitlement. Advanced identity/verifier adapters не нужно копировать в обычное
-anonymous-приложение.
+Подключайте модуль, если приложению нужны:
 
-## Dependency graph
+- продукты и paywall из Adapty;
+- покупка или восстановление покупки Apple;
+- подтверждение права пользователя на Premium;
+- расходуемые пакеты токенов;
+- оплата картой или СБП через backend приложения;
+- единые события аналитики оплаты.
 
-- Platform dependency: compatible `BroadCore`.
-- External dependencies: Adapty и Swinject.
-- Consumers: host apps со своим UI, BroadUIFlows.
+Если нужны ещё и готовые SwiftUI-экраны, подключайте `BroadUIFlows`: он сам
+загрузит `BroadMonetization`.
 
-SDK models не выходят из Infrastructure/Data boundary. Presentation не импортирует Adapty или StoreKit.
+## Как проходит обычная подписка
 
-## Подключение 1.0.0
+1. Приложение передаёт ключ Adapty и название placement.
+2. Adapty возвращает paywall и массив продуктов.
+3. Модуль сохраняет **все** продукты в исходном порядке.
+4. Интерфейс приложения показывает эти продукты.
+5. Пользователь запускает покупку или восстановление.
+6. После ответа покупки модуль заново проверяет подтверждённое право на Premium.
+7. Только активное подтверждение открывает Premium.
 
-```swift
-dependencies: [
-    .package(
-        url: "https://github.com/BroadApps-official/broad-monetization-ios.git",
-        exact: "1.0.0"
-    )
-]
-```
+Успешный ответ кнопки покупки сам по себе не открывает доступ. При таймауте или
+отсутствии сети операция остаётся незавершённой, пока источник оплаты не
+сообщит окончательный результат.
 
-Host app добавляет product `BroadMonetization` только если ему нужны
-monetization contracts/adapters. Обязательного `BroadPlatform` нет;
-совместимый `BroadCore 1.0.0`, Adapty и Swinject приходят транзитивно.
+## Что загружается автоматически
 
-## Финансовые инварианты
+Приложение добавляет product `BroadMonetization`. Xcode автоматически загружает
+совместимый `BroadCore`, Adapty и Swinject. Общего обязательного
+`BroadPlatform` не существует.
 
-- Purchase/restore response сам по себе не открывает premium.
-- Premium открывает только новая подтверждённая entitlement-проверка.
-- Timeout/offline оставляет операцию pending/unresolved, а не превращает её в успех или отказ.
-- Product arrays сохраняют provider order и не фильтруются.
-- `ru_pay` авторизует RU methods только из verified-fresh remote payload.
+Текущая проверенная версия —
+[`1.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).
 
 ## Special Offer
 
-Special Offer — второй paywall после крестика обычного subscription paywall без покупки. Полный contract: [Special Offer](./special-offer.md).
+Special Offer — второй paywall после закрытия обычного paywall без покупки.
+Показ разрешает только `special_offer = true` из фактически загруженного
+placement. Таймер — простой визуальный цикл на 24 часа. Настраиваемое расписание
+и длительность пока не входят в платформу.
 
-Его стандартный gate — только `special_offer = true`; таймер всегда визуальный
-24-часовой loop. Schedule и динамическая длительность пока не входят в platform
-contract.
-
-[Adapty и placements →](./adapty-setup.md) · [Token paywall →](./token-paywall.md) ·
-[RU Billing →](./ru-billing.md) · [Runtime reliability →](./runtime-reliability.md)
-
-[Открыть public repository](https://github.com/BroadApps-official/broad-monetization-ios) · [release 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).
+[Adapty: ключ и placements](./adapty-setup.md) ·
+[Special Offer](./special-offer.md) ·
+[Покупка токенов](./token-paywall.md) ·
+[Оплата картой и СБП](./ru-billing.md) ·
+[Открыть публичный репозиторий](https://github.com/BroadApps-official/broad-monetization-ios)

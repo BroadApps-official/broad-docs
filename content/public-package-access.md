@@ -1,75 +1,54 @@
-# Public package access
+# Подключение без пароля
 
-## Короткий ответ
+Все четыре актуальных модуля публичны. Xcode скачивает их по HTTPS без GitHub
+аккаунта, пароля, Personal Access Token или API key.
 
-Все четыре module repositories публичны и скачиваются по HTTPS без GitHub
-account, password, Personal Access Token или API key. Старый repository
-`BroadApps-official/BroadCore` — private monolith; новый Core находится в
-`BroadApps-official/broad-core-ios`. Это соответствует модели GitHub: public
-repositories [доступны всем в интернете](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories).
+Если появилось окно Keychain или запрос авторизации, это почти всегда означает,
+что в проекте осталась ссылка на старый закрытый `BroadApps-official/BroadCore`.
 
-SwiftPM получает source во время resolve/build. В App Store загружается уже
-собранный app binary, поэтому пользователь iPhone не обращается к GitHub и не
-получает credentials. Авторизация App Store Connect относится к публикации
-binary и не используется для чтения public package. Apple отдельно описывает
-[загрузку собранного app binary](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/)
-через Xcode или другие инструменты.
+## Правильные адреса
 
-## Какие URL использовать
-
-| Задача | Public repository | Product |
+| Что нужно | Адрес GitHub | Библиотека в Xcode |
 |---|---|---|
-| Utility | `https://github.com/BroadApps-official/broad-extensions-ios.git` | `BroadExtensions` |
-| Runtime foundation | `https://github.com/BroadApps-official/broad-core-ios.git` | `BroadCore` |
-| Purchase и entitlement | `https://github.com/BroadApps-official/broad-monetization-ios.git` | `BroadMonetization` |
-| Готовые SwiftUI-flow | `https://github.com/BroadApps-official/broad-ui-flows-ios.git` | `BroadUIFlows` |
+| Swift-утилиты | `https://github.com/BroadApps-official/broad-extensions-ios.git` | `BroadExtensions` |
+| Запуск, кеш и логи | `https://github.com/BroadApps-official/broad-core-ios.git` | `BroadCore` |
+| Покупки со своим UI | `https://github.com/BroadApps-official/broad-monetization-ios.git` | `BroadMonetization` |
+| Готовые SwiftUI-экраны | `https://github.com/BroadApps-official/broad-ui-flows-ios.git` | `BroadUIFlows` |
 
-Выберите version из [compatibility catalog](./compatibility.md). Для обычной
-module dependency используется совместимый `from`-диапазон; для
-воспроизведения verified set или первого migration acceptance — exact catalog
-version.
+Версию возьмите из [каталога совместимости](./compatibility.md).
 
-## Почему Xcode показывает Keychain
+## Почему Xcode открывает Keychain
 
-Окно `git-credential-osxkeychain wants to use ... github.com` означает, что Git
-или Xcode попытался прочитать сохранённый GitHub credential. Для новых public
-module URLs он не является требованием BroadApps.
+Наиболее вероятные причины:
 
-Самые частые причины:
-
-1. В host `.xcodeproj` остался старый private URL
+1. В Xcode Project → Package Dependencies остался старый URL
    `https://github.com/BroadApps-official/BroadCore.git`.
-2. Workspace `Package.resolved` или Xcode package cache сохранил старую
-   identity/location.
-3. В global Git config есть `url.*.insteadOf`, который переписывает public HTTPS
-   URL на SSH или URL с credential.
-4. Credential helper настроен для другого private repository и вызывается
-   локальной конфигурацией Mac.
+2. `Package.resolved` или кеш Xcode помнит старый адрес.
+3. Настройка Git на этом Mac автоматически заменяет HTTPS на SSH.
+4. Сохранённый GitHub-пароль нужен другому закрытому репозиторию и Git пытается
+   применить его здесь.
 
-Название product `BroadCore` корректно и после миграции. Проверять нужно именно
-`repositoryURL`/`location`, а не имя в списке Package Dependencies.
+Название библиотеки `BroadCore` остаётся правильным. Проверять нужно именно URL
+package, а не название product в списке Xcode.
 
-## Как исправить existing Xcode project
+## Как исправить проект
 
-1. Откройте `Project → Package Dependencies` и найдите package, который выдаёт
-   product `BroadCore`.
-2. Если repository указывает на `BroadApps-official/BroadCore`, удалите этот
-   package reference. Не держите old/new packages одновременно: они могут
-   экспортировать одинаковые Swift modules.
-3. Добавьте нужный public `broad-*-ios.git` URL и version из catalog.
-4. Верните соответствующий product нужному iPhone target.
-5. Выполните `File → Packages → Reset Package Caches`, затем
+1. Откройте `Project → Package Dependencies`.
+2. Выберите package, который предоставляет `BroadCore`, и посмотрите его URL.
+3. Если URL содержит `BroadApps-official/BroadCore`, удалите эту package-ссылку.
+4. Добавьте нужный публичный адрес из таблицы выше.
+5. В **Add to Target** выберите основное iPhone-приложение.
+6. Выполните `File → Packages → Reset Package Caches`, затем
    `Resolve Package Versions`.
-6. Проверьте diff `.pbxproj` и `Package.resolved`: private monolith URL должен
-   исчезнуть, а app-owned code и configuration не должны измениться.
+7. Соберите и запустите приложение.
 
-Обычный `git pull` platform repository не меняет package reference внутри
-host-приложения: он хранится в project/workspace самого app.
+Старый и новый BroadCore нельзя держать одновременно: они могут предоставить
+Xcode две библиотеки с одинаковым именем.
 
-## Проверка без аккаунта и Keychain
+## Проверка без аккаунта
 
-Команда ниже временно отключает global/system Git config, интерактивный prompt
-и credential helper только для текущего вызова:
+Эта команда только читает публичный список тегов. Она временно отключает
+сохранённые пароли Git для одного запуска и ничего не удаляет из Keychain:
 
 ```bash
 GIT_CONFIG_GLOBAL=/dev/null \
@@ -81,31 +60,27 @@ git -c credential.helper= ls-remote --exit-code \
   refs/tags/1.0.0
 ```
 
-PASS — команда печатает SHA tag и завершается без окна входа. Тем же способом
-можно проверить остальные module URLs. Если нужно проверить весь graph,
-клонируйте public `broad-platform-integration` в чистую папку с теми же
-переменными и выполните `swift package resolve`.
+Успех: команда печатает длинный Git SHA и завершается без окна входа. Если это
+произошло, репозиторий доступен, а проблему нужно искать в ссылках Xcode-проекта
+или настройках Git на Mac.
 
-Для диагностики локальных rewrite/helper правил используйте read-only команды:
+Для просмотра правил, которые могут переписывать адрес, используйте команды
+только для чтения:
 
 ```bash
 git config --global --get-regexp '^url\..*\.insteadof$'
 git config --global --get-all credential.helper
 ```
 
-Не удаляйте все GitHub credentials из Keychain: они могут быть нужны другим
-private repositories. Исправляйте только старый package URL или конкретное
-rewrite-правило.
+Не удаляйте все GitHub-данные из Keychain: они могут быть нужны другим закрытым
+проектам.
 
-## App Store и CI
+## Что происходит после сборки
 
-- Public Swift package не требует GitHub credential на developer Mac или CI.
-- Private host-app repository по-прежнему требует доступ CI к самому app; это
-  отдельная настройка и не относится к BroadApps modules.
-- Signing, provisioning и вход в App Store Connect нужны на этапе публикации
-  app binary, а не для package resolve.
-- Никакой BroadApps API key в app добавлять не нужно.
+Xcode скачивает исходники во время сборки. В App Store отправляется уже
+собранное приложение, поэтому пользователь iPhone не подключается к GitHub.
+Доступ к App Store Connect и подпись приложения — отдельная настройка и к
+загрузке публичного Swift Package не относится.
 
-Public source доступен всем, поэтому client-side API key не может запретить
-другим разработчикам читать или повторно использовать библиотеку. Секрет,
-встроенный в iOS app, извлекается из binary и не является защитой source.
+[Переход со старого BroadCore](./legacy-app-migration.md) ·
+[Первое подключение](./getting-started.md)

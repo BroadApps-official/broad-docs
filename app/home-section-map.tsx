@@ -5,10 +5,10 @@ import { Link } from "./plain-link";
 
 const sections = [
   { id: "top", number: "00", label: "Начало", detail: "Что это за платформа" },
-  { id: "architecture", number: "01", label: "Как всё связано", detail: "Products и зависимости" },
+  { id: "architecture", number: "01", label: "Как всё связано", detail: "Модули и зависимости" },
   { id: "documentation", number: "02", label: "Где искать ответ", detail: "Сайт, README и DocC" },
-  { id: "modules", number: "03", label: "Четыре модуля", detail: "Задача каждого package" },
-  { id: "selection", number: "04", label: "Как выбрать", detail: "Один product для app" },
+  { id: "modules", number: "03", label: "Четыре модуля", detail: "Задача каждой библиотеки" },
+  { id: "selection", number: "04", label: "Как выбрать", detail: "Один модуль для приложения" },
   { id: "migration", number: "05", label: "Миграция", detail: "Переход со старого кода" },
   { id: "compatibility", number: "06", label: "Текущие версии", detail: "Проверенный набор tags" },
 ] as const;
@@ -84,7 +84,7 @@ export function HomeSectionMap() {
       </nav>
       <Link className="home-map-docs-link" href="/docs">
         <span>НУЖНА СТАТЬЯ?</span>
-        <b>Все 23 документа →</b>
+        <b>Все 24 документа →</b>
       </Link>
     </aside>
   );

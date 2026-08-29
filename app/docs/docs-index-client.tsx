@@ -213,7 +213,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Например: onboarding, entitlement, миграция…"
+            placeholder="Например: первые экраны, Premium, миграция…"
             aria-label="Поиск по тексту документации"
           />
           {query ? <button type="button" onClick={() => setQuery("")} aria-label="Очистить поиск">Сбросить</button> : null}
@@ -229,10 +229,10 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
       <section className="github-search-block" aria-labelledby="github-search-title">
         <div className="docs-index-heading">
           <div><span>02</span><h2 id="github-search-title">Поиск по GitHub</h2></div>
-          <p>Ищет по ключевым словам в README, guides, changelog и compatibility-файлах всех публичных repositories платформы.</p>
+          <p>Ищет по README, инструкциям, истории изменений и каталогам совместимости всех публичных репозиториев платформы.</p>
         </div>
         <div className="github-index-stats" aria-label="Объём поискового индекса">
-          <span><b>{githubRepositories.length}</b> repositories</span>
+          <span><b>{githubRepositories.length}</b> репозиториев</span>
           <span><b>{githubDocs.length}</b> документов</span>
           <span><b>README + DOCS</b> публичный снимок</span>
         </div>
@@ -242,7 +242,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
             ref={githubInputRef}
             value={githubQuery}
             onChange={(event) => setGithubQuery(event.target.value)}
-            placeholder="Например: ru_pay, ATT, entitlement, Keychain, migration…"
+            placeholder="Например: ru_pay, ATT, Premium, Keychain, migration…"
             aria-label="Поиск по README и GitHub-документам"
           />
           {githubQuery ? <button type="button" onClick={() => { setGithubQuery(""); githubInputRef.current?.focus(); }} aria-label="Очистить поиск по GitHub">Сбросить</button> : null}
@@ -254,7 +254,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           ))}
         </div>
         <div className="github-repository-filters" role="group" aria-label="Фильтр по репозиторию">
-          <button className={githubRepository === "Все" ? "active" : ""} type="button" aria-pressed={githubRepository === "Все"} onClick={() => setGithubRepository("Все")}>Все repositories</button>
+          <button className={githubRepository === "Все" ? "active" : ""} type="button" aria-pressed={githubRepository === "Все"} onClick={() => setGithubRepository("Все")}>Все репозитории</button>
           {githubRepositories.map(({ repository, label }) => (
             <button
               className={githubRepository === repository ? "active" : ""}
@@ -269,7 +269,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
         </div>
         <div className="github-results-summary" aria-live="polite">
           <b>{githubQuery.trim() ? `${githubResults.length} ${githubResults.length === 1 ? "результат" : "результатов"}` : "Главные README"}</b>
-          <span>{githubRepository === "Все" ? "Все repositories" : githubRepositories.find((item) => item.repository === githubRepository)?.label}</span>
+          <span>{githubRepository === "Все" ? "Все репозитории" : githubRepositories.find((item) => item.repository === githubRepository)?.label}</span>
         </div>
         {githubResults.length ? (
           <div className="github-results-grid">
@@ -282,7 +282,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
               </a>
             ))}
           </div>
-        ) : <div className="empty-search">Ничего не нашли. Попробуйте один термин, его английский вариант или выберите другой repository.</div>}
+        ) : <div className="empty-search">Ничего не нашли. Попробуйте одно слово или выберите другой репозиторий.</div>}
       </section>
 
       <section className="alphabet-block" aria-labelledby="alphabet-title">

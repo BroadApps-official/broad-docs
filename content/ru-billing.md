@@ -1,36 +1,37 @@
-# RU Billing
+# Оплата картой и СБП
 
-## Fail-closed availability
+RU Billing — оплата через backend приложения, банковскую карту или СБП. Она не
+заменяет StoreKit автоматически и включается только при одновременном выполнении
+всех условий ниже.
 
-RU methods доступны, только когда одновременно доказаны:
+## Когда показывать российскую оплату
 
-1. host app зарегистрировал RU Billing;
-2. `.verifiedFreshRemote` payload содержит `ru_pay = true`;
-3. region iPhone — `RU/RUS` **или** первый preferred language — Russian;
-4. RU catalog не пуст и точно сопоставлен выбранному product;
-5. backend authorization и kill switch разрешают flow;
-6. entitlement не доказывает активный premium.
+| Условие | Что должно быть подтверждено |
+|---|---|
+| Приложение поддерживает RU Billing | Модуль явно зарегистрирован при запуске |
+| Adapty разрешил показ | В свежем ответе placement есть `ru_pay = true` |
+| Устройство относится к России | Region — RU/RUS или первый системный язык — русский |
+| Тариф существует | Backend вернул непустой каталог и точное соответствие выбранному продукту |
+| Сервер разрешил оплату | Backend authorization и аварийный выключатель не запрещают операцию |
+| Premium ещё не активен | Свежая проверка доступа не показывает активную подписку |
 
-Отсутствующий, invalid или `false` flag всегда оставляет Apple flow. SDK cache,
-Dashboard fallback и BroadMonetization cache не авторизуют СБП/карту.
+Если хотя бы одно условие не выполнено, приложение оставляет обычную оплату
+Apple. Старый кеш или запасная настройка Dashboard не могут самостоятельно
+включить карту и СБП.
 
 ## Debug и Release
 
-| Сборка | Поведение |
-|---|---|
-| Release | только verified-fresh `ru_pay` |
-| Debug — «Как в Adapty» | тот же strict contract |
-| Debug — force on/off | process-local UI/gate проверка, не меняет Dashboard |
+В Release действует только настоящий свежий флаг Adapty. В Debug разработчик
+может временно включить или выключить видимость для проверки UI. Такая настройка
+живёт только до закрытия тестового приложения и не отключает проверки региона,
+каталога, backend и Premium.
 
-Force-on не обходит host opt-in, device context, catalog, backend kill switch
-или entitlement.
-
-## Последовательность экранов
+## Порядок экранов
 
 ```text
-тариф → способ Apple/СБП/карта → обязательные согласия
-      → email для чека, если нужен → hosted checkout
-      → foreground return → backend reconciliation
+выбрать тариф → выбрать Apple / СБП / карту → принять обязательные условия
+              → указать email для чека, если нужен → открыть форму банка
+              → вернуться в приложение → спросить backend о результате
 ```
 
 ![Выбор тарифа](../public/guides/readme/References/5115-paywall-dark.png)
@@ -47,39 +48,36 @@ Force-on не обходит host opt-in, device context, catalog, backend kill 
 
 ![Hosted checkout](../public/guides/readme/References/5115-hosted-checkout-light.png)
 
-Эти экраны — reference последовательности. Внешний стиль, copy, provider,
-products, prices и legal content принадлежат конкретному приложению.
+Кадры показывают последовательность, а не обязательный стиль. Тексты, цены,
+платёжный провайдер и legal-содержимое принадлежат конкретному приложению.
 
-## Backend contract
+## Что обязан сделать backend
 
-Host app передаёт typed configuration и implementations для:
+- вернуть доступные российские тарифы;
+- создать одну платёжную операцию с ключом защиты от повторного создания;
+- после возврата из браузера сообщить текущий статус;
+- подтвердить Premium;
+- при необходимости отменить поддерживаемую подписку.
 
-- загрузки RU catalog;
-- создания checkout с idempotency key;
-- проверки status после возврата;
-- entitlement source;
-- отмены subscription, если product это поддерживает.
+Платёжная ссылка и сырой ответ сервера не попадают в логи. Сам факт возврата из
+браузера **не означает успешную оплату**. Пока backend не подтвердил результат,
+операция остаётся в состоянии «ожидаем».
 
-Payment URL и raw payload никогда не логируются. Возврат из браузера не равен
-success: пока backend не подтвердил результат, операция остаётся `pending`.
+## Переустановка и восстановление
 
-## Recovery
+Российские покупки восстанавливаются через аккаунт приложения и backend.
+Локальный кеш и идентификатор устройства не являются доказательством покупки.
 
-После переустановки RU purchases восстанавливаются по авторизованному app
-account из backend. Checkout ID нужен для exactly-once fulfillment, но не
-заменяет account identity.
+## Безопасная проверка без списания денег
 
-## Проверка без платежа
+- флаг `ru_pay`: true, false, отсутствует и повреждён;
+- российский регион и русский язык по отдельности;
+- пустой или несовпадающий каталог;
+- запрет операции backend;
+- уже активный Premium;
+- возврат из браузера с незавершённой операцией;
+- отсутствие Debug-переключателя в Release.
 
-- `ru_pay` true/false/absent/invalid;
-- RU region и Russian language по отдельности;
-- cache/fallback downgrade;
-- empty и mismatched catalog;
-- backend kill switch;
-- active entitlement;
-- pending foreground reconciliation;
-- Debug force-on/off отсутствует в Release.
-
-[Полный технический contract](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/RUBilling.md) ·
-[BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios) ·
-[BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios)
+[Полные технические правила](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/RUBilling.md) ·
+[BroadMonetization](./broad-monetization.md) ·
+[BroadUIFlows](./broad-ui-flows.md)

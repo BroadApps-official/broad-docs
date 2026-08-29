@@ -1,67 +1,77 @@
-# Runtime и надёжность
+# Запуск, ошибки и восстановление
 
-## Запуск и cache
+Эта страница объясняет, что должен увидеть пользователь, когда сеть медленная,
+данные устарели, кнопка нажата дважды или оплата ещё не подтверждена.
 
-![Critical/background startup и cache fallback](../public/guides/readme/startup-cache-light.svg)
+## Запуск приложения
 
-Composition root собирает configuration/adapters один раз. Critical steps идут
-последовательно с bounded timeout/retry; UI открывается после safe readiness;
-analytics, telemetry и prewarm запускаются background.
+![Обязательные и фоновые шаги запуска с запасным чтением кеша](../public/guides/readme/startup-cache-light.svg)
 
-Cache возвращает только `fresh`, `stale` или `missing(reason)`. Stale content
-можно показать с явным состоянием и Retry, но cache не доказывает entitlement,
-purchase или remote financial gate.
+При запуске приложение один раз создаёт SDK и сервисы. Действия делятся на две
+группы:
 
-## Полный пользовательский flow
+- обязательные — без них нельзя выбрать первый экран;
+- фоновые — аналитика, предварительная загрузка и другие действия, которые не
+  должны задерживать интерфейс.
 
-![Первый запуск и entitlement confirmation](../public/guides/readme/full-flow.gif)
+Обязательные действия выполняются по порядку и имеют ограниченное время и
+повтор. Фоновые запускаются после появления безопасного первого экрана.
+
+## Что можно делать с кешем
+
+Кеш сообщает одно из трёх состояний: данные свежие, устаревшие или отсутствуют.
+Устаревшие данные можно показать с заметным сообщением и кнопкой Retry.
+
+Кеш **не подтверждает** Premium, покупку или разрешение российской оплаты. Для
+финансовых решений всегда нужен свежий ответ StoreKit, Adapty или backend.
+
+## Полный пользовательский маршрут
+
+![Первый запуск и подтверждение доступа к Premium](../public/guides/readme/full-flow.gif)
 
 ```text
-launch → optional onboarding → initial paywall policy
-       → purchase/restore/RU return → fresh entitlement
-       → active: premium / inactive-unresolved: main without premium
+запуск → onboarding, если нужен → paywall, если нужен
+       → покупка / restore / возврат из банка
+       → свежая проверка Premium
+       → открыть Premium или продолжить без него
 ```
 
-`unresolved` не равен `inactive`, а `pending` не превращается в success/failure
-по timeout.
+«Не удалось проверить» не равно «Premium неактивен». «Операция ожидает» не
+становится успехом или отказом только потому, что прошёл таймаут.
 
-## Async feedback
+## Что происходит после нажатия кнопки
 
 ![Spinner до Task и первого await](../public/guides/readme/debug-feedback-light.svg)
 
-Любая backend/SDK-кнопка синхронно ставит `isInFlight` до создания `Task`.
-Повторный tap блокируется. Error и offline завершают ожидание и дают безопасное
-действие: Retry, Close или reconciliation.
+Сразу после нажатия приложение показывает загрузку и блокирует повторное
+действие. Это происходит до первого сетевого ожидания, поэтому быстрое двойное
+нажатие не запускает две покупки или два запроса.
 
-## Entitlement authority
+Ошибка или отсутствие сети завершают загрузку и дают понятное действие: Retry,
+Close или «проверить статус». Автоматический повтор не должен создавать новую
+финансовую операцию.
 
-Purchase/restore callback является evidence, а не premium access. Доступ
-открывает только fresh confirmed `active` от разрешённых StoreKit/backend/RU
-sources. Local cache может ускорить initial UI, но не выдаёт premium.
+## Поведение при обрыве сети
 
-## Network interruption
-
-| Точка | Безопасное поведение |
+| Где оборвалась сеть | Что делает приложение |
 |---|---|
-| Catalog load | stale/empty/error с Retry |
-| Purchase/restore | состояние остаётся pending/unresolved до reconciliation |
-| Token charge | сеть не запускает второе списание автоматически |
-| RU checkout | foreground/network только проверяют существующий operation |
-| Cancellation | повторная проверка status, не новая cancel request без действия пользователя |
+| Загрузка каталога | Показывает кеш, пустое состояние или ошибку с Retry |
+| Покупка или restore | Сохраняет состояние ожидания и позже проверяет результат |
+| Начисление токенов | Не запускает второе списание автоматически |
+| Оплата картой или СБП | Проверяет уже созданную операцию, а не создаёт новую |
+| Отмена подписки | Заново спрашивает статус; повторная отмена требует действия пользователя |
 
-## Recovery после переустановки
+## После переустановки
 
-- Apple subscription/lifetime — StoreKit и entitlement provider;
-- token balance — backend current app account;
-- RU purchase/subscription — RU backend current app account;
-- local cache — только ускорение, не source of truth.
+- подписку Apple подтверждает StoreKit;
+- баланс токенов возвращает backend текущего аккаунта;
+- российскую покупку возвращает backend текущего аккаунта;
+- локальный кеш только ускоряет экран и не является источником истины.
 
-## Debug Keychain
+Debug-инструмент очистки Keychain допустим только после подтверждения
+разработчика и полностью отсутствует в Release. Он не должен удалять запись о
+незавершённой оплате.
 
-Cleaner разрешён только в Debug, после подтверждения и только для явно
-перечисленных app-owned service/access group. Он не удаляет payment pending и
-полностью отсутствует в Release.
-
-[BroadCore](https://github.com/BroadApps-official/broad-core-ios) ·
-[BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios) ·
-[Network interruption contract](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/NetworkInterruptions.md)
+[BroadCore](./broad-core.md) ·
+[BroadMonetization](./broad-monetization.md) ·
+[Подробные правила обрыва сети](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/NetworkInterruptions.md)

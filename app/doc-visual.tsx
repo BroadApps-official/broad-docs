@@ -25,7 +25,7 @@ function GettingStartedVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>ПРИМЕР</b><span>Нужен готовый paywall → добавьте BroadUIFlows. Monetization, Core и Adapty придут сами.</span></div>
+      <div className="visual-callout safe"><b>ПРИМЕР</b><span>Нужен готовый экран подписки → добавьте BroadUIFlows. Платёжная логика, Core и Adapty придут сами.</span></div>
     </section>
   );
 }
@@ -33,27 +33,27 @@ function GettingStartedVisual() {
 function CompatibilityVisual() {
   return (
     <section className="doc-visual" aria-label="Разница между диапазоном и точной версией">
-      <div className="doc-visual-head"><span>VERSION POLICY</span><b>Две политики для двух разных задач</b></div>
+      <div className="doc-visual-head"><span>КАК ВЫБРАТЬ ВЕРСИЮ</span><b>Два режима для двух разных задач</b></div>
       <div className="version-visual-grid">
-        <div className="version-card range-card"><small>MODULE DEPENDENCY</small><code>from: &quot;1.0.0&quot;</code><b>Совместимый диапазон</b><p>Разрешает patch/minor до следующего major.</p></div>
+        <div className="version-card range-card"><small>ОБЫЧНОЕ ПРИЛОЖЕНИЕ</small><code>from: &quot;1.0.0&quot;</code><b>Совместимый диапазон</b><p>Xcode может взять исправление или совместимое обновление до 2.0.0.</p></div>
         <div className="version-join"><span>≠</span><small>не одно и то же</small></div>
-        <div className="version-card exact-card"><small>VERIFIED SET</small><code>exact: &quot;1.0.0&quot;</code><b>Воспроизводимый набор</b><p>Integration и migration acceptance используют конкретные tags.</p></div>
+        <div className="version-card exact-card"><small>ПРОВЕРКА И МИГРАЦИЯ</small><code>exact: &quot;1.0.0&quot;</code><b>Точная версия</b><p>Xcode всегда берёт ровно версию 1.0.0.</p></div>
       </div>
-      <div className="visual-callout"><b>Package.resolved</b><span>фиксирует версию, которую resolver выбрал фактически</span></div>
+      <div className="visual-callout"><b>Package.resolved</b><span>записывает версию, которую Xcode фактически выбрал и скачал</span></div>
     </section>
   );
 }
 
 function SpecialOfferVisual() {
   const steps = [
-    ["01", "Placement", "загрузить special_offer или фактический fallback"],
+    ["01", "Ответ Adapty", "загрузить placement special_offer или его запасной вариант"],
     ["02", "Все продукты", "передать весь массив Adapty без фильтрации"],
     ["03", "Один флаг", "показ разрешает только special_offer = true"],
     ["04", "Второй paywall", "после крестика первого; таймер циклический 24 часа"],
   ];
   return (
     <section className="doc-visual" aria-label="Порядок обработки Special Offer">
-      <div className="doc-visual-head"><span>SPECIAL OFFER · 4 ШАГА</span><b>Placement решает, что показывать</b></div>
+      <div className="doc-visual-head"><span>SPECIAL OFFER · 4 ШАГА</span><b>Adapty решает, какие продукты показать</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -62,7 +62,7 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>Без скрытых правил</b><span>Нет schedule, server clock, фильтрации карточек или блокировки на нуле таймера.</span></div>
+      <div className="visual-callout safe"><b>Без скрытых правил</b><span>Нет расписания, серверного времени, фильтрации карточек или блокировки на нуле таймера.</span></div>
     </section>
   );
 }
@@ -84,7 +84,7 @@ function LegacyMigrationVisual() {
       </div>
       <div className="migration-routes">
         <div><small>САМОСТОЯТЕЛЬНО</small><b>Разработчик выполняет четыре шага</b><span>проверка → новые модули → одна функция → очистка</span></div>
-        <div><small>CODEX / CLAUDE</small><b>Агент сначала показывает план</b><span>он не меняет app, пока разработчик не подтвердит следующий шаг</span></div>
+        <div><small>CODEX / CLAUDE</small><b>Агент сначала показывает план</b><span>он не меняет приложение, пока разработчик не подтвердит следующий шаг</span></div>
       </div>
     </section>
   );
@@ -92,14 +92,14 @@ function LegacyMigrationVisual() {
 
 function PublicPackageAccessVisual() {
   const steps = [
-    ["01", "Public HTTPS", "broad-*-ios.git без login и token"],
-    ["02", "SwiftPM resolve", "SemVer tag скачивается во время build"],
-    ["03", "Compiled app", "module code входит в собранный binary"],
+    ["01", "Публичный HTTPS", "broad-*-ios.git без логина и токена"],
+    ["02", "Xcode скачивает", "выбранная версия загружается во время сборки"],
+    ["03", "Готовое приложение", "код модуля входит в собранное приложение"],
     ["04", "App Store", "пользователь не обращается к GitHub"],
   ];
   return (
     <section className="doc-visual" aria-label="Публичная установка Swift package без GitHub credentials">
-      <div className="doc-visual-head"><span>ANONYMOUS PACKAGE FLOW</span><b>GitHub credential не является runtime-зависимостью app</b></div>
+      <div className="doc-visual-head"><span>ПОДКЛЮЧЕНИЕ БЕЗ ПАРОЛЯ</span><b>Доступ к GitHub не требуется пользователю приложения</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -108,20 +108,20 @@ function PublicPackageAccessVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout"><b>Видите Keychain prompt?</b><span>Ищите private <code>BroadApps-official/BroadCore</code> в repository URL, а не product name <code>BroadCore</code></span></div>
+      <div className="visual-callout"><b>Появилось окно Keychain?</b><span>Ищите старый <code>BroadApps-official/BroadCore</code> в URL package, а не в названии библиотеки <code>BroadCore</code></span></div>
     </section>
   );
 }
 
 function LegacyBroadCoreVisual() {
   const steps = [
-    ["01", "Старый repository", "BroadApps-official/BroadCore остаётся только legacy evidence"],
-    ["02", "Выберите маршрут", "новое app — Getting Started; существующее — migration guide"],
-    ["03", "Текущий Core", "BroadApps-official/broad-core-ios и verified compatibility set"],
+    ["01", "Старый репозиторий", "BroadApps-official/BroadCore остаётся только историческим источником"],
+    ["02", "Выберите маршрут", "новое приложение — первое подключение; существующее — миграция"],
+    ["03", "Текущий Core", "BroadApps-official/broad-core-ios и каталог проверенных версий"],
   ];
   return (
     <section className="doc-visual legacy-repository-visual" aria-label="Переход со старого BroadCore на актуальную платформу">
-      <div className="doc-visual-head"><span>LEGACY BROADCORE</span><b>Старый код не является текущим контрактом</b></div>
+      <div className="doc-visual-head"><span>СТАРЫЙ BROADCORE</span><b>Старый код не является текущей платформой</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -130,7 +130,7 @@ function LegacyBroadCoreVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>Главная точка входа</b><span>Сайт → current module README/DocC → compatibility catalog.</span></div>
+      <div className="visual-callout safe"><b>Главная точка входа</b><span>Сайт → README или DocC нужного модуля → каталог совместимых версий.</span></div>
     </section>
   );
 }

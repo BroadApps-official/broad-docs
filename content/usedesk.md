@@ -1,66 +1,65 @@
-# Usedesk
+# Чат поддержки Usedesk
 
-## Опциональный host-app flow
+Usedesk подключается отдельно и только тем приложениям, которым нужен чат.
+Он не приходит автоматически вместе с Core, Monetization или UIFlows.
 
-Usedesk не входит в Core, Monetization или UIFlows автоматически. Его
-подключают только если конкретному приложению нужен чат.
+## Где пользователь открывает чат
+
+Чат запускается после явного нажатия `Настройки → Онлайн-чат`. Он не должен
+открываться или загружаться при старте приложения.
 
 ![Вход Онлайн-чат из Settings](../public/guides/readme/Usedesk/settings-online-chat-highlighted.png)
 
-SDK открывается только после явного действия `Настройки → Онлайн-чат`, а не из
-loader/bootstrap.
-
 ![Экран чата](../public/guides/readme/Usedesk/chat-screen.png)
 
-## Что запросить до реализации
+## Что получить до разработки
 
-- Company ID и Channel ID;
-- нужен ли готовый GUI;
-- нужна ли База знаний;
-- нужны ли push notifications;
-- authenticated backend endpoints для user chat token;
-- account/logout behavior.
+- Company ID;
+- Channel ID;
+- решение, нужен ли готовый интерфейс SDK;
+- решение, нужна ли база знаний;
+- решение, нужны ли push-уведомления;
+- backend-методы получения и сохранения chat token текущего аккаунта;
+- правило выхода и смены аккаунта.
 
-Для готового GUI SDK устанавливается через CocoaPods в app target. После
-`pod install` открывается `.xcworkspace`.
+Готовый интерфейс Usedesk устанавливается через CocoaPods в основное
+iPhone-приложение. После `pod install` открывайте `.xcworkspace`, а не
+`.xcodeproj`.
 
-## Три разных значения
+## Не путайте три значения
 
-| Значение | Назначение |
+| Значение | Что это |
 |---|---|
-| Company ID | tenant Usedesk |
-| Channel ID | конкретный канал |
-| User chat token | identity/history текущего app account |
+| Company ID | Идентификатор компании в Usedesk |
+| Channel ID | Идентификатор конкретного канала чата |
+| User chat token | Связь истории чата с текущим аккаунтом приложения |
 
-Обычный `api_token` для клиентского чата остаётся `nil`. Server/admin token не
-публикуется в app.
+Административный token Usedesk не должен попадать в iPhone-приложение.
 
-## Backend и Keychain
+## Как хранится пользовательский token
 
-```text
-backend current app account = source user chat token
-account-scoped Keychain     = cache + durable pending sync
-device ID                   = не identity пользователя
-```
+Backend текущего аккаунта остаётся источником token. Keychain хранит локальную
+копию и незавершённую синхронизацию. Идентификатор устройства не заменяет
+аккаунт пользователя.
 
-При callback нового token app сначала сохраняет account-scoped local pending,
-затем синхронизирует backend. Ошибка не проглатывается; logout не должен
-показывать историю другого account.
+После получения нового token приложение сначала безопасно сохраняет его
+локально, затем отправляет backend. При выходе token и история одного аккаунта
+не должны показываться другому.
 
 ![Санитизированная карта данных проекта](../public/guides/readme/Usedesk/pm-data-sanitized.png)
 
-## Offline
+## Если нет сети
 
-Offline может показать понятное состояние и Retry. Он не создаёт новую identity
-и не заменяет backend device ID или случайной локальной строкой.
+Покажите понятную ошибку и Retry. Не создавайте новую личность пользователя из
+device ID или случайной строки только ради открытия чата.
 
-## Проверка
+## Как проверить
 
-- Settings action открывает правильный channel;
-- повторная установка восстанавливает историю после login того же account;
-- другой account не видит предыдущий token/history;
-- pending sync переживает временную network error;
-- secrets и raw token не попадают в logs/README;
-- permissions добавлены только для реально включённых features.
+- действие в Settings открывает правильный канал;
+- после переустановки тот же аккаунт получает свою историю;
+- другой аккаунт не видит предыдущую историю;
+- незавершённая синхронизация переживает временную ошибку сети;
+- token не попадает в логи и README;
+- разрешения запрошены только для включённых функций.
 
-[Полная integration-инструкция](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Usedesk.md)
+[Полная инструкция Usedesk](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Usedesk.md)

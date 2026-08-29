@@ -10,7 +10,7 @@ const modules = [
     name: "BroadCore",
     code: "CORE",
     tone: "core",
-    summary: "Bootstrap, cache, logging, retry и системные boundaries.",
+    summary: "Последовательность запуска, кеш, безопасные логи и повтор запросов.",
     repository: "broad-core-ios",
     href: "/docs/broad-core",
   },
@@ -18,7 +18,7 @@ const modules = [
     name: "BroadMonetization",
     code: "MONEY",
     tone: "money",
-    summary: "Adapty, StoreKit, entitlement, RU Billing и analytics без UI-привязки.",
+    summary: "Загрузка продуктов, покупка, восстановление и подтверждение Premium без готового UI.",
     repository: "broad-monetization-ios",
     href: "/docs/broad-monetization",
   },
@@ -26,7 +26,7 @@ const modules = [
     name: "BroadUIFlows",
     code: "FLOWS",
     tone: "flows",
-    summary: "Готовые SwiftUI-flow: onboarding, AppFlow, paywall и payment sheets.",
+    summary: "Готовые первые экраны, paywall, выбор оплаты и маршрутизация.",
     repository: "broad-ui-flows-ios",
     href: "/docs/broad-ui-flows",
   },
@@ -34,7 +34,7 @@ const modules = [
     name: "BroadExtensions",
     code: "EXT",
     tone: "extensions",
-    summary: "Независимые utility-расширения без остальной платформы.",
+    summary: "Независимые Swift-утилиты для цвета, клавиатуры и навигации.",
     repository: "broad-extensions-ios",
     href: "/docs/broad-extensions",
   },
@@ -58,28 +58,28 @@ export default function Home() {
           <div className="home-quick-routes-grid">
             <Link className="intro-module-core" href="/docs/broad-core">
               <span>CORE</span>
-              <div><b>Запуск и основа</b><small>bootstrap · cache · logs · retry</small></div>
+              <div><b>Запуск и основа</b><small>порядок старта · кеш · логи · повтор запросов</small></div>
               <i>→</i>
             </Link>
             <Link className="intro-module-money" href="/docs/broad-monetization">
               <span>PAY</span>
-              <div><b>Оплата и подписка</b><small>Adapty · StoreKit · purchase · restore</small></div>
+              <div><b>Оплата и подписка</b><small>Adapty · продукты · покупка · восстановление</small></div>
               <i>→</i>
             </Link>
             <Link className="intro-module-flows" href="/docs/broad-ui-flows">
               <span>UI</span>
-              <div><b>Готовые экраны</b><small>onboarding · paywall · app routing</small></div>
+              <div><b>Готовые экраны</b><small>первые страницы · paywall · маршрутизация</small></div>
               <i>→</i>
             </Link>
             <Link className="intro-module-extensions" href="/docs/broad-extensions">
               <span>EXT</span>
-              <div><b>Swift-утилиты</b><small>colors · keyboard · navigation</small></div>
+              <div><b>Swift-утилиты</b><small>цвета · клавиатура · навигация</small></div>
               <i>→</i>
             </Link>
           </div>
           <div className="home-platform-reason">
             <b>Зачем по модулям?</b>
-            <p>Чтобы приложение брало только нужное. Вы добавляете один product — обязательные зависимости приходят автоматически, а лишние SDK и экраны не попадают в app.</p>
+            <p>Чтобы приложение брало только нужное. Вы добавляете один модуль — его обязательные библиотеки приходят автоматически, а лишние SDK и экраны не попадают в приложение.</p>
             <Link href="/docs/module-selection">Показать, что выбрать →</Link>
           </div>
         </section>
@@ -88,17 +88,17 @@ export default function Home() {
             <div className="eyebrow"><span /> BroadApps iOS простыми словами</div>
             <h1>Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h1>
             <p className="hero-lede">
-              Не один огромный SDK, а четыре независимых Swift Package-модуля.
+              Не один огромный SDK, а четыре независимые библиотеки Swift Package.
               Выберите нужную функцию — запуск, оплату, готовые экраны или
-              утилиты — и подключите один product в Xcode. Его обязательные
+              утилиты — и подключите один модуль в Xcode. Его обязательные
               зависимости придут автоматически.
             </p>
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Подключить впервые <span>↗</span></Link>
               <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
-              <Link className="secondary-action" href="/docs/legacy-app-migration">Мигрировать старое app</Link>
+              <Link className="secondary-action" href="/docs/legacy-app-migration">Перенести старое приложение</Link>
             </div>
-            <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>PUBLIC HTTPS</b> Без GitHub account, password, token и API key <i>↗</i></Link>
+            <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>ПУБЛИЧНЫЙ HTTPS</b> Без аккаунта GitHub, пароля, токена и API key <i>↗</i></Link>
           </div>
 
           <div className="hero-system module-selector" aria-label="Как выбрать модуль BroadApps">
@@ -110,22 +110,22 @@ export default function Home() {
             <div className="selector-routes">
               <Link className="selector-route selector-flows" href="/docs/broad-ui-flows">
                 <span className="selector-route-number">01</span>
-                <div className="selector-route-copy"><b>Готовые экраны и flow</b><small>onboarding · paywall · app routing</small></div>
+                <div className="selector-route-copy"><b>Готовые экраны и переходы</b><small>первые страницы · paywall · маршрутизация</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadUIFlows</strong><small>Monetization, Core и Adapty придут автоматически</small></div>
               </Link>
               <Link className="selector-route selector-money" href="/docs/broad-monetization">
                 <span className="selector-route-number">02</span>
-                <div className="selector-route-copy"><b>Оплата со своим UI</b><small>purchase · entitlement · restore</small></div>
+                <div className="selector-route-copy"><b>Оплата со своим UI</b><small>покупка · Premium · восстановление</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadMonetization</strong><small>Core и Adapty придут автоматически</small></div>
               </Link>
               <Link className="selector-route selector-core" href="/docs/broad-core">
                 <span className="selector-route-number">03</span>
-                <div className="selector-route-copy"><b>Запуск и инфраструктура</b><small>bootstrap · cache · logs · retry</small></div>
+                <div className="selector-route-copy"><b>Запуск и инфраструктура</b><small>порядок старта · кеш · логи · повтор</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadCore</strong><small>без Monetization и готовых экранов</small></div>
               </Link>
               <Link className="selector-route selector-extensions" href="/docs/broad-extensions">
                 <span className="selector-route-number">04</span>
-                <div className="selector-route-copy"><b>Только Swift-утилиты</b><small>colors · keyboard · navigation</small></div>
+                <div className="selector-route-copy"><b>Только Swift-утилиты</b><small>цвета · клавиатура · навигация</small></div>
                 <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadExtensions</strong><small>самостоятельный модуль без SDK-зависимостей</small></div>
               </Link>
             </div>
@@ -140,12 +140,12 @@ export default function Home() {
           </div>
           <ArchitectureMap showLink />
           <div className="benefit-grid" aria-label="Преимущества модульной архитектуры">
-            <article><span>01</span><b>Меньше лишнего</b><p>App не получает UI и SDK, которые ему не нужны.</p></article>
-            <article><span>02</span><b>Review проще</b><p>Изменение одного модуля видно в небольшом отдельном repository.</p></article>
-            <article><span>03</span><b>Release точнее</b><p>Совместимое исправление можно выпустить из repository-владельца, затем повторить зависимые проверки.</p></article>
-            <article><span>04</span><b>Версии не угадывают</b><p>Integration хранит точные tags, которые уже собирались и проверялись вместе.</p></article>
+            <article><span>01</span><b>Меньше лишнего</b><p>Приложение не получает UI и SDK, которые ему не нужны.</p></article>
+            <article><span>02</span><b>Проще проверять</b><p>Изменение одного модуля видно в его небольшом отдельном репозитории.</p></article>
+            <article><span>03</span><b>Точные выпуски</b><p>Исправление выпускает только модуль-владелец, после чего зависимые модули проверяются снова.</p></article>
+            <article><span>04</span><b>Версии не угадывают</b><p>Интеграционный каталог хранит точные теги, уже собранные вместе.</p></article>
             <article><span>05</span><b>Ответы находятся</b><p>Сайт ищет общие инструкции, а README и DocC остаются рядом с кодом модуля.</p></article>
-            <article><span>06</span><b>Старое app не переписывают</b><p>Миграция идёт по одной границе и одному рабочему сценарию за раз.</p></article>
+            <article><span>06</span><b>Старое приложение не переписывают</b><p>Миграция идёт по одному подключению и рабочему сценарию за раз.</p></article>
           </div>
         </section>
 
@@ -169,7 +169,7 @@ export default function Home() {
             <Link className="search-result knowledge-task active" href="/search?q=подключить%20оплату"><span>ОПЛАТА</span><div><b>Подключить оплату и подписку</b><small>Adapty, продукты, покупка и восстановление</small></div><i>→</i></Link>
             <Link className="search-result knowledge-task" href="/search?q=перенести%20старое%20приложение"><span>ПЕРЕНОС</span><div><b>Перенести старое приложение</b><small>граница перехода, порядок действий и проверка</small></div><i>→</i></Link>
             <Link className="search-result knowledge-task" href="/search?q=проверить%20совместимые%20версии"><span>ВЕРСИИ</span><div><b>Проверить совместимые версии</b><small>готовый набор тегов, которые работают вместе</small></div><i>→</i></Link>
-            <Link className="search-result knowledge-task" href="/search?q=исправить%20ошибку%20сборки"><span>СБОРКА</span><div><b>Разобраться с ошибкой сборки</b><small>подключение package, runtime и диагностика</small></div><i>→</i></Link>
+            <Link className="search-result knowledge-task" href="/search?q=исправить%20ошибку%20сборки"><span>СБОРКА</span><div><b>Разобраться с ошибкой сборки</b><small>подключение библиотеки, запуск и диагностика</small></div><i>→</i></Link>
             <div className="search-meta"><span>{docs.length} инструкций</span><span>названия модулей знать не нужно</span></div>
           </div>
         </section>
@@ -177,7 +177,7 @@ export default function Home() {
         <section className="module-section section-wrap" id="modules">
           <div className="section-heading">
             <div><span className="section-index">03</span><h2>Четыре модуля</h2></div>
-            <p>У каждого своя задача, repository и версия. Вы подключаете только то, что использует приложение.</p>
+            <p>У каждого своя задача, репозиторий и версия. Вы подключаете только то, что использует приложение.</p>
           </div>
           <div className="module-grid">
             {modules.map((module, index) => (
@@ -197,12 +197,12 @@ export default function Home() {
             <p>Начните с задачи приложения. Подключать всю платформу или специальный umbrella package не требуется.</p>
           </div>
           <div className="decision-grid">
-            <div className="decision-question"><span>IF</span><h3>Что нужно<br />вашему app?</h3><Link href="/docs/module-selection">Полная матрица →</Link></div>
+            <div className="decision-question"><span>ЕСЛИ</span><h3>Что нужно<br />приложению?</h3><Link href="/docs/module-selection">Полная таблица →</Link></div>
             <div className="decision-options">
-              <div><b>Общие utility</b><span>→</span><strong>Extensions</strong></div>
-              <div><b>Bootstrap, cache, logs</b><span>→</span><strong>Core</strong></div>
+              <div><b>Общие Swift-утилиты</b><span>→</span><strong>Extensions</strong></div>
+              <div><b>Запуск, кеш и логи</b><span>→</span><strong>Core</strong></div>
               <div><b>Свой UI для оплаты</b><span>→</span><strong>Monetization</strong></div>
-              <div><b>Готовые app flow</b><span>→</span><strong>UIFlows</strong></div>
+              <div><b>Готовые экраны и переходы</b><span>→</span><strong>UIFlows</strong></div>
             </div>
           </div>
         </section>
@@ -227,19 +227,19 @@ export default function Home() {
               <div><span>04</span><b>Удалить остатки старого кода</b><small>только когда приложение снова работает</small></div>
             </div>
             <div className="migration-home-routes">
-              <Link href="/docs/legacy-app-migration#выберите-подход"><span>САМОСТОЯТЕЛЬНО</span><b>Инструкция для разработчика</b><small>Что проверить, что заменить и когда можно удалить старый код.</small><i>↗</i></Link>
-              <Link href="/docs/legacy-app-migration#что-делает-ии"><span>С ПОМОЩЬЮ ИИ</span><b>Задача для Codex / Claude</b><small>Агент сначала изучит app, составит план и остановится перед изменениями.</small><i>↗</i></Link>
+              <Link href="/docs/legacy-app-migration#порядок-переключения"><span>САМОСТОЯТЕЛЬНО</span><b>Инструкция для разработчика</b><small>Что проверить, что заменить и когда можно удалить старый код.</small><i>↗</i></Link>
+              <Link href="/docs/legacy-app-migration#работа-с-codex-или-claude"><span>С ПОМОЩЬЮ ИИ</span><b>Задача для Codex / Claude</b><small>Агент сначала изучит приложение, составит план и остановится перед изменениями.</small><i>↗</i></Link>
             </div>
           </div>
         </section>
 
         <section className="release-strip" id="compatibility">
           <div className="section-wrap release-inner">
-            <div><span className="live-dot" /><small>CURRENT CATALOG</small><b>Platform set 1.0.0</b></div>
-            <div><small>PLATFORM</small><b>iOS 17+</b></div>
-            <div><small>LANGUAGE</small><b>Swift 5 mode</b></div>
-            <div><small>POLICY</small><b>No test targets</b></div>
-            <Link href="/docs/compatibility">Compatibility ↗</Link>
+            <div><span className="live-dot" /><small>ТЕКУЩИЙ КАТАЛОГ</small><b>Набор 1.0.0</b></div>
+            <div><small>ПЛАТФОРМА</small><b>iOS 17+</b></div>
+            <div><small>ЯЗЫК</small><b>Swift 5</b></div>
+            <div><small>ПРОВЕРКА</small><b>Без XCTest</b></div>
+            <Link href="/docs/compatibility">Совместимые версии ↗</Link>
           </div>
         </section>
       </main>

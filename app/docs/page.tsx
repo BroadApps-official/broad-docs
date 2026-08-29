@@ -28,11 +28,11 @@ export default function DocsIndexPage() {
             <span className="section-index">DOCS / {docs.length}</span>
             <h1>Документация</h1>
             <p>
-              Ищите по страницам сайта, по README и Markdown-файлам всех public repositories
+              Ищите по страницам сайта, README и Markdown-файлам всех публичных репозиториев
               или откройте документы по разделу и букве. Все три способа работают независимо.
             </p>
             <Link className="legacy-repo-notice" href="/docs/legacy-broadcore">
-              <span>LEGACY REPOSITORY</span>
+              <span>СТАРЫЙ РЕПОЗИТОРИЙ</span>
               <b>Открыли BroadApps-official/BroadCore?</b>
               <small>Покажем актуальный Core и безопасный маршрут миграции →</small>
             </Link>

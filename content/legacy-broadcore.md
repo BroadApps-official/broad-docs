@@ -1,65 +1,56 @@
 # Старый BroadCore: куда переехал
 
-> Если вы пришли из `BroadApps-official/BroadCore`, вы открыли устаревший
-> legacy-репозиторий. Для нового приложения из него ничего подключать не нужно.
+`BroadApps-official/BroadCore` — архив старой платформы. Для нового приложения
+из него ничего подключать не нужно.
 
-## Короткий ответ
+## Куда перейти
 
-Актуальная платформа разделена на независимые public modules. Текущий Core
-находится в [`BroadApps-official/broad-core-ios`](https://github.com/BroadApps-official/broad-core-ios),
-а общий человекочитаемый справочник находится на этом сайте.
+| Если вам нужно | Откройте |
+|---|---|
+| Актуальная основа запуска, кеш и логи | [`broad-core-ios`](https://github.com/BroadApps-official/broad-core-ios) |
+| Выбрать одну из четырёх частей платформы | [Какой модуль выбрать](./module-selection.md) |
+| Посмотреть проверенные версии | [Какие версии ставить](./compatibility.md) |
+| Перевести уже работающее приложение | [Переход со старого BroadCore](./legacy-app-migration.md) |
+| Найти общую инструкцию | [Каталог документации](./getting-started.md) или поиск сайта |
 
-| Что вы открыли | Статус | Куда перейти |
-|---|---|---|
-| `BroadApps-official/BroadCore` | Legacy evidence, не current package | Эта страница и migration guide |
-| `BroadApps-official/broad-core-ios` | Актуальный public Core module | README, DocC и release конкретной версии |
-| `BroadApps-official/broad-platform-integration` | Проверенный набор совместимых modules | Compatibility и platform workflow |
-| Этот сайт | Главная точка входа для людей и агентов | Guides, схемы и поиск по всем repositories |
+`broad-platform-integration` не заменяет Core и не подключается в приложение.
+Он только собирает проверенные версии модулей вместе.
 
-## Если вы создаёте новое приложение
+## Для нового приложения
 
-Не добавляйте старый URL в SwiftPM. Подключите только нужный current module:
+Не используйте старый private URL. Если нужен именно Core, добавьте в Xcode:
 
-```swift
-.package(
-    url: "https://github.com/BroadApps-official/broad-core-ios.git",
-    from: "1.0.0"
-)
+```text
+https://github.com/BroadApps-official/broad-core-ios.git
 ```
 
-Затем выберите product `BroadCore` только для target, которому действительно
-нужны bootstrap, cache, state, retry или logging boundaries.
+Затем выберите библиотеку `BroadCore` для основного iPhone-приложения. Если
+нужен готовый paywall, начинайте с `BroadUIFlows`, а Core загрузится
+автоматически.
 
-[Открыть Getting Started →](./getting-started.md) ·
-[Выбрать модуль →](./module-selection.md) ·
-[Открыть текущий BroadCore →](./broad-core.md)
+## Для существующего приложения
 
-## Если старое приложение уже использует BroadCore
+Не удаляйте старый BroadCore одним большим изменением. Сначала:
 
-Не удаляйте repository или copied sources одним большим rewrite. Сначала:
+1. убедитесь, что приложение собирается до миграции;
+2. найдите старый URL, локальные packages и скопированные Swift-файлы;
+3. определите, какие функции реально используются;
+4. выберите заменяющие публичные модули;
+5. переключите минимальную группу конфликтующих подключений;
+6. проверьте один пользовательский сценарий;
+7. только после этого удалите остатки старого кода.
 
-1. найдите старый repository URL, local packages и copied sources;
-2. зафиксируйте baseline работающего приложения;
-3. определите atomic cutover group;
-4. переключите владельцев API на current modules;
-5. проверьте package graph и runtime flow;
-6. удалите legacy только после review.
+[Открыть пошаговую миграцию](./legacy-app-migration.md)
 
-[Открыть пошаговую миграцию →](./legacy-app-migration.md)
+## Зачем архив оставлен
 
-## Почему старые файлы не удалены
+Старые файлы помогают понять, как устроено уже выпущенное приложение, и
+сохраняют историю решений. Но из них нельзя брать текущие адреса, версии,
+архитектуру или API для нового проекта.
 
-Они остаются в `BroadApps-official/BroadCore` как историческое доказательство
-того, как были устроены старые приложения. Это помогает миграции, но не делает
-старый код актуальным API или шаблоном для нового проекта.
+Для Codex и Claude правило то же: старый BroadCore используется только как
+источник фактов о существующем приложении. Актуальные правила агент читает на
+этом сайте и в публичных README новых модулей.
 
-## Правило для Codex, Claude и других агентов
-
-Считайте `BroadApps-official/BroadCore` read-only legacy evidence. Не выводите
-из него текущую архитектуру, package URL, зависимости или product contracts.
-Начинайте с этого сайта, затем открывайте README/DocC нужного current module и
-проверяйте exact versions в compatibility catalog.
-
-[Поиск по всей документации →](https://broadapps-ios-docs.nkhsnv.chatgpt.site/search) ·
-[Совместимые версии →](./compatibility.md) ·
-[Public package access →](./public-package-access.md)
+[Подключение без пароля](./public-package-access.md) ·
+[Совместимые версии](./compatibility.md)
