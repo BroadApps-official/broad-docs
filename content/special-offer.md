@@ -1,76 +1,70 @@
 # Special Offer
 
-## Ответ на претензию
+## Коротко
 
-Прежняя проблема возникала до парсинга subscriptions: paywall из provider-managed SDK cache помечался как недостаточно fresh, и общая qualification удаляла `special_offer` ещё до того, как resolver мог разобрать products.
+Special Offer — обычный второй paywall из Adapty. Никакой отдельной системы
+правил вокруг него нет:
 
-Исправление разделило две разные capability:
+- приложение запрашивает placement `special_offer`;
+- платформа показывает **все** products, которые вернул Adapty;
+- offer открывается после крестика первого paywall, если покупка или restore не
+  подтвердили подписку;
+- показ разрешает один флаг `special_offer = true` из payload фактически
+  загруженного placement;
+- на экране работает визуальный цикл `24:00:00 → 00:00:00 → 24:00:00`.
 
-- `special_offer` — provider-managed presentation gate; текущий Adapty payload, включая внутренний SDK cache/Dashboard fallback, может разрешить второй paywall;
-- `ru_pay` — financial availability gate; он по-прежнему требует verified-fresh remote payload.
-
-Так provider cache не блокирует Special Offer до парсинга subscriptions и одновременно не ослабляет финансовое правило RU Billing.
-
-## Почему порядок критичен
-
-| Если сделать неправильно | Что сломается |
-|---|---|
-| Проверить freshness до `getPaywallProducts` | Provider-managed cache ошибочно удалит Special Offer до разбора subscriptions |
-| Отфильтровать products до registry | Потеряется provider order и exact raw reference для purchase |
-| Использовать platform cache как authorization | Устаревшее приложение сможет повторно включить offer |
-| Применить правило `special_offer` к `ru_pay` | Финансовый method станет доступен без verified-fresh evidence |
-
-Поэтому presentation continuity и financial availability — две разные
-capability, даже если обе читаются из paywall payload.
-
-## Порядок flow
+## Весь flow
 
 ```text
-Adapty.getPaywall
-        ↓
-Adapty.getPaywallProducts
-        ↓ map всего provider array
-store exact raw product references
-        ↓ qualify parsed provider payload
-subscription paywall
-        ↓ close без purchase/restore
-Special Offer resolver
-        ↓ explicit special_offer = true
-second paywall
+первый subscription paywall
+  ├─ purchase / restore подтвердил доступ → main
+  └─ пользователь закрыл экран
+       → запросить placement special_offer
+       → получить paywall + все 0…N products
+       → проверить special_offer = true
+       → показать второй paywall
 ```
 
-До Special Offer gate должен существовать полный `PaywallPayload` со всеми
-products. Массив нельзя `filter`, `compactMap`, `sorted`, truncate или
-deduplicate; provider order и каждое product occurrence часть контракта.
+Платформа не фильтрует, не сортирует, не объединяет и не обрезает массив
+products. Если конкретному приложению нужны только две карточки, это отдельное
+решение UI этого приложения, а не скрытое правило платформы.
 
-Special Offer никогда не является первым paywall. Confirmed purchase/restore первого paywall ведёт в main и обходит downsell.
+## Таймер 24 часа
+
+Таймер — чистая визуализация и намеренно простой hardcode:
+
+```text
+24:00:00 → 00:00:00 → снова 24:00:00
+```
+
+Он не читает дату, server clock, persistence или schedule, не скрывает offer и
+не блокирует CTA на нуле. Динамический таймер и его возможное применение в RU
+Billing оставлены на будущее, пока для них нет отдельного согласованного
+контракта.
+
+## Placement и fallback
+
+Host app передаёт логический placement ID. Платформа использует ответ Adapty для
+фактически загруженного placement; если сработал существующий fallback, она
+показывает именно его paywall и products. Второго REST-клиента, verifier-а или
+повторной загрузки каталога перед показом не требуется.
 
 ![Шаг 1 — обычный subscription paywall](../public/guides/readme/References/special-offer-step-1-paywall.png)
 
 ![Шаг 2 — Special Offer после закрытия первого paywall](../public/guides/readme/References/special-offer-step-2-offer.png)
 
-Кадры являются reference последовательности. Конкретный background, copy,
-products, discount и legal content остаются app-owned.
+Кадры показывают только порядок экранов. Background, copy, число карточек,
+discount и legal content принадлежат конкретному приложению и ответу Adapty.
 
-## Placement и fallback
+## Что проверяет платформа
 
-Если requested `special_offer` placement загружен, gate читается из его payload. `main` используется только при фактическом fallback. Persistent cache самой платформы не может заново включить `special_offer`.
+- первый paywall остаётся первым;
+- подтверждённая подписка не ведёт в downsell;
+- `special_offer = false` или отсутствие флага не показывает второй экран;
+- в UI передаётся весь массив products в порядке Adapty;
+- таймер зацикливается и не влияет на возможность покупки.
 
-## Purchase и products
-
-Purchase второго paywall использует raw product из того же provider registry и не перезагружает paywall перед оплатой. Products не фильтруются, не сортируются и не объединяются.
-
-## Безопасная проверка
-
-- provider-enabled;
-- provider-disabled;
-- platform-cache downgrade;
-- requested placement → main fallback;
-- repeated resolver/presentation lifecycle;
-- confirmed purchase/restore bypass;
-- raw product registry continuity.
-
-Эти сценарии выполняются fixture/probe-кодом без настоящих purchase, restore и RU payment.
-Они входят в [BroadMonetization 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).
+Проверки выполняются fixture/probe-кодом без настоящих purchase, restore и RU
+payment.
 
 [Adapty setup](./adapty-setup.md) · [Paywall UI](./paywall-ui.md) · [RU Billing](./ru-billing.md)

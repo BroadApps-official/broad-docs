@@ -125,7 +125,7 @@ export default function Home() {
           </div>
           <div className="knowledge-panel">
             <div className="fake-search"><span>⌕</span><b>special offer</b><kbd>⌘ K</kbd></div>
-            <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>authorization · placement · provider payload</small></div><i>↗</i></div>
+            <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>placement · все продукты · таймер 24 часа</small></div><i>↗</i></div>
             <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
             <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
             <div className="search-meta"><span>{docs.length} страниц в поиске</span><span>публично · правится через PR</span></div>

@@ -44,6 +44,10 @@ export default defineConfig(async () => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    // Documentation sources are imported as raw assets by the content loader.
+    // Declaring them explicitly keeps Vite's development import analysis from
+    // trying to parse Markdown as JavaScript.
+    assetsInclude: ["**/*.md"],
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,

@@ -1,77 +1,75 @@
 # Adapty и placements
 
-## Что является актуальным
+## Коротко
 
-Этот справочник сверён с `BroadMonetization 1.0.0`, текущим integration
-catalog и новой федеративной архитектурой. Adapty/StoreKit adapters принадлежат
-`broad-monetization-ios`; готовый экран принадлежит `broad-ui-flows-ios`, а
-реальные keys, IDs и Dashboard-конфигурация — host app.
+Для обычного приложения нужны две вещи:
 
-## Базовая схема нового приложения
+1. публичный Adapty SDK key;
+2. placement ID нужного экрана.
 
-| Что | Правило |
+Приложение запрашивает placement, Adapty возвращает paywall и products, а
+платформа показывает **весь** полученный список в исходном порядке. Отдельный
+verifier, собственный REST-клиент и access level для базовой загрузки paywall не
+нужны.
+
+```text
+public SDK key + placement ID
+  → Adapty.getPaywall
+  → Adapty.getPaywallProducts
+  → все 0…N products
+  → subscription / token / Special Offer UI
+```
+
+Apple-доступ после purchase/restore подтверждается StoreKit. Это отдельная
+задача от загрузки paywall и не должна усложнять настройку Adapty.
+
+## Что настраивает приложение
+
+| Что | Где задаётся |
 |---|---|
-| Product без trial | Naming convention команды — `nottrial` слитно, например `weekly_9.99_nottrial`; runtime не делает выводов из имени |
-| Paywall names | `main`; `tokens` и `special_offer` создаются только когда соответствующий flow нужен |
-| Placement IDs | `onboarding`, `pro_icon`, `settings`, `main`, `CTR`, `special_offer`; дополнительные — из app specification |
-| Fallback | Базовые placements связываются с `main`; requested/resolved placement сохраняются отдельно |
-| Products | Показывается весь provider array в исходном порядке, включая 0, 1, N и duplicate SKU |
+| Public SDK key | composition root приложения |
+| Placement IDs | typed registry приложения |
+| Paywall и products | Adapty Dashboard |
+| Тексты и внешний вид | Adapty payload и/или app-owned UI |
 
-`main` является логическим fallback, но host app всё равно передаёт реальные
-Adapty IDs через typed registry. Строковые provider IDs не размещаются внутри
-SwiftUI View.
+Типичные логические placements: `main`, `onboarding`, `pro_icon`, `settings`,
+`CTR`, `tokens`, `special_offer`. Приложение подключает только те, которые ему
+действительно нужны.
+
+## Главное правило products
+
+Платформа сохраняет весь provider array: 0, 1 или N products, исходный порядок
+и повторяющиеся SKU. Она не выбирает «лучший» тариф, не оставляет только два
+продукта и не сортирует по цене.
+
+Если конкретному приложению нужны две карточки, разработчик реализует это как
+явное app-owned UI-решение. Общий platform pipeline остаётся полным.
 
 ## Remote Config
 
-Для нового app, где optional features ещё не подключены, безопасный начальный
-пример выглядит так:
+Remote Config — это payload выбранного placement, а не вторая конфигурационная
+система приложения. Платформа читает известные ей поля из того ответа, который
+вернул Adapty. Например, для второго paywall сейчас нужен только:
 
 ```json
 {
-  "ru_pay": false,
-  "auto_revenue_view": false,
-  "special_offer": false
+  "special_offer": true
 }
 ```
 
-Этот пример нельзя копировать поверх рабочего Dashboard. Для уже подключённого
-RU Billing значение `ru_pay` определяет product/backend owner.
+Существующий fallback остаётся внутренней частью platform adapter. Host app не
+добавляет поверх него второй cache, verifier или REST transport.
 
-![Права Adapty payload и persistent cache](../public/guides/readme/remote-config-cache-flow-light.svg)
+![Путь от Adapty placement до UI](../public/guides/readme/remote-config-cache-flow-light.svg)
 
-| Источник payload | Обычный paywall | Special Offer | RU Billing |
-|---|---:|---:|---:|
-| Текущий ответ Adapty: network или SDK cache | да | по `special_offer = true` | нет без fresh proof |
-| Dashboard fallback через Adapty SDK | да | по `special_offer = true` | нет |
-| Host-controlled verified-fresh remote | да | по `special_offer = true` | по `ru_pay = true` |
-| Persistent cache BroadMonetization | да | нет | нет |
+## Проверка подключения
 
-`special_offer` является presentation capability. `ru_pay` — финансовая
-capability с более строгим происхождением.
+- public SDK key передан один раз в composition root;
+- View использует логический placement, а не строку provider ID;
+- requested placement и фактический fallback различимы в диагностике;
+- в UI приходит весь массив products;
+- purchase использует product из уже загруженного paywall;
+- настоящая финансовая операция для platform gate не выполняется.
 
-## Единый provider pipeline
-
-```text
-Adapty.getPaywall
-  → Adapty.getPaywallProducts
-  → 1:1 mapping всего массива
-  → exact raw-product registry
-  → qualify Remote Config capability
-  → resolver / UI
-```
-
-Не создавайте второй Adapty REST transport, словарь по SKU, local sorting или
-фильтрацию trial. Purchase обязан использовать raw product из того же registry,
-не перезагружая paywall перед оплатой.
-
-## Проверка
-
-- requested и resolved placement записаны раздельно;
-- `main` используется только при фактическом fallback;
-- все продукты и duplicate occurrences сохранены;
-- app cache не включает чувствительные flags;
-- purchase/restore открывают premium только после entitlement refresh;
-- настоящая финансовая операция не нужна для этой проверки.
-
-[Полный module README](https://github.com/BroadApps-official/broad-monetization-ios) ·
-[Special Offer](./special-offer.md) · [RU Billing](./ru-billing.md)
+[BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios) ·
+[Special Offer](./special-offer.md) · [Token paywall](./token-paywall.md)

@@ -4,6 +4,19 @@
 
 ### Changed
 
+- Adapty, Special Offer, token paywall and Getting Started now lead with the
+  simple product contract: public key + placements, every provider product,
+  StoreKit for the default Apple entitlement path, and no custom verifier
+  boilerplate for an ordinary anonymous app;
+- the Special Offer visual now explains four concrete Russian-language steps
+  and the fixed 24-hour visual loop instead of leading with provenance jargon;
+- the Adapty diagram now shows one direct four-step path from public key and
+  placement to the complete provider response and UI, without verifier,
+  provenance or RU Billing terminology in the basic setup;
+- Special Offer and token pages now separate the small platform display
+  contract from app-owned UI and future product decisions;
+- the BroadCore page documents the upcoming runtime logging subsystem and
+  file-backed cache store without presenting unreleased API as `1.0.0`;
 - Знак `B◇` в общей шапке и подвале заменён на фирменную иконку BroadApps из четырёх синих плиток.
 - Непонятный абстрактный module graph на главной заменён на русскоязычную карту
   выбора: задача приложения → один подключаемый product → зависимости, которые
@@ -26,8 +39,20 @@
 - content validation now fails when a referenced image or neighboring Markdown
   page is missing, or when a site-only `/docs/...` link is added to canonical
   content.
+- media validation now covers Markdown and HTML `img/picture/srcset`, exact
+  filename casing, PNG/JPEG/GIF/SVG structure, nonempty alt text, temporary or
+  absolute paths, GIF frames and a SHA-256 provenance manifest for every public
+  asset.
+- pnpm now explicitly permits install scripts only for the pinned build
+  dependencies `esbuild`, `sharp` and `workerd`, making the canonical check
+  reproducible without approving arbitrary packages.
+- Vite now treats Markdown as a raw content asset in development, preventing
+  import-analysis errors that left local documentation pages half-rendered.
 
 ### Added
+
+- `public/media-manifest.json` records the exact source repository, commit,
+  path, byte size and SHA-256 of every image, GIF and SVG copied into the site;
 
 - a two-stage alphabetical directory with section filters, per-section and
   per-letter counts, reset-on-section-change behavior and visually separated

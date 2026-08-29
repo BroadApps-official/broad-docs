@@ -4,6 +4,11 @@
 
 `BroadMonetization` изолирует placements, Adapty paywalls/products, StoreKit purchase/restore, Entitlement Engine, RU Billing, token flow и analytics.
 
+Базовая mental model простая: **Adapty key + placements загружают paywall**, UI
+получает весь массив products, а StoreKit отдельно подтверждает Apple
+entitlement. Advanced identity/verifier adapters не нужно копировать в обычное
+anonymous-приложение.
+
 ## Dependency graph
 
 - Platform dependency: compatible `BroadCore`.
@@ -38,6 +43,10 @@ monetization contracts/adapters. Обязательного `BroadPlatform` не
 ## Special Offer
 
 Special Offer — второй paywall после крестика обычного subscription paywall без покупки. Полный contract: [Special Offer](./special-offer.md).
+
+Его стандартный gate — только `special_offer = true`; таймер всегда визуальный
+24-часовой loop. Schedule и динамическая длительность пока не входят в platform
+contract.
 
 [Adapty и placements →](./adapty-setup.md) · [Token paywall →](./token-paywall.md) ·
 [RU Billing →](./ru-billing.md) · [Runtime reliability →](./runtime-reliability.md)

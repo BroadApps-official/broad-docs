@@ -24,14 +24,14 @@ function CompatibilityVisual() {
 
 function SpecialOfferVisual() {
   const steps = [
-    ["01", "Provider payload", "remote · SDK cache · dashboard fallback"],
-    ["02", "Parse all products", "без filter, sort и deduplicate"],
-    ["03", "Evaluate special_offer", "gate читает уже разобранный payload"],
-    ["04", "Second paywall", "только после закрытия первого без покупки"],
+    ["01", "Placement", "загрузить special_offer или фактический fallback"],
+    ["02", "Все продукты", "передать весь массив Adapty без фильтрации"],
+    ["03", "Один флаг", "показ разрешает только special_offer = true"],
+    ["04", "Второй paywall", "после крестика первого; таймер циклический 24 часа"],
   ];
   return (
     <section className="doc-visual" aria-label="Порядок обработки Special Offer">
-      <div className="doc-visual-head"><span>SPECIAL OFFER PIPELINE</span><b>Gate стоит после парсинга provider products</b></div>
+      <div className="doc-visual-head"><span>SPECIAL OFFER · 4 ШАГА</span><b>Placement решает, что показывать</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -40,7 +40,7 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>RU Billing отдельно</b><span><code>ru_pay</code> по-прежнему требует verified-fresh remote payload</span></div>
+      <div className="visual-callout safe"><b>Без скрытых правил</b><span>Нет schedule, server clock, фильтрации карточек или блокировки на нуле таймера.</span></div>
     </section>
   );
 }

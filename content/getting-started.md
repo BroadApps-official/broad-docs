@@ -50,6 +50,12 @@ project не хранит старый private URL `BroadApps-official/BroadCore
 
 Собирайте зависимости снизу вверх: Core, затем Monetization, затем UIFlows, после этого app-owned repositories/use cases/ViewModels. Если модуль не подключён, его assembly не создаётся.
 
+Для обычного Adapty paywall не стройте отдельную систему вокруг SDK: host
+передаёт public key и placement mapping, `BroadMonetization` загружает весь
+provider catalog, а `BroadUIFlows` умеет показать 0, 1, 2 или N products. Для
+Apple premium базовый entitlement source — StoreKit. Custom identity и
+additional verifier подключаются только при реальном signed-in/server contract.
+
 ## Проверка
 
 1. Package resolve завершается без local path dependencies.

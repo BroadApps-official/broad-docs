@@ -1,66 +1,51 @@
 # Token paywall
 
-## Чем tokens отличаются от subscription
+## Коротко
 
-Токен — расходуемая единица приложения. Subscription подтверждает доступ, а
-token package начисляет balance на backend конкретного app account.
+Token paywall загружается по placement `tokens` точно так же, как subscription
+paywall:
+
+```text
+placement tokens
+  → paywall + все 0…N products
+  → карточки в порядке Adapty
+  → выбор пользователя
+  → purchase
+```
+
+Платформа не фиксирует два или пять packages, не сортирует их и не выбирает
+«лучшие» SKU. Что вернул placement, то общий UI и получает.
 
 ![Reference token paywall](../public/guides/readme/References/5115-token-paywall-dark.png)
 
-Reference показывает пять packages, но platform не фиксирует их число, copy,
-prices, discount, image или entry point.
+Reference показывает пять packages, но это пример конкретного приложения, а
+не лимит или шаблон platform API. Copy, prices, discount, image и entry point
+остаются app-owned.
 
-## Когда подключать
+## Если приложению нужен свой набор
 
-| Product model | Composition |
-|---|---|
-| Только subscriptions | `SubscriptionPurchaseManager` |
-| Subscriptions + tokens | отдельные subscription и token managers |
-| Только tokens | `TokenPurchaseManager` и backend balance source |
+Приложение может сделать собственный UI, например оставить две карточки. Это
+должно быть явным решением app target. Общая платформа по-прежнему возвращает
+полный массив, чтобы другие приложения не теряли данные placement.
 
-## Flow
+## Что не относится к отображению paywall
 
-```text
-balance / paid action
-  → logical placement tokens
-  → load 0…N consumable products
-  → preserve provider order and raw identity
-  → purchase / RU checkout
-  → backend exactly-once fulfillment
-  → full current balance snapshot
-```
+Начисление consumable tokens, account balance, защита от повторного начисления
+и восстановление после переустановки принадлежат backend конкретного
+приложения. Platform paywall не должен придумывать эти правила из названия SKU
+или локального cache.
 
-Fallback `main` допускается только если полученный catalog действительно
-содержит consumable products. Requested context `.tokens` сохраняется для
-analytics даже при resolved `.main`.
-
-## Exactly-once fulfillment
-
-Нажатие CTA, закрытие браузера или local purchase callback не начисляют tokens.
-Backend принимает unique transaction/checkout ID один раз, атомарно выполняет
-fulfillment и возвращает полный balance.
-
-Offline/timeout оставляют operation `pending`. Retry и восстановление сети
-проверяют уже начатую операцию, но не запускают второе списание автоматически.
-
-## После переустановки
-
-```text
-login → current app account → backend full balance snapshot
-```
-
-StoreKit Restore не восстанавливает consumables. Transaction IDs служат
-deduplication evidence для начисления, а не входом обычного balance recovery.
-Local cache может ускорить UI, но не является источником balance.
+Минимальное безопасное правило: UI показывает новый balance только после ответа
+backend, а timeout не считается успешным начислением.
 
 ## UI contract
 
-- 0 packages — безопасное empty state;
+- 0 packages — понятное empty state;
 - 1…N — все карточки provider в исходном порядке;
-- sticky CTA остаётся доступным при scroll;
-- выбор не мерцает и не уменьшает карточку;
-- spinner появляется до первого `await`;
-- новый balance показывается только после backend snapshot.
+- длинный список прокручивается, CTA остаётся доступным;
+- loader не удаляет уже загруженный paywall;
+- повторный tap во время purchase не запускает вторую операцию.
 
+[Adapty setup](./adapty-setup.md) ·
 [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios) ·
 [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios)
