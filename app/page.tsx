@@ -3,7 +3,6 @@ import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
 import { HomeSectionMap } from "./home-section-map";
 import { SearchIcon } from "./search-icon";
-import { ShortcutKey } from "./shortcut-key";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
 const modules = [
@@ -153,24 +152,25 @@ export default function Home() {
         <section className="knowledge-section section-wrap" id="documentation">
           <div className="knowledge-copy">
             <span className="section-index">02</span>
-            <h2>Где искать<br /><em>нужный ответ.</em></h2>
-            <p>Начните с сайта, если вопрос касается нескольких модулей, установки, совместимости или миграции. Для API одного модуля переходите в его README или DocC.</p>
+            <h2>Опишите задачу —<br /><em>найдите инструкцию.</em></h2>
+            <p>Название модуля знать не нужно. Напишите обычными словами, что хотите сделать с приложением, и поиск покажет подходящие страницы.</p>
             <div className="knowledge-points">
-              <div><span>1</span><p><b>Сайт</b><small>как части работают вместе и какой модуль выбрать</small></p></div>
-              <div><span>2</span><p><b>README / DocC</b><small>как использовать API конкретной версии модуля</small></p></div>
-              <div><span>3</span><p><b>Edit this page</b><small>любую общую инструкцию можно исправить публичным pull request</small></p></div>
+              <div><span>1</span><p><b>Сформулируйте задачу</b><small>например: «подключить оплату» или «перенести старое приложение»</small></p></div>
+              <div><span>2</span><p><b>Откройте готовый маршрут</b><small>в результате будет понятно, зачем нужна страница и что делать дальше</small></p></div>
+              <div><span>3</span><p><b>Сверьтесь с исходником</b><small>на каждой странице остаётся ссылка на Markdown в GitHub</small></p></div>
             </div>
             <div className="hero-actions">
-              <Link className="primary-action" href="/search">Открыть поиск <SearchIcon /></Link>
-              <Link className="secondary-action" href="/docs/documentation">Что читать и где?</Link>
+              <Link className="primary-action" href="/search">Найти инструкцию <SearchIcon /></Link>
+              <Link className="secondary-action" href="/docs">Все документы</Link>
             </div>
           </div>
           <div className="knowledge-panel">
-            <div className="fake-search"><SearchIcon /><b>special offer</b><ShortcutKey /></div>
-            <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>placement · все продукты · таймер 24 часа</small></div><i>↗</i></div>
-            <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
-            <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
-            <div className="search-meta"><span>{docs.length} страниц в поиске</span><span>публично · правится через PR</span></div>
+            <div className="knowledge-panel-head"><span>ПОИСК ПО ЗАДАЧЕ</span><b>Что хотите сделать?</b></div>
+            <Link className="search-result knowledge-task active" href="/search?q=подключить%20оплату"><span>ОПЛАТА</span><div><b>Подключить оплату и подписку</b><small>Adapty, продукты, покупка и восстановление</small></div><i>→</i></Link>
+            <Link className="search-result knowledge-task" href="/search?q=перенести%20старое%20приложение"><span>ПЕРЕНОС</span><div><b>Перенести старое приложение</b><small>граница перехода, порядок действий и проверка</small></div><i>→</i></Link>
+            <Link className="search-result knowledge-task" href="/search?q=проверить%20совместимые%20версии"><span>ВЕРСИИ</span><div><b>Проверить совместимые версии</b><small>готовый набор тегов, которые работают вместе</small></div><i>→</i></Link>
+            <Link className="search-result knowledge-task" href="/search?q=исправить%20ошибку%20сборки"><span>СБОРКА</span><div><b>Разобраться с ошибкой сборки</b><small>подключение package, runtime и диагностика</small></div><i>→</i></Link>
+            <div className="search-meta"><span>{docs.length} инструкций</span><span>названия модулей знать не нужно</span></div>
           </div>
         </section>
 

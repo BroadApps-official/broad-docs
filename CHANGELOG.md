@@ -4,6 +4,12 @@
 
 ### Changed
 
+- homepage documentation guidance and the search page now start from a
+  developer's task in plain Russian instead of requiring repository, module or
+  API terminology; common tasks are clickable and every result explains why
+  the linked instruction is useful;
+- search URLs now preserve the query, common Russian task phrases receive
+  intent-aware ranking, and the empty state offers direct recovery routes;
 - the homepage now introduces BroadApps iOS in plain language for a developer
   seeing it for the first time: what the platform is, what every module owns,
   why the code is split and what a host app actually adds in Xcode;

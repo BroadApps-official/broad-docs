@@ -14,14 +14,14 @@ export default function SearchPage() {
     <div className="site-shell">
       <SiteHeader />
       <main className="search-page section-wrap">
-        <span className="section-index">SEARCH</span>
-        <h1>Поиск по всей базе</h1>
-        <p>Ищет по заголовкам, ключевым словам и тексту публичных Markdown-документов.</p>
+        <span className="section-index">ПОИСК ПО ЗАДАЧЕ</span>
+        <h1>Что вы хотите сделать?</h1>
+        <p>Пишите обычными словами. Название модуля, API или точный термин знать не нужно.</p>
         <SearchClient docs={index} />
         <div className="alphabet-search-link">
           <span>АБВ</span>
-          <div><b>Хотите искать по букве?</b><p>Откройте отдельный алфавитный указатель всех документов.</p></div>
-          <Link href="/docs#alphabet-title">Открыть ↗</Link>
+          <div><b>Хотите просто посмотреть все страницы?</b><p>Откройте полный список по темам или алфавиту.</p></div>
+          <Link href="/docs#alphabet-title">Все документы →</Link>
         </div>
       </main>
       <SiteFooter />
