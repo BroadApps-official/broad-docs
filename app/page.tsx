@@ -209,22 +209,26 @@ export default function Home() {
 
         <section className="migration-home section-wrap" id="migration">
           <div className="section-heading">
-            <div><span className="section-index">05</span><h2>Как перейти со старой платформы</h2></div>
-            <p>Не создаём второе app и не переписываем всё сразу: меняем одну границу, проверяем один рабочий сценарий и сохраняем путь назад.</p>
+            <div><span className="section-index">05</span><h2>Как перейти со старого BroadCore</h2></div>
+            <p>Приложение, экраны и бизнес-логику не переписываем. Убираем старое подключение BroadCore и добавляем только нужные новые модули.</p>
+          </div>
+          <div className="migration-home-summary" aria-label="Что меняется при переходе со старой платформы">
+            <div><span>МЕНЯЕМ</span><b>Подключение общего кода</b><small>старый BroadCore → нужные новые модули</small></div>
+            <div><span>НЕ ТРОГАЕМ</span><b>Само приложение</b><small>экраны, данные и бизнес-логика остаются на месте</small></div>
           </div>
           <div className="migration-home-grid">
             <div className="migration-home-flow" aria-label="Четыре шага миграции">
-              <div><span>01</span><b>Baseline</b><small>сборка + inventory</small></div>
+              <div><span>01</span><b>Проверить приложение</b><small>собрать и запустить его до изменений</small></div>
               <i>→</i>
-              <div><span>02</span><b>Boundary</b><small>atomic package switch</small></div>
+              <div><span>02</span><b>Подключить новые модули</b><small>убрать старый BroadCore и добавить нужные модули</small></div>
               <i>→</i>
-              <div><span>03</span><b>Slice</b><small>один рабочий flow</small></div>
+              <div><span>03</span><b>Проверить одну функцию</b><small>например запуск, оплату или первые экраны</small></div>
               <i>→</i>
-              <div><span>04</span><b>Cleanup</b><small>usages + review</small></div>
+              <div><span>04</span><b>Удалить остатки старого кода</b><small>только когда приложение снова работает</small></div>
             </div>
             <div className="migration-home-routes">
-              <Link href="/docs/legacy-app-migration#выберите-подход"><span>MANUAL</span><b>Мигрировать вручную</b><small>Для разработчика, который сам ведёт package graph и проверяет flows.</small><i>↗</i></Link>
-              <Link href="/docs/legacy-app-migration#что-делает-ии"><span>AI ROUTE</span><b>Передать Codex / Claude</b><small>Audit, plan и один stage за раз с обязательной остановкой на review.</small><i>↗</i></Link>
+              <Link href="/docs/legacy-app-migration#выберите-подход"><span>САМОСТОЯТЕЛЬНО</span><b>Инструкция для разработчика</b><small>Что проверить, что заменить и когда можно удалить старый код.</small><i>↗</i></Link>
+              <Link href="/docs/legacy-app-migration#что-делает-ии"><span>С ПОМОЩЬЮ ИИ</span><b>Задача для Codex / Claude</b><small>Агент сначала изучит app, составит план и остановится перед изменениями.</small><i>↗</i></Link>
             </div>
           </div>
         </section>

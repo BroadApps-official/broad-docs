@@ -47,23 +47,22 @@ function SpecialOfferVisual() {
 
 function LegacyMigrationVisual() {
   const steps = [
-    ["01", "Baseline", "Собрать работающий app и снять dependency inventory"],
-    ["02", "Topology", "Найти legacy owners и conflicting target names"],
-    ["03", "Cutover group", "Переключить весь связанный dependency graph атомарно"],
-    ["04", "Runtime slices", "Проверять behavior по одному flow после cutover"],
-    ["05", "Cleanup", "Удалить legacy code только после usages и review"],
+    ["01", "Проверить приложение", "Собрать и запустить его до изменений"],
+    ["02", "Подключить новые модули", "Убрать старый BroadCore и добавить только нужные модули"],
+    ["03", "Проверить одну функцию", "Например запуск, оплату или первые экраны"],
+    ["04", "Убрать остатки старого кода", "Только когда приложение снова собирается и работает"],
   ];
   return (
     <section className="doc-visual legacy-visual" aria-label="Безопасная последовательность миграции">
-      <div className="doc-visual-head"><span>LEGACY MIGRATION</span><b>Не rewrite, а серия обратимых переходов</b></div>
+      <div className="doc-visual-head"><span>ПЕРЕНОС СО СТАРОГО BROADCORE</span><b>Меняем подключение общего кода, а не переписываем приложение</b></div>
       <div className="migration-timeline">
         {steps.map(([number, title, detail]) => (
           <div className="migration-step" key={number}><span>{number}</span><div><b>{title}</b><small>{detail}</small></div></div>
         ))}
       </div>
       <div className="migration-routes">
-        <div><small>MANUAL</small><b>Разработчик ведёт каждую group</b><span>graph → topology → final resolve → runtime review</span></div>
-        <div><small>CODEX / CLAUDE</small><b>Агент выводит topology из evidence</b><span>audit → plan → group → slices → cleanup</span></div>
+        <div><small>САМОСТОЯТЕЛЬНО</small><b>Разработчик выполняет четыре шага</b><span>проверка → новые модули → одна функция → очистка</span></div>
+        <div><small>CODEX / CLAUDE</small><b>Агент сначала показывает план</b><span>он не меняет app, пока разработчик не подтвердит следующий шаг</span></div>
       </div>
     </section>
   );

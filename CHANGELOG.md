@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the homepage migration section and legacy migration visual now explain in
+  Russian what changes, what stays untouched and which four concrete actions a
+  developer performs; internal terms remain only in the advanced part of the
+  canonical guide where they are defined;
 - homepage documentation guidance and the search page now start from a
   developer's task in plain Russian instead of requiring repository, module or
   API terminology; common tasks are clickable and every result explains why
