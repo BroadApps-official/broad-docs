@@ -47,6 +47,37 @@ export default function Home() {
       <SiteHeader />
       <main className="home-main">
         <HomeSectionMap />
+        <section className="home-quick-routes section-wrap" aria-labelledby="quick-routes-title">
+          <div className="home-quick-routes-head">
+            <div>
+              <span>БЫСТРЫЙ МАРШРУТ</span>
+              <h2 id="quick-routes-title">Что вы делаете прямо сейчас?</h2>
+            </div>
+            <Link href="/docs/compatibility"><i className="status-dot green" />Platform set 1.0.0 · iOS 17+ <b>→</b></Link>
+          </div>
+          <div className="home-quick-routes-grid">
+            <Link href="/docs/getting-started">
+              <span>01</span>
+              <div><b>Подключаю впервые</b><small>Установка package и первый рабочий запуск</small></div>
+              <i>→</i>
+            </Link>
+            <Link href="/docs/module-selection">
+              <span>02</span>
+              <div><b>Выбираю модуль</b><small>Один product под конкретную задачу app</small></div>
+              <i>→</i>
+            </Link>
+            <Link href="/docs/legacy-app-migration">
+              <span>03</span>
+              <div><b>Переношу старое app</b><small>Без переписывания: одна граница и один flow</small></div>
+              <i>→</i>
+            </Link>
+            <Link href="/search">
+              <span>04</span>
+              <div><b>Ищу проблему</b><small>Поиск по 23 статьям и исходникам на GitHub</small></div>
+              <i>→</i>
+            </Link>
+          </div>
+        </section>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy">
             <div className="eyebrow"><span /> Public iOS platform</div>

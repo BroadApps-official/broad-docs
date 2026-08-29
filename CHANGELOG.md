@@ -57,6 +57,9 @@
 
 ### Added
 
+- the space above the homepage hero now works as a four-route task launcher for
+  first setup, module selection, legacy migration and documentation search,
+  with the current compatible platform set visible in the same panel;
 - the homepage now has a persistent, numbered site map with active-section
   highlighting, direct anchors to every major block and a clear route to all
   documentation; compact layouts show the same complete map above the page;
