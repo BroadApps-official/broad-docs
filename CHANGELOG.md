@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the documentation directory is now a task-first workbench: its search is in
+  the first viewport, 16 common developer scenarios link directly to an
+  actionable guide, site and GitHub search are adjacent modes, result cards
+  state the expected outcome, and all 24 guides remain visible by section;
 - the documentation directory now introduces its search with the task-focused
   heading “Find the right guide”; the 24-article count is supporting context
   instead of the section title;
