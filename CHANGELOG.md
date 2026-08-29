@@ -26,6 +26,8 @@
 
 ### Fixed
 
+- the shared `⌘ K` shortcut now uses a properly sized keycap component instead
+  of an undersized font glyph in the header and homepage search preview;
 - all article images now use repository-relative `../public/` paths, so the
   same canonical Markdown renders correctly both on the documentation site and
   in GitHub Preview instead of showing broken alt-text placeholders;

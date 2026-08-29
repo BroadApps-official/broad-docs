@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Link } from "./plain-link";
 import { SearchIcon } from "./search-icon";
+import { ShortcutKey } from "./shortcut-key";
 
 export function HeaderSearchLink() {
   useEffect(() => {
@@ -26,7 +27,7 @@ export function HeaderSearchLink() {
     <Link className="header-search" href="/search" aria-label="Искать в документации">
       <SearchIcon />
       <span>Поиск по докам</span>
-      <kbd>⌘ K</kbd>
+      <ShortcutKey />
     </Link>
   );
 }

@@ -2,6 +2,7 @@ import { Link } from "./plain-link";
 import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
 import { SearchIcon } from "./search-icon";
+import { ShortcutKey } from "./shortcut-key";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
 const modules = [
@@ -125,7 +126,7 @@ export default function Home() {
             </div>
           </div>
           <div className="knowledge-panel">
-            <div className="fake-search"><SearchIcon /><b>special offer</b><kbd>⌘ K</kbd></div>
+            <div className="fake-search"><SearchIcon /><b>special offer</b><ShortcutKey /></div>
             <div className="search-result active"><span>FLOW</span><div><b>Special Offer</b><small>placement · все продукты · таймер 24 часа</small></div><i>↗</i></div>
             <div className="search-result"><span>ADR</span><div><b>Module repositories</b><small>ownership · SemVer · compatibility</small></div><i>↗</i></div>
             <div className="search-result"><span>GUIDE</span><div><b>Getting Started</b><small>SwiftPM · host app · product selection</small></div><i>↗</i></div>
