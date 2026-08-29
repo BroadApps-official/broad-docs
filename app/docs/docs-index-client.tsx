@@ -17,7 +17,7 @@ type DocsIndexEntry = {
 };
 
 const useCases = [
-  { code: "СТАРТ", title: "Подключить платформу впервые", detail: "Выбрать одну библиотеку, добавить её в Xcode и проверить сборку.", slug: "getting-started" },
+  { code: "СТАРТ", title: "Подключить платформу впервые", detail: "Выбрать нужные функции, добавить одну или несколько библиотек и проверить сборку.", slug: "getting-started" },
   { code: "НОВОЕ APP", title: "Создать новое приложение", detail: "Пройти путь от требований и плана до одного рабочего сценария.", slug: "app-creation" },
   { code: "ВЫБОР", title: "Понять, какую библиотеку добавить", detail: "Сопоставить функцию приложения с одним точным продуктом Swift Package.", slug: "module-selection" },
   { code: "ДОСТУП", title: "Xcode просит пароль GitHub", detail: "Заменить неверный адрес и скачать публичную библиотеку без токена.", slug: "public-package-access" },
@@ -27,7 +27,7 @@ const useCases = [
   { code: "PAYWALL", title: "Сделать экран подписки", detail: "Показать 0, 1 или много продуктов, загрузку, ошибку и restore.", slug: "paywall-ui" },
   { code: "OFFER", title: "Показать второе предложение", detail: "Открыть Special Offer после закрытия первого paywall без покупки.", slug: "special-offer" },
   { code: "TOKENS", title: "Продавать пакеты токенов", detail: "Показать все пакеты и обновить баланс после ответа сервера.", slug: "token-paywall" },
-  { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить условия показа и подтверждать Premium через сервер.", slug: "ru-billing" },
+  { code: "RU PAY", title: "Проверить статус оплаты картой и СБП", detail: "Увидеть, что ещё нужно утвердить до интеграции; сейчас функцию не подключаем.", slug: "ru-billing" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
   { code: "SUPPORT", title: "Добавить чат Usedesk", detail: "Передать Token, Company ID и Channel ID, затем открыть готовый экран.", slug: "usedesk" },

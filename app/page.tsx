@@ -79,19 +79,19 @@ export default function Home() {
           </div>
           <div className="home-platform-reason">
             <b>Почему четыре библиотеки?</b>
-            <p>Чтобы приложение брало только нужное. Вы добавляете одну библиотеку — всё обязательное приходит автоматически, а лишние платёжные сервисы и экраны не попадают в приложение.</p>
+            <p>Чтобы приложение брало только нужные возможности. Иногда достаточно одной библиотеки, иногда нужны несколько; общие зависимости Xcode загрузит автоматически.</p>
             <Link href="/docs/module-selection">Показать, что выбрать →</Link>
           </div>
         </section>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy">
             <div className="eyebrow"><span /> Следующий шаг · выберите сценарий</div>
-            <h1>Выберите задачу —<br />подключите одну<br /><em>библиотеку.</em></h1>
+            <h1>Выберите функции —<br />подключите нужные<br /><em>библиотеки.</em></h1>
             <p className="hero-lede">
-              Выберите справа, что требуется приложению. В каждой строке сразу
-              написано, какой один product добавить в Xcode и что загрузится
-              автоматически. Ключи, placements, тексты и изображения остаются
-              в вашем приложении.
+              Сверьте справа все задачи приложения. Для одной возможности может
+              хватить одной библиотеки; для нескольких добавьте соответствующие
+              products. Общие зависимости Xcode загрузит сам, а ключи, placements,
+              тексты и изображения останутся в вашем приложении.
             </p>
             <div className="hero-actions">
               <Link className="primary-action" href="/docs/getting-started">Пошаговое подключение <span>↗</span></Link>
@@ -101,11 +101,11 @@ export default function Home() {
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>ПУБЛИЧНЫЙ HTTPS</b> Без аккаунта GitHub, пароля, токена и API key <i>↗</i></Link>
           </div>
 
-          <div className="hero-system module-selector" aria-label="Как выбрать библиотеку BroadApps">
+          <div className="hero-system module-selector" aria-label="Как выбрать нужные библиотеки BroadApps">
             <div className="system-label"><span>КАКУЮ БИБЛИОТЕКУ ДОБАВИТЬ</span><em>iOS 17+</em></div>
             <div className="selector-question">
               <span>1</span>
-              <div><b>Что нужно вашему приложению?</b><small>Выберите строку — справа написано, какую одну библиотеку добавить в Xcode.</small></div>
+              <div><b>Какие возможности нужны приложению?</b><small>Выберите одну или несколько строк. Справа указан product для каждой возможности.</small></div>
             </div>
             <div className="selector-routes">
               <Link className="selector-route selector-flows" href="/docs/broad-ui-flows">
@@ -136,7 +136,7 @@ export default function Home() {
         <section className="architecture-section section-wrap" id="architecture">
           <div className="section-heading">
             <div><span className="section-index">01</span><h2>Что добавить в приложение</h2></div>
-            <p>BroadApps iOS — четыре Swift-библиотеки с готовым общим кодом. Выберите задачу: схема покажет один product для Xcode, автоматические зависимости и то, что настраивает само приложение.</p>
+            <p>BroadApps iOS — четыре Swift-библиотеки с готовым общим кодом. Отметьте все задачи: схема покажет нужные products, автоматические зависимости и то, что настраивает само приложение.</p>
           </div>
           <ArchitectureMap showLink />
           <div className="benefit-grid" aria-label="Что это даёт разработчику на практике">

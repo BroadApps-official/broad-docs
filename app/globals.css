@@ -153,7 +153,7 @@ button, input { font: inherit; }
 .hero { min-height: 660px; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 54px; padding-block: 78px 74px; }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 26px; color: var(--cobalt); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 760; letter-spacing: .11em; text-transform: uppercase; }
 .eyebrow span { width: 8px; height: 8px; border-radius: 99px; background: var(--money); box-shadow: 0 0 0 5px rgba(16,185,129,.12); }
-.hero h1 { max-width: 590px; margin: 0; font-size: clamp(42px, 3.8vw, 54px); line-height: 1.03; letter-spacing: -.048em; font-weight: 860; text-wrap: balance; }
+.hero h1 { max-width: 590px; margin: 0; font-size: clamp(40px, 3.65vw, 52px); line-height: 1.05; letter-spacing: -.042em; font-weight: 650; text-wrap: balance; }
 .hero h1 em { color: var(--cobalt); font-style: normal; }
 .hero-lede { max-width: 620px; margin: 28px 0 34px; color: #53627a; font-size: 18px; line-height: 1.68; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -711,7 +711,7 @@ button, input { font: inherit; }
 .heading-anchor:hover > span:last-child { opacity: 1; }
 .docs-article p, .docs-article li { color: #3f4f67; font-size: 16px; line-height: 1.78; }
 .docs-article p { margin: 14px 0; }
-.docs-article strong { color: #172b49; font-weight: 800; background: linear-gradient(transparent 66%, rgba(59,130,246,.17) 0); }
+.docs-article strong { color: #172b49; font-weight: 680; background: linear-gradient(transparent 72%, rgba(59,130,246,.14) 0); }
 .docs-article a { border-radius: 3px; transition: color .18s ease, background .18s ease, text-decoration-thickness .18s ease; }
 .docs-article a:hover { color: #174cc5; background: rgba(37,99,235,.07); text-decoration-thickness: 2px; }
 .docs-article .docs-section-lead { margin: 15px 0 20px; padding: 16px 18px; border: 1px solid #d7e3f4; border-left: 4px solid var(--cobalt); border-radius: 12px; color: #314660; background: linear-gradient(105deg, #f2f6ff, #fbfdff); font-size: 17px; line-height: 1.65; }

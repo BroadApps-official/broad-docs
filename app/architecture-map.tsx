@@ -45,19 +45,19 @@ const choices = [
 
 export function ArchitectureMap({ showLink = false }: ArchitectureMapProps) {
   return (
-    <div className="platform-map platform-map-guide" aria-label="Как выбрать одну библиотеку BroadApps и что Xcode добавит автоматически">
+    <div className="platform-map platform-map-guide" aria-label="Как выбрать нужные библиотеки BroadApps и что Xcode добавит автоматически">
       <div className="platform-map-head">
         <div>
           <span>ПЛАТФОРМА ЗА 1 МИНУТУ</span>
-          <b>Не подключайте все четыре библиотеки. Найдите ниже задачу приложения и добавьте только один указанный product.</b>
+          <b>Отметьте все нужные возможности приложения и добавьте products из соответствующих строк. Автоматические зависимости не дублируйте.</b>
         </div>
         {showLink ? <Link href="/docs/architecture">Подробная архитектура и правила ↗</Link> : null}
       </div>
 
-      <div className="map-howto" aria-label="Три шага подключения библиотеки">
-        <div><span>1</span><p><b>Найдите свою задачу</b><small>Смотрите первую колонку. Названия библиотек знать не нужно.</small></p></div>
+      <div className="map-howto" aria-label="Три шага подключения библиотек">
+        <div><span>1</span><p><b>Отметьте нужные задачи</b><small>Их может быть одна или несколько. Названия библиотек знать не нужно.</small></p></div>
         <i aria-hidden="true">→</i>
-        <div><span>2</span><p><b>Добавьте один product</b><small>Его точное имя написано во второй колонке.</small></p></div>
+        <div><span>2</span><p><b>Добавьте указанные products</b><small>Точное имя для каждой задачи написано во второй колонке.</small></p></div>
         <i aria-hidden="true">→</i>
         <div><span>3</span><p><b>Остальное сделает Xcode</b><small>Всё из третьей колонки загрузится автоматически.</small></p></div>
       </div>
@@ -77,7 +77,7 @@ export function ArchitectureMap({ showLink = false }: ArchitectureMapProps) {
               <p>{choice.examples}</p>
             </div>
             <div className="map-choice-product">
-              <small>ДОБАВИТЬ ОДИН PRODUCT</small>
+              <small>ДОБАВИТЬ PRODUCT</small>
               <b>{choice.product}</b>
             </div>
             <div className="map-choice-auto">
@@ -123,7 +123,7 @@ export function ArchitectureMap({ showLink = false }: ArchitectureMapProps) {
 
       <div className="map-main-rule">
         <b>ГЛАВНОЕ ПРАВИЛО</b>
-        <span>Обычно достаточно одного product. Добавляйте второй только тогда, когда в коде самого приложения есть, например, <code>import BroadCore</code> и вы напрямую вызываете его API.</span>
+        <span>Подключайте products для всех нужных функций. Нижнюю библиотеку не добавляйте повторно, если она уже пришла автоматически; добавьте её явно, только когда app напрямую импортирует её API. <code>BroadExtensions</code> подключается отдельно, если нужны его утилиты.</span>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> =
 
 const resultReasons: Record<string, string> = {
   "getting-started": "Пошаговое первое подключение библиотеки к приложению.",
-  "module-selection": "Поможет выбрать одну библиотеку под вашу задачу.",
+  "module-selection": "Поможет выбрать одну или несколько библиотек под все задачи приложения.",
   "broad-monetization": "Главная точка входа для оплаты, подписки и восстановления покупки.",
   "adapty-setup": "Показывает, куда передать ключ и имя нужного экрана Adapty.",
   "legacy-app-migration": "Безопасный порядок переноса существующего приложения.",

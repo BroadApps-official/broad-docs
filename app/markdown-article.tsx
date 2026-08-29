@@ -152,7 +152,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
         <figure className={`docs-media${reference ? " docs-media-reference" : ""}`} key={index}>
-          <div className="docs-media-frame"><img alt={block.alt ?? ""} loading="lazy" src={src} /></div>
+          <div className="docs-media-frame"><img alt={block.alt ?? ""} decoding="async" loading="eager" src={src} /></div>
           {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
       );
