@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the Usedesk guide now follows the actual manager handoff card only: Token,
+  Company ID, Channel ID and the web-widget script; unsupported knowledge-base,
+  push, backend, Keychain, account-switch and token-taxonomy requirements were
+  removed, while the iOS path now ends directly at the ready Usedesk screen;
 - the architecture guide is now a beginner-facing platform map: it explains the
   four library choices, direct versus automatic SwiftPM dependencies, app-owned
   configuration, an end-to-end purchase action, repository ownership and the

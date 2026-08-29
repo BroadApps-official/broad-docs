@@ -149,10 +149,11 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
       const reference = src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/");
+      const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
         <figure className={`docs-media${reference ? " docs-media-reference" : ""}`} key={index}>
           <div className="docs-media-frame"><img alt={block.alt ?? ""} loading="lazy" src={src} /></div>
-          {block.alt ? <figcaption><span>{reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА"}</span>{block.alt}</figcaption> : null}
+          {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
       );
     }
