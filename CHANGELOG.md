@@ -4,6 +4,10 @@
 
 ### Changed
 
+- the documentation search modes now read as an explicit two-step control:
+  “where to search” shows a selected state, click instruction and concrete
+  examples for site versus GitHub search, while the field below states which
+  source is currently active;
 - the Usedesk guide now follows the actual manager handoff card only: Token,
   Company ID, Channel ID and the web-widget script; unsupported knowledge-base,
   push, backend, Keychain, account-switch and token-taxonomy requirements were

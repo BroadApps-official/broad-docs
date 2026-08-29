@@ -30,7 +30,7 @@ const useCases = [
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить условия показа и подтверждать Premium через сервер.", slug: "ru-billing" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
-  { code: "SUPPORT", title: "Добавить чат Usedesk", detail: "Получить токен, открыть чат по нажатию и учесть смену аккаунта.", slug: "usedesk" },
+  { code: "SUPPORT", title: "Добавить чат Usedesk", detail: "Передать Token, Company ID и Channel ID, затем открыть готовый экран.", slug: "usedesk" },
   { code: "ВЕРСИИ", title: "Выбрать совместимые версии", detail: "Взять точный набор тегов, который уже проверялся вместе.", slug: "compatibility" },
   { code: "RELEASE", title: "Выпустить новую версию", detail: "Проверить модуль, поставить тег и обновить общий каталог.", slug: "release-process" },
 ] as const;
@@ -230,6 +230,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
   const [query, setQuery] = useState("");
   const [githubQuery, setGithubQuery] = useState("");
   const [githubRepository, setGithubRepository] = useState("Все");
+  const siteInputRef = useRef<HTMLInputElement>(null);
   const githubInputRef = useRef<HTMLInputElement>(null);
   const documentGroups = useMemo(() => Array.from(new Set(docs.map((doc) => doc.group))), [docs]);
   const groupedDocs = useMemo(
@@ -252,7 +253,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           <div>
             <span className="section-index">ДОКУМЕНТАЦИЯ BROADAPPS IOS</span>
             <h1 id="docs-workbench-title">Что вы хотите сделать?</h1>
-            <p>Выберите готовый сценарий или напишите задачу своими словами. Для точного API и внутреннего термина переключитесь на поиск по GitHub.</p>
+            <p>Сначала выберите, где искать: в понятных инструкциях сайта или в точных README и API. Затем напишите вопрос в поле ниже.</p>
           </div>
           <Link className="legacy-repo-notice" href="/docs/legacy-broadcore">
             <span>LEGACY</span>
@@ -261,20 +262,58 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           </Link>
         </div>
 
-        <div className="docs-search-modes" role="tablist" aria-label="Где искать">
-          <button className={searchMode === "site" ? "active" : ""} type="button" role="tab" aria-selected={searchMode === "site"} onClick={() => setSearchMode("site")}>
-            <span>ПО ЗАДАЧЕ</span><b>Инструкции сайта</b><small>{countLabel(docs.length, "статья", "статьи", "статей")}</small>
-          </button>
-          <button className={searchMode === "github" ? "active" : ""} type="button" role="tab" aria-selected={searchMode === "github"} onClick={() => setSearchMode("github")}>
-            <span>ПО ТОЧНОМУ ТЕРМИНУ</span><b>GitHub, README и API</b><small>{countLabel(githubDocs.length, "файл", "файла", "файлов")}</small>
-          </button>
+        <div className="docs-search-selector">
+          <div className="docs-search-selector-head">
+            <span>1</span>
+            <div><b>Где искать?</b><small>Нажмите один из двух режимов. Содержимое поля и результаты ниже переключатся.</small></div>
+            <em>ПЕРЕКЛЮЧАТЕЛЬ ПОИСКА</em>
+          </div>
+          <div className="docs-search-modes" role="tablist" aria-label="Выберите, где искать">
+            <button
+              id="site-search-tab"
+              className={searchMode === "site" ? "active" : ""}
+              type="button"
+              role="tab"
+              aria-selected={searchMode === "site"}
+              aria-controls="site-search-panel"
+              onClick={() => { setSearchMode("site"); setTimeout(() => siteInputRef.current?.focus(), 0); }}
+            >
+              <span className="docs-mode-check" aria-hidden="true">{searchMode === "site" ? "✓" : ""}</span>
+              <span className="docs-mode-copy"><small>ЕСЛИ ВОПРОС ЗВУЧИТ ОБЫЧНЫМИ СЛОВАМИ</small><b>Искать в инструкциях сайта</b><em>Например: «как подключить оплату?»</em></span>
+              <span className="docs-mode-action">{searchMode === "site" ? "ВЫБРАНО" : "НАЖАТЬ И ВЫБРАТЬ"}</span>
+              <span className="docs-mode-count">{countLabel(docs.length, "статья", "статьи", "статей")}</span>
+            </button>
+            <button
+              id="github-search-tab"
+              className={searchMode === "github" ? "active" : ""}
+              type="button"
+              role="tab"
+              aria-selected={searchMode === "github"}
+              aria-controls="github-search-panel"
+              onClick={() => { setSearchMode("github"); setTimeout(() => githubInputRef.current?.focus(), 0); }}
+            >
+              <span className="docs-mode-check" aria-hidden="true">{searchMode === "github" ? "✓" : ""}</span>
+              <span className="docs-mode-copy"><small>ЕСЛИ ЗНАЕТЕ НАЗВАНИЕ ИЗ КОДА</small><b>Искать в README, API и GitHub</b><em>Например: `PaywallViewModel` или `ru_pay`</em></span>
+              <span className="docs-mode-action">{searchMode === "github" ? "ВЫБРАНО" : "НАЖАТЬ И ВЫБРАТЬ"}</span>
+              <span className="docs-mode-count">{countLabel(githubDocs.length, "файл", "файла", "файлов")}</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="docs-search-current" aria-live="polite">
+          <span>2</span>
+          <div>
+            <b>{searchMode === "site" ? "Введите задачу своими словами" : "Введите точное название из кода"}</b>
+            <small>{searchMode === "site" ? "Сейчас поиск работает по 24 понятным инструкциям сайта." : "Сейчас поиск работает по README, API и документации всех публичных репозиториев."}</small>
+          </div>
         </div>
 
         {searchMode === "site" ? (
-          <div className="docs-search-panel" role="tabpanel">
+          <div id="site-search-panel" className="docs-search-panel" role="tabpanel" aria-labelledby="site-search-tab">
             <div className="docs-search-box docs-primary-search">
               <SearchIcon />
               <input
+                ref={siteInputRef}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Например: подключить оплату, перенести BroadCore, исправить ошибку…"
@@ -303,7 +342,7 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
             )}
           </div>
         ) : (
-          <div className="docs-search-panel github-search-panel" role="tabpanel">
+          <div id="github-search-panel" className="docs-search-panel github-search-panel" role="tabpanel" aria-labelledby="github-search-tab">
             <div className="docs-search-box docs-primary-search">
               <SearchIcon />
               <input
