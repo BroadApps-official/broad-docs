@@ -60,23 +60,35 @@ export default function Home() {
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>PUBLIC HTTPS</b> Без GitHub account, password, token и API key <i>↗</i></Link>
           </div>
 
-          <div className="hero-system" aria-label="Схема подключения модулей">
-            <div className="system-label">MODULE GRAPH <span>iOS 17+</span></div>
-            <div className="graph-canvas">
-              <div className="graph-stack">
-                <div className="graph-node node-flow"><b>UI FLOWS</b><small>SwiftUI</small></div>
-                <div className="graph-arrow">↓</div>
-                <div className="graph-node node-money"><b>MONETIZATION</b><small>Adapty · StoreKit</small></div>
-                <div className="graph-arrow">↓</div>
-                <div className="graph-node node-core"><b>CORE</b><small>foundation</small></div>
-              </div>
-              <div className="graph-branch">
-                <div className="graph-node node-ext"><b>EXT</b><small>standalone</small></div>
-                <div className="graph-line dashed" />
-              </div>
-              <div className="graph-host" aria-hidden="true"><span /><b>ВАШЕ APP</b><small>выбирает модули</small></div>
+          <div className="hero-system module-selector" aria-label="Как выбрать модуль BroadApps">
+            <div className="system-label"><span>КАКОЙ МОДУЛЬ ПОДКЛЮЧАТЬ</span><em>iOS 17+</em></div>
+            <div className="selector-question">
+              <span>1</span>
+              <div><b>Что нужно вашему приложению?</b><small>Выберите строку — справа написано, какой один модуль добавить в Xcode.</small></div>
             </div>
-            <div className="graph-note"><span className="pulse" /> known-good versions живут в integration catalog</div>
+            <div className="selector-routes">
+              <Link className="selector-route selector-flows" href="/docs/broad-ui-flows">
+                <span className="selector-route-number">01</span>
+                <div className="selector-route-copy"><b>Готовые экраны и flow</b><small>onboarding · paywall · app routing</small></div>
+                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadUIFlows</strong><small>Monetization, Core и Adapty придут автоматически</small></div>
+              </Link>
+              <Link className="selector-route selector-money" href="/docs/broad-monetization">
+                <span className="selector-route-number">02</span>
+                <div className="selector-route-copy"><b>Оплата со своим UI</b><small>purchase · entitlement · restore</small></div>
+                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadMonetization</strong><small>Core и Adapty придут автоматически</small></div>
+              </Link>
+              <Link className="selector-route selector-core" href="/docs/broad-core">
+                <span className="selector-route-number">03</span>
+                <div className="selector-route-copy"><b>Запуск и инфраструктура</b><small>bootstrap · cache · logs · retry</small></div>
+                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadCore</strong><small>без Monetization и готовых экранов</small></div>
+              </Link>
+              <Link className="selector-route selector-extensions" href="/docs/broad-extensions">
+                <span className="selector-route-number">04</span>
+                <div className="selector-route-copy"><b>Только Swift-утилиты</b><small>colors · keyboard · navigation</small></div>
+                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadExtensions</strong><small>самостоятельный модуль без SDK-зависимостей</small></div>
+              </Link>
+            </div>
+            <div className="selector-note"><span className="pulse" /><b>Версии уже проверены вместе.</b><Link href="/docs/compatibility">Открыть каталог совместимости →</Link></div>
           </div>
         </section>
 
