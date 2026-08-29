@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+### Fixed
+
+- all article images now use repository-relative `../public/` paths, so the
+  same canonical Markdown renders correctly both on the documentation site and
+  in GitHub Preview instead of showing broken alt-text placeholders;
+- internal article links now use neighboring `.md` files in GitHub and are
+  translated back to `/docs/...` by the website renderer;
+- every documentation page now exposes its canonical GitHub source, commit
+  history, raw Markdown and edit route at the top and bottom of the article;
+- the shared article template now gives all pages a consistent reading layout,
+  source status, improved typography, captioned media, code headers, responsive
+  navigation and previous/next document links;
+- content validation now fails when a referenced image or neighboring Markdown
+  page is missing, or when a site-only `/docs/...` link is added to canonical
+  content.
+
 ### Added
 
 - a two-stage alphabetical directory with section filters, per-section and

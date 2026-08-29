@@ -28,5 +28,5 @@ Standalone gate проверяет format, lint, architecture, privacy manifest,
 
 [Открыть public repository](https://github.com/BroadApps-official/broad-core-ios).
 
-[Runtime, cache и recovery →](/docs/runtime-reliability) ·
-[Onboarding и ATT boundary →](/docs/onboarding-att)
+[Runtime, cache и recovery →](./runtime-reliability.md) ·
+[Onboarding и ATT boundary →](./onboarding-att.md)

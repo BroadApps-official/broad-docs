@@ -2,11 +2,26 @@
 import type { ReactNode } from "react";
 import { slugifyHeading } from "@/lib/docs";
 
+function normalizeDocumentHref(href: string) {
+  const localDocument = href.match(/^\.\/([a-z0-9-]+)\.md(#[^)]+)?$/i);
+  if (localDocument) return `/docs/${localDocument[1]}${localDocument[2] ?? ""}`;
+  return href;
+}
+
+function normalizeMediaSource(src: string) {
+  if (src.startsWith("../public/")) return src.slice("../public".length);
+  return src;
+}
+
 function inline(text: string): ReactNode[] {
   const expression = /(\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*)/g;
   return text.split(expression).filter(Boolean).map((part, index) => {
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-    if (link) return <a href={link[2]} key={index} target={link[2].startsWith("http") ? "_blank" : undefined} rel={link[2].startsWith("http") ? "noreferrer" : undefined}>{link[1]}</a>;
+    if (link) {
+      const href = normalizeDocumentHref(link[2]);
+      const external = href.startsWith("http");
+      return <a href={href} key={index} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{link[1]}</a>;
+    }
     if (part.startsWith("`") && part.endsWith("`")) return <code key={index}>{part.slice(1, -1)}</code>;
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={index}>{part.slice(2, -2)}</strong>;
     return part;
@@ -22,6 +37,7 @@ type Block = {
   rows?: string[][];
   alt?: string;
   src?: string;
+  language?: string;
 };
 
 function tableCells(line: string): string[] | null {
@@ -36,6 +52,7 @@ function parse(markdown: string): Block[] {
   let paragraph: string[] = [];
   let list: { type: "ul" | "ol"; items: string[] } | null = null;
   let code: string[] | null = null;
+  let codeLanguage = "";
 
   const flushParagraph = () => { if (paragraph.length) blocks.push({ type: "paragraph", text: paragraph.join(" ") }); paragraph = []; };
   const flushList = () => { if (list) blocks.push(list); list = null; };
@@ -44,7 +61,14 @@ function parse(markdown: string): Block[] {
     const line = lines[lineIndex];
     if (line.startsWith("```")) {
       flushParagraph(); flushList();
-      if (code) { blocks.push({ type: "code", text: code.join("\n") }); code = null; } else { code = []; }
+      if (code) {
+        blocks.push({ type: "code", text: code.join("\n"), language: codeLanguage });
+        code = null;
+        codeLanguage = "";
+      } else {
+        code = [];
+        codeLanguage = line.slice(3).trim();
+      }
       continue;
     }
     if (code) { code.push(line); continue; }
@@ -85,7 +109,7 @@ function parse(markdown: string): Block[] {
     paragraph.push(line.trim());
   }
   flushParagraph(); flushList();
-  if (code) blocks.push({ type: "code", text: code.join("\n") });
+  if (code) blocks.push({ type: "code", text: code.join("\n"), language: codeLanguage });
   return blocks;
 }
 
@@ -94,17 +118,27 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "heading") {
       const id = slugifyHeading(block.text ?? "");
       if (block.level === 1) return <h1 id={id} key={index}>{inline(block.text ?? "")}</h1>;
-      if (block.level === 2) return <h2 id={id} key={index}>{inline(block.text ?? "")}</h2>;
-      return <h3 id={id} key={index}>{inline(block.text ?? "")}</h3>;
+      if (block.level === 2) return <h2 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h2>;
+      return <h3 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h3>;
     }
     if (block.type === "paragraph") return <p key={index}>{inline(block.text ?? "")}</p>;
     if (block.type === "quote") return <blockquote key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
-    if (block.type === "code") return <pre key={index}><code>{block.text}</code></pre>;
-    if (block.type === "image") return (
-      <figure className="docs-media" key={index}>
-        <img alt={block.alt ?? ""} loading="lazy" src={block.src} />
-      </figure>
+    if (block.type === "code") return (
+      <div className="docs-code-block" key={index}>
+        <div className="docs-code-label"><span>{block.language || "TEXT"}</span><span>READ-ONLY EXAMPLE</span></div>
+        <pre><code>{block.text}</code></pre>
+      </div>
     );
+    if (block.type === "image") {
+      const src = normalizeMediaSource(block.src ?? "");
+      const reference = src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/");
+      return (
+        <figure className={`docs-media${reference ? " docs-media-reference" : ""}`} key={index}>
+          <div className="docs-media-frame"><img alt={block.alt ?? ""} loading="lazy" src={src} /></div>
+          {block.alt ? <figcaption><span>REFERENCE</span>{block.alt}</figcaption> : null}
+        </figure>
+      );
+    }
     if (block.type === "table") return (
       <div className="docs-table-wrap" key={index}>
         <table>

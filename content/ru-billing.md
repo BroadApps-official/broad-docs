@@ -33,19 +33,19 @@ Force-on не обходит host opt-in, device context, catalog, backend kill 
       → foreground return → backend reconciliation
 ```
 
-![Выбор тарифа](/guides/readme/References/5115-paywall-dark.png)
+![Выбор тарифа](../public/guides/readme/References/5115-paywall-dark.png)
 
-![Выбор способа оплаты](/guides/readme/References/5115-payment-methods-dark.png)
+![Выбор способа оплаты](../public/guides/readme/References/5115-payment-methods-dark.png)
 
-![Обязательные согласия](/guides/readme/References/5115-payment-ready-dark.png)
+![Обязательные согласия](../public/guides/readme/References/5115-payment-ready-dark.png)
 
-![Понятная ошибка отсутствующего согласия](/guides/readme/References/5115-consent-alert-dark.png)
+![Понятная ошибка отсутствующего согласия](../public/guides/readme/References/5115-consent-alert-dark.png)
 
-![Email для чека](/guides/readme/References/5115-receipt-email-dark.png)
+![Email для чека](../public/guides/readme/References/5115-receipt-email-dark.png)
 
-![Внешняя форма банковской карты](/guides/readme/References/5115-cloudpayments-light.png)
+![Внешняя форма банковской карты](../public/guides/readme/References/5115-cloudpayments-light.png)
 
-![Hosted checkout](/guides/readme/References/5115-hosted-checkout-light.png)
+![Hosted checkout](../public/guides/readme/References/5115-hosted-checkout-light.png)
 
 Эти экраны — reference последовательности. Внешний стиль, copy, provider,
 products, prices и legal content принадлежат конкретному приложению.

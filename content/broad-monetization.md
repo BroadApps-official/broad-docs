@@ -37,9 +37,9 @@ monetization contracts/adapters. Обязательного `BroadPlatform` не
 
 ## Special Offer
 
-Special Offer — второй paywall после крестика обычного subscription paywall без покупки. Полный contract: [Special Offer](/docs/special-offer).
+Special Offer — второй paywall после крестика обычного subscription paywall без покупки. Полный contract: [Special Offer](./special-offer.md).
 
-[Adapty и placements →](/docs/adapty-setup) · [Token paywall →](/docs/token-paywall) ·
-[RU Billing →](/docs/ru-billing) · [Runtime reliability →](/docs/runtime-reliability)
+[Adapty и placements →](./adapty-setup.md) · [Token paywall →](./token-paywall.md) ·
+[RU Billing →](./ru-billing.md) · [Runtime reliability →](./runtime-reliability.md)
 
 [Открыть public repository](https://github.com/BroadApps-official/broad-monetization-ios) · [release 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).

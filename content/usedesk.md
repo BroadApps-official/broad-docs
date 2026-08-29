@@ -5,12 +5,12 @@
 Usedesk не входит в Core, Monetization или UIFlows автоматически. Его
 подключают только если конкретному приложению нужен чат.
 
-![Вход Онлайн-чат из Settings](/guides/readme/Usedesk/settings-online-chat-highlighted.png)
+![Вход Онлайн-чат из Settings](../public/guides/readme/Usedesk/settings-online-chat-highlighted.png)
 
 SDK открывается только после явного действия `Настройки → Онлайн-чат`, а не из
 loader/bootstrap.
 
-![Экран чата](/guides/readme/Usedesk/chat-screen.png)
+![Экран чата](../public/guides/readme/Usedesk/chat-screen.png)
 
 ## Что запросить до реализации
 
@@ -47,7 +47,7 @@ device ID                   = не identity пользователя
 затем синхронизирует backend. Ошибка не проглатывается; logout не должен
 показывать историю другого account.
 
-![Санитизированная карта данных проекта](/guides/readme/Usedesk/pm-data-sanitized.png)
+![Санитизированная карта данных проекта](../public/guides/readme/Usedesk/pm-data-sanitized.png)
 
 ## Offline
 

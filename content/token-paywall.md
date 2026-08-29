@@ -5,7 +5,7 @@
 Токен — расходуемая единица приложения. Subscription подтверждает доступ, а
 token package начисляет balance на backend конкретного app account.
 
-![Reference token paywall](/guides/readme/References/5115-token-paywall-dark.png)
+![Reference token paywall](../public/guides/readme/References/5115-token-paywall-dark.png)
 
 Reference показывает пять packages, но platform не фиксирует их число, copy,
 prices, discount, image или entry point.

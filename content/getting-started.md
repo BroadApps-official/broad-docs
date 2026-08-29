@@ -1,7 +1,7 @@
 # Getting Started
 
 > Создаёте целое приложение, а не только подключаете package? Сначала выберите
-> актуальный маршрут: [с Codex/Claude или вручную](/docs/app-creation).
+> актуальный маршрут: [с Codex/Claude или вручную](./app-creation.md).
 
 ## Главное правило
 
@@ -24,11 +24,11 @@ toolchain, который понимает SwiftPM tools `6.0`.
 - `BroadMonetization` — Adapty, StoreKit, entitlement, RU Billing и analytics; подтягивает compatible Core.
 - `BroadUIFlows` — готовые SwiftUI-flow; подтягивает compatible Monetization и Core.
 
-[Полная матрица выбора](/docs/module-selection).
+[Полная матрица выбора](./module-selection.md).
 
 ## Подключение через SwiftPM
 
-Добавьте URL нужного repository в Xcode: `File → Add Package Dependencies…`. Выберите версию из [compatibility catalog](/docs/compatibility), затем добавьте product нужному iPhone target.
+Добавьте URL нужного repository в Xcode: `File → Add Package Dependencies…`. Выберите версию из [compatibility catalog](./compatibility.md), затем добавьте product нужному iPhone target.
 
 ```swift
 dependencies: [
@@ -42,7 +42,7 @@ dependencies: [
 Public module repositories скачиваются без GitHub account, password, token или
 API key. Если Xcode открывает `git-credential-osxkeychain`, проверьте, что host
 project не хранит старый private URL `BroadApps-official/BroadCore`, затем
-сбросьте package cache. [Пошаговая диагностика](/docs/public-package-access).
+сбросьте package cache. [Пошаговая диагностика](./public-package-access.md).
 
 ## Composition root
 

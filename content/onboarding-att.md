@@ -6,7 +6,7 @@
 Три страницы в BroadAppTemplate являются fixture-примером, а не default,
 лимитом или скрытым `slidesCount`.
 
-![Как определить onboarding pages](/guides/readme/onboarding-decision-flow-light.svg)
+![Как определить onboarding pages](../public/guides/readme/onboarding-decision-flow-light.svg)
 
 До реализации разработчик или агент сверяет Kaiten/ТЗ, Figma/no-code материалы,
 reference и app specification. Если порядок, copy, media или action

@@ -56,7 +56,7 @@ restore или RU payment.
 generic iPhone compile. По решению владельца `Tests/`, XCTest и Swift Testing
 не добавляются.
 
-[Onboarding и ATT →](/docs/onboarding-att) · [Paywall visual guide →](/docs/paywall-ui) ·
-[Special Offer →](/docs/special-offer) · [RU Billing UI →](/docs/ru-billing)
+[Onboarding и ATT →](./onboarding-att.md) · [Paywall visual guide →](./paywall-ui.md) ·
+[Special Offer →](./special-offer.md) · [RU Billing UI →](./ru-billing.md)
 
 [Открыть public repository](https://github.com/BroadApps-official/broad-ui-flows-ios) · [release 1.0.0](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.0).

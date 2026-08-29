@@ -3,7 +3,7 @@
 Эта инструкция — точка входа для уже работающего iPhone-приложения, которое
 использует прежний BroadApps monolith, local package checkout или скопированные
 platform sources. Она не относится к историческому
-[разделению самой платформы](/docs/migration) на repositories.
+[разделению самой платформы](./migration.md) на repositories.
 
 ## Что меняется
 
@@ -97,7 +97,7 @@ imports, а затем выбирает topology по фактическому g
 
 - Старый `BroadApps-official/BroadCore` является private monolith. Замените его
   на нужные public `broad-*-ios.git` references; не добавляйте password, token
-  или API key в app. [Диагностика Keychain prompt](/docs/public-package-access).
+  или API key в app. [Диагностика Keychain prompt](./public-package-access.md).
 - Возможность открыть private repository из рабочего GitHub account не делает
   его canonical: актуальный workflow живёт в public integration repository.
 - Не создавайте новое приложение или второй app target вместо migration.

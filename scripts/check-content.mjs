@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 
 const contentFiles = (await readdir(new URL("../content/", import.meta.url))).filter((name) => name.endsWith(".md")).sort();
 const registry = await readFile(new URL("../lib/docs.ts", import.meta.url), "utf8");
@@ -12,6 +12,24 @@ for (const file of contentFiles) {
   if (!body.startsWith("# ")) failures.push(`${file}: first line must be an H1.`);
   if (!registry.includes(`slug: "${slug}"`)) failures.push(`${file}: slug is missing from lib/docs.ts.`);
   if (/\b(?:sk_live|secret|bearer)\b/i.test(body)) failures.push(`${file}: possible secret-bearing text.`);
+  if (/\]\(\/docs\//.test(body)) failures.push(`${file}: site-root document links break the GitHub Markdown fallback; use ./slug.md.`);
+
+  for (const match of body.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)) {
+    const source = match[1];
+    if (!source.startsWith("../public/")) {
+      failures.push(`${file}: media must use a GitHub-safe ../public/ path: ${source}`);
+      continue;
+    }
+    try {
+      await access(new URL(source, new URL(`../content/${file}`, import.meta.url)));
+    } catch {
+      failures.push(`${file}: media file is missing: ${source}`);
+    }
+  }
+
+  for (const match of body.matchAll(/\[[^\]]+\]\(\.\/([a-z0-9-]+)\.md(?:#[^)]+)?\)/gi)) {
+    if (!contentFiles.includes(`${match[1]}.md`)) failures.push(`${file}: linked Markdown page is missing: ${match[1]}.md`);
+  }
   if (file === "legacy-app-migration.md") {
     for (const contract of [
       "https://github.com/BroadApps-official/broad-platform-integration",

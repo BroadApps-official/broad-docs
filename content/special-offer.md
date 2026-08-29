@@ -45,9 +45,9 @@ deduplicate; provider order и каждое product occurrence часть кон
 
 Special Offer никогда не является первым paywall. Confirmed purchase/restore первого paywall ведёт в main и обходит downsell.
 
-![Шаг 1 — обычный subscription paywall](/guides/readme/References/special-offer-step-1-paywall.png)
+![Шаг 1 — обычный subscription paywall](../public/guides/readme/References/special-offer-step-1-paywall.png)
 
-![Шаг 2 — Special Offer после закрытия первого paywall](/guides/readme/References/special-offer-step-2-offer.png)
+![Шаг 2 — Special Offer после закрытия первого paywall](../public/guides/readme/References/special-offer-step-2-offer.png)
 
 Кадры являются reference последовательности. Конкретный background, copy,
 products, discount и legal content остаются app-owned.
@@ -73,4 +73,4 @@ Purchase второго paywall использует raw product из того �
 Эти сценарии выполняются fixture/probe-кодом без настоящих purchase, restore и RU payment.
 Они входят в [BroadMonetization 1.0.0](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.0.0).
 
-[Adapty setup](/docs/adapty-setup) · [Paywall UI](/docs/paywall-ui) · [RU Billing](/docs/ru-billing)
+[Adapty setup](./adapty-setup.md) · [Paywall UI](./paywall-ui.md) · [RU Billing](./ru-billing.md)

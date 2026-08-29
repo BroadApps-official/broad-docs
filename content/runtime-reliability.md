@@ -2,7 +2,7 @@
 
 ## Запуск и cache
 
-![Critical/background startup и cache fallback](/guides/readme/startup-cache-light.svg)
+![Critical/background startup и cache fallback](../public/guides/readme/startup-cache-light.svg)
 
 Composition root собирает configuration/adapters один раз. Critical steps идут
 последовательно с bounded timeout/retry; UI открывается после safe readiness;
@@ -14,7 +14,7 @@ purchase или remote financial gate.
 
 ## Полный пользовательский flow
 
-![Первый запуск и entitlement confirmation](/guides/readme/full-flow.gif)
+![Первый запуск и entitlement confirmation](../public/guides/readme/full-flow.gif)
 
 ```text
 launch → optional onboarding → initial paywall policy
@@ -27,7 +27,7 @@ launch → optional onboarding → initial paywall policy
 
 ## Async feedback
 
-![Spinner до Task и первого await](/guides/readme/debug-feedback-light.svg)
+![Spinner до Task и первого await](../public/guides/readme/debug-feedback-light.svg)
 
 Любая backend/SDK-кнопка синхронно ставит `isInFlight` до создания `Task`.
 Повторный tap блокируется. Error и offline завершают ожидание и дают безопасное

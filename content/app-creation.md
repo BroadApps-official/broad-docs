@@ -35,10 +35,10 @@ BroadApps iOS Platform — не один package, который приложе�
 | Что вы делаете | Начать | Собрать | Проверить |
 |---|---|---|---|
 | Посмотреть возможности платформы | [Открыть integration example](#что-открыть) | Запустить безопасный каталог на iPhone Simulator | Проверить fixture flow без purchase/restore/RU checkout |
-| Подключить один module | [Getting Started](/docs/getting-started) | Добавить нужный public product в host target | Debug/Release Simulator и generic unsigned compile |
+| Подключить один module | [Getting Started](./getting-started.md) | Добавить нужный public product в host target | Debug/Release Simulator и generic unsigned compile |
 | Создать app с Codex/Claude | Выполнить только canonical Stage 0 | Отправлять stages по одному | Пройти все developer checkpoints и acceptance |
 | Создать app вручную | Заполнить тот же Integration Plan | Делать один vertical slice за итерацию | Functional review, visual review и handoff |
-| Перенести legacy app | [Определить cutover topology](/docs/legacy-app-migration) | Переключать atomic groups и runtime slices | Проверить final graph и удалить legacy только после review |
+| Перенести legacy app | [Определить cutover topology](./legacy-app-migration.md) | Переключать atomic groups и runtime slices | Проверить final graph и удалить legacy только после review |
 | Подготовить app к QA | Открыть [Project Delivery](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/ProjectDelivery.md) | Собрать app-owned functional/visual/config evidence | Передать QA только после личного developer review |
 
 ## Все flow
@@ -48,16 +48,16 @@ BroadApps iOS Platform — не один package, который приложе�
 | Flow | Как начинается | Безопасный результат | Где читать |
 |---|---|---|---|
 | Создание приложения | Preflight реальных sources | Plan, slices и checkpoints без догадок | [Эта страница](#с-чего-начать) |
-| Первый запуск | Bootstrap и выбранная onboarding policy | ATT только после видимого первого слайда; premium только после entitlement | [Onboarding и ATT](/docs/onboarding-att) |
-| Subscription paywall | Initial policy, Settings или app-owned entry point | Все provider products сохранены; purchase/restore требуют entitlement refresh | [Paywall UI](/docs/paywall-ui) |
-| Special Offer | Только close первого paywall без confirmed purchase | Второй paywall либо безопасный переход в main | [Special Offer](/docs/special-offer) |
-| Token paywall | Баланс или платная consumable feature | Exactly-once fulfillment и полный backend balance snapshot | [Token paywall](/docs/token-paywall) |
-| RU Billing | Verified-fresh `ru_pay` плюс все host/backend/device gates | Checkout return остаётся pending до backend reconciliation | [RU Billing](/docs/ru-billing) |
-| Loading/error/offline | Любой SDK/backend use case | Spinner до первого `await`, блокировка double tap, Retry без ложного success | [Runtime и надёжность](/docs/runtime-reliability) |
-| Support chat | Явное действие `Настройки → Онлайн-чат` | Account-scoped token recovery без device ID identity | [Usedesk](/docs/usedesk) |
-| Legacy migration | Анализ реального package/source graph | Один owner каждого target и принятые runtime slices | [Legacy migration](/docs/legacy-app-migration) |
+| Первый запуск | Bootstrap и выбранная onboarding policy | ATT только после видимого первого слайда; premium только после entitlement | [Onboarding и ATT](./onboarding-att.md) |
+| Subscription paywall | Initial policy, Settings или app-owned entry point | Все provider products сохранены; purchase/restore требуют entitlement refresh | [Paywall UI](./paywall-ui.md) |
+| Special Offer | Только close первого paywall без confirmed purchase | Второй paywall либо безопасный переход в main | [Special Offer](./special-offer.md) |
+| Token paywall | Баланс или платная consumable feature | Exactly-once fulfillment и полный backend balance snapshot | [Token paywall](./token-paywall.md) |
+| RU Billing | Verified-fresh `ru_pay` плюс все host/backend/device gates | Checkout return остаётся pending до backend reconciliation | [RU Billing](./ru-billing.md) |
+| Loading/error/offline | Любой SDK/backend use case | Spinner до первого `await`, блокировка double tap, Retry без ложного success | [Runtime и надёжность](./runtime-reliability.md) |
+| Support chat | Явное действие `Настройки → Онлайн-чат` | Account-scoped token recovery без device ID identity | [Usedesk](./usedesk.md) |
+| Legacy migration | Анализ реального package/source graph | Один owner каждого target и принятые runtime slices | [Legacy migration](./legacy-app-migration.md) |
 
-![Запуск, onboarding, paywall, entitlement и main](/guides/readme/full-flow-light.svg)
+![Запуск, onboarding, paywall, entitlement и main](../public/guides/readme/full-flow-light.svg)
 
 ## Перед QA
 
@@ -85,7 +85,7 @@ app-level checklist находится в
 | Создать новый app с Codex/Claude | Отдельную папку host repository, затем [маршрут с агентом](#с-codex-claude) |
 | Создать новый app вручную | Новый Xcode `iOS → App`, затем [ручной маршрут](#без-агента) |
 | Продолжить существующий app | Его настоящий repository и существующий `Documentation/AppIntegrationPlan.md` |
-| Мигрировать private BroadCore/local sources | Repository существующего app и [legacy migration](/docs/legacy-app-migration), а не private platform как новый source |
+| Мигрировать private BroadCore/local sources | Repository существующего app и [legacy migration](./legacy-app-migration.md), а не private platform как новый source |
 | Изменить module API | Repository конкретного module, его README/DocC и `Scripts/module_gate.sh` |
 
 Чтобы запустить текущий integration example:
@@ -103,12 +103,12 @@ open Examples/BroadAppTemplate/BroadAppTemplate.xcodeproj
 
 | Задача | Правильный маршрут |
 |---|---|
-| Подключить один модуль к существующему host app | [Getting Started](/docs/getting-started) |
+| Подключить один модуль к существующему host app | [Getting Started](./getting-started.md) |
 | Создать новое приложение или новую feature с Codex/Claude | [С Codex / Claude](#с-codex-claude) |
 | Создать новое приложение вручную | [Без агента](#без-агента) |
-| Перенести приложение со старого monolith/local package | [Legacy migration](/docs/legacy-app-migration) |
-| Понять, какие products нужны | [Выбор модуля](/docs/module-selection) |
-| Проверить exact known-good версии | [Совместимость](/docs/compatibility) |
+| Перенести приложение со старого monolith/local package | [Legacy migration](./legacy-app-migration.md) |
+| Понять, какие products нужны | [Выбор модуля](./module-selection.md) |
+| Проверить exact known-good версии | [Совместимость](./compatibility.md) |
 
 Для нового приложения и нового feature действует один порядок:
 
@@ -117,7 +117,7 @@ open Examples/BroadAppTemplate/BroadAppTemplate.xcodeproj
             → 4 FUNCTIONAL → 5 VISUAL → 6 ACCEPTANCE
 ```
 
-![Поэтапное создание приложения с обязательными developer checkpoints](/guides/readme/app-delivery-iterations-light.svg)
+![Поэтапное создание приложения с обязательными developer checkpoints](../public/guides/readme/app-delivery-iterations-light.svg)
 
 С агентом и без агента меняется исполнитель, но не evidence, checkpoints или
 критерии готовности.
@@ -188,7 +188,7 @@ Stage 0 ничего не создаёт. Недоступный источни�
 checkpoint и diff, а не начинает работу заново.
 
 > Для приложения на старом BroadCore/monolith используйте отдельный
-> [migration workflow](/docs/legacy-app-migration): агент сначала выводит
+> [migration workflow](./legacy-app-migration.md): агент сначала выводит
 > cutover topology и atomic groups из реального package graph.
 
 ## Без агента
@@ -203,7 +203,7 @@ checkpoint и diff, а не начинает работу заново.
 3. Для нового app создайте `iOS → App` target с `Team = None`. Для существующего
    app не создавайте второй target: сначала опишите current state и gaps.
 4. Подключите только нужные public module repositories и версии из
-   [compatibility catalog](/docs/compatibility); umbrella package не нужен.
+   [compatibility catalog](./compatibility.md); umbrella package не нужен.
 5. Соберите один composition root и безопасный skeleton.
 6. Реализуйте по одному vertical slice с состояниями
    loading/content/empty/error/offline и защитой от повторного действия.

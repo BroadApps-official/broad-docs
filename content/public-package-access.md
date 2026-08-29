@@ -24,7 +24,7 @@ binary и не используется для чтения public package. Appl
 | Purchase и entitlement | `https://github.com/BroadApps-official/broad-monetization-ios.git` | `BroadMonetization` |
 | Готовые SwiftUI-flow | `https://github.com/BroadApps-official/broad-ui-flows-ios.git` | `BroadUIFlows` |
 
-Выберите version из [compatibility catalog](/docs/compatibility). Для обычной
+Выберите version из [compatibility catalog](./compatibility.md). Для обычной
 module dependency используется совместимый `from`-диапазон; для
 воспроизведения verified set или первого migration acceptance — exact catalog
 version.

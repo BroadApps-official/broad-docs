@@ -37,7 +37,7 @@ SwiftUI View.
 Этот пример нельзя копировать поверх рабочего Dashboard. Для уже подключённого
 RU Billing значение `ru_pay` определяет product/backend owner.
 
-![Права Adapty payload и persistent cache](/guides/readme/remote-config-cache-flow-light.svg)
+![Права Adapty payload и persistent cache](../public/guides/readme/remote-config-cache-flow-light.svg)
 
 | Источник payload | Обычный paywall | Special Offer | RU Billing |
 |---|---:|---:|---:|
@@ -74,4 +74,4 @@ Adapty.getPaywall
 - настоящая финансовая операция не нужна для этой проверки.
 
 [Полный module README](https://github.com/BroadApps-official/broad-monetization-ios) ·
-[Special Offer](/docs/special-offer) · [RU Billing](/docs/ru-billing)
+[Special Offer](./special-offer.md) · [RU Billing](./ru-billing.md)
