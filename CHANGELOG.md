@@ -4,6 +4,9 @@
 
 ### Changed
 
+- the documentation directory now introduces its search with the task-focused
+  heading “Find the right guide”; the 24-article count is supporting context
+  instead of the section title;
 - the fixed homepage panel is now a complete site map: it links to the homepage,
   search and all 24 documents grouped into Start, Platform Parts,
   Monetization, Architecture and Development; the document list scrolls inside

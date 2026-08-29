@@ -175,8 +175,8 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
     <div className="docs-index-content section-wrap">
       <section className="docs-directory-block" aria-labelledby="directory-title">
         <div className="docs-index-heading">
-          <div><span>01</span><h2 id="directory-title">Все {docs.length} документов</h2></div>
-          <p>Все статьи уже здесь. Поиск только сокращает этот список.</p>
+          <div><span>01</span><h2 id="directory-title">Найдите нужную инструкцию</h2></div>
+          <p>{docs.length} статьи сгруппированы по задачам. Введите слова — список сразу сократится.</p>
         </div>
         <div className="docs-search-box docs-directory-search">
           <SearchIcon />
