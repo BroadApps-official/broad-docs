@@ -85,17 +85,17 @@ export default function Home() {
         </section>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> BroadApps iOS простыми словами</div>
-            <h1>Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h1>
+            <div className="eyebrow"><span /> Следующий шаг · выберите сценарий</div>
+            <h1>Выберите задачу —<br />подключите одну<br /><em>библиотеку.</em></h1>
             <p className="hero-lede">
-              Не одна огромная библиотека, а четыре независимые части с понятными задачами.
-              Выберите нужную функцию — запуск, оплату, готовые экраны или
-              утилиты — и подключите одну библиотеку в Xcode. Всё, без чего она
-              не работает, Xcode скачает автоматически.
+              Выберите справа, что требуется приложению. В каждой строке сразу
+              написано, какой один product добавить в Xcode и что загрузится
+              автоматически. Ключи, placements, тексты и изображения остаются
+              в вашем приложении.
             </p>
             <div className="hero-actions">
-              <Link className="primary-action" href="/docs/getting-started">Подключить впервые <span>↗</span></Link>
-              <Link className="secondary-action" href="/docs/module-selection">Выбрать библиотеку</Link>
+              <Link className="primary-action" href="/docs/getting-started">Пошаговое подключение <span>↗</span></Link>
+              <Link className="secondary-action" href="/docs/module-selection">Сравнить библиотеки</Link>
               <Link className="secondary-action" href="/docs/legacy-app-migration">Перенести старое приложение</Link>
             </div>
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>ПУБЛИЧНЫЙ HTTPS</b> Без аккаунта GitHub, пароля, токена и API key <i>↗</i></Link>
