@@ -47,49 +47,56 @@ export default function Home() {
       <SiteHeader />
       <main className="home-main">
         <HomeSectionMap />
-        <section className="home-quick-routes section-wrap" aria-labelledby="quick-routes-title">
+        <section className="home-quick-routes home-platform-intro section-wrap" aria-labelledby="platform-intro-title">
           <div className="home-quick-routes-head">
             <div>
-              <span>БЫСТРЫЙ МАРШРУТ</span>
-              <h2 id="quick-routes-title">Что вы делаете прямо сейчас?</h2>
+              <span>ПЛАТФОРМА ЗА 30 СЕКУНД</span>
+              <h2 id="platform-intro-title">Готовые части для iOS-приложений компании</h2>
+              <p>BroadApps iOS — четыре публичных Swift Package-модуля с общим кодом, который не нужно заново писать в каждом приложении.</p>
             </div>
-            <Link href="/docs/compatibility"><i className="status-dot green" />Platform set 1.0.0 · iOS 17+ <b>→</b></Link>
+            <Link href="/docs/getting-started"><i className="status-dot green" />Я здесь впервые <b>→</b></Link>
           </div>
           <div className="home-quick-routes-grid">
-            <Link href="/docs/getting-started">
-              <span>01</span>
-              <div><b>Подключаю впервые</b><small>Установка package и первый рабочий запуск</small></div>
+            <Link className="intro-module-core" href="/docs/broad-core">
+              <span>CORE</span>
+              <div><b>Запуск и основа</b><small>bootstrap · cache · logs · retry</small></div>
               <i>→</i>
             </Link>
-            <Link href="/docs/module-selection">
-              <span>02</span>
-              <div><b>Выбираю модуль</b><small>Один product под конкретную задачу app</small></div>
+            <Link className="intro-module-money" href="/docs/broad-monetization">
+              <span>PAY</span>
+              <div><b>Оплата и подписка</b><small>Adapty · StoreKit · purchase · restore</small></div>
               <i>→</i>
             </Link>
-            <Link href="/docs/legacy-app-migration">
-              <span>03</span>
-              <div><b>Переношу старое app</b><small>Без переписывания: одна граница и один flow</small></div>
+            <Link className="intro-module-flows" href="/docs/broad-ui-flows">
+              <span>UI</span>
+              <div><b>Готовые экраны</b><small>onboarding · paywall · app routing</small></div>
               <i>→</i>
             </Link>
-            <Link href="/search">
-              <span>04</span>
-              <div><b>Ищу проблему</b><small>Поиск по 23 статьям и исходникам на GitHub</small></div>
+            <Link className="intro-module-extensions" href="/docs/broad-extensions">
+              <span>EXT</span>
+              <div><b>Swift-утилиты</b><small>colors · keyboard · navigation</small></div>
               <i>→</i>
             </Link>
+          </div>
+          <div className="home-platform-reason">
+            <b>Зачем по модулям?</b>
+            <p>Чтобы приложение брало только нужное. Вы добавляете один product — обязательные зависимости приходят автоматически, а лишние SDK и экраны не попадают в app.</p>
+            <Link href="/docs/module-selection">Показать, что выбрать →</Link>
           </div>
         </section>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Public iOS platform</div>
-            <h1>Собирайте платформу<br /><em>по модулям.</em></h1>
+            <div className="eyebrow"><span /> BroadApps iOS простыми словами</div>
+            <h1>Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h1>
             <p className="hero-lede">
-              Приложение подключает только нужные Swift Package products.
-              Код каждого модуля можно смотреть и выпускать отдельно, а точный
-              набор совместимых версий уже проверен в integration repository.
+              Не один огромный SDK, а четыре независимых Swift Package-модуля.
+              Выберите нужную функцию — запуск, оплату, готовые экраны или
+              утилиты — и подключите один product в Xcode. Его обязательные
+              зависимости придут автоматически.
             </p>
             <div className="hero-actions">
-              <Link className="primary-action" href="/docs/getting-started">Начать подключение <span>↗</span></Link>
-              <Link className="secondary-action" href="#architecture">Понять схему</Link>
+              <Link className="primary-action" href="/docs/getting-started">Подключить впервые <span>↗</span></Link>
+              <Link className="secondary-action" href="/docs/module-selection">Выбрать модуль</Link>
               <Link className="secondary-action" href="/docs/legacy-app-migration">Мигрировать старое app</Link>
             </div>
             <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>PUBLIC HTTPS</b> Без GitHub account, password, token и API key <i>↗</i></Link>

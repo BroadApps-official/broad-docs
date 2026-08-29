@@ -4,6 +4,9 @@
 
 ### Changed
 
+- the homepage now introduces BroadApps iOS in plain language for a developer
+  seeing it for the first time: what the platform is, what every module owns,
+  why the code is split and what a host app actually adds in Xcode;
 - Adapty, Special Offer, token paywall and Getting Started now lead with the
   simple product contract: public key + placements, every provider product,
   StoreKit for the default Apple entitlement path, and no custom verifier
@@ -57,9 +60,9 @@
 
 ### Added
 
-- the space above the homepage hero now works as a four-route task launcher for
-  first setup, module selection, legacy migration and documentation search,
-  with the current compatible platform set visible in the same panel;
+- the space above the homepage hero now explains the platform in 30 seconds:
+  what the four modules own, why the packages are separate and how a developer
+  chooses the first product to add;
 - the homepage now has a persistent, numbered site map with active-section
   highlighting, direct anchors to every major block and a clear route to all
   documentation; compact layouts show the same complete map above the page;
