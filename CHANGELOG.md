@@ -26,6 +26,8 @@
 
 ### Fixed
 
+- the homepage map now switches to its persistent vertical sidebar at ordinary
+  notebook widths instead of expanding into a wide navigation banner;
 - article navigation now grows to its full content height and follows the page
   scroll instead of creating a second scrollbar inside the sidebar;
 - the shared `⌘ K` shortcut now uses a properly sized keycap component instead
