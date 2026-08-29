@@ -26,6 +26,8 @@
 
 ### Fixed
 
+- article navigation now grows to its full content height and follows the page
+  scroll instead of creating a second scrollbar inside the sidebar;
 - the shared `⌘ K` shortcut now uses a properly sized keycap component instead
   of an undersized font glyph in the header and homepage search preview;
 - all article images now use repository-relative `../public/` paths, so the
