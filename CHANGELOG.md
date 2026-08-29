@@ -55,6 +55,9 @@
 
 ### Added
 
+- the homepage now has a persistent, numbered site map with active-section
+  highlighting, direct anchors to every major block and a clear route to all
+  documentation; compact layouts show the same complete map above the page;
 - a dedicated `Старый BroadCore: куда переехал` landing page and a prominent
   documentation-index notice now route developers and agents away from
   `BroadApps-official/BroadCore` to the current module or migration guide;

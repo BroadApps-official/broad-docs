@@ -1,6 +1,7 @@
 import { Link } from "./plain-link";
 import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
+import { HomeSectionMap } from "./home-section-map";
 import { SearchIcon } from "./search-icon";
 import { ShortcutKey } from "./shortcut-key";
 import { SiteFooter, SiteHeader } from "./site-shell";
@@ -44,8 +45,9 @@ export default function Home() {
   return (
     <div className="site-shell">
       <SiteHeader />
-      <main>
-        <section className="hero section-wrap">
+      <main className="home-main">
+        <HomeSectionMap />
+        <section className="hero section-wrap" id="top">
           <div className="hero-copy">
             <div className="eyebrow"><span /> Public iOS platform</div>
             <h1>Собирайте платформу<br /><em>по модулям.</em></h1>
@@ -151,7 +153,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="decision-section section-wrap">
+        <section className="decision-section section-wrap" id="selection">
           <div className="section-heading">
             <div><span className="section-index">04</span><h2>Как выбрать модуль</h2></div>
             <p>Начните с задачи приложения. Подключать всю платформу или специальный umbrella package не требуется.</p>
@@ -167,7 +169,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="migration-home section-wrap">
+        <section className="migration-home section-wrap" id="migration">
           <div className="section-heading">
             <div><span className="section-index">05</span><h2>Как перейти со старой платформы</h2></div>
             <p>Не создаём второе app и не переписываем всё сразу: меняем одну границу, проверяем один рабочий сценарий и сохраняем путь назад.</p>
@@ -189,7 +191,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="release-strip">
+        <section className="release-strip" id="compatibility">
           <div className="section-wrap release-inner">
             <div><span className="live-dot" /><small>CURRENT CATALOG</small><b>Platform set 1.0.0</b></div>
             <div><small>PLATFORM</small><b>iOS 17+</b></div>
