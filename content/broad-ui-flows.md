@@ -69,7 +69,7 @@ UIFlows собирает эти повторяющиеся решения в г�
 
 ### Special Offer
 
-Special Offer — второй экран оплаты, который можно показать только после закрытия первого paywall без покупки. Его разрешает флаг `special_offer = true` в данных фактически загруженного placement Adapty.
+Спешл оффер от Adapty — второй экран оплаты, который можно показать только после закрытия первого paywall без покупки. Его разрешает флаг `special_offer = true` в данных фактически загруженного placement Adapty.
 
 ![Шаг 1: пользователь видит обычный paywall](../public/guides/readme/References/special-offer-step-1-paywall.png)
 
@@ -150,7 +150,7 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 2. Проверьте 0, 1 и несколько продуктов — все три состояния должны выглядеть осмысленно.
 3. Включите медленную сеть: старый контент не должен исчезать во время refresh или purchase.
 4. Быстро нажмите кнопку покупки дважды: вторая операция не должна стартовать.
-5. Закройте первый paywall без покупки: Special Offer появляется только при `special_offer = true`.
+5. Закройте первый paywall без покупки: спешл оффер Adapty появляется только при `special_offer = true`.
 6. Завершите purchase или restore: main открывается только после повторной проверки Premium.
 7. Проверьте длинные русские строки, Dynamic Type и небольшой iPhone.
 
@@ -158,4 +158,4 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 
 Gallery компилирует настоящие production-компоненты и показывает их состояния на iPhone Simulator. Она доказывает, что layout существует и адаптируется к данным. Fixture-продукты в Gallery не проводят настоящую покупку, restore или RU payment и не заменяют проверку приложения с его Adapty dashboard и backend.
 
-[Первые экраны и ATT](./onboarding-att.md) · [Экран подписки](./paywall-ui.md) · [Special Offer](./special-offer.md) · [Оплата картой и СБП](./ru-billing.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-ui-flows-ios)
+[Первые экраны и ATT](./onboarding-att.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [Оплата картой и СБП](./ru-billing.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-ui-flows-ios)

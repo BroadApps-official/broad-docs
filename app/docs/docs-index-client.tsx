@@ -25,7 +25,7 @@ const useCases = [
   { code: "UI", title: "Добавить готовые экраны", detail: "Подключить onboarding, paywall и переходы через BroadUIFlows.", slug: "broad-ui-flows" },
   { code: "ADAPTY", title: "Настроить ключ и placement", detail: "Передать два значения и сохранить все продукты из ответа Adapty.", slug: "adapty-setup" },
   { code: "PAYWALL", title: "Сделать экран подписки", detail: "Показать 0, 1 или много продуктов, загрузку, ошибку и restore.", slug: "paywall-ui" },
-  { code: "OFFER", title: "Показать второе предложение", detail: "Открыть Special Offer после закрытия первого paywall без покупки.", slug: "special-offer" },
+  { code: "OFFER", title: "Показать спешл оффер от Adapty", detail: "Открыть второй экран Adapty после закрытия первого paywall без покупки.", slug: "special-offer" },
   { code: "TOKENS", title: "Продавать пакеты токенов", detail: "Показать все пакеты и обновить баланс после ответа сервера.", slug: "token-paywall" },
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
   { code: "BACKEND", title: "Получить продукты с backend", detail: "Подключить HTTP transport и decoder, не потеряв порядок, дубли и точные ID.", slug: "backend-product-catalog" },

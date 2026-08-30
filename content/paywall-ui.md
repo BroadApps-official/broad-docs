@@ -49,16 +49,16 @@
 Только подтверждённый активный доступ открывает Premium. Таймаут означает
 «результат пока неизвестен», а не успех или отказ.
 
-## Второе предложение
+## Спешл оффер от Adapty
 
 ![Первый экран подписки](../public/guides/readme/References/special-offer-step-1-paywall.png)
 
-![Special Offer как второе предложение](../public/guides/readme/References/special-offer-step-2-offer.png)
+![Спешл оффер Adapty как второй экран](../public/guides/readme/References/special-offer-step-2-offer.png)
 
-Special Offer появляется только после закрытия первого экрана без
+Спешл оффер от Adapty появляется только после закрытия первого экрана без
 подтверждённой покупки. Его таймер — визуальный цикл на 24 часа; ноль не скрывает
 экран и не блокирует кнопку.
 
 [BroadUIFlows](./broad-ui-flows.md) ·
-[Special Offer](./special-offer.md) ·
+[Спешл оффер (от Adapty)](./special-offer.md) ·
 [Покупка токенов](./token-paywall.md)

@@ -70,5 +70,5 @@ Config). Это не вторая система настроек. Для Specia
 6. Автоматическая проверка не списывает настоящие деньги.
 
 [BroadMonetization](./broad-monetization.md) ·
-[Special Offer](./special-offer.md) ·
+[Спешл оффер (от Adapty)](./special-offer.md) ·
 [Покупка токенов](./token-paywall.md)

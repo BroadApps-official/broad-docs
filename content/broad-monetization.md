@@ -60,9 +60,9 @@ Restore восстанавливает подписку или нерасход�
 
 Расходуемые токены Restore не восстанавливает. Их баланс принадлежит backend конкретного приложения.
 
-## Special Offer без лишней сложности
+## Спешл оффер от Adapty без лишней сложности
 
-Special Offer — второй paywall после закрытия первого без покупки.
+Спешл оффер от Adapty — второй paywall после закрытия первого без покупки.
 
 - приложение запрашивает placement `special_offer`;
 - модуль читает payload именно фактически загруженного placement;
@@ -141,4 +141,4 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 6. Проверьте restore после чистой установки.
 7. Просмотрите логи: там не должно быть ключей, receipts, payment URL и raw payload.
 
-[Adapty: ключ и placements](./adapty-setup.md) · [Экран подписки](./paywall-ui.md) · [Special Offer](./special-offer.md) · [Покупка токенов](./token-paywall.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-monetization-ios)
+[Adapty: ключ и placements](./adapty-setup.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [Покупка токенов](./token-paywall.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-monetization-ios)

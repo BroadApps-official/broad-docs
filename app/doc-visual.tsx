@@ -230,11 +230,11 @@ function SpecialOfferVisual() {
     ["01", "Ответ Adapty", "получить экран special_offer или запасной вариант"],
     ["02", "Все варианты", "передать весь список Adapty без фильтрации"],
     ["03", "Один переключатель", "показ разрешает только special_offer = true"],
-    ["04", "Второе предложение", "после крестика первого; таймер циклический 24 часа"],
+    ["04", "Спешл оффер Adapty", "после крестика первого; таймер циклический 24 часа"],
   ];
   return (
-    <section className="doc-visual" aria-label="Порядок обработки Special Offer">
-      <div className="doc-visual-head"><span>SPECIAL OFFER · 4 ШАГА</span><b>Adapty решает, какие варианты покупки показать</b></div>
+    <section className="doc-visual" aria-label="Порядок показа спешл оффера от Adapty">
+      <div className="doc-visual-head"><span>СПЕШЛ ОФФЕР ОТ ADAPTY · 4 ШАГА</span><b>Adapty решает, какие варианты покупки показать</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
