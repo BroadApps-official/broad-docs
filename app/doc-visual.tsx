@@ -250,15 +250,15 @@ function SpecialOfferVisual() {
 
 function RUSpecialOfferVisual() {
   const steps = [
-    ["01", "Закрыт основной paywall", "без подтверждённой покупки или restore"],
-    ["02", "Главный gate разрешил", "Adapty, backend experiment или другой подтверждённый источник"],
-    ["03", "Загружены два источника", "Adapty для Apple · RU catalog для СБП/карты"],
-    ["04", "Найден exact coupon", "никакого выбора по цене, периоду или позиции"],
-    ["05", "Backend подтвердил active", "browser return сам по себе не выдаёт Premium"],
+    ["01", "Закрыт обычный экран", "покупки и восстановления не было"],
+    ["02", "Получено разрешение", "только явное true показывает второй экран"],
+    ["03", "Загружены цены", "Apple отдельно · СБП и карта отдельно"],
+    ["04", "Найден нужный товар", "по точному ID, который передали разработчику"],
+    ["05", "Оплата подтверждена", "только ответ active открывает Premium"],
   ];
   return (
     <section className="doc-visual ru-special-offer-visual" aria-label="Пять проверок спешл оффера RU Billing">
-      <div className="doc-visual-head"><span>СПЕШЛ ОФФЕР RU BILLING · БЕЗ СКРЫТЫХ УСЛОВИЙ</span><b>Кампания, способы оплаты и результат покупки проверяются отдельно</b></div>
+      <div className="doc-visual-head"><span>RU BILLING · ВТОРОЙ ЭКРАН ОПЛАТЫ</span><b>Сначала разрешение, затем цена, затем подтверждение оплаты</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -268,9 +268,9 @@ function RUSpecialOfferVisual() {
         ))}
       </div>
       <div className="architecture-owner-map">
-        <div className="owner-lane owner-app"><span>APPLE</span><b>Adapty placement</b><small>валидный Apple product может остаться даже без RU backend</small></div>
-        <div className="owner-lane owner-platform"><span>СБП И КАРТА</span><b>RU catalog · kind=coupon</b><small>strict ru_pay + Storefront RU или регион iPhone RU</small></div>
-        <div className="owner-lane owner-tools"><span>ПОСЛЕ SAFARI</span><b>Backend policy / entitlement</b><small>только active превращает pending в Premium</small></div>
+        <div className="owner-lane owner-app"><span>APPLE</span><b>Цена приходит через Adapty</b><small>если RU backend не работает, Apple может остаться</small></div>
+        <div className="owner-lane owner-platform"><span>СБП И КАРТА</span><b>Цена приходит с backend</b><small>кнопки видны только после проверки ru_pay и региона</small></div>
+        <div className="owner-lane owner-tools"><span>ПОСЛЕ БРАУЗЕРА</span><b>Backend сообщает результат</b><small>вернуться в приложение ещё не значит заплатить</small></div>
       </div>
       <div className="visual-callout safe"><b>ДВА РАЗНЫХ ТАЙМЕРА</b><span>Один управляет повторным показом между сессиями, второй рисует countdown открытого экрана. Значения сообщает владелец задачи.</span></div>
     </section>
