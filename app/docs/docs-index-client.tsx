@@ -28,7 +28,7 @@ const useCases = [
   { code: "OFFER", title: "Показать спешл оффер от Adapty", detail: "Открыть второй экран Adapty после закрытия первого paywall без покупки.", slug: "special-offer" },
   { code: "TOKENS", title: "Продавать пакеты токенов", detail: "Показать все пакеты и обновить баланс после ответа сервера.", slug: "token-paywall" },
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
-  { code: "RU OFFER", title: "Добавить спешл оффер RU Billing", detail: "Сопоставить кабинет 232, coupon, кампанию, два таймера и подтверждение после браузера.", slug: "ru-special-offer" },
+  { code: "RU OFFER", title: "Добавить RU Billing: спешл оффер", detail: "Получить точные входные данные, подключить coupon, разделить два таймера и подтвердить оплату после браузера.", slug: "ru-special-offer" },
   { code: "BACKEND", title: "Получить продукты с backend", detail: "Передать endpoints и авторизацию, подключить decoder и не потерять порядок, дубли и точные ID.", slug: "backend-product-catalog" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },

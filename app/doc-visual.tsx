@@ -272,7 +272,7 @@ function RUSpecialOfferVisual() {
         <div className="owner-lane owner-platform"><span>СБП И КАРТА</span><b>RU catalog · kind=coupon</b><small>strict ru_pay + Storefront RU или регион iPhone RU</small></div>
         <div className="owner-lane owner-tools"><span>ПОСЛЕ SAFARI</span><b>Backend policy / entitlement</b><small>только active превращает pending в Premium</small></div>
       </div>
-      <div className="visual-callout safe"><b>ДВА ТАЙМЕРА 232</b><span>24 часа решают повторный показ; 10 минут рисуются на экране. Это reference, а не общий default платформы.</span></div>
+      <div className="visual-callout safe"><b>ДВА РАЗНЫХ ТАЙМЕРА</b><span>Один управляет повторным показом между сессиями, второй рисует countdown открытого экрана. Значения сообщает владелец задачи.</span></div>
     </section>
   );
 }
