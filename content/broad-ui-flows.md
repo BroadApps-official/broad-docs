@@ -158,4 +158,4 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 
 Gallery компилирует настоящие production-компоненты и показывает их состояния на iPhone Simulator. Она доказывает, что layout существует и адаптируется к данным. Fixture-продукты в Gallery не проводят настоящую покупку, restore или RU payment и не заменяют проверку приложения с его Adapty dashboard и backend.
 
-[Первые экраны и ATT](./onboarding-att.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [Оплата картой и СБП](./ru-billing.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-ui-flows-ios)
+[Первые экраны и ATT](./onboarding-att.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [RU Billing: карта и СБП](./ru-billing.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-ui-flows-ios)

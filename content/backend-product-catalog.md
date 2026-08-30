@@ -1,4 +1,4 @@
-# Продукты с backend для RU Billing
+# RU Billing: продукты с backend
 
 Эта страница показывает, **как получить тарифы с backend**, кто пишет сетевой
 запрос и какую часть уже делает `BroadMonetization`.
@@ -6,17 +6,22 @@
 > Начните с контракта backend. Не копируйте URL, токен или JSON из другого
 > приложения: у него могут быть другой сервер, единицы цены и способы оплаты.
 
+> Готовый `FlatRUCatalogResponseDecoder` относится к следующему обновлению
+> `BroadMonetization`. Перед копированием примера проверьте публичный API
+> установленного тега. Если adapter ещё не выпущен, используйте собственный
+> `RUCatalogResponseDecoderProtocol` с тем же контрактом массива.
+
 ## Кто за что отвечает
 
 ```text
 backend
   возвращает массив продуктов
         ↓
-код конкретного приложения
-  знает URL, заголовки, авторизацию и timeout
+конфигурация конкретного приложения
+  передаёт URL, заголовки, авторизацию и timeout
         ↓
-decoder BroadMonetization
-  проверяет JSON и создаёт одну модель на каждую строку
+URLSession repository + decoder BroadMonetization
+  выполняют запрос, проверяют JSON и создают одну модель на каждую строку
         ↓
 общая логика оплаты
   связывает продукт по точному ID и предлагает Apple / СБП / карту
@@ -26,8 +31,8 @@ decoder BroadMonetization
 ```
 
 Public-библиотека не должна хранить production URL и секреты приложений.
-Поэтому приложение передаёт маленький HTTP transport, а платформа отвечает за
-модели, decoder, проверки и общий checkout flow.
+Поэтому приложение передаёт HTTPS configuration и авторизацию, а платформа
+выполняет запрос и отвечает за модели, decoder, проверки и общий checkout flow.
 
 ## Что спросить у backend-разработчика
 
@@ -69,7 +74,7 @@ Public-библиотека не должна хранить production URL и �
       "productId": "tokens_100_ru",
       "appStoreProductId": "com.company.app.tokens.100",
       "title": "100 токенов",
-      "kind": "consumable",
+      "kind": "tokens",
       "price": 199,
       "currency": "RUB",
       "credits": 100,
@@ -81,6 +86,20 @@ Public-библиотека не должна хранить production URL и �
 
 Decoder также принимает snake_case для ID, например `product_id` и
 `app_store_product_id`.
+
+### Какие значения понимает готовый decoder
+
+| Поле | Поддерживаемые значения | Что важно |
+|---|---|---|
+| `kind` | `subscription`, `token`/`tokens`, `coupon` | другое значение становится `unknown`; для пакета токенов не пишите `consumable` |
+| `period` | `day`, `week`, `month`, `year` и их обычные английские формы | неизвестное непустое значение сохраняется как custom period |
+| `paymentMethods` | `sbp`, `card` | неизвестное значение или повтор считается ошибкой |
+| `credits` | целое число от нуля | отрицательное число считается ошибкой |
+| `price` + `currency` | неотрицательная сумма и трёхбуквенный код валюты | если цена есть, валюта обязательна |
+
+Если `paymentMethods` отсутствует у строки, используются методы, явно
+переданные в `supportedMethods`. Это fallback конфигурации, а не догадка
+платформы.
 
 ## Важное правило цены
 
@@ -101,15 +120,18 @@ let wire = RUBillingWireAdapters.broadAppsFlatCatalog(
     supportedMethods: [.sbp, .card]
 )
 
-let catalogRepository = HTTPRUCatalogRepository(
-    transport: appOwnedTransport,
-    decoder: wire.catalog
+let ruBillingFactory = RUBillingCompositionFactory(
+    configuration: ruBillingConfiguration,
+    dependencies: ruBillingDependencies,
+    wire: wire
 )
 ```
 
-`appOwnedTransport` выполняет только HTTP-запрос: добавляет base URL, path,
-headers/auth и timeout, затем возвращает `Data`. Он не решает, показывать ли
-RU Billing, и не открывает Premium.
+`ruBillingConfiguration` хранит app-owned HTTPS endpoints и timeout, а
+`ruBillingDependencies` — авторизацию, пользователя, кеш и остальные зависимости
+конкретного приложения. Factory создаёт настоящий
+`URLSessionRUCatalogRepository`; отдельного `HTTPRUCatalogRepository` в public
+API нет.
 
 ## Если JSON другой
 
@@ -156,7 +178,8 @@ Adapty product ID = backend appStoreProductId
 
 ## Что происходит при ошибке одной строки
 
-Готовый decoder проверяет обязательный ID, валюту, цену и payment methods.
+Готовый decoder проверяет обязательный ID, пару цена/валюта, payment methods и
+неотрицательное количество `credits`.
 Некорректная строка не исчезает молча через `compactMap`: весь ответ считается
 ошибочным, а UI следует согласованной policy — например показывает Apple-only
 или Retry.
@@ -178,13 +201,12 @@ Adapty product ID = backend appStoreProductId
 10. Timeout/offline не запускает checkout.
 
 После этого отдельно проверьте полный gate на странице
-[«Оплата картой и СБП»](./ru-billing.md): каталог сам по себе не включает
+[«Карта и СБП»](./ru-billing.md): каталог сам по себе не включает
 RU methods без свежего `ru_pay=true` и российского Storefront/региона.
 
 ## Куда идти дальше
 
-- [Оплата картой и СБП](./ru-billing.md)
+- [Карта и СБП](./ru-billing.md)
 - [BroadMonetization](./broad-monetization.md)
 - [Экран подписки](./paywall-ui.md)
 - [Создание приложения](./app-creation.md)
-

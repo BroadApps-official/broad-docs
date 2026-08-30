@@ -46,7 +46,7 @@ export function SiteFooter() {
           <Link href="/docs">Все документы</Link><Link href="/docs/getting-started">Первое подключение</Link>
           <Link href="/docs/module-selection">Выбор библиотеки</Link><Link href="/docs/public-package-access">Подключение без пароля</Link>
           <Link href="/docs/legacy-app-migration">Миграция приложения</Link><Link href="/docs/architecture">Архитектура</Link>
-          <Link href="/docs/special-offer">Спешл оффер (Adapty)</Link><Link href="/docs/compatibility">Совместимость</Link>
+          <Link href="/docs/special-offer">Спешл оффер (Adapty)</Link><Link href="/docs/ru-billing">RU Billing</Link><Link href="/docs/compatibility">Совместимость</Link>
         </nav>
         <div className="footer-meta">ПУБЛИЧНО / РЕДАКТИРУЕМО<br />iOS 17+ · Swift 5</div>
       </div>

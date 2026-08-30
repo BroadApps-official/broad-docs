@@ -68,4 +68,4 @@ legal-ссылки принадлежат приложению и ответу A
 
 [Adapty: ключ и placements](./adapty-setup.md) ·
 [Экран подписки](./paywall-ui.md) ·
-[Оплата картой и СБП](./ru-billing.md)
+[RU Billing: карта и СБП](./ru-billing.md)

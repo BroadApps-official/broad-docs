@@ -28,7 +28,7 @@ const useCases = [
   { code: "OFFER", title: "Показать спешл оффер от Adapty", detail: "Открыть второй экран Adapty после закрытия первого paywall без покупки.", slug: "special-offer" },
   { code: "TOKENS", title: "Продавать пакеты токенов", detail: "Показать все пакеты и обновить баланс после ответа сервера.", slug: "token-paywall" },
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
-  { code: "BACKEND", title: "Получить продукты с backend", detail: "Подключить HTTP transport и decoder, не потеряв порядок, дубли и точные ID.", slug: "backend-product-catalog" },
+  { code: "BACKEND", title: "Получить продукты с backend", detail: "Передать endpoints и авторизацию, подключить decoder и не потерять порядок, дубли и точные ID.", slug: "backend-product-catalog" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
   { code: "SUPPORT", title: "Добавить чат Usedesk", detail: "Передать Token, Company ID и Channel ID, затем открыть готовый экран.", slug: "usedesk" },
