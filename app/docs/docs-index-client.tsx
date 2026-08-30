@@ -27,7 +27,8 @@ const useCases = [
   { code: "PAYWALL", title: "Сделать экран подписки", detail: "Показать 0, 1 или много продуктов, загрузку, ошибку и restore.", slug: "paywall-ui" },
   { code: "OFFER", title: "Показать второе предложение", detail: "Открыть Special Offer после закрытия первого paywall без покупки.", slug: "special-offer" },
   { code: "TOKENS", title: "Продавать пакеты токенов", detail: "Показать все пакеты и обновить баланс после ответа сервера.", slug: "token-paywall" },
-  { code: "RU PAY", title: "Проверить статус оплаты картой и СБП", detail: "Увидеть, что ещё нужно утвердить до интеграции; сейчас функцию не подключаем.", slug: "ru-billing" },
+  { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
+  { code: "BACKEND", title: "Получить продукты с backend", detail: "Подключить HTTP transport и decoder, не потеряв порядок, дубли и точные ID.", slug: "backend-product-catalog" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
   { code: "SUPPORT", title: "Добавить чат Usedesk", detail: "Передать Token, Company ID и Channel ID, затем открыть готовый экран.", slug: "usedesk" },
@@ -68,7 +69,8 @@ function siteTermVariants(term: string) {
 
 function siteIntentBoost(slug: string, phrase: string) {
   const intents = [
-    { fragments: ["оплат", "покуп", "paywall", "premium", "подпис"], slugs: ["broad-monetization", "paywall-ui", "adapty-setup", "special-offer", "ru-billing"] },
+    { fragments: ["оплат", "покуп", "paywall", "premium", "подпис"], slugs: ["broad-monetization", "paywall-ui", "adapty-setup", "special-offer", "ru-billing", "backend-product-catalog"] },
+    { fragments: ["backend", "бекенд", "бэкенд", "catalog", "каталог", "продукт"], slugs: ["backend-product-catalog", "ru-billing", "broad-monetization"] },
     { fragments: ["перен", "мигра", "legacy", "broadcore"], slugs: ["legacy-app-migration", "legacy-broadcore", "migration"] },
     { fragments: ["ошиб", "retry", "timeout", "offline", "запуск"], slugs: ["runtime-reliability", "broad-core", "getting-started"] },
     { fragments: ["токен", "token", "balance"], slugs: ["token-paywall", "broad-monetization", "adapty-setup"] },

@@ -28,7 +28,9 @@ deployment ещё не успел обновиться. Изображения �
 
 - выбор нужного Swift Package product без обязательного umbrella;
 - заметная схема «host app → нужные модули» и простое объяснение преимуществ;
-- Special Offer, compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
+- Special Offer, актуальный RU Billing gate и отдельная инструкция получения
+  продуктов с backend;
+- compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;
 - визуальные карты architecture ownership, compatibility, Special Offer и legacy migration;
