@@ -61,4 +61,5 @@
 
 [BroadUIFlows](./broad-ui-flows.md) ·
 [Спешл оффер (от Adapty)](./special-offer.md) ·
+[Спешл оффер RU Billing](./ru-special-offer.md) ·
 [Покупка токенов](./token-paywall.md)

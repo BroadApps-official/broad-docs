@@ -248,6 +248,35 @@ function SpecialOfferVisual() {
   );
 }
 
+function RUSpecialOfferVisual() {
+  const steps = [
+    ["01", "Закрыт основной paywall", "без подтверждённой покупки или restore"],
+    ["02", "Главный gate разрешил", "Adapty, backend experiment или другой подтверждённый источник"],
+    ["03", "Загружены два источника", "Adapty для Apple · RU catalog для СБП/карты"],
+    ["04", "Найден exact coupon", "никакого выбора по цене, периоду или позиции"],
+    ["05", "Backend подтвердил active", "browser return сам по себе не выдаёт Premium"],
+  ];
+  return (
+    <section className="doc-visual ru-special-offer-visual" aria-label="Пять проверок спешл оффера RU Billing">
+      <div className="doc-visual-head"><span>СПЕШЛ ОФФЕР RU BILLING · БЕЗ СКРЫТЫХ УСЛОВИЙ</span><b>Кампания, способы оплаты и результат покупки проверяются отдельно</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="architecture-owner-map">
+        <div className="owner-lane owner-app"><span>APPLE</span><b>Adapty placement</b><small>валидный Apple product может остаться даже без RU backend</small></div>
+        <div className="owner-lane owner-platform"><span>СБП И КАРТА</span><b>RU catalog · kind=coupon</b><small>strict ru_pay + Storefront RU или регион iPhone RU</small></div>
+        <div className="owner-lane owner-tools"><span>ПОСЛЕ SAFARI</span><b>Backend policy / entitlement</b><small>только active превращает pending в Premium</small></div>
+      </div>
+      <div className="visual-callout safe"><b>ДВА ТАЙМЕРА 232</b><span>24 часа решают повторный показ; 10 минут рисуются на экране. Это reference, а не общий default платформы.</span></div>
+    </section>
+  );
+}
+
 function LegacyMigrationVisual() {
   const steps = [
     ["01", "Проверить приложение", "Собрать и запустить его до изменений"],
@@ -534,6 +563,7 @@ export function DocVisual({ slug }: DocVisualProps) {
   if (slug === "architecture") return <ArchitectureVisual />;
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;
+  if (slug === "ru-special-offer") return <RUSpecialOfferVisual />;
   if (slug === "legacy-app-migration") return <LegacyMigrationVisual />;
   if (slug === "legacy-broadcore") return <LegacyBroadCoreVisual />;
   if (slug === "public-package-access") return <PublicPackageAccessVisual />;

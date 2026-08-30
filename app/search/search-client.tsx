@@ -22,14 +22,14 @@ const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> =
   { pattern: /(готов.*(paywall|пейвол))/, slugs: ["paywall-ui", "broad-ui-flows", "adapty-setup"], weight: 290 },
   { pattern: /(готов.*экран|onboarding|онборд|ui flow)/, slugs: ["broad-ui-flows", "onboarding-att", "paywall-ui"], weight: 280 },
   { pattern: /(впервые|перв(ое|ый).*подключ|начать|старт.*платформ)/, slugs: ["getting-started", "module-selection", "public-package-access"], weight: 270 },
-  { pattern: /(оплат|подпис|покуп|paywall|пейвол|adapty|адапти|storekit|restore|восстанов)/, slugs: ["broad-monetization", "adapty-setup", "paywall-ui", "special-offer", "token-paywall", "ru-billing", "backend-product-catalog"], weight: 230 },
-  { pattern: /(backend|бэкенд|бекенд|каталог|catalog|продукт)/, slugs: ["backend-product-catalog", "ru-billing", "broad-monetization"], weight: 245 },
+  { pattern: /(оплат|подпис|покуп|paywall|пейвол|adapty|адапти|storekit|restore|восстанов)/, slugs: ["broad-monetization", "adapty-setup", "paywall-ui", "special-offer", "token-paywall", "ru-billing", "ru-special-offer", "backend-product-catalog"], weight: 230 },
+  { pattern: /(backend|бэкенд|бекенд|каталог|catalog|продукт)/, slugs: ["backend-product-catalog", "ru-billing", "ru-special-offer", "broad-monetization"], weight: 245 },
   { pattern: /(перен|миграц|стар(ое|ого|ый)|legacy|broadcore)/, slugs: ["legacy-app-migration", "legacy-broadcore", "migration"], weight: 230 },
   { pattern: /(совмест|верс|тег|semver|каталог)/, slugs: ["compatibility", "release-process"], weight: 230 },
   { pattern: /(ошиб|сборк|не собира|runtime|пад|сеть|network|cache|retry|bootstrap)/, slugs: ["runtime-reliability", "getting-started", "compatibility", "broad-core"], weight: 230 },
   { pattern: /(выб(рать|ор)|какой модул|что подключ|подключ|swift package|package|spm|xcode)/, slugs: ["module-selection", "getting-started", "public-package-access"], weight: 90 },
   { pattern: /(готов(ый|ые) экран|onboarding|онборд|ui flow)/, slugs: ["broad-ui-flows", "onboarding-att", "paywall-ui"], weight: 210 },
-  { pattern: /(special offer|спец|скидк|таймер)/, slugs: ["special-offer", "adapty-setup"], weight: 240 },
+  { pattern: /(special offer|спец|скидк|таймер|купон|coupon|дожим)/, slugs: ["ru-special-offer", "special-offer", "adapty-setup"], weight: 240 },
   { pattern: /(чат|поддержк|usedesk)/, slugs: ["usedesk"], weight: 230 },
 ];
 

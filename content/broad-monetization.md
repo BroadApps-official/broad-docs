@@ -99,6 +99,11 @@ Restore восстанавливает подписку или нерасход�
 [«Карта и СБП»](./ru-billing.md), а JSON, endpoints и подключение decoder — в
 [инструкции каталога](./backend-product-catalog.md).
 
+Дополнительное coupon-предложение после закрытия основного paywall использует
+тот же каталог и checkout; отдельный payment engine не нужен. Campaign,
+coupon ID и два таймера разбираются в
+[«Спешл оффер RU Billing»](./ru-special-offer.md).
+
 ## Что хранится в приложении
 
 Следующие значения нельзя вшивать в публичный package:
@@ -142,4 +147,4 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 6. Проверьте restore после чистой установки.
 7. Просмотрите логи: там не должно быть ключей, receipts, payment URL и raw payload.
 
-[Adapty: ключ и placements](./adapty-setup.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [Покупка токенов](./token-paywall.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-monetization-ios)
+[Adapty: ключ и placements](./adapty-setup.md) · [Экран подписки](./paywall-ui.md) · [Спешл оффер (от Adapty)](./special-offer.md) · [Спешл оффер RU Billing](./ru-special-offer.md) · [Покупка токенов](./token-paywall.md) · [README и точный API модуля](https://github.com/BroadApps-official/broad-monetization-ios)
