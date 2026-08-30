@@ -212,15 +212,24 @@ function ExtensionsModuleVisual() {
 }
 
 function CompatibilityVisual() {
+  const steps = [
+    ["01", "Опишите нужную функцию", "например: готовый экран подписки"],
+    ["02", "Агент выберет библиотеки", "только верхние products для этой задачи"],
+    ["03", "Возьмёт проверенные версии", "точные номера из Compatibility/current.yml"],
+    ["04", "Подключит и соберёт", "проверит Package.resolved и iPhone target"],
+  ];
   return (
-    <section className="doc-visual" aria-label="Разница между диапазоном и точной версией">
-      <div className="doc-visual-head"><span>КАК ВЫБРАТЬ ВЕРСИЮ</span><b>Два режима для двух разных задач</b></div>
-      <div className="version-visual-grid">
-        <div className="version-card range-card"><small>ОБЫЧНОЕ ПРИЛОЖЕНИЕ</small><code>from: &quot;1.0.0&quot;</code><b>Совместимый диапазон</b><p>Xcode может взять исправление или совместимое обновление до 2.0.0.</p></div>
-        <div className="version-join"><span>≠</span><small>не одно и то же</small></div>
-        <div className="version-card exact-card"><small>ПРОВЕРКА И МИГРАЦИЯ</small><code>exact: &quot;1.0.0&quot;</code><b>Точная версия</b><p>Xcode всегда берёт ровно версию 1.0.0.</p></div>
+    <section className="doc-visual compatibility-visual" aria-label="Как агент подключает проверенные версии библиотек">
+      <div className="doc-visual-head"><span>ВЕРСИИ ПОДБИРАЕТ АГЕНТ</span><b>Вы описываете задачу — Codex или Claude делает остальное</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
       </div>
-      <div className="visual-callout"><b>Package.resolved</b><span>записывает версию, которую Xcode фактически выбрал и скачал</span></div>
+      <div className="visual-callout safe"><b>ВАША ЧАСТЬ</b><span>Сказать, какая функция нужна приложению. Номера версий вручную выбирать не требуется.</span></div>
     </section>
   );
 }
