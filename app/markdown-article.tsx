@@ -15,8 +15,12 @@ function normalizeMediaSource(src: string) {
 }
 
 function inline(text: string): ReactNode[] {
-  const expression = /(\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*)/g;
+  const expression = /(!\[[^\]]*\]\([^)]+\)|\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*)/g;
   return text.split(expression).filter(Boolean).map((part, index) => {
+    const image = part.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (image) {
+      return <img alt={image[1]} decoding="async" key={index} loading="lazy" src={normalizeMediaSource(image[2])} />;
+    }
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (link) {
       const href = normalizeDocumentHref(link[2]);

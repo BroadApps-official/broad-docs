@@ -40,6 +40,10 @@
 
 ### Changed
 
+- the RU Billing guide now restores the complete seven-screen reference path
+  from tariff selection through consent, receipt email and external checkout;
+  the screenshots are presented as a compact responsive Markdown gallery and
+  clearly separated from app-owned design and backend confirmation;
 - the Adapty setup guide now records the still-current placement naming map and
   the `nottrial` dashboard convention recovered from the legacy README audit,
   while explicitly keeping custom mappings app-owned and runtime independent
