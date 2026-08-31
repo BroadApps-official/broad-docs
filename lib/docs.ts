@@ -4,6 +4,9 @@ import broadCore from "@/content/broad-core.md?raw";
 import broadExtensions from "@/content/broad-extensions.md?raw";
 import broadMonetization from "@/content/broad-monetization.md?raw";
 import broadUIFlows from "@/content/broad-ui-flows.md?raw";
+import uiFlowsOnboarding from "@/content/ui-flows-onboarding.md?raw";
+import uiFlowsPaywall from "@/content/ui-flows-paywall.md?raw";
+import uiFlowsSettingsSupport from "@/content/ui-flows-settings-support.md?raw";
 import compatibility from "@/content/compatibility.md?raw";
 import documentation from "@/content/documentation.md?raw";
 import gettingStarted from "@/content/getting-started.md?raw";
@@ -20,6 +23,7 @@ import onboardingATT from "@/content/onboarding-att.md?raw";
 import paywallUI from "@/content/paywall-ui.md?raw";
 import ruBilling from "@/content/ru-billing.md?raw";
 import ruSpecialOffer from "@/content/ru-special-offer.md?raw";
+import ruBillingAccountManager from "@/content/ru-billing-account-manager.md?raw";
 import backendProductCatalog from "@/content/backend-product-catalog.md?raw";
 import runtimeReliability from "@/content/runtime-reliability.md?raw";
 import tokenPaywall from "@/content/token-paywall.md?raw";
@@ -32,7 +36,7 @@ export type DocEntry = {
   purpose: string;
   when: string;
   outcome: string;
-  group: "Старт" | "Части платформы" | "Монетизация" | "Архитектура" | "Разработка";
+  group: "Старт" | "Части платформы" | "BroadUIFlows" | "Монетизация" | "Архитектура" | "Разработка";
   body: string;
 };
 
@@ -48,11 +52,15 @@ export const docs: DocEntry[] = [
   { slug: "broad-extensions", title: "BroadExtensions", description: "Маленькие готовые функции для цвета, клавиатуры и навигации — без оплаты и остальных частей платформы.", purpose: "Повторно использовать небольшие Swift-функции без подключения всей платформы.", when: "Когда нужны только маленькие функции языка или интерфейса.", outcome: "Приложение получает утилиты, но не загружает Core, Adapty или готовые экраны.", group: "Части платформы", body: broadExtensions },
   { slug: "broad-monetization", title: "BroadMonetization", description: "Общая логика покупки и восстановления для приложения, которое рисует экран оплаты самостоятельно.", purpose: "Использовать готовую платёжную логику со своим дизайном экранов.", when: "Когда приложение рисует экран оплаты само, но не хочет заново писать работу с покупками.", outcome: "Экран получает все варианты покупки и открывает Premium только после подтверждения.", group: "Части платформы", body: broadMonetization },
   { slug: "broad-ui-flows", title: "BroadUIFlows", description: "Готовые экраны первого запуска, подписки и переходов внутри приложения.", purpose: "Быстро добавить готовые пользовательские экраны поверх платёжной логики.", when: "Когда приложению нужен готовый интерфейс, а не только методы покупки.", outcome: "Приложение передаёт свои тексты и настройки, а библиотека показывает нужные экраны.", group: "Части платформы", body: broadUIFlows },
+  { slug: "ui-flows-onboarding", title: "BroadUIFlows: онбординг", description: "Три варианта первых экранов, полный маршрут, владельцы контента и понятная проверка.", purpose: "Показать первые экраны без жёсткого лимита страниц и слишком раннего запроса ATT.", when: "Когда создаёте, переносите или проверяете онбординг.", outcome: "Понятно, что даёт UIFlows, что передаёт приложение и куда ведёт последний экран.", group: "BroadUIFlows", body: uiFlowsOnboarding },
+  { slug: "ui-flows-paywall", title: "BroadUIFlows: paywall и Special Offer", description: "Реальные анимации выбора продуктов, обычного paywall и второго предложения без смешивания UI и денег.", purpose: "Понять внешний вид, состояния и границу между UIFlows и Monetization.", when: "Когда проектируете или проверяете экран оплаты и Special Offer.", outcome: "Все продукты видны, выбор не запускает покупку, а Premium открывается только после подтверждения.", group: "BroadUIFlows", body: uiFlowsPaywall },
+  { slug: "ui-flows-settings-support", title: "BroadUIFlows: настройки и поддержка", description: "Реальные экраны Settings, Support Chat, Contact us, Restore и безопасный шаблон письма.", purpose: "Собрать понятные настройки и не потерять обязательные действия поддержки и подписки.", when: "Когда создаёте или проверяете Settings.", outcome: "Каждая строка имеет понятное действие, а обращение в поддержку готовится без скрытой отправки.", group: "BroadUIFlows", body: uiFlowsSettingsSupport },
   { slug: "special-offer", title: "Спешл оффер (от Adapty)", description: "Как показать дополнительный экран Adapty после того, как пользователь закрыл первый paywall без покупки.", purpose: "Показать спешл оффер по одному разрешающему флагу Adapty без скрытых условий.", when: "Когда настраиваете предложение Adapty после закрытия первого экрана оплаты.", outcome: "Экран показывает все полученные от Adapty варианты и визуальный таймер на 24 часа.", group: "Монетизация", body: specialOffer },
   { slug: "adapty-setup", title: "Adapty: что нужно передать", description: "Два значения для загрузки экрана оплаты: публичный ключ приложения и имя нужного экрана в Adapty.", purpose: "Подключить Adapty без дополнительных проверяющих сервисов и лишних настроек.", when: "Перед первой загрузкой экрана оплаты или при добавлении нового места показа.", outcome: "Ключ передан один раз, нужный экран назван явно, все варианты покупки сохранены.", group: "Монетизация", body: adaptySetup },
   { slug: "paywall-ui", title: "Экран подписки", description: "Как показать ноль, один или много вариантов, загрузку, ошибку и восстановление покупки.", purpose: "Сделать экран подписки понятным при любом ответе Adapty.", when: "Когда реализуете или проверяете экран подписки.", outcome: "Все варианты видны, загрузка не мигает, повторные нажатия заблокированы.", group: "Монетизация", body: paywallUI },
   { slug: "token-paywall", title: "Покупка токенов", description: "Как показать все пакеты, провести покупку один раз и обновить баланс только после ответа сервера.", purpose: "Продавать пакеты токенов и не потерять варианты, настроенные в Adapty.", when: "Когда приложение продаёт расходуемый баланс вместо подписки.", outcome: "Все пакеты показаны, покупка подтверждена сервером, баланс обновлён ровно один раз.", group: "Монетизация", body: tokenPaywall },
   { slug: "ru-billing", title: "RU Billing: карта и СБП", description: "Когда показать российские способы оплаты, как проверить ru_pay и регион и почему возврат из браузера ещё не означает успех.", purpose: "Безопасно добавить СБП и карту рядом с Apple без ложного Premium.", when: "Когда подключаете, проверяете или обновляете российские способы оплаты.", outcome: "Понятно, когда показать RU-способы, как провести checkout и чем подтверждается Premium.", group: "Монетизация", body: ruBilling },
+  { slug: "ru-billing-account-manager", title: "RU Billing: менеджеру — спешл оффер и A/B", description: "Куда нажимать в кабинете, как подготовить спешл оффер, когда создавать A/B-тест и что передать разработчику.", purpose: "Подготовить продукты и эксперимент без доступа к коду и без угадывания настроек.", when: "До передачи разработчику задачи на RU Billing Special Offer или A/B-тест.", outcome: "Разработчик получает одну заполненную карточку, а тест включается только после проверки сборки.", group: "Монетизация", body: ruBillingAccountManager },
   { slug: "ru-special-offer", title: "RU Billing: спешл оффер", description: "Как после закрытия основного paywall показать специальную цену с Apple, СБП или картой и проверить кампанию, продукт, таймеры и результат оплаты.", purpose: "Реализовать дополнительное предложение, используя только подтверждённые входные данные текущего приложения.", when: "Когда приложению нужен спешл оффер с российскими способами оплаты.", outcome: "Разработчик знает, какие значения должен получить, что реализовать в приложении и когда Premium действительно активен.", group: "Монетизация", body: ruSpecialOffer },
   { slug: "backend-product-catalog", title: "RU Billing: продукты с backend", description: "Где настраивается запрос, как разобрать JSON и сохранить все RU-тарифы без потерь.", purpose: "Подключить backend конкретного приложения к общей платёжной логике через готовый или собственный decoder.", when: "Когда backend отдаёт продукты для СБП и карты.", outcome: "Каждая строка каталога проверена, сохранена в исходном порядке и точно связана с продуктом Adapty/App Store.", group: "Монетизация", body: backendProductCatalog },
   { slug: "architecture", title: "Как устроена платформа", description: "Как выбрать нужные библиотеки, что Xcode скачает автоматически и где должен жить каждый вид кода.", purpose: "Понять платформу от задач приложения до зависимостей, данных и владельца изменения.", when: "Перед первым подключением, изменением общей библиотеки или разбором спорного решения.", outcome: "Вы знаете, какие products добавить, что придёт автоматически и какой репозиторий менять.", group: "Архитектура", body: architecture },
@@ -65,7 +73,7 @@ export const docs: DocEntry[] = [
   { slug: "documentation", title: "Как исправлять документацию", description: "Где лежит текст сайта, как предложить правку и как проверить картинки и ссылки.", purpose: "Синхронно обновлять сайт, Markdown в GitHub и документацию модулей.", when: "Когда меняется поведение платформы или инструкция непонятна.", outcome: "Правка находится в правильном репозитории и проходит проверку контента.", group: "Разработка", body: documentation },
 ];
 
-export const docGroups = ["Старт", "Части платформы", "Монетизация", "Архитектура", "Разработка"] as const;
+export const docGroups = ["Старт", "Части платформы", "BroadUIFlows", "Монетизация", "Архитектура", "Разработка"] as const;
 export function getDoc(slug: string) { return docs.find((doc) => doc.slug === slug); }
 export function slugifyHeading(value: string) {
   return value.toLocaleLowerCase("ru-RU").replace(/[`*_]/g, "").replace(/[^a-zа-яё0-9]+/gi, "-").replace(/^-|-$/g, "");

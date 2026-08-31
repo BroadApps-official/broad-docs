@@ -28,8 +28,10 @@ deployment ещё не успел обновиться. Изображения �
 
 - выбор нужного Swift Package product без обязательного umbrella;
 - заметная схема «host app → нужные модули» и простое объяснение преимуществ;
-- Special Offer, актуальный RU Billing gate и отдельная инструкция получения
-  продуктов с backend;
+- визуальные стандарты BroadUIFlows для онбординга, paywall, Special Offer,
+  настроек и поддержки;
+- Special Offer, актуальный RU Billing gate, продукты с backend и раздельные
+  инструкции для разработчика и аккаунт-менеджера;
 - compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;

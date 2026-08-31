@@ -132,13 +132,13 @@ function GettingStartedVisual() {
 
 function UIFlowsModuleVisual() {
   const screens = [
-    ["0 ПРОДУКТОВ", "/guides/readme/Screenshots/paywall-empty-ru-v2.png", "Понятное пустое состояние и Retry"],
-    ["1 ПРОДУКТ", "/guides/readme/Screenshots/paywall-one-ru-v2.png", "Одна полноценная карточка без пустот"],
-    ["N ПРОДУКТОВ", "/guides/readme/Screenshots/paywall-many-ru-v2.png", "Весь список Adapty в исходном порядке"],
+    ["ОНБОРДИНГ", "/guides/ui-flows/sample-safety/onboarding.gif", "Объясняет пользу и ведёт дальше"],
+    ["PAYWALL", "/guides/ui-flows/sample-assistant/paywall-1.png", "Показывает и переключает продукты"],
+    ["НАСТРОЙКИ", "/guides/ui-flows/sample-assistant/settings-support.png", "Upgrade, Restore, Support и legal"],
   ];
   return (
-    <section className="doc-visual module-showcase ui-flows-showcase" aria-label="Реальные состояния готового paywall BroadUIFlows">
-      <div className="doc-visual-head"><span>BROADUIFLOWS · ЭТО РЕАЛЬНЫЙ SWIFTUI</span><b>Один компонент адаптируется к ответу Adapty</b></div>
+    <section className="doc-visual module-showcase ui-flows-showcase" aria-label="Три группы реальных экранов BroadUIFlows">
+      <div className="doc-visual-head"><span>BROADUIFLOWS · ЭКРАНЫ, КОТОРЫЕ ВИДИТ ЧЕЛОВЕК</span><b>От первого запуска до настроек и поддержки</b></div>
       <div className="ui-screen-gallery">
         {screens.map(([label, source, detail], index) => (
           <figure className="ui-screen-example" key={label} style={{ "--screen-delay": `${index * 1.35}s` } as CSSProperties}>
@@ -147,7 +147,7 @@ function UIFlowsModuleVisual() {
           </figure>
         ))}
       </div>
-      <div className="visual-callout safe"><b>НЕ МАКЕТ</b><span>Это fixture-кадры настоящих production-компонентов Gallery. Приложение заменяет контент и тему, а состояния остаются проверенными.</span></div>
+      <div className="visual-callout safe"><b>ПОЧЕМУ ЗДЕСЬ PAYWALL</b><span>UIFlows рисует экран и обрабатывает нажатия. Monetization загружает продукты, проводит операцию и подтверждает Premium.</span></div>
     </section>
   );
 }
@@ -282,6 +282,30 @@ function RUSpecialOfferVisual() {
         <div className="owner-lane owner-tools"><span>ПОСЛЕ БРАУЗЕРА</span><b>Backend сообщает результат</b><small>вернуться в приложение ещё не значит заплатить</small></div>
       </div>
       <div className="visual-callout safe"><b>ДВА РАЗНЫХ ТАЙМЕРА</b><span>Один управляет повторным показом между сессиями, второй рисует countdown открытого экрана. Значения сообщает владелец задачи.</span></div>
+    </section>
+  );
+}
+
+function RUBillingManagerVisual() {
+  const steps = [
+    ["01", "Точное приложение", "среда и платёжный провайдер подтверждены"],
+    ["02", "Продукты", "ID, цена, тип, период и способы оплаты"],
+    ["03", "Режим теста", "без A/B, Adapty или RU Billing — один источник"],
+    ["04", "Карточка разработчику", "все значения переданы одним сообщением"],
+    ["05", "Проверка и запуск", "сначала тестовая сборка, затем активация"],
+  ];
+  return (
+    <section className="doc-visual ru-special-offer-visual" aria-label="Порядок настройки RU Billing для аккаунт-менеджера">
+      <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ОТ КАБИНЕТА ДО ПЕРЕДАЧИ</span><b>Не менять код — подготовить точные входные данные</b></div>
+      <div className="pipeline-visual">
+        {steps.map(([number, title, detail], index) => (
+          <div className="pipeline-fragment" key={number}>
+            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
+            {index < steps.length - 1 ? <Arrow /> : null}
+          </div>
+        ))}
+      </div>
+      <div className="visual-callout safe"><b>ГЛАВНОЕ</b><span>Обычный A/B в Adapty и RU Billing Experiment нельзя независимо включать для одной аудитории без подтверждённого контракта.</span></div>
     </section>
   );
 }
@@ -432,6 +456,36 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     ],
     result: "Используйте UIFlows, когда нужен готовый интерфейс, а не только методы оплаты.",
   },
+  "ui-flows-onboarding": {
+    label: "ОНБОРДИНГ · ПЕРВЫЙ ЗАПУСК",
+    title: "Приложение задаёт страницы — UIFlows проводит человека по ним",
+    steps: [
+      ["01", "Передать страницы", "тексты, изображения, порядок и тема приложения"],
+      ["02", "Показать по порядку", "без пропусков и повторного завершения"],
+      ["03", "Закончить маршрут", "перейти в paywall или main по правилу продукта"],
+    ],
+    result: "Количество и дизайн экранов меняются, а понятный порядок и результат остаются стандартом.",
+  },
+  "ui-flows-paywall": {
+    label: "PAYWALL · ВЫБОР НЕ РАВЕН ПОКУПКЕ",
+    title: "UIFlows показывает продукты — Monetization проводит операцию",
+    steps: [
+      ["01", "Показать все варианты", "0, 1 или N продуктов без скрытого обрезания"],
+      ["02", "Выбрать карточку", "сменить product ID без запуска оплаты"],
+      ["03", "Нажать Continue", "запустить одну purchase или checkout операцию"],
+    ],
+    result: "Premium открывается только после подтверждённого результата, а не после нажатия или возврата из браузера.",
+  },
+  "ui-flows-settings-support": {
+    label: "НАСТРОЙКИ · ПОНЯТНЫЕ ДЕЙСТВИЯ",
+    title: "Каждая строка сообщает, что произойдёт после нажатия",
+    steps: [
+      ["01", "Upgrade / Restore", "открыть оплату или восстановить покупку"],
+      ["02", "Support", "открыть чат или подготовить письмо"],
+      ["03", "Legal и версия", "показать точные документы и данные сборки"],
+    ],
+    result: "Необязательные строки можно менять, но платёжные, support- и legal-действия не должны вводить человека в заблуждение.",
+  },
   "adapty-setup": {
     label: "ADAPTY · ДВА ВХОДНЫХ ЗНАЧЕНИЯ",
     title: "Ключ говорит, чьё это приложение; имя экрана — что загрузить",
@@ -573,6 +627,7 @@ export function DocVisual({ slug }: DocVisualProps) {
   if (slug === "compatibility") return <CompatibilityVisual />;
   if (slug === "special-offer") return <SpecialOfferVisual />;
   if (slug === "ru-special-offer") return <RUSpecialOfferVisual />;
+  if (slug === "ru-billing-account-manager") return <RUBillingManagerVisual />;
   if (slug === "legacy-app-migration") return <LegacyMigrationVisual />;
   if (slug === "legacy-broadcore") return <LegacyBroadCoreVisual />;
   if (slug === "public-package-access") return <PublicPackageAccessVisual />;

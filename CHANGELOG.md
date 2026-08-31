@@ -40,6 +40,20 @@
 
 ### Changed
 
+- public UI examples were audited as developer guidance rather than an internal
+  report: duplicate walkthroughs and reference-status notes were removed,
+  screenshots with visible technical user IDs were excluded, media cards now
+  identify UI captures as screen examples, and the remaining pages state the
+  reusable onboarding, paywall, settings and support standard directly;
+- RU Billing получил отдельную страницу для аккаунт-менеджера: точное
+  приложение, продукты, выбор одного источника A/B assignment, поля кабинета,
+  карточка передачи разработчику, безопасная проверка и запуск;
+- BroadUIFlows больше не представлен как «страница про paywall»: добавлены
+  отдельные визуальные статьи про onboarding, paywall/Special Offer и
+  settings/support с обезличенными примерами экранов;
+- разработческая статья RU Special Offer очищена от кабинетной инструкции и
+  теперь объясняет только входные данные, шесть шагов кода, два таймера,
+  региональный gate и подтверждение Premium;
 - the RU Billing guide now restores the complete seven-screen reference path
   from tariff selection through consent, receipt email and external checkout;
   the screenshots are presented as a compact responsive Markdown gallery and
