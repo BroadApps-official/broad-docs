@@ -40,6 +40,10 @@
 
 ### Changed
 
+- the Adapty setup guide now records the still-current placement naming map and
+  the `nottrial` dashboard convention recovered from the legacy README audit,
+  while explicitly keeping custom mappings app-owned and runtime independent
+  from product names;
 - the article catalog now keeps its title visible while all 26 documents scroll
   inside a viewport-height sidebar; the scrollbar is visible, wheel scrolling
   stays inside the catalog and the existing horizontal mobile navigation is
