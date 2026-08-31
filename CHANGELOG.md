@@ -40,6 +40,10 @@
 
 ### Changed
 
+- the RU Billing Special Offer guide now includes a complete account-manager
+  checklist: the exact responsibilities of the payment cabinet, product
+  catalog and Adapty, a safe handoff card for the developer, shared-product
+  warnings and an end-to-end preflight without exposing credentials;
 - the documentation search modes now read as an explicit two-step control:
   “where to search” shows a selected state, click instruction and concrete
   examples for site versus GitHub search, while the field below states which
