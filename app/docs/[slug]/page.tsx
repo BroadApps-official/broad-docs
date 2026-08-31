@@ -65,14 +65,16 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
         <div className="docs-layout section-wrap">
           <nav className="docs-sidebar" aria-label="Разделы документации">
             <div className="docs-sidebar-summary"><span>КАТАЛОГ</span><b>{docs.length} статей</b></div>
-            {docGroups.map((group) => (
-              <div key={group}>
-                <span>{group.toUpperCase()}</span>
-                {docs.filter((entry) => entry.group === group).map((entry) => (
-                  <Link className={entry.slug === doc.slug ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug}>{entry.title}</Link>
-                ))}
-              </div>
-            ))}
+            <div className="docs-sidebar-list">
+              {docGroups.map((group) => (
+                <div key={group}>
+                  <span>{group.toUpperCase()}</span>
+                  {docs.filter((entry) => entry.group === group).map((entry) => (
+                    <Link className={entry.slug === doc.slug ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug}>{entry.title}</Link>
+                  ))}
+                </div>
+              ))}
+            </div>
           </nav>
           <article className="docs-article">
             <div className="docs-article-card">

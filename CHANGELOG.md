@@ -40,6 +40,10 @@
 
 ### Changed
 
+- the article catalog now keeps its title visible while all 26 documents scroll
+  inside a viewport-height sidebar; the scrollbar is visible, wheel scrolling
+  stays inside the catalog and the existing horizontal mobile navigation is
+  preserved;
 - the RU Billing Special Offer guide now includes a complete account-manager
   checklist: the exact responsibilities of the payment cabinet, product
   catalog and Adapty, a safe handoff card for the developer, shared-product
