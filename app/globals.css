@@ -794,6 +794,15 @@ button, input { font: inherit; }
 .docs-table-wrap tbody tr:hover td { background: #f0f5ff; }
 .docs-table-wrap td:first-child { color: #263c5a; font-weight: 680; }
 .docs-table-wrap td img { width: 100%; max-width: 95px; height: auto; display: block; margin: 2px auto; border-radius: 12px; box-shadow: 0 9px 24px rgba(18,37,69,.15); }
+.docs-check-table { padding: 10px 12px 12px; border-color: #d7e3f4; background: linear-gradient(145deg, #f4f8ff, #fbfdff); box-shadow: 0 14px 40px rgba(27,64,118,.08); }
+.docs-check-table table { border-collapse: separate; border-spacing: 0 8px; background: transparent; }
+.docs-check-table th { padding: 3px 14px 2px; border: 0; color: #6c7f99; background: transparent; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+.docs-check-table td { padding: 13px 16px; border-top: 1px solid #dce6f3; border-bottom: 1px solid #dce6f3; background: rgba(255,255,255,.94); vertical-align: middle; }
+.docs-check-table tbody tr:nth-child(even) td { background: rgba(255,255,255,.94); }
+.docs-check-table tbody tr:hover td { background: #f8fbff; }
+.docs-check-table td:first-child { position: relative; min-width: 235px; padding-left: 49px; border-left: 1px solid #dce6f3; border-radius: 12px 0 0 12px; color: #213a5a; }
+.docs-check-table td:first-child::before { position: absolute; left: 14px; top: 50%; width: 23px; height: 23px; display: grid; place-items: center; border-radius: 8px; content: "✓"; color: white; background: linear-gradient(145deg, #3478f6, #245fd2); box-shadow: 0 6px 14px rgba(37,99,235,.22); font-size: 12px; font-weight: 850; transform: translateY(-50%); }
+.docs-check-table td:last-child { border-right: 1px solid #dce6f3; border-radius: 0 12px 12px 0; color: #53647b; }
 .docs-media { margin: 32px -12px; padding: 0; border: 1px solid #d8e1ed; border-radius: 17px; background: white; box-shadow: 0 16px 48px rgba(20,39,72,.09); }
 .docs-media-frame { padding: 18px; display: grid; place-items: center; border-radius: 16px 16px 0 0; background:
   linear-gradient(45deg, #f6f8fc 25%, transparent 25%),

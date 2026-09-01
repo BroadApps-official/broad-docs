@@ -168,15 +168,19 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
         </figure>
       );
     }
-    if (block.type === "table") return (
-      <div className="docs-table-wrap" role="region" aria-label="Таблица; на небольшом экране её можно прокрутить в сторону" key={index}>
+    if (block.type === "table") {
+      const previous = blocks[index - 1];
+      const checkTable = previous?.type === "heading" && previous.text === "Что проверить";
+      return (
+      <div className={`docs-table-wrap${checkTable ? " docs-check-table" : ""}`} role="region" aria-label={checkTable ? "Чек-лист проверки paywall и Special Offer" : "Таблица; на небольшом экране её можно прокрутить в сторону"} key={index}>
         <span className="docs-table-hint">← таблицу можно двигать →</span>
         <table>
           <thead><tr>{block.headers?.map((cell, cellIndex) => <th key={cellIndex}>{inline(cell)}</th>)}</tr></thead>
           <tbody>{block.rows?.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}>{inline(cell)}</td>)}</tr>)}</tbody>
         </table>
       </div>
-    );
+      );
+    }
     const List = block.type === "ol" ? "ol" : "ul";
     return <List key={index}>{block.items?.map((item, itemIndex) => <li key={itemIndex}>{inline(item)}</li>)}</List>;
   })}</>;
