@@ -287,25 +287,14 @@ function RUSpecialOfferVisual() {
 }
 
 function RUBillingManagerVisual() {
-  const steps = [
-    ["01", "Точное приложение", "среда и платёжный провайдер подтверждены"],
-    ["02", "Продукты", "ID, цена, тип, период и способы оплаты"],
-    ["03", "Режим теста", "без A/B, Adapty или RU Billing — один источник"],
-    ["04", "Карточка разработчику", "все значения переданы одним сообщением"],
-    ["05", "Проверка и запуск", "сначала тестовая сборка, затем активация"],
-  ];
   return (
-    <section className="doc-visual ru-special-offer-visual" aria-label="Порядок настройки RU Billing для аккаунт-менеджера">
-      <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ОТ КАБИНЕТА ДО ПЕРЕДАЧИ</span><b>Не менять код — подготовить точные входные данные</b></div>
-      <div className="pipeline-visual">
-        {steps.map(([number, title, detail], index) => (
-          <div className="pipeline-fragment" key={number}>
-            <div className="pipeline-card"><span>{number}</span><b>{title}</b><small>{detail}</small></div>
-            {index < steps.length - 1 ? <Arrow /> : null}
-          </div>
-        ))}
+    <section className="doc-visual ru-special-offer-visual" aria-label="Два отдельных сценария RU Billing для аккаунт-менеджера">
+      <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ДВА СЦЕНАРИЯ</span><b>Special Offer и A/B-тест настраиваются отдельно</b></div>
+      <div className="migration-routes">
+        <div><small>01 · SPECIAL OFFER</small><b>Подготовить второй экран оплаты</b><span>приложение → продукты → условие показа → карточка разработчику → проверка</span></div>
+        <div><small>02 · A/B-ТЕСТ</small><b>Сравнить варианты через RU Billing</b><span>источник варианта → эксперимент → сегменты → аналитика → запуск</span></div>
       </div>
-      <div className="visual-callout safe"><b>ГЛАВНОЕ</b><span>Обычный A/B в Adapty и RU Billing Experiment нельзя независимо включать для одной аудитории без подтверждённого контракта.</span></div>
+      <div className="visual-callout safe"><b>НЕ СМЕШИВАТЬ</b><span>Сначала настраивается сам Special Offer. A/B-тест добавляется отдельным шагом только при подтверждённом источнике варианта RU Billing.</span></div>
     </section>
   );
 }
