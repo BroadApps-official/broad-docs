@@ -33,6 +33,7 @@ const useCases = [
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
   { code: "RU OFFER", title: "Добавить RU Billing: спешл оффер", detail: "Получить точные входные данные, подключить coupon, разделить два таймера и подтвердить оплату после браузера.", slug: "ru-special-offer" },
   { code: "МЕНЕДЖЕР", title: "Настроить RU Special Offer и A/B-тест", detail: "Пошагово пройти кабинет, подготовить продукты и передать разработчику одну карточку.", slug: "ru-billing-account-manager" },
+  { code: "A/B DEV", title: "Подключить A/B-тест в приложении", detail: "Выбрать Adapty или RU Billing/backend, получить стабильный вариант, показать нужный экран и подтвердить готовность менеджеру.", slug: "ru-billing-ab-tests-developer" },
   { code: "BACKEND", title: "Получить продукты с backend", detail: "Передать endpoints и авторизацию, подключить decoder и не потерять порядок, дубли и точные ID.", slug: "backend-product-catalog" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
@@ -74,13 +75,14 @@ function siteTermVariants(term: string) {
 
 function siteIntentBoost(slug: string, phrase: string) {
   const intents = [
-    { fragments: ["оплат", "покуп", "paywall", "premium", "подпис"], slugs: ["broad-monetization", "ui-flows-paywall", "paywall-ui", "adapty-setup", "special-offer", "ru-billing", "ru-special-offer", "ru-billing-account-manager", "backend-product-catalog"] },
+    { fragments: ["оплат", "покуп", "paywall", "premium", "подпис"], slugs: ["broad-monetization", "ui-flows-paywall", "paywall-ui", "adapty-setup", "special-offer", "ru-billing", "ru-special-offer", "ru-billing-account-manager", "ru-billing-ab-tests-developer", "backend-product-catalog"] },
     { fragments: ["backend", "бекенд", "бэкенд", "catalog", "каталог", "продукт"], slugs: ["backend-product-catalog", "ru-billing", "ru-special-offer", "broad-monetization"] },
     { fragments: ["перен", "мигра", "legacy", "broadcore"], slugs: ["legacy-app-migration", "legacy-broadcore", "migration"] },
     { fragments: ["ошиб", "retry", "timeout", "offline", "запуск"], slugs: ["runtime-reliability", "broad-core", "getting-started"] },
     { fragments: ["токен", "token", "balance"], slugs: ["token-paywall", "broad-monetization", "adapty-setup"] },
     { fragments: ["экран", "ui", "swiftui"], slugs: ["broad-ui-flows", "ui-flows-onboarding", "ui-flows-paywall", "ui-flows-settings-support", "paywall-ui", "onboarding-att"] },
-    { fragments: ["менедж", "эксперимент", "a b", "ab тест", "сегмент"], slugs: ["ru-billing-account-manager", "ru-special-offer", "special-offer"] },
+    { fragments: ["эксперимент", "a b", "ab тест", "сегмент"], slugs: ["ru-billing-ab-tests-developer", "ru-billing-account-manager", "ru-special-offer", "special-offer"] },
+    { fragments: ["менедж"], slugs: ["ru-billing-account-manager", "ru-billing-ab-tests-developer", "ru-special-offer"] },
     { fragments: ["верси", "semver", "tag", "совмест"], slugs: ["compatibility", "release-process", "migration"] },
     { fragments: ["парол", "доступ", "github"], slugs: ["public-package-access", "getting-started", "documentation"] },
   ];
