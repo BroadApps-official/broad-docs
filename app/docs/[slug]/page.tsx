@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
 import { DocOrientation } from "@/app/doc-orientation";
 import { DocReadingTools } from "@/app/doc-reading-tools";
+import { DocsSidebar } from "@/app/docs/docs-sidebar";
 import { MarkdownArticle } from "@/app/markdown-article";
 import { Link } from "@/app/plain-link";
 import { SiteFooter, SiteHeader } from "@/app/site-shell";
@@ -38,6 +39,14 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   const previousDoc = currentIndex > 0 ? docs[currentIndex - 1] : undefined;
   const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : undefined;
   const headings = documentHeadings(doc.body);
+  const sidebarGroups = docGroups.map((group) => ({
+    label: group,
+    entries: docs.filter((entry) => entry.group === group).map((entry) => ({
+      headings: documentHeadings(entry.body),
+      slug: entry.slug,
+      title: entry.title,
+    })),
+  }));
   const readingMinutes = Math.max(2, Math.ceil(doc.body.split(/\s+/).filter(Boolean).length / 180));
 
   return (
@@ -67,41 +76,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
           </div>
         </section>
         <div className="docs-layout section-wrap">
-          <nav className="docs-sidebar" aria-label="Разделы документации">
-            <div className="docs-sidebar-summary"><span>КАТАЛОГ</span><b>{docs.length} статей</b></div>
-            <div className="docs-sidebar-list">
-              {docGroups.map((group) => (
-                <div key={group}>
-                  <span>{group.toUpperCase()}</span>
-                  {docs.filter((entry) => entry.group === group).map((entry) => {
-                    const entryHeadings = documentHeadings(entry.body);
-                    const isCurrent = entry.slug === doc.slug;
-
-                    if (!entryHeadings.length) {
-                      return <Link className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug}>{entry.title}</Link>;
-                    }
-
-                    return (
-                      <details className={`docs-sidebar-disclosure${isCurrent ? " current" : ""}`} key={entry.slug} open={isCurrent}>
-                        <summary>
-                          <Link className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`}>{entry.title}</Link>
-                          <i className="docs-sidebar-chevron" aria-hidden="true" />
-                        </summary>
-                        <div className="docs-sidebar-subsections">
-                          {entryHeadings.map((heading, headingIndex) => (
-                            <a href={`/docs/${entry.slug}#${heading.id}`} key={heading.id}>
-                              <span>{String(headingIndex + 1).padStart(2, "0")}</span>
-                              <b>{heading.label}</b>
-                            </a>
-                          ))}
-                        </div>
-                      </details>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-          </nav>
+          <DocsSidebar currentSlug={doc.slug} groups={sidebarGroups} />
           <article className="docs-article">
             <div className="docs-article-card">
               <div className="docs-source-note">
