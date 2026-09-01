@@ -12,6 +12,13 @@ const githubRepository = "https://github.com/BroadApps-official/broad-docs";
 
 export function generateStaticParams() { return docs.map((doc) => ({ slug: doc.slug })); }
 
+function documentHeadings(markdown: string) {
+  return markdown.split("\n").flatMap((line) => {
+    const match = line.match(/^##\s+(.+)$/);
+    return match ? [{ label: match[1], id: slugifyHeading(match[1]) }] : [];
+  });
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const doc = getDoc(slug);
@@ -30,10 +37,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   const currentIndex = docs.findIndex((entry) => entry.slug === doc.slug);
   const previousDoc = currentIndex > 0 ? docs[currentIndex - 1] : undefined;
   const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : undefined;
-  const headings = doc.body.split("\n").flatMap((line) => {
-    const match = line.match(/^##\s+(.+)$/);
-    return match ? [{ label: match[1], id: slugifyHeading(match[1]) }] : [];
-  });
+  const headings = documentHeadings(doc.body);
   const readingMinutes = Math.max(2, Math.ceil(doc.body.split(/\s+/).filter(Boolean).length / 180));
 
   return (
@@ -69,9 +73,31 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               {docGroups.map((group) => (
                 <div key={group}>
                   <span>{group.toUpperCase()}</span>
-                  {docs.filter((entry) => entry.group === group).map((entry) => (
-                    <Link className={entry.slug === doc.slug ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug}>{entry.title}</Link>
-                  ))}
+                  {docs.filter((entry) => entry.group === group).map((entry) => {
+                    const entryHeadings = documentHeadings(entry.body);
+                    const isCurrent = entry.slug === doc.slug;
+
+                    if (!entryHeadings.length) {
+                      return <Link className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug}>{entry.title}</Link>;
+                    }
+
+                    return (
+                      <details className={`docs-sidebar-disclosure${isCurrent ? " current" : ""}`} key={entry.slug} open={isCurrent}>
+                        <summary>
+                          <Link className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`}>{entry.title}</Link>
+                          <i className="docs-sidebar-chevron" aria-hidden="true" />
+                        </summary>
+                        <div className="docs-sidebar-subsections">
+                          {entryHeadings.map((heading, headingIndex) => (
+                            <a href={`/docs/${entry.slug}#${heading.id}`} key={heading.id}>
+                              <span>{String(headingIndex + 1).padStart(2, "0")}</span>
+                              <b>{heading.label}</b>
+                            </a>
+                          ))}
+                        </div>
+                      </details>
+                    );
+                  })}
                 </div>
               ))}
             </div>
