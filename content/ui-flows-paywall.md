@@ -16,11 +16,21 @@
 
 ## Adapty: реальный сценарий 5007
 
-На GIF ниже — живая сборка 5007. После закрытия основного
-paywall появляется Limited-Time Offer с отдельной ценой, таймером и
-кнопкой Continue.
+Ниже — актуальная сборка 5007. Сначала показывается обычный paywall с годовым
+и недельным планами. Нажатие на тариф только меняет выбор и не запускает
+покупку.
 
-![5007: обычный Adapty paywall, крестик и отдельный Special Offer](../public/guides/ui-flows/paywall-special-offer/5007-adapty.gif)
+![5007: обновлённый обычный paywall](../public/guides/ui-flows/5007/paywall.png)
+
+![5007: переключение между тарифами обычного paywall](../public/guides/ui-flows/5007/paywall.gif)
+
+После нажатия на крестик основной paywall не закрывает весь сценарий: вместо
+него появляется отдельный Limited-Time Offer с таймером, своей ценой и кнопкой
+Continue.
+
+![5007: переход по крестику из обычного paywall в Special Offer](../public/guides/ui-flows/5007/special-offer.gif)
+
+![5007: обновлённый экран Special Offer](../public/guides/ui-flows/5007/special-offer.png)
 
 ## Adapty: реальный сценарий 5092
 

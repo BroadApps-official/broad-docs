@@ -253,12 +253,75 @@
         "path": "Documentation/Assets/README/startup-cache-light.svg"
       }
     },
+    "guides/ui-flows/5007/onboarding-final.png": {
+      "sha256": "a0a656e3fb6f189730f12716f77eefbad6099fa7c31e564e9bd85ca45ea9249d",
+      "bytes": 427160,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/onboarding-final.png"
+      }
+    },
+    "guides/ui-flows/5007/onboarding.gif": {
+      "sha256": "1dd6b3e14bc4d42b687b66322ff3b1b9a984145e21b174682fbe9f9eb3a3bc2b",
+      "bytes": 484355,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/onboarding.gif"
+      }
+    },
+    "guides/ui-flows/5007/onboarding.png": {
+      "sha256": "59a290bb596e4e819cf9db85663d5c5351959efa6126bdbaac5ab47c8bf922bc",
+      "bytes": 489757,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/onboarding.png"
+      }
+    },
+    "guides/ui-flows/5007/paywall.gif": {
+      "sha256": "69deb7770703623eccd18c68083e53dbe98200b8541f78759371362439505dd4",
+      "bytes": 2984488,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/paywall.gif"
+      }
+    },
+    "guides/ui-flows/5007/paywall.png": {
+      "sha256": "13eb5aa5cfb387de0059cedc668e5d1e5ef8e0c7f3c9d978ee07454528d9edff",
+      "bytes": 427868,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/paywall.png"
+      }
+    },
+    "guides/ui-flows/5007/special-offer.gif": {
+      "sha256": "58475afc4074631a9b10cb63a08a4c9c6be1dd283eef4acea099196050fdfb43",
+      "bytes": 517285,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/special-offer.gif"
+      }
+    },
+    "guides/ui-flows/5007/special-offer.png": {
+      "sha256": "04e3e886f0543190c5c1113ddd01b449fa339258f451efd65a1b65e62e94e93e",
+      "bytes": 560726,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
+        "path": "public/guides/ui-flows/5007/special-offer.png"
+      }
+    },
     "guides/ui-flows/paywall-special-offer/5007-adapty.gif": {
       "sha256": "78f876a10478fbc681384dd513b900fa8d39c02a3e251d83d1869a7153725ba4",
       "bytes": 2486969,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/paywall-special-offer/5007-adapty.gif"
       }
     },
@@ -267,7 +330,7 @@
       "bytes": 2469080,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/paywall-special-offer/5092-adapty.gif"
       }
     },
@@ -276,7 +339,7 @@
       "bytes": 389198,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/paywall-special-offer/claude232-ru-billing.gif"
       }
     },
@@ -285,7 +348,7 @@
       "bytes": 542857,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/full-flow.gif"
       }
     },
@@ -294,7 +357,7 @@
       "bytes": 310783,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/onboarding.gif"
       }
     },
@@ -303,7 +366,7 @@
       "bytes": 516515,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/paywall-1.png"
       }
     },
@@ -312,7 +375,7 @@
       "bytes": 112321,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/paywall-selection.gif"
       }
     },
@@ -321,7 +384,7 @@
       "bytes": 356021,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/settings-support.png"
       }
     },
@@ -330,7 +393,7 @@
       "bytes": 511860,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-assistant/special-offer.png"
       }
     },
@@ -339,7 +402,7 @@
       "bytes": 346428,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-companion/settings.png"
       }
     },
@@ -348,7 +411,7 @@
       "bytes": 221411,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-editor/onboarding.gif"
       }
     },
@@ -357,7 +420,7 @@
       "bytes": 129766,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-editor/paywall-selection.gif"
       }
     },
@@ -366,7 +429,7 @@
       "bytes": 331099,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-editor/settings.png"
       }
     },
@@ -375,7 +438,7 @@
       "bytes": 191317,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-safety/onboarding.gif"
       }
     },
@@ -384,7 +447,7 @@
       "bytes": 131652,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/guides/ui-flows/sample-safety/paywall-selection.gif"
       }
     },
@@ -393,7 +456,7 @@
       "bytes": 769664,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "4786194c6ce142bc83ac585a55d69ce1ccd5411d",
+        "ref": "f9f36248d0caa95c128a243322506fe281fd3502",
         "path": "public/og-v2.png"
       }
     }
