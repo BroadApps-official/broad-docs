@@ -40,6 +40,61 @@ const modules = [
   },
 ];
 
+const repositoryGroups = [
+  {
+    label: "ПОДКЛЮЧАЮТСЯ В XCODE",
+    title: "Код общих возможностей",
+    description: "Четыре Swift Package. Каждый владеет своим кодом, API и версиями.",
+    tone: "packages",
+    repositories: [
+      {
+        name: "broad-core-ios",
+        product: "BroadCore",
+        summary: "Запуск, кеш, состояния, retry, timeout и безопасные логи.",
+        href: "https://github.com/BroadApps-official/broad-core-ios",
+      },
+      {
+        name: "broad-monetization-ios",
+        product: "BroadMonetization",
+        summary: "Продукты, purchase, restore и подтверждение Premium; внешний вид экрана не задаёт.",
+        href: "https://github.com/BroadApps-official/broad-monetization-ios",
+      },
+      {
+        name: "broad-ui-flows-ios",
+        product: "BroadUIFlows",
+        summary: "Готовые SwiftUI-экраны: onboarding, paywall, loader, Special Offer и переходы.",
+        href: "https://github.com/BroadApps-official/broad-ui-flows-ios",
+      },
+      {
+        name: "broad-extensions-ios",
+        product: "BroadExtensions",
+        summary: "Независимые Swift-утилиты: HEX-цвета, шрифты, клавиатура и swipe-back.",
+        href: "https://github.com/BroadApps-official/broad-extensions-ios",
+      },
+    ],
+  },
+  {
+    label: "НЕ ПОДКЛЮЧАЮТСЯ В APP TARGET",
+    title: "Проверка и документация",
+    description: "Эти репозитории нужны команде, но не становятся зависимостью приложения.",
+    tone: "tooling",
+    repositories: [
+      {
+        name: "broad-platform-integration",
+        product: "локальная папка: BroadAppsIOSPlatform",
+        summary: "Фиксирует точные совместимые версии, собирает общий example и запускает cross-module checks.",
+        href: "https://github.com/BroadApps-official/broad-platform-integration",
+      },
+      {
+        name: "broad-docs",
+        product: "сайт, который вы сейчас читаете",
+        summary: "Общая архитектура, подключение, миграция, поиск и ссылки на точный API каждого модуля.",
+        href: "https://github.com/BroadApps-official/broad-docs",
+      },
+    ],
+  },
+];
+
 export default function Home() {
   return (
     <div className="site-shell">
@@ -179,9 +234,40 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="repository-section section-wrap" id="repositories">
+          <div className="section-heading">
+            <div><span className="section-index">04</span><h2>Карта Git-репозиториев</h2></div>
+            <p>В рабочей папке семь Git-папок: шесть актуальных публичных репозиториев и один архив старой платформы.</p>
+          </div>
+          <div className="repository-map">
+            <div className="repository-map-grid">
+              {repositoryGroups.map((group) => (
+                <section className={`repository-lane ${group.tone}`} aria-label={group.title} key={group.title}>
+                  <div className="repository-lane-head"><span>{group.label}</span><h3>{group.title}</h3><p>{group.description}</p></div>
+                  <div className="repository-cards">
+                    {group.repositories.map((repository) => (
+                      <a className="repository-card" href={repository.href} target="_blank" rel="noreferrer" key={repository.name}>
+                        <div><span className="repository-icon" aria-hidden="true" /><code>{repository.name}</code><i aria-hidden="true">↗</i></div>
+                        <b>{repository.product}</b>
+                        <p>{repository.summary}</p>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+            <div className="repository-legacy">
+              <div><span>АРХИВ · НЕ ДЛЯ НОВЫХ ПРОЕКТОВ</span><code>BroadCore</code><small>локальная папка и старый BroadApps-official/BroadCore</small></div>
+              <p>Исторический монолит: оставлен для анализа и миграции. Новое приложение берёт код из четырёх <code>broad-*-ios</code>, а не отсюда.</p>
+              <Link href="/docs/legacy-broadcore">Куда переехал старый BroadCore →</Link>
+            </div>
+            <div className="repository-rule"><b>Короткое правило</b><span>Код функции меняем в её <code>broad-*-ios</code> модуле; совместимость — в integration; общее объяснение — в <code>broad-docs</code>; уникальные тексты, дизайн и бизнес-правила — в репозитории самого приложения.</span><Link href="/docs/architecture#как-понять-какой-репозиторий-менять">Подробная схема →</Link></div>
+          </div>
+        </section>
+
         <section className="decision-section section-wrap" id="selection">
           <div className="section-heading">
-            <div><span className="section-index">04</span><h2>Как выбрать библиотеку</h2></div>
+            <div><span className="section-index">05</span><h2>Как выбрать библиотеку</h2></div>
             <p>Начните с задачи приложения. Подключать сразу всю платформу не требуется.</p>
           </div>
           <div className="decision-grid">
@@ -197,7 +283,7 @@ export default function Home() {
 
         <section className="migration-home section-wrap" id="migration">
           <div className="section-heading">
-            <div><span className="section-index">05</span><h2>Как перейти со старого BroadCore</h2></div>
+            <div><span className="section-index">06</span><h2>Как перейти со старого BroadCore</h2></div>
             <p>Приложение, экраны и бизнес-логику не переписываем. Убираем старое подключение BroadCore и добавляем только нужные новые библиотеки.</p>
           </div>
           <div className="migration-home-summary" aria-label="Что меняется при переходе со старой платформы">

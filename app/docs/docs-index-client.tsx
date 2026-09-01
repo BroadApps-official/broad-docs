@@ -24,7 +24,7 @@ const useCases = [
   { code: "ПЕРЕЕЗД", title: "Перейти со старого BroadCore", detail: "Менять подключение небольшими шагами, не переписывая приложение.", slug: "legacy-app-migration" },
   { code: "UI", title: "Посмотреть все готовые экраны", detail: "Открыть карту BroadUIFlows с реальными онбордингами, paywall, settings и поддержкой.", slug: "broad-ui-flows" },
   { code: "UI START", title: "Сделать онбординг", detail: "Посмотреть три варианта одного стандарта и понять, что передать готовому компоненту.", slug: "ui-flows-onboarding" },
-  { code: "UI PAY", title: "Увидеть paywall и Special Offer", detail: "Посмотреть выбор продуктов, границу UI и оплаты и полный переход в main.", slug: "ui-flows-paywall" },
+  { code: "UI PAY", title: "Увидеть paywall и Special Offer", detail: "Живые переходы 5007, 5092 и Claude232: paywall → крестик → Special Offer.", slug: "ui-flows-paywall" },
   { code: "SETTINGS", title: "Собрать настройки и Support", detail: "Проверить Upgrade, Restore, письмо, чат поддержки и legal-ссылки.", slug: "ui-flows-settings-support" },
   { code: "ADAPTY", title: "Настроить ключ и placement", detail: "Передать два значения и сохранить все продукты из ответа Adapty.", slug: "adapty-setup" },
   { code: "PAYWALL", title: "Сделать экран подписки", detail: "Показать 0, 1 или много продуктов, загрузку, ошибку и restore.", slug: "paywall-ui" },

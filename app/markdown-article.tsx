@@ -153,9 +153,11 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
       const reference = src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
+      const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
+      const wideFlowGif = flowGif && src.includes("/sample-editor/");
       const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
-        <figure className={`docs-media${reference ? " docs-media-reference" : ""}`} key={index}>
+        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}`} key={index}>
           <div className="docs-media-frame"><img alt={block.alt ?? ""} decoding="async" loading="eager" src={src} /></div>
           {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
