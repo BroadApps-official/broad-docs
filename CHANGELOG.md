@@ -46,8 +46,9 @@
   `обычный paywall → крестик → Special Offer`: добавлены живые GIF
   из 5007, 5092 и Claude232 с Russian/Russia для RU Billing; все GIF в
   визуальных UI-flows уменьшены в 1,7 раза;
-- все отдельные скриншоты экранов в статьях уменьшены вдвое:
-  максимальная ширина референса теперь 250 px вместо 500 px;
+- все растровые скриншоты экранов на всех страницах уменьшены
+  вдвое: отдельные референсы ограничены 250 px, кадры в таблицах —
+  95 px, а встроенная галерея BroadUIFlows также уменьшена вдвое;
 - на главной появилась карта всех Git-репозиториев: четыре подключаемых Swift-модуля, integration-контур, сайт `broad-docs` и архивный `BroadCore`; для каждого указана ответственность, связь с локальной папкой и прямая ссылка на актуальный GitHub;
 - public UI examples were audited as developer guidance rather than an internal
   report: duplicate walkthroughs and reference-status notes were removed,

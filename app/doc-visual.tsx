@@ -142,7 +142,7 @@ function UIFlowsModuleVisual() {
       <div className="ui-screen-gallery">
         {screens.map(([label, source, detail], index) => (
           <figure className="ui-screen-example" key={label} style={{ "--screen-delay": `${index * 1.35}s` } as CSSProperties}>
-            <div className="ui-screen-device"><img src={source} alt={detail} /></div>
+            <div className="ui-screen-device"><img className="docs-screen-image" src={source} alt={detail} /></div>
             <figcaption><b>{label}</b><span>{detail}</span></figcaption>
           </figure>
         ))}
