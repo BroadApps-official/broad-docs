@@ -252,21 +252,21 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — всегда показать; всё остальное — не показывать. Таймер 24 → 0 → 24 работает отдельно.</span></div>
+      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — всегда показать; всё остальное — не показывать. Таймеров и cooldown нет.</span></div>
     </section>
   );
 }
 
 function RUSpecialOfferVisual() {
   const steps = [
-    ["01", "Закрыт обычный экран", "покупки и восстановления не было"],
-    ["02", "Проверен Adapty config", "только special_offer = true разрешает второй экран"],
-    ["03", "RU-продукт и ID", "оффер заведён заранее; название и ID совпадают с Adapty"],
-    ["04", "Оплата подтверждена", "только ответ active открывает Premium"],
+    ["01", "Закрыт обычный paywall", "покупки и restore не было"],
+    ["02", "Adapty: kupon = true", "строгое boolean всегда разрешает второй экран"],
+    ["03", "Каталог 232", "widgetTitle = kupon выбирает monthly_12.99_nottrial"],
+    ["04", "RU checkout", "productId совпал; только active открывает Premium"],
   ];
   return (
-    <section className="doc-visual ru-special-offer-visual" aria-label="Четыре проверки спешл оффера RU Billing">
-      <div className="doc-visual-head"><span>RU BILLING · SPECIAL OFFER · 4 ШАГА</span><b>Adapty разрешает показ, RU Billing возвращает точный продукт</b></div>
+    <section className="doc-visual ru-special-offer-visual" aria-label="Special Offer RU Billing на примере 232 Claude">
+      <div className="doc-visual-head"><span>232 CLAUDE · RU SPECIAL OFFER · 4 ШАГА</span><b>Флаг разрешает показ, метка каталога выбирает точный продукт</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -276,11 +276,11 @@ function RUSpecialOfferVisual() {
         ))}
       </div>
       <div className="architecture-owner-map">
-        <div className="owner-lane owner-app"><span>ADAPTY</span><b>Remote Config разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
-        <div className="owner-lane owner-platform"><span>RU BILLING</span><b>Кабинет хранит продукт и цену</b><small>product ID должен точно совпасть с Adapty</small></div>
-        <div className="owner-lane owner-tools"><span>ПОСЛЕ БРАУЗЕРА</span><b>Backend сообщает результат</b><small>вернуться в приложение ещё не значит заплатить</small></div>
+        <div className="owner-lane owner-app"><span>ADAPTY</span><b>kupon разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
+        <div className="owner-lane owner-platform"><span>RU-КАТАЛОГ</span><b>widgetTitle выбирает оффер</b><small>для 232: monthly_12.99_nottrial · 990 ₽</small></div>
+        <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Кабинет проводит оплату</b><small>активный product code совпадает с каталогом символ в символ</small></div>
       </div>
-      <div className="visual-callout safe"><b>TRUE = ВСЕГДА ПОКАЗАТЬ</b><span>Всё остальное — не показывать. Локальный таймер 24 → 0 → 24 не участвует в решении.</span></div>
+      <div className="visual-callout safe"><b>kupon = true → ВСЕГДА ПОКАЗАТЬ</b><span>Без таймера, cooldown, лимита показов и даты окончания.</span></div>
     </section>
   );
 }
@@ -290,7 +290,7 @@ function RUBillingManagerVisual() {
     <section className="doc-visual ru-special-offer-visual" aria-label="Два отдельных сценария RU Billing для аккаунт-менеджера">
       <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ДВА СЦЕНАРИЯ</span><b>Special Offer и A/B-тест настраиваются отдельно</b></div>
       <div className="migration-routes">
-        <div><small>01 · SPECIAL OFFER</small><b>Завести продукт и включить показ</b><span>Adapty product ID → такой же ID в RU Billing → special_offer = true → карточка разработчику</span></div>
+        <div><small>01 · SPECIAL OFFER 232</small><b>Завести продукт и включить показ</b><span>kupon = true → widgetTitle = kupon → monthly_12.99_nottrial в RU Billing</span></div>
         <div><small>02 · A/B-ТЕСТ</small><b>Сравнить варианты через RU Billing</b><span>источник варианта → эксперимент → сегменты → аналитика → запуск</span></div>
       </div>
       <div className="visual-callout safe"><b>НЕ СМЕШИВАТЬ</b><span>Сначала настраивается сам Special Offer. A/B-тест добавляется отдельным шагом только при подтверждённом источнике варианта RU Billing.</span></div>

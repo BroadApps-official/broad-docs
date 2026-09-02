@@ -40,11 +40,13 @@
 
 ### Changed
 
-- во всех статьях Special Offer закреплён один контракт: булево
-  `special_offer = true` всегда показывает второй экран, любое другое значение
-  не показывает его; локальный таймер отдельно идёт по циклу
-  `24:00:00 → 00:00:00 → 24:00:00`, продолжается между открытиями и не зависит
-  от сервера или доступности покупки;
+- RU Billing Special Offer переписан как конкретный проверенный пример
+  232 Claude: `kupon = true`, bundle `com.arm.232C1aude`, placement `kupon`,
+  `widgetTitle = "kupon"` и product code `monthly_12.99_nottrial` за 990 ₽;
+  отдельно показаны роли Adapty, RU-каталога и RU Billing;
+- из всех связанных инструкций и визуальных подписей удалён ошибочный цикл
+  `24 → 0 → 24`: при разрешающем флаге Special Offer показывается без таймеров,
+  cooldown, дат окончания и лимитов повторного показа;
 - статья RU Billing теперь сначала требует закончить базовую интеграцию, а
   затем ведёт в отдельную инструкцию Special Offer; A/B-вариант больше не
   описан как дополнительный gate показа;
@@ -53,10 +55,10 @@
 - во всех пользовательских маршрутах `main` заменён на понятное «главный экран
   приложения»; технический placement ID и ветка Git оставлены только там, где
   это точные идентификаторы;
-- RU Billing Special Offer теперь начинается с обязательного
-  `special_offer = true` из текущего Adapty Remote Config, затем загружает
-  продукт из RU Billing; кабинетная инструкция требует заранее завести этот
-  продукт и сопоставить его с Adapty по точному ID;
+- RU Billing Special Offer теперь начинается с обязательного `kupon = true` из
+  текущего Adapty Remote Config 232, выбирает продукт в RU-каталоге по
+  `widgetTitle = "kupon"` и требует активный RU Billing product с тем же точным
+  техническим кодом; отображаемое название в сопоставлении не участвует;
 - в боковом каталоге появилась отдельная статья «RU Billing: A/B-тесты для
   разработчика»: она показывает готовый маршрут Adapty, границу отсутствующего
   общего RU Billing assignment, app-owned adapter, проверку сборки и явное
@@ -97,11 +99,10 @@
 - BroadUIFlows больше не представлен как «страница про paywall»: добавлены
   отдельные визуальные статьи про onboarding, paywall/Special Offer и
   settings/support с обезличенными примерами экранов;
-- разработческая статья RU Special Offer теперь начинается с обязательной
-  базовой настройки RU Billing и объясняет только отличия оффера: точное
-  `special_offer = true` всегда разрешает показ, а продукт заранее заводится в
-  RU Billing с тем же ID, что в Adapty; gate отделён от локального циклического
-  таймера, который не управляет показом;
+- разработческая статья RU Special Offer теперь начинает с базовой настройки
+  RU Billing, затем буквально разбирает 232 Claude от `kupon = true` до
+  `monthly_12.99_nottrial` в checkout и предупреждает не переносить из старого
+  референсного кода 24-часовое окно и десятиминутный countdown;
 - the RU Billing guide now restores the complete seven-screen reference path
   from tariff selection through consent, receipt email and external checkout;
   the screenshots are presented as a compact responsive Markdown gallery and

@@ -102,10 +102,8 @@ special_offer == true → показать Special Offer
 всё остальное         → не показывать Special Offer
 ```
 
-При `true` Special Offer показывается всегда. Таймер не участвует в этой
-проверке: UI отдельно показывает локальный цикл
-`24:00:00 → 00:00:00 → 24:00:00`, который продолжается между открытиями и на
-нуле не закрывает оффер.
+При `true` Special Offer показывается всегда. В контракте нет таймера,
+cooldown, даты окончания или лимита повторных показов.
 
 ## Токены
 
@@ -135,8 +133,9 @@ special_offer == true → показать Special Offer
 [инструкции каталога](./backend-product-catalog.md).
 
 Дополнительное coupon-предложение после закрытия основного paywall использует
-тот же каталог и checkout; отдельный payment engine не нужен. Точный gate
-`special_offer = true` и сопоставление coupon product ID разбираются в
+тот же checkout; отдельный payment engine не нужен. Точный пример 232 Claude —
+gate `kupon = true`, каталог по bundle ID и product code
+`monthly_12.99_nottrial` — разбирается в
 [«Спешл оффер RU Billing»](./ru-special-offer.md).
 
 ## Что хранится в приложении

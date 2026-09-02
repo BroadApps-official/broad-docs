@@ -30,9 +30,9 @@ deployment ещё не успел обновиться. Изображения �
 - заметная схема «host app → нужные модули» и простое объяснение преимуществ;
 - визуальные стандарты BroadUIFlows для онбординга, paywall, Special Offer,
   настроек и поддержки;
-- Special Offer по единственному gate `special_offer = true`, актуальный RU
-  Billing, продукты с backend и раздельные инструкции для разработчика и
-  аккаунт-менеджера;
+- Special Offer без таймеров и cooldown: общий Adapty-контракт использует
+  `special_offer = true`, а RU Billing разобран на точном примере 232 Claude с
+  `kupon = true` и продуктом `monthly_12.99_nottrial`;
 - compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;
