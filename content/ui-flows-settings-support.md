@@ -43,36 +43,43 @@ Upgrade, Restore, Support и legal должны оставаться предс�
 системный composer, где человек видит получателя, тему и текст и сам нажимает
 Send.
 
-Безопасный шаблон:
+В референсном приложении 5007 используется полный шаблон:
 
 ```text
 Получатель: адрес поддержки текущего приложения
-Тема: <название приложения> — Contact us
+Тема: [<название приложения>] Support
 
-Опишите проблему:
+Hi! I need help with the app.
 
---- App ---
-Version / build:
-Bundle ID:
+--- App and account info ---
+Generated: <дата и время в ISO 8601>
+App: <название приложения>
+Version: <версия> (<номер сборки>)
+Bundle: <bundle ID>
+System: <название и версия системы>
+Device: <модель устройства>
+Locale: <локаль>
+TimeZone: <часовой пояс>
+User ID: <ID пользователя для поддержки>
+Backend userID: <технический ID backend или nil>
+Adapty customer userID: <customer user ID>
+Adapty profileID: <profile ID или nil>
+Active product ID: <ID активного продукта или nil>
+Original transaction ID: <original transaction ID или nil>
+Subscription: subscribed / not_subscribed
 
---- Device ---
-iOS version:
-Device model:
-Locale / time zone:
+Diagnostics: support-log.txt is attached when Apple Mail is available.
 
---- Account ---
-Только технические ID, необходимые поддержке
-Subscription state:
+--- Describe the problem below ---
 ```
 
 Пароли, платёжные реквизиты, полный токен авторизации и содержимое личных чатов
 в письмо не добавляются.
 
-Два технических поля даёт монетизация как данные: канонический статус подписки —
-`EntitlementStatus.supportSubscriptionValue` (`subscribed`/`not_subscribed`/`unknown`),
-а Adapty profile ID — `ProfileIdentityProviderProtocol` (реализация
-`AdaptySDKProfileIdentityProvider`), который читает существующий профиль, не создавая
-новый; если профиля ещё нет, приложение подставляет свой placeholder.
+5007 получает сведения о приложении и устройстве из системных API, технические
+ID — из backend, Adapty и подтверждённой StoreKit-транзакции. Если Apple Mail
+доступен, к письму прикладывается текущий диагностический лог
+`support-log.txt`; при переходе через `mailto:` вложение не добавляется.
 
 ## Почему composer может не открыться в Simulator
 
