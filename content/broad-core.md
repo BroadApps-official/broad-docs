@@ -68,7 +68,7 @@ Core не выбирает текст и картинку ошибки. Он д�
 
 `NetworkFailureClassifier` переводит низкоуровневую сетевую ошибку в понятную категорию: offline, timeout, отмена или другой сбой. `RetryPolicy` и `TimeoutPolicy` ограничивают повтор и ожидание.
 
-`BroadLoggerProtocol` принимает заранее определённые события. Логировать исходный URL, секреты авторизации, чек покупки, платёжную ссылку, персональные данные или целиком ответ сервиса нельзя.
+`BroadLoggerProtocol` принимает заранее определённые события. Логировать исходный URL, секреты авторизации, чек покупки, платёжную ссылку, персональные данные или целиком ответ сервиса нельзя. Готовый `OSLogBroadLogger` принимает subsystem как `String` (`init(subsystem:)`), поэтому его можно задать из `Bundle.main.bundleIdentifier` без литерала.
 
 ![Схема асинхронного действия: занятое состояние ставится до первого await, повторный tap блокируется, каждый финал снимает loader](../public/guides/readme/debug-feedback-light.svg)
 
@@ -99,6 +99,8 @@ Core не выбирает текст и картинку ошибки. Он д�
 | `FileSystemKeyValueStore` | Хранит более крупные payload в файлах |
 | `BroadLoggerProtocol` | Записывает только разрешённые диагностические события |
 | ATT adapter/use case | Вызывает системный API, когда UI выбрал правильный момент |
+| `DebugFlagStore` | Хранит `#if DEBUG`-переключатели поверх key-value store с launch-argument override |
+| `DebugKeychainCleaner` | `#if DEBUG`-очистка названных app-owned Keychain-сервисов для сброса состояния между прогонами |
 
 ## Что Core не делает
 

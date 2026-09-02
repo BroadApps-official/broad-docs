@@ -63,6 +63,12 @@ Subscription state:
 Пароли, платёжные реквизиты, полный токен авторизации и содержимое личных чатов
 в письмо не добавляются.
 
+Два технических поля даёт монетизация как данные: канонический статус подписки —
+`EntitlementStatus.supportSubscriptionValue` (`subscribed`/`not_subscribed`/`unknown`),
+а Adapty profile ID — `ProfileIdentityProviderProtocol` (реализация
+`AdaptySDKProfileIdentityProvider`), который читает существующий профиль, не создавая
+новый; если профиля ещё нет, приложение подставляет свой placeholder.
+
 ## Почему composer может не открыться в Simulator
 
 iPhone Simulator часто не содержит настроенного Mail-аккаунта. В этом случае
