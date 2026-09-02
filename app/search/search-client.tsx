@@ -29,7 +29,7 @@ const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> =
   { pattern: /(ошиб|сборк|не собира|runtime|пад|сеть|network|cache|retry|bootstrap)/, slugs: ["runtime-reliability", "getting-started", "compatibility", "broad-core"], weight: 230 },
   { pattern: /(выб(рать|ор)|какой модул|что подключ|подключ|swift package|package|spm|xcode)/, slugs: ["module-selection", "getting-started", "public-package-access"], weight: 90 },
   { pattern: /(готов(ый|ые) экран|onboarding|онборд|ui flow)/, slugs: ["broad-ui-flows", "onboarding-att", "paywall-ui"], weight: 210 },
-  { pattern: /(special offer|спец|скидк|таймер|купон|coupon|дожим)/, slugs: ["ru-special-offer", "special-offer", "adapty-setup"], weight: 240 },
+  { pattern: /(special offer|спец|скидк|купон|coupon|дожим)/, slugs: ["ru-special-offer", "special-offer", "adapty-setup"], weight: 240 },
   { pattern: /(чат|поддержк|usedesk)/, slugs: ["usedesk"], weight: 230 },
 ];
 

@@ -8,7 +8,7 @@ export const technicalTerms: TechnicalTerm[] = [
   { label: "Host app", definition: "Само приложение компании, которое подключает общий код платформы.", patterns: [/host app/i] },
   { label: "Bootstrap", definition: "Действия при запуске: создать общие сервисы, прочитать сохранённые данные и открыть первый экран.", patterns: [/bootstrap/i] },
   { label: "Composition root", definition: "Одно стартовое место, где приложение создаёт подключённые библиотеки и передаёт им настройки.", patterns: [/composition root/i] },
-  { label: "Placement", definition: "Имя нужного экрана в Adapty, например main или tokens.", patterns: [/placements?/i] },
+  { label: "Placement", definition: "Технический ID нужного экрана в Adapty, например settings или tokens.", patterns: [/placements?/i] },
   { label: "Paywall", definition: "Экран, на котором человек выбирает подписку или покупку.", patterns: [/paywalls?/i] },
   { label: "Entitlement", definition: "Подтверждение от системы оплаты, что пользователю действительно доступен Premium.", patterns: [/entitlement/i] },
   { label: "Payload", definition: "Набор данных, который вернул Adapty или сервер приложения.", patterns: [/payload/i] },

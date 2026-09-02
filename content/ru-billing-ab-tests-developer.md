@@ -47,9 +47,11 @@ Billing. Два независимых источника могут отпра�
 6. проверить, что variation попадает в app analytics показа и покупки;
 7. на одном тестовом профиле сверить variation приложения с Adapty dashboard.
 
-Для cross-placement сценария связь между обычным paywall и Special Offer тоже
-настраивает Adapty. Приложение только запрашивает согласованные placement и
-выполняет полученный сценарий.
+Для Special Offer variation не является дополнительным разрешением показа.
+Приложение читает только `special_offer` из фактически полученного Remote
+Config: булево `true` всегда показывает оффер, всё остальное не показывает.
+Adapty может вернуть разное значение флага в разных variation, но приложение
+не добавляет к нему отдельную проверку variation.
 
 ## Вариант B. A/B назначает RU Billing или backend
 
@@ -78,7 +80,7 @@ randomizer. Сообщите менеджеру: «RU Billing A/B пока не 
 ```swift
 enum RUBillingExperimentVariant: String {
     case control
-    case specialOffer
+    case alternative
 }
 
 protocol RUBillingExperimentVariantProviding {
@@ -90,14 +92,15 @@ protocol RUBillingExperimentVariantProviding {
 Последовательность в приложении:
 
 ```text
-получить подтверждённый segment code
-                ↓
-преобразовать только известный code в typed variant
-                ↓
-control      → закрыть paywall и открыть main
-specialOffer → открыть RU Billing Special Offer
-                ↓
-после фактического показа отправить exposure analytics
+проверить special_offer в текущем Adapty Remote Config
+    ├─ не true → не показывать Special Offer
+    └─ true → всегда показать Special Offer
+                 ↓
+          получить segment code
+                 ↓
+          выбрать продукт или оформление control / alternative
+                 ↓
+          после фактического показа отправить exposure analytics
 ```
 
 Обязательные правила:
@@ -105,7 +108,10 @@ specialOffer → открыть RU Billing Special Offer
 - неизвестный или отсутствующий сегмент не превращается в тестовый вариант;
 - случайное распределение на iPhone не добавляется;
 - один пользователь не должен менять вариант между экранами и сессиями;
-- A/B-вариант решает только, какой сценарий показать;
+- A/B-вариант выбирает продукт или оформление уже разрешённого Special Offer,
+  но не решает, показывать ли сам экран;
+- единственный gate показа — `special_offer = true`, а продукт RU Billing
+  по-прежнему сопоставляется с Adapty по точному ID;
 - покупка, checkout и открытие Premium продолжают использовать обычный
   `BroadMonetization` и подтверждённый backend-статус;
 - возврат из браузера не считается успешной оплатой.
@@ -115,8 +121,8 @@ specialOffer → открыть RU Billing Special Offer
 | Уже есть в BroadMonetization | Делает разработчик приложения |
 |---|---|
 | загрузка продуктов и точное сопоставление по ID | получение app-owned RU Billing segment |
-| Apple purchase, RU checkout и restore | typed mapping segment → control / Special Offer |
-| pending и подтверждение Premium | выбор нужного UI-сценария |
+| Apple purchase, RU checkout и restore | typed mapping segment → product / оформление |
+| `special_offer = true` как единственный gate | применение варианта после разрешения показа |
 | Adapty variation attribution | exposure analytics для RU Billing A/B |
 | защита от второго клиентского randomizer | проверка конкретной test-сборки |
 
@@ -128,10 +134,11 @@ specialOffer → открыть RU Billing Special Offer
 Для двух тестовых пользователей или двух подтверждённых fixture-сценариев
 проверьте:
 
-1. контроль получает только контрольный экран;
-2. тест получает только согласованный Special Offer;
+1. при `special_offer = true` оба варианта показывают Special Offer;
+2. контроль и тест получают согласованные продукты или оформление;
 3. повторный запуск сохраняет тот же вариант;
-4. неизвестный сегмент безопасно ведёт в контроль, а не в Special Offer;
+4. неизвестный сегмент безопасно ведёт в контрольный вариант, но не меняет
+   решение Remote Config о показе Special Offer;
 5. аналитика записывает `experimentCode`, `segmentCode` и факт показа;
 6. покупка и restore не открывают второй экран;
 7. Premium открывается только после подтверждённой покупки или backend-статуса;
@@ -172,6 +179,7 @@ Test segment code и поведение:
 - нет события фактического показа;
 - тестовую сборку никто не проверил;
 - Adapty и RU Billing одновременно назначают вариант одной аудитории.
+- RU Billing segment используется как второй gate показа Special Offer.
 
 ## Куда идти дальше
 

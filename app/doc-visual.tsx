@@ -164,7 +164,7 @@ function MonetizationModuleVisual() {
         <div className="module-lane provider-lane"><span>03 · ДАЁТ ИСТИНУ</span><b>Adapty / StoreKit</b><small>placement · raw product · entitlement</small></div>
       </div>
       <div className="module-result-strip"><span>tap «Купить»</span><i>→</i><span>одна операция</span><i>→</i><span>повторная проверка</span><i>→</i><b>Premium подтверждён</b></div>
-      <div className="visual-callout safe"><b>ГЛАВНОЕ ПРАВИЛО</b><span>Ответ SDK не открывает доступ сам по себе. Main открывается после подтверждённого entitlement.</span></div>
+      <div className="visual-callout safe"><b>ГЛАВНОЕ ПРАВИЛО</b><span>Ответ SDK не открывает доступ сам по себе. Главный экран приложения открывается после подтверждённого entitlement.</span></div>
     </section>
   );
 }
@@ -239,7 +239,7 @@ function SpecialOfferVisual() {
     ["01", "Ответ Adapty", "получить экран special_offer или запасной вариант"],
     ["02", "Все варианты", "передать весь список Adapty без фильтрации"],
     ["03", "Один переключатель", "показ разрешает только special_offer = true"],
-    ["04", "Спешл оффер Adapty", "после крестика первого; таймер циклический 24 часа"],
+    ["04", "Спешл оффер Adapty", "true — всегда показать; иначе не показывать"],
   ];
   return (
     <section className="doc-visual" aria-label="Порядок показа спешл оффера от Adapty">
@@ -252,7 +252,7 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>Без скрытых правил</b><span>Нет расписания, серверного времени, фильтрации карточек или блокировки на нуле таймера.</span></div>
+      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — всегда показать; всё остальное — не показывать. Таймер 24 → 0 → 24 работает отдельно.</span></div>
     </section>
   );
 }
@@ -260,14 +260,13 @@ function SpecialOfferVisual() {
 function RUSpecialOfferVisual() {
   const steps = [
     ["01", "Закрыт обычный экран", "покупки и восстановления не было"],
-    ["02", "Получено разрешение", "только явное true показывает второй экран"],
-    ["03", "Загружены цены", "Apple отдельно · СБП и карта отдельно"],
-    ["04", "Найден нужный товар", "по точному ID, который передали разработчику"],
-    ["05", "Оплата подтверждена", "только ответ active открывает Premium"],
+    ["02", "Проверен Adapty config", "только special_offer = true разрешает второй экран"],
+    ["03", "RU-продукт и ID", "оффер заведён заранее; название и ID совпадают с Adapty"],
+    ["04", "Оплата подтверждена", "только ответ active открывает Premium"],
   ];
   return (
-    <section className="doc-visual ru-special-offer-visual" aria-label="Пять проверок спешл оффера RU Billing">
-      <div className="doc-visual-head"><span>RU BILLING · ВТОРОЙ ЭКРАН ОПЛАТЫ</span><b>Сначала разрешение, затем цена, затем подтверждение оплаты</b></div>
+    <section className="doc-visual ru-special-offer-visual" aria-label="Четыре проверки спешл оффера RU Billing">
+      <div className="doc-visual-head"><span>RU BILLING · SPECIAL OFFER · 4 ШАГА</span><b>Adapty разрешает показ, RU Billing возвращает точный продукт</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -277,11 +276,11 @@ function RUSpecialOfferVisual() {
         ))}
       </div>
       <div className="architecture-owner-map">
-        <div className="owner-lane owner-app"><span>APPLE</span><b>Цена приходит через Adapty</b><small>если RU backend не работает, Apple может остаться</small></div>
-        <div className="owner-lane owner-platform"><span>СБП И КАРТА</span><b>Цена приходит с backend</b><small>кнопки видны только после проверки ru_pay и региона</small></div>
+        <div className="owner-lane owner-app"><span>ADAPTY</span><b>Remote Config разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
+        <div className="owner-lane owner-platform"><span>RU BILLING</span><b>Кабинет хранит продукт и цену</b><small>product ID должен точно совпасть с Adapty</small></div>
         <div className="owner-lane owner-tools"><span>ПОСЛЕ БРАУЗЕРА</span><b>Backend сообщает результат</b><small>вернуться в приложение ещё не значит заплатить</small></div>
       </div>
-      <div className="visual-callout safe"><b>ДВА РАЗНЫХ ТАЙМЕРА</b><span>Один управляет повторным показом между сессиями, второй рисует countdown открытого экрана. Значения сообщает владелец задачи.</span></div>
+      <div className="visual-callout safe"><b>TRUE = ВСЕГДА ПОКАЗАТЬ</b><span>Всё остальное — не показывать. Локальный таймер 24 → 0 → 24 не участвует в решении.</span></div>
     </section>
   );
 }
@@ -291,7 +290,7 @@ function RUBillingManagerVisual() {
     <section className="doc-visual ru-special-offer-visual" aria-label="Два отдельных сценария RU Billing для аккаунт-менеджера">
       <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ДВА СЦЕНАРИЯ</span><b>Special Offer и A/B-тест настраиваются отдельно</b></div>
       <div className="migration-routes">
-        <div><small>01 · SPECIAL OFFER</small><b>Подготовить второй экран оплаты</b><span>приложение → продукты → условие показа → карточка разработчику → проверка</span></div>
+        <div><small>01 · SPECIAL OFFER</small><b>Завести продукт и включить показ</b><span>Adapty product ID → такой же ID в RU Billing → special_offer = true → карточка разработчику</span></div>
         <div><small>02 · A/B-ТЕСТ</small><b>Сравнить варианты через RU Billing</b><span>источник варианта → эксперимент → сегменты → аналитика → запуск</span></div>
       </div>
       <div className="visual-callout safe"><b>НЕ СМЕШИВАТЬ</b><span>Сначала настраивается сам Special Offer. A/B-тест добавляется отдельным шагом только при подтверждённом источнике варианта RU Billing.</span></div>
@@ -451,7 +450,7 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     steps: [
       ["01", "Передать страницы", "тексты, изображения, порядок и тема приложения"],
       ["02", "Показать по порядку", "без пропусков и повторного завершения"],
-      ["03", "Закончить маршрут", "перейти в paywall или main по правилу продукта"],
+      ["03", "Закончить маршрут", "перейти в paywall или на главный экран приложения"],
     ],
     result: "Количество и дизайн экранов меняются, а понятный порядок и результат остаются стандартом.",
   },
@@ -480,7 +479,7 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     title: "Ключ говорит, чьё это приложение; имя экрана — что загрузить",
     steps: [
       ["01", "Передайте ключ", "публичный ключ вашего приложения из Adapty"],
-      ["02", "Назовите место", "например main, tokens или special_offer"],
+      ["02", "Назовите место", "например settings, tokens или special_offer"],
       ["03", "Покажите ответ", "все продукты приходят на экран без скрытой фильтрации"],
     ],
     result: "Дополнительные проверяющие сервисы для обычной загрузки экрана не нужны.",
@@ -533,7 +532,7 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     steps: [
       ["01", "Выбрать источник", "Adapty или подтверждённый RU Billing/backend — только один"],
       ["02", "Получить вариант", "готовая Adapty variation или app-owned backend adapter"],
-      ["03", "Показать сценарий", "control ведёт в main, test — в согласованный Special Offer"],
+      ["03", "Применить вариант", "выбрать продукт или оформление, не добавляя второй gate Special Offer"],
       ["04", "Подтвердить запуск", "analytics, test-сборка и карточка аккаунт-менеджеру"],
     ],
     result: "Менеджер включает тест только после явного подтверждения разработчика для конкретной версии приложения.",

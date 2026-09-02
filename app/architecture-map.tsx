@@ -36,7 +36,7 @@ const choices = [
     number: "04",
     tone: "flows",
     need: "Нужны готовые экраны и переходы",
-    examples: "onboarding · paywall · состояния · переход в main",
+    examples: "onboarding · paywall · состояния · главный экран приложения",
     product: "BroadUIFlows",
     automatic: "BroadMonetization + BroadCore + Adapty + Swinject",
     note: "Вся обязательная основа готовых экранов",

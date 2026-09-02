@@ -337,7 +337,7 @@ Adapty product ID = backend appStoreProductId
 RU methods без свежего `ru_pay=true` и российского Storefront/региона.
 
 Если backend отдаёт coupon/дожим, не выбирайте одну строку сортировкой. Полный
-маршрут с `kind = coupon`, campaign gate и двумя таймерами:
+маршрут с `kind = coupon`, точным `special_offer = true` и product ID:
 [«RU Billing: спешл оффер»](./ru-special-offer.md).
 
 ## Куда идти дальше
