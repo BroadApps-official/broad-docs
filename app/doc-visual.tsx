@@ -261,8 +261,8 @@ function RUSpecialOfferVisual() {
   const steps = [
     ["01", "Закрыт обычный paywall", "покупки и restore не было"],
     ["02", "Adapty: kupon = true", "строгое boolean всегда разрешает второй экран"],
-    ["03", "Каталог 232", "widgetTitle = kupon выбирает monthly_12.99_nottrial"],
-    ["04", "RU checkout", "productId совпал; только active открывает Premium"],
+    ["03", "nextgenwebapps", "widgetTitle == kupon выбирает monthly_12.99_nottrial"],
+    ["04", "RU checkout", "productId из каталога; только active открывает Premium"],
   ];
   return (
     <section className="doc-visual ru-special-offer-visual" aria-label="Special Offer RU Billing на примере 232 Claude">
@@ -277,8 +277,8 @@ function RUSpecialOfferVisual() {
       </div>
       <div className="architecture-owner-map">
         <div className="owner-lane owner-app"><span>ADAPTY</span><b>kupon разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
-        <div className="owner-lane owner-platform"><span>RU-КАТАЛОГ</span><b>widgetTitle выбирает оффер</b><small>для 232: monthly_12.99_nottrial · 990 ₽</small></div>
-        <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Кабинет проводит оплату</b><small>активный product code совпадает с каталогом символ в символ</small></div>
+        <div className="owner-lane owner-platform"><span>NEXTGENWEBAPPS</span><b>widgetTitle выбирает RU-продукт</b><small>для 232: monthly_12.99_nottrial · 990 ₽</small></div>
+        <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Checkout проводит оплату</b><small>получает productId напрямую из платёжного каталога</small></div>
       </div>
       <div className="visual-callout safe"><b>kupon = true → ВСЕГДА ПОКАЗАТЬ</b><span>Без таймера, cooldown, лимита показов и даты окончания.</span></div>
     </section>
@@ -290,7 +290,7 @@ function RUBillingManagerVisual() {
     <section className="doc-visual ru-special-offer-visual" aria-label="Два отдельных сценария RU Billing для аккаунт-менеджера">
       <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ДВА СЦЕНАРИЯ</span><b>Special Offer и A/B-тест настраиваются отдельно</b></div>
       <div className="migration-routes">
-        <div><small>01 · SPECIAL OFFER 232</small><b>Завести продукт и включить показ</b><span>kupon = true → widgetTitle = kupon → monthly_12.99_nottrial в RU Billing</span></div>
+        <div><small>01 · SPECIAL OFFER 232</small><b>Проверить продукт и включить показ</b><span>kupon = true → nextgenwebapps → widgetTitle == kupon → RU checkout</span></div>
         <div><small>02 · A/B-ТЕСТ</small><b>Сравнить варианты через RU Billing</b><span>источник варианта → эксперимент → сегменты → аналитика → запуск</span></div>
       </div>
       <div className="visual-callout safe"><b>НЕ СМЕШИВАТЬ</b><span>Сначала настраивается сам Special Offer. A/B-тест добавляется отдельным шагом только при подтверждённом источнике варианта RU Billing.</span></div>

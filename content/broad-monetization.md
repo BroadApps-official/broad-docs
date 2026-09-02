@@ -134,8 +134,8 @@ cooldown, даты окончания или лимита повторных п�
 
 Дополнительное coupon-предложение после закрытия основного paywall использует
 тот же checkout; отдельный payment engine не нужен. Точный пример 232 Claude —
-gate `kupon = true`, каталог по bundle ID и product code
-`monthly_12.99_nottrial` — разбирается в
+gate `kupon = true`, платёжный каталог `nextgenwebapps` по bundle ID и выбор
+RU-продукта по `widgetTitle == "kupon"` — разбирается в
 [«Спешл оффер RU Billing»](./ru-special-offer.md).
 
 ## Что хранится в приложении

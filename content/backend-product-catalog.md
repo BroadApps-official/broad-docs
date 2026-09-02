@@ -337,8 +337,10 @@ Adapty product ID = backend appStoreProductId
 RU methods без свежего `ru_pay=true` и российского Storefront/региона.
 
 Если backend отдаёт coupon/дожим, не выбирайте одну строку сортировкой. Для
-232 Claude строка выбирается по `widgetTitle = "kupon"`, а показ разрешает
-точное `kupon = true`. Полный маршрут с product ID `monthly_12.99_nottrial`:
+232 Claude RU-продукт приходит именно из платёжного каталога
+`nextgenwebapps`: строка выбирается по `widgetTitle == "kupon"`, а показ
+разрешает точное `kupon = true`. Ни Adapty, ни App Store не являются источником
+этого RU-продукта. Полный маршрут с product ID `monthly_12.99_nottrial`:
 [«RU Billing: спешл оффер»](./ru-special-offer.md).
 
 ## Куда идти дальше

@@ -40,10 +40,14 @@
 
 ### Changed
 
+- источник продукта RU Special Offer уточнён по реализации 232 Claude:
+  приложение берёт его только из платёжного каталога `nextgenwebapps` по
+  `widgetTitle == "kupon"`, а не из Adapty или App Store;
 - RU Billing Special Offer переписан как конкретный проверенный пример
-  232 Claude: `kupon = true`, bundle `com.arm.232C1aude`, placement `kupon`,
-  `widgetTitle = "kupon"` и product code `monthly_12.99_nottrial` за 990 ₽;
-  отдельно показаны роли Adapty, RU-каталога и RU Billing;
+  232 Claude: `kupon = true`, bundle `com.arm.232C1aude`, каталог
+  `nextgenwebapps`, `widgetTitle == "kupon"` и product code
+  `monthly_12.99_nottrial` за 990 ₽; отдельно показаны роли Adapty, каталога и
+  RU Billing checkout;
 - из всех связанных инструкций и визуальных подписей удалён ошибочный цикл
   `24 → 0 → 24`: при разрешающем флаге Special Offer показывается без таймеров,
   cooldown, дат окончания и лимитов повторного показа;
@@ -56,9 +60,9 @@
   приложения»; технический placement ID и ветка Git оставлены только там, где
   это точные идентификаторы;
 - RU Billing Special Offer теперь начинается с обязательного `kupon = true` из
-  текущего Adapty Remote Config 232, выбирает продукт в RU-каталоге по
-  `widgetTitle = "kupon"` и требует активный RU Billing product с тем же точным
-  техническим кодом; отображаемое название в сопоставлении не участвует;
+  текущего Adapty Remote Config 232 и выбирает RU-продукт только в платёжном
+  каталоге `nextgenwebapps` по `widgetTitle == "kupon"`; Adapty и App Store в
+  выборе этого продукта не участвуют;
 - в боковом каталоге появилась отдельная статья «RU Billing: A/B-тесты для
   разработчика»: она показывает готовый маршрут Adapty, границу отсутствующего
   общего RU Billing assignment, app-owned adapter, проверку сборки и явное

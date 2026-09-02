@@ -87,8 +87,9 @@ Config). Это не вторая система настроек. Для общ
 приложения.
 
 У конкретного приложения имя ключа может отличаться. Проверенный RU Billing
-пример 232 Claude использует `kupon`, placement `kupon` и product ID
-`monthly_12.99_nottrial`; полный разбор находится в
+пример 232 Claude использует `kupon` как gate показа. Сам RU-продукт не приходит
+из Adapty или App Store: он выбирается в платёжном каталоге `nextgenwebapps` по
+`widgetTitle == "kupon"`; полный разбор находится в
 [отдельной статье](./ru-special-offer.md).
 
 Remote Config не задаёт время жизни Special Offer, потому что отдельной

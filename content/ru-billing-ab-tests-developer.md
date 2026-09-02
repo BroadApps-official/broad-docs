@@ -110,8 +110,8 @@ protocol RUBillingExperimentVariantProviding {
 - один пользователь не должен менять вариант между экранами и сессиями;
 - A/B-вариант выбирает продукт или оформление уже разрешённого Special Offer,
   но не решает, показывать ли сам экран;
-- единственный gate показа в 232 — `kupon = true`, а
-  `monthly_12.99_nottrial` сопоставляется по точному product code;
+- единственный gate показа в 232 — `kupon = true`, а RU-продукт берётся из
+  `nextgenwebapps` по `widgetTitle == "kupon"`, не из Adapty или App Store;
 - покупка, checkout и открытие Premium продолжают использовать обычный
   `BroadMonetization` и подтверждённый backend-статус;
 - возврат из браузера не считается успешной оплатой.

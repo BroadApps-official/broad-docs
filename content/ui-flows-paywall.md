@@ -76,10 +76,10 @@ special_offer == true → показать второй экран
 ```
 
 Для показанного выше 232 Claude точные значения другие: Remote Config
-`kupon = true`, bundle `com.arm.232C1aude`, Adapty placement `kupon` и продукт
-`monthly_12.99_nottrial`. RU-каталог помечает его через
-`widgetTitle = "kupon"`, а RU Billing хранит активный продукт с тем же code.
-При `kupon = true` второй экран показывается всегда. Таймеров, cooldown, даты
+`kupon = true` и bundle `com.arm.232C1aude`. RU-продукт не приходит из Adapty
+или App Store: каталог `nextgenwebapps` выбирает строку по
+`widgetTitle == "kupon"` и возвращает `monthly_12.99_nottrial` за 990 ₽. При
+`kupon = true` второй экран показывается всегда. Таймеров, cooldown, даты
 окончания и лимита показов нет.
 
 ## Что проверить
@@ -88,7 +88,7 @@ special_offer == true → показать второй экран
 |---|---|
 | Крестик обычного paywall в 232 | Special Offer открывается только при `kupon = true` в текущем Adapty Remote Config |
 | Успешные purchase и restore | Второе предложение не открывается |
-| Продукт RU Billing Special Offer | `monthly_12.99_nottrial`, 990 ₽, активен; RU-каталог возвращает `widgetTitle = "kupon"` |
+| Продукт RU Billing Special Offer | `nextgenwebapps` возвращает `monthly_12.99_nottrial`, 990 ₽ по `widgetTitle == "kupon"`; Adapty и App Store не выбирают RU-продукт |
 | Повторное открытие | Оффер появляется снова сразу, без таймера, cooldown и лимита показов |
 | Повторный tap | Вторая операция не запускается |
 | Loader | Выбранный продукт сохраняется |

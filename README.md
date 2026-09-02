@@ -32,7 +32,8 @@ deployment ещё не успел обновиться. Изображения �
   настроек и поддержки;
 - Special Offer без таймеров и cooldown: общий Adapty-контракт использует
   `special_offer = true`, а RU Billing разобран на точном примере 232 Claude с
-  `kupon = true` и продуктом `monthly_12.99_nottrial`;
+  `kupon = true` и RU-продуктом из `nextgenwebapps` по
+  `widgetTitle == "kupon"`;
 - compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;
