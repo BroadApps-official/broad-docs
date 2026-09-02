@@ -40,6 +40,9 @@
 
 ### Changed
 
+- первые две вводные карточки страницы Settings и Support теперь прямо говорят,
+  что показанные экраны — референсы для конкретного приложения, а не
+  обязательный общий flow платформы;
 - на странице BroadUIFlows paywall общий platform flow с
   `special_offer = true` и продуктами Adapty явно отделён от app-specific
   реализации 232 Claude с `kupon = true` и каталогом `nextgenwebapps`, чтобы
