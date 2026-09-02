@@ -40,6 +40,10 @@
 
 ### Changed
 
+- на странице BroadUIFlows paywall общий platform flow с
+  `special_offer = true` и продуктами Adapty явно отделён от app-specific
+  реализации 232 Claude с `kupon = true` и каталогом `nextgenwebapps`, чтобы
+  разработчики не переносили контракт одного приложения во всю платформу;
 - compatibility page обновлена до проверенного набора `BroadCore 1.1.0`,
   `BroadExtensions 1.0.1`, `BroadMonetization 1.1.0` и `BroadUIFlows 1.0.1`;
 - источник продукта RU Special Offer уточнён по реализации 232 Claude:
