@@ -100,6 +100,7 @@ Core не выбирает текст и картинку ошибки. Он д�
 | `BroadLoggerProtocol` | Записывает только разрешённые диагностические события |
 | ATT adapter/use case | Вызывает системный API, когда UI выбрал правильный момент |
 | `DebugFlagStore` | Хранит `#if DEBUG`-переключатели поверх key-value store с launch-argument override |
+| `DebugKeychainCleaner` | `#if DEBUG`-очистка названных app-owned Keychain-сервисов для сброса состояния между прогонами |
 
 ## Что Core не делает
 
