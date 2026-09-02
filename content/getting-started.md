@@ -87,7 +87,7 @@ Content** у этого приложения. Зависимости, котор
 dependencies: [
     .package(
         url: "https://github.com/BroadApps-official/broad-core-ios.git",
-        from: "1.0.0"
+        from: "1.1.0"
     )
 ]
 ```

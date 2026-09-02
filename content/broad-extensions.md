@@ -104,7 +104,7 @@ https://github.com/BroadApps-official/broad-extensions-ios.git
 import BroadExtensions
 ```
 
-Текущая проверенная версия — [`1.0.0`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.0).
+Текущая проверенная версия — [`1.0.1`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1).
 
 ## Что проверить после подключения
 

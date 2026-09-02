@@ -40,6 +40,8 @@
 
 ### Changed
 
+- compatibility page обновлена до проверенного набора `BroadCore 1.1.0`,
+  `BroadExtensions 1.0.1`, `BroadMonetization 1.1.0` и `BroadUIFlows 1.0.1`;
 - источник продукта RU Special Offer уточнён по реализации 232 Claude:
   приложение берёт его только из платёжного каталога `nextgenwebapps` по
   `widgetTitle == "kupon"`, а не из Adapty или App Store;
