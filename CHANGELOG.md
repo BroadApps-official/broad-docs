@@ -101,8 +101,8 @@
   settings/support с обезличенными примерами экранов;
 - разработческая статья RU Special Offer теперь начинает с базовой настройки
   RU Billing, затем буквально разбирает 232 Claude от `kupon = true` до
-  `monthly_12.99_nottrial` в checkout и предупреждает не переносить из старого
-  референсного кода 24-часовое окно и десятиминутный countdown;
+  `monthly_12.99_nottrial` в checkout; целевой контракт не содержит временных
+  условий или ограничений повторного показа;
 - the RU Billing guide now restores the complete seven-screen reference path
   from tariff selection through consent, receipt email and external checkout;
   the screenshots are presented as a compact responsive Markdown gallery and
