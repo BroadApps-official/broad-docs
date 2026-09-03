@@ -48,10 +48,10 @@ Billing. Два независимых источника могут отпра�
 7. на одном тестовом профиле сверить variation приложения с Adapty dashboard.
 
 Для Special Offer variation не является дополнительным разрешением показа.
-В примере 232 приложение читает только `kupon` из фактически полученного Remote
-Config: булево `true` всегда показывает оффер, всё остальное не показывает.
-Adapty может вернуть разное значение флага в разных variation, но приложение
-не добавляет к нему отдельную проверку variation.
+Приложение читает только булев флаг показа из фактически полученного Remote
+Config: `true` разрешает оффер (внутри окна показа, вне cooldown), всё остальное
+не показывает. Adapty может вернуть разное значение флага в разных variation, но
+приложение не добавляет к нему отдельную проверку variation.
 
 ## Вариант B. A/B назначает RU Billing или backend
 
@@ -92,9 +92,9 @@ protocol RUBillingExperimentVariantProviding {
 Последовательность в приложении:
 
 ```text
-проверить kupon в текущем Adapty Remote Config
-    ├─ не true → не показывать Special Offer
-    └─ true → всегда показать Special Offer
+проверить флаг показа в текущем Adapty Remote Config
+    ├─ не true / идёт cooldown → не показывать Special Offer
+    └─ true и активное окно показа → показать Special Offer
                  ↓
           получить segment code
                  ↓
@@ -110,8 +110,9 @@ protocol RUBillingExperimentVariantProviding {
 - один пользователь не должен менять вариант между экранами и сессиями;
 - A/B-вариант выбирает продукт или оформление уже разрешённого Special Offer,
   но не решает, показывать ли сам экран;
-- единственный gate показа в 232 — `kupon = true`, а RU-продукт берётся из
-  `nextgenwebapps` по `widgetTitle == "kupon"`, не из Adapty или App Store;
+- gate показа — булев флаг `true` в связке с циклом окно/cooldown, а RU-продукт
+  берётся из платёжного каталога backend по отметке `isSpecialOffer`, не из
+  Adapty или App Store;
 - покупка, checkout и открытие Premium продолжают использовать обычный
   `BroadMonetization` и подтверждённый backend-статус;
 - возврат из браузера не считается успешной оплатой.
@@ -122,7 +123,7 @@ protocol RUBillingExperimentVariantProviding {
 |---|---|
 | загрузка продуктов и точное сопоставление по ID | получение app-owned RU Billing segment |
 | Apple purchase, RU checkout и restore | typed mapping segment → product / оформление |
-| `kupon = true` как единственный gate 232 | применение варианта после разрешения показа |
+| флаг показа + цикл окно/cooldown как gate | применение варианта после разрешения показа |
 | Adapty variation attribution | exposure analytics для RU Billing A/B |
 | защита от второго клиентского randomizer | проверка конкретной test-сборки |
 
@@ -134,7 +135,7 @@ protocol RUBillingExperimentVariantProviding {
 Для двух тестовых пользователей или двух подтверждённых fixture-сценариев
 проверьте:
 
-1. при `kupon = true` оба варианта показывают Special Offer;
+1. при флаге показа `true` и активном окне оба варианта показывают Special Offer;
 2. контроль и тест получают согласованные продукты или оформление;
 3. повторный запуск сохраняет тот же вариант;
 4. неизвестный сегмент безопасно ведёт в контрольный вариант, но не меняет
