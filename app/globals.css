@@ -800,13 +800,14 @@ button, input { font: inherit; }
 .docs-article blockquote.docs-note.important { border-left-color: #f59e0b; background: #fff9ed; }
 .docs-article blockquote.docs-note.important::before { content: "!"; color: #8a5b00; background: #ffedbd; }
 .docs-article code { border: 1px solid #dbe4f0; background: #eef3f9; color: #1e477c; }
-.docs-code-block { margin: 18px 0; overflow: hidden; border: 1px solid #263957; border-radius: 13px; background: #0b1526; box-shadow: 0 10px 28px rgba(7,17,31,.1); }
-.docs-code-label { padding: 8px 9px 8px 13px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; border-bottom: 1px solid #263957; color: #7991b4; background: #101d31; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 800; letter-spacing: .09em; }
+.docs-code-block { margin: 12px 0; overflow: hidden; border: 1px solid #263957; border-radius: 10px; background: #0b1526; box-shadow: 0 7px 20px rgba(7,17,31,.09); }
+.docs-code-label { padding: 6px 7px 6px 11px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; border-bottom: 1px solid #263957; color: #7991b4; background: #101d31; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; font-weight: 800; letter-spacing: .08em; }
 .docs-code-label > span:nth-child(2) { text-align: center; }
-.docs-code-label button { min-height: 30px; padding: 0 10px; border: 1px solid #334c72; border-radius: 7px; color: #b7c9e3; background: #152641; cursor: pointer; font-size: 8px; font-weight: 800; transition: border-color .18s ease, color .18s ease, background .18s ease, transform .18s ease; }
+.docs-code-label button { min-height: 25px; padding: 0 8px; border: 1px solid #334c72; border-radius: 6px; color: #b7c9e3; background: #152641; cursor: pointer; font-size: 7px; font-weight: 800; transition: border-color .18s ease, color .18s ease, background .18s ease, transform .18s ease; }
 .docs-code-label button:hover { transform: translateY(-1px); border-color: #6f9ae0; color: white; background: #1b3153; }
 .docs-code-label button.copied { border-color: #2d9c73; color: #9df0cf; background: #12372d; }
-.docs-code-block pre { margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+.docs-code-block pre { margin: 0; padding: 10px 12px; border: 0; border-radius: 0; box-shadow: none; font-size: 10px; line-height: 1.42; }
+.docs-code-block pre code { font-size: inherit; line-height: inherit; }
 .docs-table-wrap { margin: 18px 0; border-radius: 13px; box-shadow: 0 8px 24px rgba(20,39,72,.045); }
 .docs-table-hint { display: none; }
 .docs-table-wrap th { color: #31435d; background: #f1f5fb; }
@@ -855,7 +856,7 @@ button, input { font: inherit; }
 .ru-special-offer-visual .architecture-owner-map { margin-bottom: 10px; }
 
 /* Compact reading density: keep more of each guide visible without crowding it. */
-.docs-article pre { margin: 18px 0; padding: 14px; border-radius: 11px; }
+.docs-article pre { margin: 12px 0; padding: 10px 12px; border-radius: 10px; }
 .docs-table-wrap th, .docs-table-wrap td { min-width: 140px; padding: 9px 11px; font-size: 11.5px; line-height: 1.42; }
 .docs-table-wrap th { font-size: 10px; }
 .doc-visual { margin-bottom: 28px; padding: 14px; border-radius: 16px; box-shadow: 0 16px 44px rgba(7,17,31,.15); }
