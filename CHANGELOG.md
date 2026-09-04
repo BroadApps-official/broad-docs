@@ -40,6 +40,10 @@
 
 ### Changed
 
+- compatibility page синхронизирована с проверенным platform set `1.2.0`:
+  `BroadCore 1.2.0`, `BroadExtensions 1.0.1`, `BroadMonetization 1.2.0` и
+  `BroadUIFlows 1.0.1`; ссылки ведут на соответствующие module и integration
+  releases от 4 сентября 2026 года;
 - вводные блоки «Перед чтением» сокращены по высоте примерно вдвое: компактнее
   стали заголовок, три карточки и сворачиваемая расшифровка терминов;
 - тёмные объясняющие схемы во всех статьях стали значительно ниже:
@@ -106,7 +110,7 @@
   `special_offer = true` и продуктами Adapty явно отделён от app-specific
   реализации 232 Claude с `kupon = true` и каталогом `nextgenwebapps`, чтобы
   разработчики не переносили контракт одного приложения во всю платформу;
-- compatibility page обновлена до проверенного набора `BroadCore 1.1.0`,
+- compatibility page ранее была обновлена до набора `BroadCore 1.1.0`,
   `BroadExtensions 1.0.1`, `BroadMonetization 1.1.0` и `BroadUIFlows 1.0.1`;
 - источник продукта RU Special Offer уточнён по реализации 232 Claude:
   приложение берёт его только из платёжного каталога `nextgenwebapps` по

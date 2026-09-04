@@ -58,7 +58,7 @@ GIT_TERMINAL_PROMPT=0 \
 GIT_ASKPASS=/usr/bin/false \
 git -c credential.helper= ls-remote --exit-code \
   https://github.com/BroadApps-official/broad-core-ios.git \
-  refs/tags/1.1.0
+  refs/tags/1.2.0
 ```
 
 Успех: команда печатает длинный Git SHA и завершается без окна входа. Если это

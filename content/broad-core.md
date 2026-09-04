@@ -144,7 +144,7 @@ https://github.com/BroadApps-official/broad-core-ios.git
 
 В target выберите product `BroadCore`. Из внешних зависимостей Xcode загрузит Swinject. Adapty, StoreKit, готовые paywall и onboarding не появятся.
 
-Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.1.0).
+Текущая проверенная версия — [`1.2.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.2.0).
 
 ## Как проверить интеграцию
 
