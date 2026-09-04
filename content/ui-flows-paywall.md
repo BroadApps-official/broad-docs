@@ -4,17 +4,18 @@
 затем пользователь нажимает крестик и видит отдельный Special Offer.
 Это не два состояния одного экрана, а два последовательных продуктовых шага.
 
-> **Контракт общей платформы:** показ разрешает только Remote Config
-> `special_offer = true`, а продукты второго экрана приходят из Adapty
-> placement `special_offer`. Каталог `nextgenwebapps` здесь не используется.
-> Ключ `kupon` и продукт из `nextgenwebapps` ниже относятся только к отдельному
-> референсу приложения 232 Claude и не являются контрактом `BroadUIFlows`.
+> **Контракт общей платформы:** показ разрешает Remote Config
+> `special_offer = true` в связке с циклом окно/cooldown, а продукты второго
+> экрана в общем Adapty-flow приходят из placement `special_offer`. Для
+> RU-приложений продукт берётся не из Adapty, а из платёжного каталога backend
+> по отметке `isSpecialOffer`. Конкретные имена флага и продукта зависят от
+> приложения; примеры ниже — референс, а не контракт `BroadUIFlows`.
 
 ```text
 Обычный paywall
         ├─ purchase / restore подтверждены → Premium / главный экран приложения
         └─ нажат крестик без покупки
-                    ↓ если показ разрешён
+                    ↓ если показ разрешён (флаг true и активное окно, не cooldown)
               Special Offer
                     ├─ покупка подтверждена → Premium / главный экран приложения
                     └─ нажат крестик → главный экран приложения
@@ -45,18 +46,18 @@ Continue.
 
 ![5092: обычный Adapty paywall, крестик и LIMITED-TIME OFFER](../public/guides/ui-flows/paywall-special-offer/5092-adapty.gif)
 
-## Отдельный референс: RU Billing в 232 Claude
+## Отдельный референс: RU Billing
 
-Этот пример записан с языком **Russian** и регионом **Russia**. Обычный
-русский paywall закрывается, после чего появляется специальное
-предложение RU Billing с рублёвой ценой.
+Этот пример записан с языком **Russian** и регионом **Russia** (на одном из
+приложений). Обычный русский paywall закрывается, после чего появляется
+специальное предложение RU Billing с рублёвой ценой.
 
-Это app-specific реализация 232 Claude, а не общее поведение платформы. Только
-в этом приложении используются Remote Config `kupon = true`, bundle
-`com.arm.232C1aude` и платёжный каталог `nextgenwebapps`. Каталог выбирает
-строку по `widgetTitle == "kupon"` и возвращает
-`monthly_12.99_nottrial` за 990 ₽. При `kupon = true` второй экран
-показывается всегда, без таймера, cooldown, даты окончания и лимита показов.
+Это app-specific реализация, а не отдельное поведение платформы. RU-продукт
+здесь берётся не из Adapty и не из App Store, а из платёжного каталога backend
+по отметке `isSpecialOffer`; показ разрешает булев флаг показа в Remote Config
+основного paywall. Как и везде, показ идёт циклом «окно оффера → cooldown»:
+внутри окна оффер появляется при каждом подходящем закрытии, затем наступает
+cooldown, после которого цикл повторяется.
 
 ![Claude232: русский RU Billing paywall, крестик и специальное предложение](../public/guides/ui-flows/paywall-special-offer/claude232-ru-billing.gif)
 
@@ -84,32 +85,33 @@ Adapty / backend   возвращают продукты и подтверждё
 `BroadUIFlows` + Adapty flow действует одна таблица решения:
 
 ```text
-special_offer == true → показать второй экран
-всё остальное         → не показывать второй экран
+special_offer == true и активное окно показа → показать второй экран
+идёт cooldown или любое другое значение        → не показывать второй экран
 ```
 
 Для этого общего flow продукты приходят из Adapty placement `special_offer`.
-`nextgenwebapps`, `kupon` и фиксированный RU-продукт в нём не используются.
+Платёжный каталог backend и отметка `isSpecialOffer` используются только в
+RU-варианте.
 
 ## Что проверить в общем BroadUIFlows flow
 
 | Проверяем | Ожидаемый результат |
 |---|---|
 | Крестик обычного paywall | Special Offer открывается только при точном boolean `special_offer = true` в текущем Adapty Remote Config |
-| Продукты Special Offer | Приходят из Adapty placement `special_offer`; каталог `nextgenwebapps` не вызывается |
+| Продукты Special Offer | Приходят из Adapty placement `special_offer`; платёжный каталог backend в общем flow не вызывается |
 | Успешные purchase и restore | Второе предложение не открывается |
-| Повторное открытие | Оффер появляется снова сразу, без таймера, cooldown и лимита показов |
+| Повторное открытие внутри окна | Оффер появляется снова; после истечения окна начинается cooldown, затем цикл повторяется |
 | Повторный tap | Вторая операция не запускается |
 | Loader | Выбранный продукт сохраняется |
 | Крестик Special Offer | Открывается главный экран приложения без Premium |
 | Доступ к Premium | Открывается только после подтверждённого entitlement или backend-статуса |
 
-## Что проверять только в 232 Claude
+## Что проверять в RU-варианте
 
 | Проверяем | Ожидаемый результат |
 |---|---|
-| Gate показа | `kupon = true` в текущем Adapty Remote Config 232 |
-| Продукт RU Billing Special Offer | `nextgenwebapps` возвращает `monthly_12.99_nottrial`, 990 ₽ по `widgetTitle == "kupon"`; Adapty и App Store не выбирают RU-продукт |
-| Повторное открытие | Оффер появляется снова сразу, без таймера, cooldown и лимита показов |
+| Gate показа | булев флаг показа `true` в текущем Adapty Remote Config |
+| Продукт RU Billing Special Offer | каталог backend возвращает продукт с отметкой `isSpecialOffer`; Adapty и App Store не выбирают RU-продукт |
+| Цикл показа | внутри окна оффер показывается, после истечения — cooldown, затем цикл повторяется |
 
 [Назад к BroadUIFlows](./broad-ui-flows.md) · [Логика paywall](./paywall-ui.md) · [Special Offer от Adapty](./special-offer.md) · [Special Offer RU Billing](./ru-special-offer.md)

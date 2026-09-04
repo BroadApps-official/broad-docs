@@ -336,11 +336,11 @@ Adapty product ID = backend appStoreProductId
 [«Карта и СБП»](./ru-billing.md): каталог сам по себе не включает
 RU methods без свежего `ru_pay=true` и российского Storefront/региона.
 
-Если backend отдаёт coupon/дожим, не выбирайте одну строку сортировкой. Для
-232 Claude RU-продукт приходит именно из платёжного каталога
-`nextgenwebapps`: строка выбирается по `widgetTitle == "kupon"`, а показ
-разрешает точное `kupon = true`. Ни Adapty, ни App Store не являются источником
-этого RU-продукта. Полный маршрут с product ID `monthly_12.99_nottrial`:
+Если backend отдаёт coupon/дожим, не выбирайте одну строку сортировкой.
+RU-продукт Special Offer приходит именно из платёжного каталога backend: строка
+выбирается по отметке `isSpecialOffer`, а показ разрешает булев флаг в Remote
+Config основного paywall. Ни Adapty, ни App Store не являются источником этого
+RU-продукта. Полный маршрут с циклом «окно оффера → cooldown»:
 [«RU Billing: спешл оффер»](./ru-special-offer.md).
 
 ## Куда идти дальше
