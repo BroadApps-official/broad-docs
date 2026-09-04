@@ -808,7 +808,7 @@ button, input { font: inherit; }
 .docs-code-label button.copied { border-color: #2d9c73; color: #9df0cf; background: #12372d; }
 .docs-code-block pre { margin: 0; padding: 10px 12px; border: 0; border-radius: 0; box-shadow: none; font-size: 10px; line-height: 1.42; }
 .docs-code-block pre code { padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font-size: inherit; line-height: inherit; }
-.docs-table-wrap { margin: 18px 0; border-radius: 13px; box-shadow: 0 8px 24px rgba(20,39,72,.045); }
+.docs-table-wrap { margin: 10px 0; border-radius: 9px; box-shadow: 0 6px 18px rgba(20,39,72,.04); }
 .docs-table-hint { display: none; }
 .docs-table-wrap th { color: #31435d; background: #f1f5fb; }
 .docs-table-wrap tbody tr:nth-child(even) td { background: #fafcff; }
@@ -857,8 +857,8 @@ button, input { font: inherit; }
 
 /* Compact reading density: keep more of each guide visible without crowding it. */
 .docs-article pre { margin: 12px 0; padding: 10px 12px; border-radius: 10px; }
-.docs-table-wrap th, .docs-table-wrap td { min-width: 140px; padding: 9px 11px; font-size: 11.5px; line-height: 1.42; }
-.docs-table-wrap th { font-size: 10px; }
+.docs-table-wrap th, .docs-table-wrap td { min-width: 120px; padding: 6px 9px; font-size: 10.5px; line-height: 1.32; }
+.docs-table-wrap th { font-size: 9px; }
 .doc-visual { margin-bottom: 28px; padding: 14px; border-radius: 16px; box-shadow: 0 16px 44px rgba(7,17,31,.15); }
 .doc-visual-head { padding: 1px 2px 11px; gap: 16px; }
 .doc-visual-head span { font-size: 8px; letter-spacing: .1em; }
