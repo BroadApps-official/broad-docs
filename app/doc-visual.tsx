@@ -484,17 +484,6 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     ],
     result: "Дополнительные проверяющие сервисы для обычной загрузки экрана не нужны.",
   },
-  "adapty-integration-guide": {
-    label: "ADAPTY · ПОЛНЫЙ ПУТЬ КАСТОМНОГО PAYWALL",
-    title: "Загрузить правильный вариант, зарегистрировать реальный показ и подтвердить доступ",
-    steps: [
-      ["01", "Активировать SDK", "публичный ключ передаётся один раз при запуске приложения"],
-      ["02", "Загрузить placement", "получить paywall или flow вместе со всеми продуктами"],
-      ["03", "Показать и записать view", "логировать только фактически открытый экран и тот же вариант"],
-      ["04", "Купить и проверить", "Premium открывается после подтверждения выбранного entitlement-пути"],
-    ],
-    result: "A/B-тест получает корректные Views и покупки, а приложение не выдаёт Premium по одному нажатию.",
-  },
   "paywall-ui": {
     label: "ЭКРАН ПОДПИСКИ · ЛЮБОЙ ОТВЕТ",
     title: "Один экран должен понятно работать с нулём, одним и многими вариантами",
@@ -628,6 +617,7 @@ function SimpleVisual({ content }: { content: SimpleVisualContent }) {
 }
 
 export function DocVisual({ slug }: DocVisualProps) {
+  if (slug === "adapty-integration-guide") return null;
   if (slug === "getting-started") return <GettingStartedVisual />;
   if (slug === "broad-ui-flows") return <UIFlowsModuleVisual />;
   if (slug === "broad-monetization") return <MonetizationModuleVisual />;
