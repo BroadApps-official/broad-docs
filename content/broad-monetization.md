@@ -170,7 +170,7 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 
 В target выберите product `BroadMonetization`. Xcode автоматически загрузит совместимые `BroadCore`, Adapty и Swinject. Обязательного общего `BroadPlatform` нет.
 
-Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.1.0).
+Текущая проверенная версия — [`1.2.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.2.0).
 
 ## Проверка интеграции
 

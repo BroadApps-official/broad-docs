@@ -39,13 +39,14 @@
 
 | Что проверяется | Текущий проверенный вариант |
 |---|---:|
+| Общий platform set | `1.2.0` |
 | Минимальная версия iOS | 17.0 |
 | Режим языка Swift | 5 |
-| `BroadCore` | [`1.1.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.1.0) |
+| `BroadCore` | [`1.2.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.2.0) |
 | `BroadExtensions` | [`1.0.1`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) |
-| `BroadMonetization` | [`1.1.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.1.0) |
+| `BroadMonetization` | [`1.2.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.2.0) |
 | `BroadUIFlows` | [`1.0.1`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.0.1) |
-| Последняя общая проверка | 2 сентября 2026 года |
+| Последняя общая проверка | 4 сентября 2026 года |
 
 **Не надо подключать все четыре библиотеки.** Таблица показывает версии всех
 частей платформы, но приложение берёт только те верхние библиотеки, которые
@@ -88,7 +89,7 @@
 выбранного модуля. Тогда при ошибке понятно, что использован тот же код, который
 уже проходил общую проверку.
 
-Позже команда может разрешить диапазон — например, `from: "1.1.0"` для
+Позже команда может разрешить диапазон — например, `from: "1.2.0"` для
 `BroadCore`. Нижнюю границу берут из строки нужного модуля. В таком режиме Xcode
 имеет право скачать более новую версию до `2.0.0`; фактически выбранный номер
 всё равно надо посмотреть в `Package.resolved`.
@@ -118,4 +119,4 @@
 [`Compatibility/current.yml`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 Агент должен читать этот файл перед подключением или обновлением библиотек.
 
-[Открыть проверенный integration release 1.1.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.1.0)
+[Открыть проверенный integration release 1.2.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.2.0)
