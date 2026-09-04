@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type SidebarHeading = {
   id: string;
@@ -45,6 +45,10 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
   const listRef = useRef<HTMLDivElement>(null);
   const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set([currentSlug]));
   const [activeHash, setActiveHash] = useState("");
+  const currentHeadings = useMemo(
+    () => groups.flatMap((group) => group.entries).find((entry) => entry.slug === currentSlug)?.headings ?? [],
+    [currentSlug, groups],
+  );
 
   const rememberScroll = useCallback(() => {
     if (!listRef.current) return;
@@ -73,6 +77,49 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
       window.removeEventListener("pagehide", saveBeforeLeave);
     };
   }, [currentSlug, rememberScroll]);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const syncActiveSection = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        let current = currentHeadings[0]?.id ?? "";
+        for (const heading of currentHeadings) {
+          const element = document.getElementById(heading.id);
+          if (element && element.getBoundingClientRect().top <= window.innerHeight * 0.28) current = heading.id;
+        }
+        setActiveHash((previous) => previous === current ? previous : current);
+      });
+    };
+
+    syncActiveSection();
+    window.addEventListener("scroll", syncActiveSection, { passive: true });
+    window.addEventListener("resize", syncActiveSection);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", syncActiveSection);
+      window.removeEventListener("resize", syncActiveSection);
+    };
+  }, [currentHeadings]);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || !activeHash) return;
+    const activeLink = Array.from(list.querySelectorAll<HTMLAnchorElement>(".docs-sidebar-subsections a"))
+      .find((link) => link.getAttribute("href") === `#${activeHash}`);
+    if (!activeLink) return;
+
+    const listRect = list.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const safeTop = listRect.top + 24;
+    const safeBottom = listRect.bottom - 24;
+    if (linkRect.top < safeTop || linkRect.bottom > safeBottom) {
+      const delta = linkRect.top < safeTop ? linkRect.top - safeTop : linkRect.bottom - safeBottom;
+      list.scrollTo({ top: list.scrollTop + delta, behavior: "smooth" });
+    }
+  }, [activeHash]);
 
   function toggleEntry(slug: string) {
     setOpenSlugs((current) => {

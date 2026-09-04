@@ -708,7 +708,7 @@ button, input { font: inherit; }
 .docs-source-summary b { flex: 0 0 auto; color: #84aaf0; font-size: 9px; }
 .docs-source-summary p { margin: 6px 0 0; color: #8194af; font-size: 8px; line-height: 1.4; }
 
-.docs-layout { padding-block: 20px 52px; grid-template-columns: 180px minmax(0, 800px) 150px; gap: 18px; }
+.docs-layout { padding-block: 20px 52px; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
 .docs-sidebar { top: 18px; height: calc(100dvh - 36px); min-height: 420px; max-height: calc(100dvh - 36px); padding: 11px; overflow: hidden; gap: 8px; border: 1px solid #dde5f0; border-radius: 16px; background: rgba(255,255,255,.9); box-shadow: 0 12px 36px rgba(18,37,69,.06); backdrop-filter: blur(10px); }
 .docs-sidebar-summary { padding: 2px 3px 8px; display: flex !important; flex-direction: row !important; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
 .docs-sidebar-summary span { margin: 0; color: #8795a8; font-size: 8px; }

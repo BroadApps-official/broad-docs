@@ -134,7 +134,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               </nav>
             </div>
           </article>
-          <DocReadingTools headings={headings} sourcePath={sourcePath} sourceHref={sourceHref} />
+          <DocReadingTools />
         </div>
       </main>
       <SiteFooter />
