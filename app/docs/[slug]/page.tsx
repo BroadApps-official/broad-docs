@@ -84,7 +84,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
               <DocVisual slug={doc.slug} />
-              <DocOrientation doc={doc} />
+              {doc.slug === "adapty-integration-guide" ? null : <DocOrientation doc={doc} />}
               <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>
