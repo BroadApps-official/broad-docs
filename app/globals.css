@@ -807,7 +807,7 @@ button, input { font: inherit; }
 .docs-code-label button:hover { transform: translateY(-1px); border-color: #6f9ae0; color: white; background: #1b3153; }
 .docs-code-label button.copied { border-color: #2d9c73; color: #9df0cf; background: #12372d; }
 .docs-code-block pre { margin: 0; padding: 10px 12px; border: 0; border-radius: 0; box-shadow: none; font-size: 10px; line-height: 1.42; }
-.docs-code-block pre code { font-size: inherit; line-height: inherit; }
+.docs-code-block pre code { padding: 0; border: 0; border-radius: 0; background: transparent; color: inherit; font-size: inherit; line-height: inherit; }
 .docs-table-wrap { margin: 18px 0; border-radius: 13px; box-shadow: 0 8px 24px rgba(20,39,72,.045); }
 .docs-table-hint { display: none; }
 .docs-table-wrap th { color: #31435d; background: #f1f5fb; }
