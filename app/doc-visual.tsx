@@ -252,7 +252,7 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — всегда показать; всё остальное — не показывать. Таймеров и cooldown нет.</span></div>
+      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — показать. Таймер — только циклическая анимация 24:00:00 → 00:00:00 → 24:00:00, без eligibility и cooldown.</span></div>
     </section>
   );
 }
@@ -280,7 +280,7 @@ function RUSpecialOfferVisual() {
         <div className="owner-lane owner-platform"><span>NEXTGENWEBAPPS</span><b>widgetTitle выбирает RU-продукт</b><small>для 232: monthly_12.99_nottrial · 990 ₽</small></div>
         <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Checkout проводит оплату</b><small>получает productId напрямую из платёжного каталога</small></div>
       </div>
-      <div className="visual-callout safe"><b>kupon = true → ВСЕГДА ПОКАЗАТЬ</b><span>Без таймера, cooldown, лимита показов и даты окончания.</span></div>
+      <div className="visual-callout safe"><b>kupon = true → ПОКАЗАТЬ</b><span>Таймер только визуальный: он зациклен и не создаёт eligibility, cooldown или дату окончания.</span></div>
     </section>
   );
 }

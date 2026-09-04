@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
-import { DocOrientation } from "@/app/doc-orientation";
 import { DocReadingTools } from "@/app/doc-reading-tools";
 import { DocsSidebar } from "@/app/docs/docs-sidebar";
 import { MarkdownArticle } from "@/app/markdown-article";
@@ -109,7 +108,6 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
               <DocVisual slug={doc.slug} />
-              {doc.slug === "adapty-integration-guide" ? null : <DocOrientation doc={doc} />}
               <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>
