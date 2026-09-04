@@ -113,5 +113,6 @@ cooldown» приложение ведёт само по этому флагу. 
 6. Автоматическая проверка не списывает настоящие деньги.
 
 [BroadMonetization](./broad-monetization.md) ·
+[Полная интеграция Adapty](./adapty-integration-guide.md) ·
 [Спешл оффер (от Adapty)](./special-offer.md) ·
 [Покупка токенов](./token-paywall.md)

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { DocVisual } from "@/app/doc-visual";
 import { DocOrientation } from "@/app/doc-orientation";
@@ -23,7 +24,34 @@ function documentHeadings(markdown: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const doc = getDoc(slug);
-  return doc ? { title: doc.title, description: doc.description } : {};
+  if (!doc) return {};
+
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
+  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
+  const canonicalUrl = `${protocol}://${host}/docs/${doc.slug}`;
+  const shareImage = `${canonicalUrl}/opengraph-image`;
+
+  return {
+    title: doc.title,
+    description: doc.description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      type: "article",
+      locale: "ru_RU",
+      siteName: "BroadApps iOS",
+      url: canonicalUrl,
+      title: doc.title,
+      description: doc.description,
+      images: [{ url: shareImage, width: 1200, height: 630, alt: `${doc.title} — BroadApps iOS` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: doc.title,
+      description: doc.description,
+      images: [shareImage],
+    },
+  };
 }
 
 export default async function DocPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -84,7 +112,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
               <DocVisual slug={doc.slug} />
-              <DocOrientation doc={doc} />
+              {doc.slug === "adapty-integration-guide" ? null : <DocOrientation doc={doc} />}
               <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>
@@ -106,7 +134,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               </nav>
             </div>
           </article>
-          <DocReadingTools headings={headings} sourcePath={sourcePath} sourceHref={sourceHref} />
+          <DocReadingTools />
         </div>
       </main>
       <SiteFooter />

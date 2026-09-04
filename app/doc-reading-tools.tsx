@@ -2,15 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-type Heading = { label: string; id: string };
-
-export function DocReadingTools({ headings, sourcePath, sourceHref }: {
-  headings: Heading[];
-  sourcePath: string;
-  sourceHref: string;
-}) {
+export function DocReadingTools() {
   const [progress, setProgress] = useState(0);
-  const [activeId, setActiveId] = useState(headings[0]?.id ?? "");
 
   useEffect(() => {
     let frame = 0;
@@ -26,12 +19,6 @@ export function DocReadingTools({ headings, sourcePath, sourceHref }: {
           setProgress(Math.round(Math.min(100, Math.max(0, readDistance / readableHeight * 100))));
         }
 
-        let current = headings[0]?.id ?? "";
-        for (const heading of headings) {
-          const element = document.getElementById(heading.id);
-          if (element && element.getBoundingClientRect().top <= window.innerHeight * 0.28) current = heading.id;
-        }
-        setActiveId(current);
       });
     };
 
@@ -65,32 +52,11 @@ export function DocReadingTools({ headings, sourcePath, sourceHref }: {
       window.removeEventListener("scroll", updateReadingState);
       window.removeEventListener("resize", updateReadingState);
     };
-  }, [headings]);
+  }, []);
 
   return (
-    <>
-      <div className="docs-reading-progress" role="progressbar" aria-label="Прогресс чтения статьи" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}>
-        <span style={{ width: `${progress}%` }} />
-      </div>
-      <aside className="docs-toc">
-        <div className="docs-toc-card">
-          <div className="docs-toc-head"><b>НА ЭТОЙ СТРАНИЦЕ</b><span>{progress}%</span></div>
-          <nav aria-label="Оглавление статьи">
-            {headings.map((heading, index) => (
-              <a
-                className={activeId === heading.id ? "active" : undefined}
-                href={`#${heading.id}`}
-                aria-current={activeId === heading.id ? "location" : undefined}
-                onClick={() => setActiveId(heading.id)}
-                key={heading.id}
-              >
-                <span>{String(index + 1).padStart(2, "0")}</span>{heading.label}
-              </a>
-            ))}
-          </nav>
-          <div className="docs-toc-source"><span>Источник</span><a href={sourceHref} target="_blank" rel="noreferrer">{sourcePath} ↗</a></div>
-        </div>
-      </aside>
-    </>
+    <div className="docs-reading-progress" role="progressbar" aria-label="Прогресс чтения статьи" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}>
+      <span style={{ width: `${progress}%` }} />
+    </div>
   );
 }

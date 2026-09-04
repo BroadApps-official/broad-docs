@@ -617,6 +617,7 @@ function SimpleVisual({ content }: { content: SimpleVisualContent }) {
 }
 
 export function DocVisual({ slug }: DocVisualProps) {
+  if (slug === "adapty-integration-guide") return null;
   if (slug === "getting-started") return <GettingStartedVisual />;
   if (slug === "broad-ui-flows") return <UIFlowsModuleVisual />;
   if (slug === "broad-monetization") return <MonetizationModuleVisual />;
