@@ -41,6 +41,17 @@ function storedOpenSlugs(currentSlug: string) {
   }
 }
 
+function revealSidebarLink(list: HTMLDivElement, link: HTMLAnchorElement, behavior: ScrollBehavior) {
+  const listRect = list.getBoundingClientRect();
+  const linkRect = link.getBoundingClientRect();
+  const safeTop = listRect.top + 24;
+  const safeBottom = listRect.bottom - 24;
+  if (linkRect.top >= safeTop && linkRect.bottom <= safeBottom) return;
+
+  const delta = linkRect.top < safeTop ? linkRect.top - safeTop : linkRect.bottom - safeBottom;
+  list.scrollTo({ top: list.scrollTop + delta, behavior });
+}
+
 export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; groups: SidebarGroup[] }) {
   const listRef = useRef<HTMLDivElement>(null);
   const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set([currentSlug]));
@@ -62,7 +73,14 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
 
       window.requestAnimationFrame(() => {
         const savedScroll = Number(window.sessionStorage.getItem(scrollStorageKey) ?? "0");
-        if (listRef.current && Number.isFinite(savedScroll)) listRef.current.scrollTop = savedScroll;
+        const list = listRef.current;
+        if (!list) return;
+        if (Number.isFinite(savedScroll)) list.scrollTop = savedScroll;
+
+        window.requestAnimationFrame(() => {
+          const currentPage = list.querySelector<HTMLAnchorElement>('a[aria-current="page"]');
+          if (currentPage) revealSidebarLink(list, currentPage, "auto");
+        });
       });
     });
 
@@ -111,14 +129,7 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
       .find((link) => link.getAttribute("href") === `#${activeHash}`);
     if (!activeLink) return;
 
-    const listRect = list.getBoundingClientRect();
-    const linkRect = activeLink.getBoundingClientRect();
-    const safeTop = listRect.top + 24;
-    const safeBottom = listRect.bottom - 24;
-    if (linkRect.top < safeTop || linkRect.bottom > safeBottom) {
-      const delta = linkRect.top < safeTop ? linkRect.top - safeTop : linkRect.bottom - safeBottom;
-      list.scrollTo({ top: list.scrollTop + delta, behavior: "smooth" });
-    }
+    revealSidebarLink(list, activeLink, "smooth");
   }, [activeHash]);
 
   function toggleEntry(slug: string) {
