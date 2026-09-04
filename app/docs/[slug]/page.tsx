@@ -90,17 +90,14 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               <span className="docs-group-badge"><i aria-hidden="true" />{doc.group.toUpperCase()}</span>
               <h1>{doc.title}</h1>
               <p>{doc.description}</p>
-              <div className="docs-hero-meta"><span>{headings.length} разделов</span><span>≈ {readingMinutes} мин чтения</span><span>обновляется вместе с GitHub</span></div>
-              <div className="docs-hero-actions">
-                <a className="docs-primary-action" href={sourceHref} target="_blank" rel="noreferrer">Открыть Markdown на GitHub <span>↗</span></a>
-                <a href={historyHref} target="_blank" rel="noreferrer">История изменений</a>
+              <div className="docs-hero-footer">
+                <div className="docs-hero-meta"><span>{headings.length} разделов</span><span>≈ {readingMinutes} мин чтения</span><span>сверено с GitHub</span></div>
+                <div className="docs-hero-actions">
+                  <a className="docs-primary-action" href={sourceHref} target="_blank" rel="noreferrer">Открыть Markdown <span>↗</span></a>
+                  <a href={historyHref} target="_blank" rel="noreferrer">История публикаций</a>
+                </div>
               </div>
             </div>
-            <aside className="docs-source-summary" aria-label="Источник документа">
-              <span>ИСХОДНИК СТАТЬИ</span>
-              <a href={sourceHref} target="_blank" rel="noreferrer"><code>{sourcePath}</code><b>GitHub ↗</b></a>
-              <p>Нужен только для сверки, если сайт и файл разошлись.</p>
-            </aside>
           </div>
         </section>
         <div className="docs-layout section-wrap">
