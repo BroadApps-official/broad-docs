@@ -1,8 +1,8 @@
 # RU Billing: Special Offer — RU-продукт
 
 Эта страница описывает только одно: **откуда берётся продукт** для экрана
-Special Offer в RU Billing. Сам экран, флаг показа и визуальный циклический
-таймер работают так же, как в общей статье
+Special Offer в RU Billing. Сам экран, флаг показа и цикл «окно оффера →
+cooldown» работают так же, как в общей статье
 [«Спешл оффер (от Adapty)»](./special-offer.md); RU-часть меняет лишь источник
 продукта.
 
@@ -48,7 +48,7 @@ RU checkout принимает продукт из каталога backend:
 
 ## Информация по теме
 
-- [Спешл оффер (от Adapty)](./special-offer.md) — экран, флаг и визуальный таймер
+- [Спешл оффер (от Adapty)](./special-offer.md) — экран, флаг показа и cooldown
 - [RU Billing: карта и СБП](./ru-billing.md)
 - [RU Billing: продукты с backend](./backend-product-catalog.md)
 - [Аккаунт-менеджеру: спешл оффер](./ru-billing-account-manager.md)

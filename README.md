@@ -30,11 +30,9 @@ deployment ещё не успел обновиться. Изображения �
 - заметная схема «host app → нужные модули» и простое объяснение преимуществ;
 - визуальные стандарты BroadUIFlows для онбординга, paywall, Special Offer,
   настроек и поддержки;
-- Special Offer с визуальным циклическим таймером без eligibility и cooldown:
-  общий Adapty-контракт использует `special_offer = true`, а RU Billing разобран
-  на точном примере 232 Claude с
-  `kupon = true` и RU-продуктом из `nextgenwebapps` по
-  `widgetTitle == "kupon"`;
+- Special Offer по контракту Марии: общий Adapty-flow использует
+  `special_offer = true`, окно показа 24 часа и cooldown 24 часа; RU-продукт
+  выбирается из каталога backend по отметке `isSpecialOffer`;
 - compatibility, отдельные manual/AI маршруты legacy migration и release-правила;
 - client-side поиск по всем canonical страницам этого docs repository;
 - отдельный keyword search по README, guides, changelog и compatibility-файлам шести public repositories;

@@ -95,17 +95,16 @@ verified-покупку своего bundle, которая завершилас
 - все продукты передаются интерфейсу без фильтрации;
 - успешный purchase или restore первого paywall ведёт на главный экран приложения и обходит второй экран.
 
-Контракт показа использует один gate:
+Контракт показа — флаг плюс цикл окно/cooldown:
 
 ```text
-special_offer == true              → показать Special Offer
-false, нет поля или неверный тип   → не показывать Special Offer
+special_offer == true и окно оффера активно → показать Special Offer
+идёт cooldown или всё остальное              → не показывать Special Offer
 ```
 
-Таймер на экране — только локальный визуальный цикл
-`24:00:00 → 00:00:00 → 24:00:00`. Он не определяет eligibility, не закрывает
-оффер на нуле и не создаёт cooldown. Повторные открытия в рамках одного запуска
-приложения продолжают ту же фазу цикла.
+Пока флаг `true`, оффер показывается внутри окна (в текущей реализации —
+24 часа), затем наступает cooldown такой же длительности, после чего цикл
+повторяется. Выключение флага, покупка или restore сбрасывают цикл.
 
 ## Токены
 
@@ -137,7 +136,7 @@ false, нет поля или неверный тип   → не показыв�
 Дополнительное предложение Special Offer после закрытия основного paywall
 использует тот же checkout; отдельный payment engine не нужен. Показ разрешает
 булев флаг в Remote Config, RU-продукт берётся из платёжного каталога backend по
-отметке `isSpecialOffer`, а показ разрешает точный булев флаг — всё это
+отметке `isSpecialOffer`, а сам показ ограничен циклом окно/cooldown — всё это
 разбирается в [«Спешл оффер RU Billing»](./ru-special-offer.md).
 
 ## Что хранится в приложении
@@ -171,7 +170,7 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 
 В target выберите product `BroadMonetization`. Xcode автоматически загрузит совместимые `BroadCore`, Adapty и Swinject. Обязательного общего `BroadPlatform` нет.
 
-Текущая проверенная версия — [`1.2.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.2.0).
+Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.1.0).
 
 ## Проверка интеграции
 
