@@ -23,7 +23,7 @@ export function DocReadingTools() {
     };
 
     const revealTargets = document.querySelectorAll<HTMLElement>(
-      ".doc-visual, .doc-orientation, .docs-article-content > h2, .docs-table-wrap, .docs-media, .docs-code-block, .docs-article blockquote"
+      ".doc-visual, .docs-article-content > h2, .docs-table-wrap, .docs-media, .docs-code-block, .docs-article blockquote"
     );
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let observer: IntersectionObserver | undefined;

@@ -25,8 +25,8 @@ RU Billing добавляет к Apple два внешних способа оп
 [«RU Billing: спешл оффер»](./ru-special-offer.md). В ней добавляется булев флаг
 показа в Remote Config основного paywall и отдельный RU-продукт из платёжного
 каталога backend, помеченный отметкой `isSpecialOffer`. Этот RU-продукт не
-берётся из Adapty или App Store. Показ ограничен циклом «окно оффера →
-cooldown».
+берётся из Adapty или App Store. Показ разрешает точный булев флаг, а экранный
+таймер остаётся визуальным циклом без eligibility и cooldown.
 
 [«Спешл оффер (от Adapty)»](./special-offer.md) остаётся другим flow.
 
