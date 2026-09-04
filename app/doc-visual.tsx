@@ -239,7 +239,7 @@ function SpecialOfferVisual() {
     ["01", "Ответ Adapty", "получить экран special_offer или запасной вариант"],
     ["02", "Все варианты", "передать весь список Adapty без фильтрации"],
     ["03", "Один переключатель", "показ разрешает только special_offer = true"],
-    ["04", "Спешл оффер Adapty", "true — всегда показать; иначе не показывать"],
+    ["04", "Окно или cooldown", "в активном окне показать; в cooldown — не показывать"],
   ];
   return (
     <section className="doc-visual" aria-label="Порядок показа спешл оффера от Adapty">
@@ -252,7 +252,7 @@ function SpecialOfferVisual() {
           </div>
         ))}
       </div>
-      <div className="visual-callout safe"><b>ОДИН GATE</b><span>special_offer = true — показать. Таймер — только циклическая анимация 24:00:00 → 00:00:00 → 24:00:00, без eligibility и cooldown.</span></div>
+      <div className="visual-callout safe"><b>ЦИКЛ ПОКАЗА</b><span>Окно оффера 24 часа → cooldown 24 часа → новое окно. На нуле экран закрывается и начинается cooldown.</span></div>
     </section>
   );
 }
@@ -260,13 +260,13 @@ function SpecialOfferVisual() {
 function RUSpecialOfferVisual() {
   const steps = [
     ["01", "Закрыт обычный paywall", "покупки и restore не было"],
-    ["02", "Adapty: kupon = true", "строгое boolean всегда разрешает второй экран"],
-    ["03", "nextgenwebapps", "widgetTitle == kupon выбирает monthly_12.99_nottrial"],
+    ["02", "Adapty: флаг = true", "булево значение разрешает показ в активном окне"],
+    ["03", "Каталог backend", "isSpecialOffer выбирает точный RU-продукт"],
     ["04", "RU checkout", "productId из каталога; только active открывает Premium"],
   ];
   return (
-    <section className="doc-visual ru-special-offer-visual" aria-label="Special Offer RU Billing на примере 232 Claude">
-      <div className="doc-visual-head"><span>232 CLAUDE · RU SPECIAL OFFER · 4 ШАГА</span><b>Флаг разрешает показ, метка каталога выбирает точный продукт</b></div>
+    <section className="doc-visual ru-special-offer-visual" aria-label="Порядок показа Special Offer RU Billing">
+      <div className="doc-visual-head"><span>RU BILLING · SPECIAL OFFER · 4 ШАГА</span><b>Флаг и окно разрешают показ, метка каталога выбирает точный продукт</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -276,24 +276,24 @@ function RUSpecialOfferVisual() {
         ))}
       </div>
       <div className="architecture-owner-map">
-        <div className="owner-lane owner-app"><span>ADAPTY</span><b>kupon разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
-        <div className="owner-lane owner-platform"><span>NEXTGENWEBAPPS</span><b>widgetTitle выбирает RU-продукт</b><small>для 232: monthly_12.99_nottrial · 990 ₽</small></div>
+        <div className="owner-lane owner-app"><span>ADAPTY</span><b>Флаг разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
+        <div className="owner-lane owner-platform"><span>BACKEND-КАТАЛОГ</span><b>isSpecialOffer выбирает RU-продукт</b><small>productId, цена и валюта берутся из найденной строки как есть</small></div>
         <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Checkout проводит оплату</b><small>получает productId напрямую из платёжного каталога</small></div>
       </div>
-      <div className="visual-callout safe"><b>kupon = true → ПОКАЗАТЬ</b><span>Таймер только визуальный: он зациклен и не создаёт eligibility, cooldown или дату окончания.</span></div>
+      <div className="visual-callout safe"><b>24 ЧАСА → 24 ЧАСА</b><span>В активном окне оффер показывается; после него действует cooldown такой же длительности.</span></div>
     </section>
   );
 }
 
 function RUBillingManagerVisual() {
   return (
-    <section className="doc-visual ru-special-offer-visual" aria-label="Два отдельных сценария RU Billing для аккаунт-менеджера">
-      <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · ДВА СЦЕНАРИЯ</span><b>Special Offer и A/B-тест настраиваются отдельно</b></div>
+    <section className="doc-visual ru-special-offer-visual" aria-label="Подготовка RU Billing Special Offer для аккаунт-менеджера">
+      <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · SPECIAL OFFER</span><b>Подготовьте продукт, флаг и точные ID для разработчика</b></div>
       <div className="migration-routes">
-        <div><small>01 · SPECIAL OFFER 232</small><b>Проверить продукт и включить показ</b><span>kupon = true → nextgenwebapps → widgetTitle == kupon → RU checkout</span></div>
-        <div><small>02 · A/B-ТЕСТ</small><b>Сравнить варианты через RU Billing</b><span>источник варианта → эксперимент → сегменты → аналитика → запуск</span></div>
+        <div><small>01 · ПРОДУКТ И ФЛАГ</small><b>Отметить продукт и разрешить показ</b><span>isSpecialOffer в backend-каталоге · булев флаг = true в Adapty</span></div>
+        <div><small>02 · КАРТОЧКА РАЗРАБОТЧИКУ</small><b>Передать три точных значения</b><span>Placement Id · Product ID Special Offer · имя флага Remote Config</span></div>
       </div>
-      <div className="visual-callout safe"><b>НЕ СМЕШИВАТЬ</b><span>Сначала настраивается сам Special Offer. A/B-тест добавляется отдельным шагом только при подтверждённом источнике варианта RU Billing.</span></div>
+      <div className="visual-callout safe"><b>A/B-ТЕСТЫ</b><span>RU Billing A/B-тесты пока в разработке; настраивать эксперимент и передавать его разработчику не нужно.</span></div>
     </section>
   );
 }
@@ -527,15 +527,13 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
     result: "Если конкретному UI нужны две карточки, он выбирает их после полного ответа; общий package ничего не теряет.",
   },
   "ru-billing-ab-tests-developer": {
-    label: "A/B-ТЕСТ · ЧТО ДЕЛАЕТ РАЗРАБОТЧИК",
-    title: "Один источник назначает вариант — приложение выполняет его и фиксирует показ",
+    label: "RU BILLING A/B · СТАТУС",
+    title: "Функциональность пока в разработке",
     steps: [
-      ["01", "Выбрать источник", "Adapty или подтверждённый RU Billing/backend — только один"],
-      ["02", "Получить вариант", "готовая Adapty variation или app-owned backend adapter"],
-      ["03", "Применить вариант", "выбрать продукт или оформление, не добавляя второй gate Special Offer"],
-      ["04", "Подтвердить запуск", "analytics, test-сборка и карточка аккаунт-менеджеру"],
+      ["01", "Не настраивать эксперимент", "общая платформа RU Billing пока не поддерживает A/B-тесты"],
+      ["02", "Дождаться контракта", "инструкция появится после согласования app/backend-поведения"],
     ],
-    result: "Менеджер включает тест только после явного подтверждения разработчика для конкретной версии приложения.",
+    result: "До появления согласованного контракта эта страница фиксирует только статус разработки.",
   },
   "onboarding-att": {
     label: "ПЕРВЫЕ ЭКРАНЫ И РАЗРЕШЕНИЕ APPLE",

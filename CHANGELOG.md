@@ -40,6 +40,9 @@
 
 ### Changed
 
+- одиннадцать canonical-статей, которые меняла Мария, дословно восстановлены из
+  финального состояния её ветки; остальные подписи и метаданные приведены к её
+  контракту окна показа 24 часа и cooldown 24 часа;
 - compatibility page синхронизирована с проверенным platform set `1.2.0`:
   `BroadCore 1.2.0`, `BroadExtensions 1.0.1`, `BroadMonetization 1.2.0` и
   `BroadUIFlows 1.0.1`; ссылки ведут на соответствующие module и integration
@@ -74,20 +77,18 @@
 - каждая статья получила собственную Open Graph-карточку в стиле её шапки:
   при отправке ссылки отображаются актуальные категория, заголовок и описание
   выбранной страницы вместо общей картинки сайта;
-- страницы Special Offer синхронизированы с приоритетным контрактом Марии:
-  единственный gate стандартного режима — точный boolean `special_offer = true`,
-  а таймер является визуальным циклом `24:00:00 → 00:00:00 → 24:00:00` без
-  eligibility, cooldown и блокировки покупки;
+- страницы Special Offer синхронизированы с дословной версией Марии: точный
+  boolean `special_offer = true` разрешает второй экран, окно показа длится
+  24 часа, затем действует cooldown 24 часа;
 - в BroadCore описаны `ServerSynchronizedClock`, источник серверного времени и
   fail-closed правило для денежных сценариев без подтверждённого времени;
-- в общей статье Special Offer добавлен независимый campaign-driven режим:
-  проверка собственного placement, kill switch, серверный cadence сутки через
-  сутки и релизный чек-лист;
+- из общей статьи Special Offer удалено добавленное позднее описание отдельного
+  campaign-driven режима, чтобы canonical-страница дословно совпадала с финальной
+  версией Марии;
 - RU Billing A/B-тесты помечены как «в разработке»: подробная инструкция
   разработчика и раздел A/B у аккаунт-менеджера свёрнуты в заглушку, ссылки на
   A/B убраны из смежных страниц;
-- отдельный campaign-driven Special Offer сохранён как opt-in режим: только в
-  нём cadence «сутки показа → сутки тишины» использует server-synchronized time;
+- окно показа и cooldown снова описываются как единый стандартный цикл Марии;
 - убран жёсткий эталон 232 Claude (`kupon`, `nextgenwebapps`, `widgetTitle`,
   `monthly_12.99`): показ разрешает булев флаг в Remote Config (например,
   `SpecOffer`), а RU-продукт выбирается из платёжного каталога backend по
@@ -105,22 +106,10 @@
 - первые две вводные карточки страницы Settings и Support теперь прямо говорят,
   что показанные экраны — референсы для конкретного приложения, а не
   обязательный общий flow платформы;
-- на странице BroadUIFlows paywall общий platform flow с
-  `special_offer = true` и продуктами Adapty явно отделён от app-specific
-  реализации 232 Claude с `kupon = true` и каталогом `nextgenwebapps`, чтобы
-  разработчики не переносили контракт одного приложения во всю платформу;
 - compatibility page ранее была обновлена до набора `BroadCore 1.1.0`,
   `BroadExtensions 1.0.1`, `BroadMonetization 1.1.0` и `BroadUIFlows 1.0.1`;
-- источник продукта RU Special Offer уточнён по реализации 232 Claude:
-  приложение берёт его только из платёжного каталога `nextgenwebapps` по
-  `widgetTitle == "kupon"`, а не из Adapty или App Store;
-- RU Billing Special Offer переписан как конкретный проверенный пример
-  232 Claude: `kupon = true`, bundle `com.arm.232C1aude`, каталог
-  `nextgenwebapps`, `widgetTitle == "kupon"` и product code
-  `monthly_12.99_nottrial` за 990 ₽; отдельно показаны роли Adapty, каталога и
-  RU Billing checkout;
-- во всех связанных инструкциях и визуальных подписях восстановлен визуальный
-  цикл `24 → 0 → 24`; он не является датой окончания, eligibility или cooldown;
+- все визуальные подписи и metadata сайта приведены к циклу Марии: окно оффера
+  24 часа → cooldown 24 часа → новое окно;
 - статья RU Billing теперь сначала требует закончить базовую интеграцию, а
   затем ведёт в отдельную инструкцию Special Offer; A/B-вариант больше не
   описан как дополнительный gate показа;
@@ -129,17 +118,6 @@
 - во всех пользовательских маршрутах `main` заменён на понятное «главный экран
   приложения»; технический placement ID и ветка Git оставлены только там, где
   это точные идентификаторы;
-- RU Billing Special Offer теперь начинается с обязательного `kupon = true` из
-  текущего Adapty Remote Config 232 и выбирает RU-продукт только в платёжном
-  каталоге `nextgenwebapps` по `widgetTitle == "kupon"`; Adapty и App Store в
-  выборе этого продукта не участвуют;
-- в боковом каталоге появилась отдельная статья «RU Billing: A/B-тесты для
-  разработчика»: она показывает готовый маршрут Adapty, границу отсутствующего
-  общего RU Billing assignment, app-owned adapter, проверку сборки и явное
-  подтверждение для аккаунт-менеджера;
-- кабинетная инструкция RU Billing разделена на два крупных самостоятельных
-  раздела: настройка Special Offer и настройка A/B-теста; в боковом disclosure
-  вместо одиннадцати смешанных шагов теперь показываются две понятные точки входа;
 - шеврон в левом каталоге стал отдельной широкой кнопкой и больше не
   перехватывается ссылкой на статью; раскрытые статьи, активный подраздел и
   позиция прокрутки каталога сохраняются при переходе и перезагрузке;
@@ -167,16 +145,9 @@
   screenshots with visible technical user IDs were excluded, media cards now
   identify UI captures as screen examples, and the remaining pages state the
   reusable onboarding, paywall, settings and support standard directly;
-- RU Billing получил отдельную страницу для аккаунт-менеджера: точное
-  приложение, продукты, выбор одного источника A/B assignment, поля кабинета,
-  карточка передачи разработчику, безопасная проверка и запуск;
 - BroadUIFlows больше не представлен как «страница про paywall»: добавлены
   отдельные визуальные статьи про onboarding, paywall/Special Offer и
   settings/support с обезличенными примерами экранов;
-- разработческая статья RU Special Offer теперь начинает с базовой настройки
-  RU Billing, затем буквально разбирает 232 Claude от `kupon = true` до
-  `monthly_12.99_nottrial` в checkout; целевой контракт не содержит временных
-  условий или ограничений повторного показа;
 - the RU Billing guide now restores the complete seven-screen reference path
   from tariff selection through consent, receipt email and external checkout;
   the screenshots are presented as a compact responsive Markdown gallery and
@@ -189,10 +160,6 @@
   inside a viewport-height sidebar; the scrollbar is visible, wheel scrolling
   stays inside the catalog and the existing horizontal mobile navigation is
   preserved;
-- the RU Billing Special Offer guide now includes a complete account-manager
-  checklist: the exact responsibilities of the payment cabinet, product
-  catalog and Adapty, a safe handoff card for the developer, shared-product
-  warnings and an end-to-end preflight without exposing credentials;
 - the documentation search modes now read as an explicit two-step control:
   “where to search” shows a selected state, click instruction and concrete
   examples for site versus GitHub search, while the field below states which
