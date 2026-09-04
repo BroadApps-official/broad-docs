@@ -788,9 +788,9 @@ button, input { font: inherit; }
 .docs-article-content > ul, .docs-article-content > ol { padding: 9px 14px 9px 34px; border: 1px solid #e0e7f1; border-radius: 10px; background: #fbfcfe; }
 .docs-article li { margin: 3px 0; padding-left: 1px; }
 .docs-article li::marker { color: var(--cobalt); font-weight: 800; }
-.docs-article-content > ol { counter-reset: docs-step; padding-left: 18px; list-style: none; }
-.docs-article-content > ol > li { position: relative; min-height: 34px; padding-left: 38px; counter-increment: docs-step; }
-.docs-article-content > ol > li::before { position: absolute; left: 0; top: 1px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 8px; content: counter(docs-step, decimal-leading-zero); color: white; background: var(--cobalt); box-shadow: 0 6px 15px rgba(37,99,235,.18); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 850; }
+.docs-article-content > ol { margin: 7px 0 10px; padding: 6px 10px 6px 13px; counter-reset: docs-step; list-style: none; }
+.docs-article-content > ol > li { position: relative; min-height: 25px; margin: 1px 0; padding-left: 31px; counter-increment: docs-step; line-height: 1.38; }
+.docs-article-content > ol > li::before { position: absolute; left: 0; top: 0; width: 21px; height: 21px; display: grid; place-items: center; border-radius: 7px; content: counter(docs-step, decimal-leading-zero); color: white; background: var(--cobalt); box-shadow: 0 4px 10px rgba(37,99,235,.15); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; font-weight: 850; }
 .docs-article blockquote { margin: 11px 0; padding: 8px 10px; border: 1px solid #d8e3f2; border-left: 3px solid #7aa4ee; border-radius: 8px; background: #f6f9fd; }
 .docs-article blockquote p { margin: 0; color: #52647c; font-size: 11px; line-height: 1.42; }
 .docs-article blockquote.docs-note { position: relative; padding-left: 44px; }
