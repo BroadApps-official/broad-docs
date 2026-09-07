@@ -236,14 +236,14 @@ function CompatibilityVisual() {
 
 function SpecialOfferVisual() {
   const steps = [
-    ["01", "Ответ Adapty", "получить экран special_offer или запасной вариант"],
-    ["02", "Все варианты", "передать весь список Adapty без фильтрации"],
-    ["03", "Один переключатель", "показ разрешает только special_offer = true"],
-    ["04", "Окно или cooldown", "в активном окне показать; в cooldown — не показывать"],
+    ["01", "Основной paywall", "после закрытия без покупки прочитать его Remote Config"],
+    ["02", "Флаг и окно", "строго special_offer = true и активное окно; в cooldown — не показывать"],
+    ["03", "Отдельный placement", "загрузить special_offer и все его продукты"],
+    ["04", "Экран оффера", "показать весь набор; на нуле таймера закрыть экран"],
   ];
   return (
     <section className="doc-visual" aria-label="Порядок показа спешл оффера от Adapty">
-      <div className="doc-visual-head"><span>СПЕШЛ ОФФЕР ОТ ADAPTY · 4 ШАГА</span><b>Adapty решает, какие варианты покупки показать</b></div>
+      <div className="doc-visual-head"><span>ОБЩИЙ СЦЕНАРИЙ SPECIAL OFFER · 4 ШАГА</span><b>Основной paywall разрешает показ, отдельный placement отдаёт продукты</b></div>
       <div className="pipeline-visual">
         {steps.map(([number, title, detail], index) => (
           <div className="pipeline-fragment" key={number}>
@@ -260,7 +260,7 @@ function SpecialOfferVisual() {
 function RUSpecialOfferVisual() {
   const steps = [
     ["01", "Закрыт обычный paywall", "покупки и restore не было"],
-    ["02", "Adapty: флаг = true", "булево значение разрешает показ в активном окне"],
+    ["02", "Флаг основного paywall", "строго special_offer = true и активное окно 24 часа"],
     ["03", "Каталог backend", "isSpecialOffer выбирает точный RU-продукт"],
     ["04", "RU checkout", "productId из каталога; только active открывает Premium"],
   ];
@@ -276,7 +276,7 @@ function RUSpecialOfferVisual() {
         ))}
       </div>
       <div className="architecture-owner-map">
-        <div className="owner-lane owner-app"><span>ADAPTY</span><b>Флаг разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
+        <div className="owner-lane owner-app"><span>ОСНОВНОЙ PAYWALL ADAPTY</span><b>Флаг разрешает показ</b><small>false, нет поля или ошибка ведут на главный экран приложения</small></div>
         <div className="owner-lane owner-platform"><span>BACKEND-КАТАЛОГ</span><b>isSpecialOffer выбирает RU-продукт</b><small>productId, цена и валюта берутся из найденной строки как есть</small></div>
         <div className="owner-lane owner-tools"><span>RU BILLING</span><b>Checkout проводит оплату</b><small>получает productId напрямую из платёжного каталога</small></div>
       </div>
@@ -290,7 +290,7 @@ function RUBillingManagerVisual() {
     <section className="doc-visual ru-special-offer-visual" aria-label="Подготовка RU Billing Special Offer для аккаунт-менеджера">
       <div className="doc-visual-head"><span>АККАУНТ-МЕНЕДЖЕР · SPECIAL OFFER</span><b>Подготовьте продукт, флаг и точные ID для разработчика</b></div>
       <div className="migration-routes">
-        <div><small>01 · ПРОДУКТ И ФЛАГ</small><b>Отметить продукт и разрешить показ</b><span>isSpecialOffer в backend-каталоге · булев флаг = true в Adapty</span></div>
+        <div><small>01 · ПРОДУКТ И ФЛАГ</small><b>Отметить продукт и разрешить показ</b><span>isSpecialOffer в backend-каталоге · special_offer = true в основном paywall Adapty</span></div>
         <div><small>02 · КАРТОЧКА РАЗРАБОТЧИКУ</small><b>Передать три точных значения</b><span>Placement Id · Product ID Special Offer · имя флага Remote Config</span></div>
       </div>
       <div className="visual-callout safe"><b>A/B-ТЕСТЫ</b><span>RU Billing A/B-тесты пока в разработке; настраивать эксперимент и передавать его разработчику не нужно.</span></div>
@@ -524,7 +524,7 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
       ["03", "Repository + decoder", "запрос выполняется, каждая строка, порядок и дубли сохраняются"],
       ["04", "Exact ID связывает продукт", "никаких догадок по цене, названию, периоду или позиции"],
     ],
-    result: "Если конкретному UI нужны две карточки, он выбирает их после полного ответа; общий package ничего не теряет.",
+    result: "Каталог сохраняется целиком. Обычный RU paywall и Special Offer используют свои продукты по правилам ниже; список не обрезается до двух карточек.",
   },
   "ru-billing-ab-tests-developer": {
     label: "RU BILLING A/B · СТАТУС",
