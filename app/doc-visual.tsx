@@ -154,17 +154,17 @@ function UIFlowsModuleVisual() {
 
 function MonetizationModuleVisual() {
   return (
-    <section className="doc-visual module-showcase monetization-showcase" aria-label="Граница между интерфейсом, платёжным модулем и Adapty или StoreKit">
+    <section className="doc-visual module-showcase monetization-showcase" aria-label="Граница между интерфейсом, платёжным модулем и источником подтверждения оплаты">
       <div className="doc-visual-head"><span>BROADMONETIZATION · ДВИЖОК БЕЗ ЭКРАНА</span><b>UI остаётся в приложении, финансовая операция — в модуле</b></div>
       <div className="module-lane-flow">
         <div className="module-lane ui-lane"><span>01 · ВИДИТ ЧЕЛОВЕК</span><b>Экран приложения</b><small>карточки · кнопка · loader · ошибка</small></div>
         <Arrow />
         <div className="module-lane engine-lane"><span>02 · ДЕЛАЕТ МОДУЛЬ</span><b>BroadMonetization</b><small>products · purchase · restore · Premium check</small><i aria-hidden="true" /></div>
         <Arrow />
-        <div className="module-lane provider-lane"><span>03 · ДАЁТ ИСТИНУ</span><b>Adapty / StoreKit</b><small>placement · raw product · entitlement</small></div>
+        <div className="module-lane provider-lane"><span>03 · ПОДТВЕРЖДАЕТ ОПЛАТУ</span><b>Adapty / StoreKit / RU backend</b><small>Apple — проверенная покупка; RU — подтверждение backend</small></div>
       </div>
       <div className="module-result-strip"><span>tap «Купить»</span><i>→</i><span>одна операция</span><i>→</i><span>повторная проверка</span><i>→</i><b>Premium подтверждён</b></div>
-      <div className="visual-callout safe"><b>ГЛАВНОЕ ПРАВИЛО</b><span>Ответ SDK не открывает доступ сам по себе. Главный экран приложения открывается после подтверждённого entitlement.</span></div>
+      <div className="visual-callout safe"><b>ГЛАВНОЕ ПРАВИЛО</b><span>Premium открывается только после подтверждения оплаты. Закрытие платёжного сценария без покупки ведёт на главный экран без Premium.</span></div>
     </section>
   );
 }
@@ -522,7 +522,7 @@ const simpleVisuals: Record<string, SimpleVisualContent> = {
       ["01", "Backend отдаёт JSON", "стабильные ID, цена, валюта и доступные способы оплаты"],
       ["02", "App передаёт configuration", "endpoints, auth и timeout принадлежат конкретному приложению"],
       ["03", "Repository + decoder", "запрос выполняется, каждая строка, порядок и дубли сохраняются"],
-      ["04", "Exact ID связывает продукт", "никаких догадок по цене, названию, периоду или позиции"],
+      ["04", "Продукты своего сценария", "обычный RU paywall — точное соответствие ID; Special Offer — отметка isSpecialOffer"],
     ],
     result: "Каталог сохраняется целиком. Обычный RU paywall и Special Offer используют свои продукты по правилам ниже; список не обрезается до двух карточек.",
   },
