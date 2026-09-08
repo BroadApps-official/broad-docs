@@ -78,7 +78,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   return (
     <div className="site-shell">
       <SiteHeader />
-      <main className="docs-main">
+      <main className={`docs-main${doc.group === "Старт" ? " docs-start" : ""}`}>
         <section className="docs-hero">
           <div className="docs-hero-inner section-wrap">
             <div className="docs-hero-copy">

@@ -19,7 +19,7 @@ export function CodeBlock({ code, language }: { code: string; language?: string 
     <div className="docs-code-block">
       <div className="docs-code-label">
         <span>{language || "ТЕКСТ"}</span>
-        <span>ГОТОВЫЙ ПРИМЕР</span>
+        <span>{language === "bash" || language === "sh" ? "КОМАНДЫ ТЕРМИНАЛА" : language === "swift" ? "КОД SWIFT" : "ПРИМЕР"}</span>
         <button aria-live="polite" className={copied ? "copied" : undefined} onClick={copyCode} type="button">
           {copied ? "Скопировано ✓" : "Копировать"}
         </button>

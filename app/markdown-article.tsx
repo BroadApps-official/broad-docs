@@ -8,6 +8,7 @@ import { PaywallVideo } from "./paywall-video";
 function normalizeDocumentHref(href: string) {
   const localDocument = href.match(/^\.\/([a-z0-9-]+)\.md(#[^)]+)?$/i);
   if (localDocument) return `/docs/${localDocument[1]}${localDocument[2] ?? ""}`;
+  if (href.startsWith("../public/")) return href.slice("../public".length);
   return href;
 }
 
@@ -41,7 +42,7 @@ function inline(text: string): ReactNode[] {
 }
 
 type Block = {
-  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table" | "image" | "video" | "video-gallery";
+  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table" | "image" | "image-gallery" | "video" | "video-gallery";
   level?: number;
   text?: string;
   items?: string[];
@@ -51,6 +52,7 @@ type Block = {
   src?: string;
   language?: string;
   videos?: { alt: string; src: string }[];
+  images?: { alt: string; src: string }[];
 };
 
 const videoLink = /^\[([^\]]+)\]\((\.\.\/public\/[^)]+\.mp4)\)$/i;
@@ -105,7 +107,15 @@ function parse(markdown: string): Block[] {
     const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) {
       flushParagraph(); flushList();
-      blocks.push({ type: "image", alt: image[1], src: image[2] });
+      const images = [{ alt: image[1], src: image[2] }];
+      // Adjacent screenshots form one comparison row; a blank line starts a new figure.
+      while (lineIndex + 1 < lines.length) {
+        const next = lines[lineIndex + 1].match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (!next) break;
+        images.push({ alt: next[1], src: next[2] });
+        lineIndex += 1;
+      }
+      blocks.push(images.length > 1 ? { type: "image-gallery", images } : { type: "image", ...images[0] });
       continue;
     }
     const tableHeader = tableCells(line);
@@ -194,15 +204,30 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     if (block.type === "video") {
       return <VideoFigure src={block.src ?? ""} alt={block.alt ?? ""} key={index} />;
     }
+    if (block.type === "image-gallery") return (
+      <div className="docs-image-gallery" role="group" aria-label="Скриншоты примера" key={index}>
+        {block.images?.map((item) => {
+          const src = normalizeMediaSource(item.src);
+          return <figure className="docs-media" key={src}>
+            <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${item.alt}`}>
+              <img src={src} alt={item.alt} loading="lazy" decoding="async" />
+            </a>
+            <figcaption>{item.alt}</figcaption>
+          </figure>;
+        })}
+      </div>
+    );
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
+      const tutorial = src.includes("/guides/start/");
+      const desktop = tutorial && src.includes("xcode-");
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
       const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
       const wideFlowGif = flowGif && src.includes("/sample-editor/");
       const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
-        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}`} key={index}>
-          <div className="docs-media-frame"><img alt={block.alt ?? ""} className={reference ? "docs-screen-image" : undefined} decoding="async" loading="eager" src={src} /></div>
+        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}${desktop ? " docs-media-desktop" : ""}`} key={index}>
+          <div className="docs-media-frame">{tutorial ? <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${block.alt ?? "скриншот"}`}><img alt={block.alt ?? ""} decoding="async" loading="lazy" src={src} /></a> : <img alt={block.alt ?? ""} className={reference ? "docs-screen-image" : undefined} decoding="async" loading="eager" src={src} />}</div>
           {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
       );
