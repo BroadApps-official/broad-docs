@@ -33,7 +33,7 @@ const useCases = [
   { code: "RU PAY", title: "Подключить оплату картой и СБП", detail: "Проверить ru_pay, Storefront/регион, каталог и подтверждение Premium.", slug: "ru-billing" },
   { code: "RU OFFER", title: "Настроить RU Special Offer", detail: "Флаг основного paywall и активное окно → продукт каталога с isSpecialOffer → RU checkout.", slug: "ru-special-offer" },
   { code: "МЕНЕДЖЕР", title: "Подготовить RU Special Offer", detail: "Проверить продукт в backend-каталоге, включить gate Adapty и передать разработчику одну карточку.", slug: "ru-billing-account-manager" },
-  { code: "A/B DEV", title: "Проверить статус RU Billing A/B-тестов", detail: "Функциональность пока в разработке; согласованного app/backend-контракта ещё нет.", slug: "ru-billing-ab-tests-developer" },
+  { code: "A/B DEV", title: "Запустить A/B-тест на RU-оплате", detail: "Вариант выбирает Adapty, показ и сегмент уходят на backend, конверсия считается по идентификатору пользователя.", slug: "ru-billing-ab-tests-developer" },
   { code: "BACKEND", title: "Получить продукты с backend", detail: "Передать endpoints и авторизацию, подключить decoder и не потерять порядок, дубли и точные ID.", slug: "backend-product-catalog" },
   { code: "ONBOARDING", title: "Настроить первые экраны и ATT", detail: "Задать любое число страниц и вовремя показать запрос Apple.", slug: "onboarding-att" },
   { code: "ОШИБКИ", title: "Разобраться с загрузкой и повторами", detail: "Обработать медленную сеть, offline, timeout и двойное нажатие.", slug: "runtime-reliability" },
