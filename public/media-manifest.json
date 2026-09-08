@@ -987,6 +987,357 @@
         "ref": "f8ef9a037cfa20b9948f8e4209342c332168806b",
         "path": "public/og-v2.png"
       }
+    },
+    "guides/settings-support/232-settings.mp4": {
+      "sha256": "fa0932bcd25e699add1b3e15b8a4f97c57045ec1077aafeab69254059a7655d8",
+      "bytes": 636462,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer masked during its visible settings intervals, before all exported frames and poster were generated."
+      }
+    },
+    "guides/settings-support/232-settings.jpg": {
+      "sha256": "b1b99946aac797f0c566dcd6761dbfe3e8daf2606df94d270f4c3389418a72ec",
+      "bytes": 74382,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer masked during its visible settings intervals, before all exported frames and poster were generated."
+      }
+    },
+    "guides/settings-support/232-settings.vtt": {
+      "sha256": "998f0b397b045bb3128bd61b5b94e023c6fe35f4ab7278a1b0f7db7e90a0831f",
+      "bytes": 592,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer masked during its visible settings intervals, before all exported frames and poster were generated."
+      }
+    },
+    "guides/settings-support/5115-settings.mp4": {
+      "sha256": "208a6e4033e0adf015d76fb93399028c5c5679be506493d96caafc67144f03a1",
+      "bytes": 720569,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5115-settings.jpg": {
+      "sha256": "66a9eb84eb0756beda8f98d5fb9dc643c45d67ae3435ddc3ef21360725b20433",
+      "bytes": 75782,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5115-settings.vtt": {
+      "sha256": "c3b3bc2b7f78e57c5985e2e15d18d968acda50c6e5391ba08563b380603718f9",
+      "bytes": 525,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5007-settings.mp4": {
+      "sha256": "03ed3eb2cb948bd3ed84bdedd5d72148e4d24ebc5e86459e6b62f190625180c6",
+      "bytes": 417750,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Settings/SettingsView/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer strongly blurred in video and poster."
+      }
+    },
+    "guides/settings-support/5007-settings.jpg": {
+      "sha256": "08b99294d7c485c0cf82a21932e76c72a20ad9fae46aa963c06b5463ecb18899",
+      "bytes": 88190,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Settings/SettingsView/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer strongly blurred in video and poster."
+      }
+    },
+    "guides/settings-support/5007-settings.vtt": {
+      "sha256": "8c034d30952a573312604a565de0f072f621e5e2f03a734a4ebe18c11cb5bde7",
+      "bytes": 363,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Settings/SettingsView/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "redaction": "Account ID footer strongly blurred in video and poster."
+      }
+    },
+    "guides/settings-support/5013-settings.mp4": {
+      "sha256": "e8d75aa427b59a8e223127b66dc953a798c645482260d2cd0e540161c19dec67",
+      "bytes": 467534,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5013-settings.jpg": {
+      "sha256": "407824ffaf010cf1b21f2e2cfbdc30d1826b2b9a949e9b94201a9d5b0c7f3e2b",
+      "bytes": 79624,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5013-settings.vtt": {
+      "sha256": "6c1b29e56a750f8a9df2784a9c95821e67db4ed5b376763b3d6c115b077c2023",
+      "bytes": 389,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5092-settings.mp4": {
+      "sha256": "9b2ef1ee5d1e59e46f5f69351dce8746a84a91a9c1d9e46ac12847a3243153a3",
+      "bytes": 617406,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5092-settings.jpg": {
+      "sha256": "798de376716a55fff5f9f2f32b95f63368b89f0e05017d808e56b58e366e545e",
+      "bytes": 86453,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5092-settings.vtt": {
+      "sha256": "5019458661b9d8cabc74acea9776e0588a8039c14903b5d085bdeeb6c84d2d9d",
+      "bytes": 332,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Tabs/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster."
+      }
+    },
+    "guides/settings-support/5142-settings.mp4": {
+      "sha256": "de10615983e374c75ccaa96f5d6277b3b8a6108a9480c6a8beba872cdf54f7dc",
+      "bytes": 913926,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:450f09e90c69129f1ee46f2a7066c1b1b01ad83b871259c50fd23f897bf894d9",
+        "path": "5142_Groq/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "provenance": "Local archive, no Git revision. SHA-256 covers SettingsView.swift, ContactSupportRow.swift and SupportChatService.swift with their archive-relative paths in that order. Chat is unconfigured and absent in recorded UI."
+      }
+    },
+    "guides/settings-support/5142-settings.jpg": {
+      "sha256": "798e60da3fcf9a54e4805151787b38a7b57dc29bd74304f24175171fd4ac9859",
+      "bytes": 85168,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:450f09e90c69129f1ee46f2a7066c1b1b01ad83b871259c50fd23f897bf894d9",
+        "path": "5142_Groq/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "provenance": "Local archive, no Git revision. SHA-256 covers SettingsView.swift, ContactSupportRow.swift and SupportChatService.swift with their archive-relative paths in that order. Chat is unconfigured and absent in recorded UI."
+      }
+    },
+    "guides/settings-support/5142-settings.vtt": {
+      "sha256": "628fb25996105dcb7cf5771a5890ee743e0942f5bf6990c99ab9fbc32f8c0c80",
+      "bytes": 468,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:450f09e90c69129f1ee46f2a7066c1b1b01ad83b871259c50fd23f897bf894d9",
+        "path": "5142_Groq/Features/Settings/SettingsView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Settings and support navigation, visible unavailable-mail behavior, close and return. No support messages or email sent.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "provenance": "Local archive, no Git revision. SHA-256 covers SettingsView.swift, ContactSupportRow.swift and SupportChatService.swift with their archive-relative paths in that order. Chat is unconfigured and absent in recorded UI."
+      }
+    },
+    "guides/settings-support/mail-demo-settings.mp4": {
+      "sha256": "6e16820a3f6b158d7b5ef4f8430dd2870c48f2e15df11662db5882f349f916de",
+      "bytes": 1615200,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "sha256:ca16c24ff3d5f148f5fc5a93d428f0b6d555c07a1e976c91064a7db4b0db8243",
+        "path": "examples/settings-support/MailDemo.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Standalone SwiftUI educational preview. Not MFMailComposeViewController or a production app. Fictional payload and attachment label; sending disabled. Open, scroll, close, reopen, unavailable-mail alert and copy address.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "kind": "illustrative-simulator-demo",
+        "provenance": "SHA-256 identifies the exact checked-in MailDemo.swift used to build this standalone simulator app."
+      }
+    },
+    "guides/settings-support/mail-demo-settings.jpg": {
+      "sha256": "3da2a3298085070b7045bbc16ada89f24bc99adf75f4323b7d69e7e15033b544",
+      "bytes": 120926,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "sha256:ca16c24ff3d5f148f5fc5a93d428f0b6d555c07a1e976c91064a7db4b0db8243",
+        "path": "examples/settings-support/MailDemo.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Standalone SwiftUI educational preview. Not MFMailComposeViewController or a production app. Fictional payload and attachment label; sending disabled. Open, scroll, close, reopen, unavailable-mail alert and copy address.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "kind": "illustrative-simulator-demo",
+        "provenance": "SHA-256 identifies the exact checked-in MailDemo.swift used to build this standalone simulator app."
+      }
+    },
+    "guides/settings-support/mail-demo-settings.vtt": {
+      "sha256": "2b0f486db3b4718112dc8cfb5986b619a573e9d87242a24a741e0e8c5619107e",
+      "bytes": 822,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "sha256:ca16c24ff3d5f148f5fc5a93d428f0b6d555c07a1e976c91064a7db4b0db8243",
+        "path": "examples/settings-support/MailDemo.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Standalone SwiftUI educational preview. Not MFMailComposeViewController or a production app. Fictional payload and attachment label; sending disabled. Open, scroll, close, reopen, unavailable-mail alert and copy address.",
+        "processing": "Operator idle pauses removed; transitions kept at original speed. Backward simctl timestamps repaired, preserving positive frame intervals. H.264 720x1566 60 fps, fast start; final frame held. Optional Russian action captions and JPEG poster.",
+        "kind": "illustrative-simulator-demo",
+        "provenance": "SHA-256 identifies the exact checked-in MailDemo.swift used to build this standalone simulator app."
+      }
     }
   }
 }
