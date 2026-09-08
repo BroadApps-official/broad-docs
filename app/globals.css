@@ -828,7 +828,7 @@ button, input { font: inherit; }
 .docs-video-gallery .docs-media-video figcaption { align-items: flex-start; padding: 8px 0; gap: 4px; border: 0; background: transparent; }
 .docs-video-gallery figcaption b { width: 100%; color: var(--ink); font-size: 12px; }
 .docs-video-gallery figcaption a { margin-left: 0; }
-.paywall-player { width: min(100%, 340px); margin: auto; }
+.paywall-player { width: min(100%, 340px); margin: auto; container-type: inline-size; }
 .paywall-player-screen { width: 100%; aspect-ratio: 720 / 1566; overflow: hidden; border-radius: clamp(8px, 1.2vw, 18px); background: #0d0f14; box-shadow: 0 8px 24px rgba(18,37,69,.12); }
 .paywall-player-controls { padding-top: 6px; color: #314660; }
 .paywall-player-buttons { display: flex; align-items: center; justify-content: space-between; gap: 2px; }
@@ -846,6 +846,10 @@ button, input { font: inherit; }
 .paywall-player:fullscreen .paywall-player-screen { width: auto; height: calc(100% - 96px); max-width: 100%; box-shadow: none; }
 .paywall-player:fullscreen .paywall-player-controls { width: min(100%, 420px); color: #e3eaf6; }
 .paywall-player:fullscreen button { color: #e3eaf6; background: #24334d; }
+@container (max-width: 125px) {
+  .paywall-player-buttons { flex-wrap: wrap; }
+  .paywall-player-buttons output { order: 3; width: 100%; text-align: center; font-size: 9px; }
+}
 @media (max-width: 520px) {
   .paywall-player-buttons { flex-wrap: wrap; }
   .paywall-player-buttons output { order: 3; width: 100%; text-align: center; font-size: 9px; }

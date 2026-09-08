@@ -1,6 +1,321 @@
 {
   "schema": 1,
   "assets": {
+    "guides/onboarding/232-full.jpg": {
+      "sha256": "dc4fcf39fe9d39b2a78d9985673eee1cc69149aea5194179ee3d3829b22c3e5b",
+      "bytes": 90730,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/232-full.mp4": {
+      "sha256": "ce48918b0a74e3d2b12c04569ce7f7efddff70aa7a9d97ff19bc89cc2d0a9387",
+      "bytes": 2094000,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/232-full.vtt": {
+      "sha256": "7dfdd6e9bd1dcc4fa0e5d43573821fe1d29059208e5ab000f0aaaa30958192d5",
+      "bytes": 754,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/Claude232",
+        "ref": "58f99aa559331636aaca3875c300539f976f596b",
+        "path": "Claude/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5007-full.jpg": {
+      "sha256": "23ced493acbf8d6fc63370984684340b45e59ea4f3b66ecf9c63b3eb857e0748",
+      "bytes": 108263,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
+    "guides/onboarding/5007-full.mp4": {
+      "sha256": "80a535cf68eca770a4812c54fabda624cd27b84b89862926b5caef15abea400b",
+      "bytes": 2340594,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
+    "guides/onboarding/5007-full.vtt": {
+      "sha256": "08a78caa46b37e96a53040c329af666b7e30fbd91d6a4adf0bc2865f7fb19431",
+      "bytes": 669,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
+    "guides/onboarding/5013-full.jpg": {
+      "sha256": "03bf6a909bbf3c38f97430e750dbd66b26514b0d829919b4a39472009b315215",
+      "bytes": 55603,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Extra/Onboarding/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions. Final Terms dismissal and main screen appended from a second capture of the same app session.",
+        "demoData": "Fictional Demo, age 30, Paris, app heart logo; no photo of a real person was submitted. Prepurchase result labels are app demo UI, not verified search findings."
+      }
+    },
+    "guides/onboarding/5013-full.mp4": {
+      "sha256": "2dc4465ae744d4f2ff28f13d7708388cc3c3781743f2cd7dde77dcd3481929de",
+      "bytes": 6807978,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Extra/Onboarding/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions. Final Terms dismissal and main screen appended from a second capture of the same app session.",
+        "demoData": "Fictional Demo, age 30, Paris, app heart logo; no photo of a real person was submitted. Prepurchase result labels are app demo UI, not verified search findings."
+      }
+    },
+    "guides/onboarding/5013-full.vtt": {
+      "sha256": "c945fc38d3959b389441109af1de15e48d5136604fd2eeeedcdb75350db124ec",
+      "bytes": 1358,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5013CheaterBusterAI",
+        "ref": "27378b1a8a4849f7ddb673f99098554b765e9a82",
+        "path": "CheaterBooster5013/Views/Extra/Onboarding/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions. Final Terms dismissal and main screen appended from a second capture of the same app session.",
+        "demoData": "Fictional Demo, age 30, Paris, app heart logo; no photo of a real person was submitted. Prepurchase result labels are app demo UI, not verified search findings."
+      }
+    },
+    "guides/onboarding/5090-full.jpg": {
+      "sha256": "2c59e228121eed8902772bf0034c25310338bcbd00fe6c96c02ec2591cfc56ba",
+      "bytes": 136163,
+      "source": {
+        "repository": "https://github.com/BAtopTeam/app5090",
+        "ref": "a46bffe7889191ed629771d9d96986d656ebdfd8",
+        "path": "PimEyes/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5090-full.mp4": {
+      "sha256": "68cde076971831d69135e90eec08257a03d1240f34b3efab74eac8317660dcfd",
+      "bytes": 2670093,
+      "source": {
+        "repository": "https://github.com/BAtopTeam/app5090",
+        "ref": "a46bffe7889191ed629771d9d96986d656ebdfd8",
+        "path": "PimEyes/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5090-full.vtt": {
+      "sha256": "6e8c9e159c73bbac104e5bf441154d3e4dbcf07cd523a8c20fba68bbdcad5e99",
+      "bytes": 755,
+      "source": {
+        "repository": "https://github.com/BAtopTeam/app5090",
+        "ref": "a46bffe7889191ed629771d9d96986d656ebdfd8",
+        "path": "PimEyes/Presentation/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5092-full.jpg": {
+      "sha256": "0b37e9b9dbe6942d0cd91177e6d669733d0fba58194630fc8e86b7fd64f4d71e",
+      "bytes": 184365,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5092-full.mp4": {
+      "sha256": "2ecb38759e08fb3b08ef9c1b830e8813374958b7eaa938fa1e733b36712b3c6d",
+      "bytes": 6097199,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5092-full.vtt": {
+      "sha256": "23e44759a70d6d7f8da05c62c9d8601d9f4c5434d0c0f3829b521f850d194004",
+      "bytes": 859,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/OnBoardView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions."
+      }
+    },
+    "guides/onboarding/5142-full.jpg": {
+      "sha256": "d6b1c9f0d1c34bb052a63b9c21d7e402821259d43978e6408f59fb62e3c0e3af",
+      "bytes": 166569,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:2bcb2747e4ac6fa217e14e5ee8068ab5d8fa159d6b8dcd410ed97ae6bafd5138",
+        "path": "5142_Groq/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceSnapshot": "Local Downloads archive with no .git metadata; ref is the SHA-256 of sorted onboarding Swift paths and contents, separated by NUL before each file body."
+      }
+    },
+    "guides/onboarding/5142-full.mp4": {
+      "sha256": "eb0bbe97cc8c4c3b79ea58477239c50c4c8e117a360cb4d099622f9639453af1",
+      "bytes": 2602525,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:2bcb2747e4ac6fa217e14e5ee8068ab5d8fa159d6b8dcd410ed97ae6bafd5138",
+        "path": "5142_Groq/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceSnapshot": "Local Downloads archive with no .git metadata; ref is the SHA-256 of sorted onboarding Swift paths and contents, separated by NUL before each file body."
+      }
+    },
+    "guides/onboarding/5142-full.vtt": {
+      "sha256": "e3fb77979f68ccf4104008c5ab6dfcae70513267d10db03e843e9377187c6f85",
+      "bytes": 708,
+      "source": {
+        "repository": "local-archive:5142_Groq-main",
+        "ref": "sha256:2bcb2747e4ac6fa217e14e5ee8068ab5d8fa159d6b8dcd410ed97ae6bafd5138",
+        "path": "5142_Groq/Features/Onboarding/OnboardingView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "Complete first-launch route: every onboarding step, ordinary paywall, close paywall and optional offer, dismiss additional Terms dialog when shown, end on main screen. No purchase.",
+        "processing": "Operator idle pauses removed; all steps retained in order and transitions kept at original speed. Backward simctl timestamps repaired while preserving positive frame intervals. H.264 720x1566, 60 fps, fast start; final frame held for readability. JPEG poster and optional Russian action captions.",
+        "sourceSnapshot": "Local Downloads archive with no .git metadata; ref is the SHA-256 of sorted onboarding Swift paths and contents, separated by NUL before each file body."
+      }
+    },
     "guides/paywall-ui/5007-normal.jpg": {
       "sha256": "7cdab8680ede8f51e0f52644ce6d12aef08e8860b7aff75df55b5d915af190c2",
       "bytes": 95810,

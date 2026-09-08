@@ -187,7 +187,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
     }
     if (block.type === "code") return <CodeBlock code={block.text ?? ""} language={block.language} key={index} />;
     if (block.type === "video-gallery") return (
-      <div className="docs-video-gallery" role="group" aria-label="Сравнение трёх вариантов paywall" key={index}>
+      <div className="docs-video-gallery" style={{ gridTemplateColumns: `repeat(${block.videos?.length ?? 1}, minmax(0, 1fr))` }} role="group" aria-label={`Сравнение видео: ${block.videos?.length ?? 1}`} key={index}>
         {block.videos?.map((video) => <VideoFigure {...video} key={video.src} />)}
       </div>
     );
