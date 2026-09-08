@@ -1,6 +1,78 @@
 {
   "schema": 1,
   "assets": {
+    "guides/paywall-ui/5007-normal.jpg": {
+      "sha256": "7cdab8680ede8f51e0f52644ce6d12aef08e8860b7aff75df55b5d915af190c2",
+      "bytes": 95810,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty paywall: open, switch products, open Special Offer, confirm local StoreKit test purchase, return to main screen",
+        "purchaseEnvironment": "Xcode StoreKit Configuration (Debug.storekit); no real charge",
+        "processing": "Continuous 104-second segment at original speed; only idle lead-in and tail removed. H.264 720x1566, 60 fps, fast start. JPEG poster and Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
+    "guides/paywall-ui/5007-normal.mp4": {
+      "sha256": "bfa0447fa0666169d243cbbd04bf8ec7c1cd07875caa84e4994f59313d8423b4",
+      "bytes": 4931120,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty paywall: open, switch products, open Special Offer, confirm local StoreKit test purchase, return to main screen",
+        "purchaseEnvironment": "Xcode StoreKit Configuration (Debug.storekit); no real charge",
+        "processing": "Continuous 104-second segment at original speed; only idle lead-in and tail removed. H.264 720x1566, 60 fps, fast start. JPEG poster and Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
+    "guides/paywall-ui/5007-normal.vtt": {
+      "sha256": "52035a15018de9a715f208d4723bd44a018c1316ec488963af88736195f4eb56",
+      "bytes": 906,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5007CheaterBuster",
+        "ref": "2dbf9d828c2e4316ac133241111fb88fc6aad266",
+        "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty paywall: open, switch products, open Special Offer, confirm local StoreKit test purchase, return to main screen",
+        "purchaseEnvironment": "Xcode StoreKit Configuration (Debug.storekit); no real charge",
+        "processing": "Continuous 104-second segment at original speed; only idle lead-in and tail removed. H.264 720x1566, 60 fps, fast start. JPEG poster and Russian action captions.",
+        "sourceOverrides": [
+          {
+            "path": "TrueScan/Presentation/Paywall/PaywallView/PaywallPlanRowView.swift",
+            "sha256": "39225cd175234a9b751d0f9cc45b1834b88d491a009f351bb96235620de0faff",
+            "change": "Only PaywallPlanRowView press style changed from OpacityTapButtonStyle to .plain, preserving its 0.15-second selection animation."
+          }
+        ]
+      }
+    },
     "guides/paywall-ui/5092-normal.jpg": {
       "sha256": "33fc3068dce8da9294bdeb1ac3ebaf397e13df3e8f91780610b2ff8faa353860",
       "bytes": 180924,
@@ -98,8 +170,8 @@
       }
     },
     "guides/paywall-ui/dark-loading.jpg": {
-      "sha256": "88c6a92b3015dfc177485af603fa72c606cbf64df0ab8f67b820d8debfc2f2f6",
-      "bytes": 38518,
+      "sha256": "8408f5e622fed4c49c4e0520cb1b8f55928ce82ce261ae9a0e39c98f3b62acef",
+      "bytes": 86626,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-platform-integration",
         "ref": "6164cbacc3b66632c58fe2c0164bb8831a4108a8",
@@ -109,12 +181,12 @@
         "derivedFrom": "guides/readme/PaywallLoader/catalog-loading.gif",
         "sourceSha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
         "flow": "existing ordinary paywall catalog loading example",
-        "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
+        "processing": "Original GIF converted at original playback speed to 720x1566 with proportional scaling and narrow side padding; no interface cropping. Original capture rate: 5 fps."
       }
     },
     "guides/paywall-ui/dark-loading.mp4": {
-      "sha256": "4463af64ea3e94d78b3d43e5bec34d0d81ff27b9416c626a7ca550b0336bcf72",
-      "bytes": 305037,
+      "sha256": "7e53c8a9ba2a39b86cb05f0f4dc187b8a8c78995bab9b514f98536e1b0953dbb",
+      "bytes": 604184,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-platform-integration",
         "ref": "6164cbacc3b66632c58fe2c0164bb8831a4108a8",
@@ -124,7 +196,7 @@
         "derivedFrom": "guides/readme/PaywallLoader/catalog-loading.gif",
         "sourceSha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
         "flow": "existing ordinary paywall catalog loading example",
-        "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
+        "processing": "Original GIF converted at original playback speed to 720x1566 with proportional scaling and narrow side padding; no interface cropping. Original capture rate: 5 fps."
       }
     },
     "guides/paywall-ui/dark-loading.vtt": {

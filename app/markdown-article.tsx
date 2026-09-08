@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { slugifyHeading } from "@/lib/docs";
 import { CodeBlock } from "./code-block";
 import { RUExperimentConfigurator } from "./ru-experiment-configurator";
+import { PaywallVideo } from "./paywall-video";
 
 function normalizeDocumentHref(href: string) {
   const localDocument = href.match(/^\.\/([a-z0-9-]+)\.md(#[^)]+)?$/i);
@@ -153,16 +154,9 @@ function parse(markdown: string): Block[] {
 
 function VideoFigure({ src: rawSource, alt }: { src: string; alt: string }) {
   const src = normalizeMediaSource(rawSource);
-  const base = src.replace(/\.mp4$/i, "");
   return (
     <figure className="docs-media docs-media-video">
-      <div className="docs-media-frame">
-        <video aria-label={alt} controls playsInline preload="metadata" poster={`${base}.jpg`}>
-          <source src={src} type="video/mp4" />
-          <track kind="captions" src={`${base}.vtt`} srcLang="ru" label="Действия на экране" />
-          <a href={src}>Открыть видео</a>
-        </video>
-      </div>
+      <PaywallVideo src={src} title={alt} />
       <figcaption><b>{alt}</b><a href={src} download>Скачать MP4</a></figcaption>
     </figure>
   );

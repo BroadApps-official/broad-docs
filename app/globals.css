@@ -819,19 +819,38 @@ button, input { font: inherit; }
 .docs-media-reference img { max-width: min(100%, 250px); }
 .docs-media-flow-gif img { max-width: min(100%, 188px); }
 .docs-media-flow-gif-wide img { max-width: min(100%, 236px); }
-.docs-media-video video { display: block; width: min(100%, 340px); height: auto; border-radius: 12px; background: #fff; box-shadow: 0 8px 28px rgba(18,37,69,.13); }
+.docs-media-video { border: 0; background: transparent; box-shadow: none; }
+.docs-media-video video { display: block; width: 100%; height: 100%; object-fit: contain; background: #0d0f14; }
 .docs-media-video figcaption { flex-wrap: wrap; }
 .docs-media-video figcaption a { margin-left: auto; white-space: nowrap; }
-.docs-video-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 18px 0 28px; }
+.docs-video-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(6px, 1.2vw, 16px); max-width: 980px; margin: 18px auto 28px; align-items: start; }
 .docs-video-gallery .docs-media { min-width: 0; margin: 0; }
-.docs-video-gallery .docs-media-frame { padding: 12px 6px; }
-.docs-video-gallery video { width: 100%; height: auto; max-height: min(47vh, 470px); object-fit: contain; }
-.docs-video-gallery figcaption { align-items: flex-start; padding: 10px; gap: 6px; }
+.docs-video-gallery .docs-media-video figcaption { align-items: flex-start; padding: 8px 0; gap: 4px; border: 0; background: transparent; }
 .docs-video-gallery figcaption b { width: 100%; color: var(--ink); font-size: 12px; }
 .docs-video-gallery figcaption a { margin-left: 0; }
+.paywall-player { width: min(100%, 340px); margin: auto; }
+.paywall-player-screen { width: 100%; aspect-ratio: 720 / 1566; overflow: hidden; border-radius: clamp(8px, 1.2vw, 18px); background: #0d0f14; box-shadow: 0 8px 24px rgba(18,37,69,.12); }
+.paywall-player-controls { padding-top: 6px; color: #314660; }
+.paywall-player-buttons { display: flex; align-items: center; justify-content: space-between; gap: 2px; }
+.paywall-player-buttons button { flex: 0 0 28px; display: grid; place-items: center; width: 28px; height: 28px; padding: 5px; border: 0; border-radius: 6px; color: inherit; background: #edf2fa; cursor: pointer; }
+.paywall-player-buttons button:hover { color: #245fd2; background: #dde9ff; }
+.paywall-player-buttons button:focus-visible, .paywall-player-controls input:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+.paywall-player-buttons svg { width: 18px; height: 18px; fill: currentColor; }
+.paywall-player-buttons output { min-width: 0; font: 10px ui-monospace, monospace; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.paywall-player-controls input { display: block; width: 100%; height: 24px; margin: 0; accent-color: #2563eb; cursor: pointer; }
+.paywall-player-error { display: block; padding: 4px 0; font-size: 11px; }
+.paywall-player-captions { padding: 2px 5px; border: 1px solid #dbe4f1; border-radius: 5px; color: inherit; background: transparent; font-size: 10px; cursor: pointer; }
+.paywall-player-captions[aria-pressed="true"] { color: #174cc5; background: #e7efff; border-color: #9bbaf2; }
+.paywall-player-captions:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+.paywall-player:fullscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 16px; background: #090d16; }
+.paywall-player:fullscreen .paywall-player-screen { width: auto; height: calc(100% - 96px); max-width: 100%; box-shadow: none; }
+.paywall-player:fullscreen .paywall-player-controls { width: min(100%, 420px); color: #e3eaf6; }
+.paywall-player:fullscreen button { color: #e3eaf6; background: #24334d; }
 @media (max-width: 520px) {
-  .docs-video-gallery { grid-template-columns: 1fr; }
-  .docs-video-gallery video { width: min(100%, 260px); height: auto; }
+  .paywall-player-buttons { flex-wrap: wrap; }
+  .paywall-player-buttons output { order: 3; width: 100%; text-align: center; font-size: 9px; }
+  .docs-video-gallery figcaption b { font-size: 10px; }
+  .docs-video-gallery figcaption a { white-space: normal; font-size: 10px; }
 }
 .docs-media figcaption { padding: 12px 16px; display: flex; align-items: center; gap: 10px; border-top: 1px solid #e2e8f1; color: #617087; background: #fff; font-size: 11px; line-height: 1.45; }
 .docs-media figcaption span { padding: 4px 6px; border-radius: 5px; color: #6651a0; background: #f0ebff; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; font-weight: 850; letter-spacing: .08em; }
