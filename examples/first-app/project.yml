@@ -1,0 +1,48 @@
+name: BroadStart
+options:
+  minimumXcodeGenVersion: 2.45.4
+  deploymentTarget:
+    iOS: '17.0'
+packages:
+  BroadCore:
+    url: https://github.com/BroadApps-official/broad-core-ios.git
+    exactVersion: 1.2.0
+  BroadExtensions:
+    url: https://github.com/BroadApps-official/broad-extensions-ios.git
+    exactVersion: 1.0.1
+settings:
+  base:
+    SWIFT_VERSION: '5.0'
+    TARGETED_DEVICE_FAMILY: '1'
+    DEVELOPMENT_TEAM: ''
+    CODE_SIGNING_ALLOWED: NO
+    SUPPORTS_MACCATALYST: NO
+    SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+    SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+targets:
+  BroadStart:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    dependencies:
+      - package: BroadCore
+      - package: BroadExtensions
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: '1'
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.broadapps.BroadStart
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: BroadStart
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        SWIFT_STRICT_CONCURRENCY: complete
+        SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+schemes:
+  BroadStart:
+    build:
+      targets:
+        BroadStart: all
+    run:
+      config: Debug
+    profile:
+      config: Release

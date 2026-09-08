@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5B6A765773B4EAA784ED84D6 /* DemoLessonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EFBED80C455A69CFC2A395 /* DemoLessonRepository.swift */; };
+		7D82887808799FF8B674956D /* BroadCore in Frameworks */ = {isa = PBXBuildFile; productRef = 00AB13EF2A20782B3FC35323 /* BroadCore */; };
+		C9850C2341C5A759454C7F3F /* LessonListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4680AE96AA9B2B96BD316BD /* LessonListModel.swift */; };
+		D16EFB1C9366FC5EC2783A1F /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA81FE0A09F04C7081FBC912 /* Lesson.swift */; };
+		E39879EB1883917944AFD6E7 /* BroadExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 7F7CDD0F91A0C7AE1B2A6C5A /* BroadExtensions */; };
+		E894B0464AABFCAE7ED0C544 /* LessonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08419D1566F25607960AD4 /* LessonListView.swift */; };
+		F08E69151BF2805BB4E20D28 /* BroadStartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E585E8296731297DC76F7B7 /* BroadStartApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3E08419D1566F25607960AD4 /* LessonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListView.swift; sourceTree = "<group>"; };
+		40F908C8B1C6A329A83598DE /* BroadStart.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BroadStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E585E8296731297DC76F7B7 /* BroadStartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadStartApp.swift; sourceTree = "<group>"; };
+		76EFBED80C455A69CFC2A395 /* DemoLessonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoLessonRepository.swift; sourceTree = "<group>"; };
+		CA81FE0A09F04C7081FBC912 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		E4680AE96AA9B2B96BD316BD /* LessonListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D6F92C26DF02FB7FD49C19C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D82887808799FF8B674956D /* BroadCore in Frameworks */,
+				E39879EB1883917944AFD6E7 /* BroadExtensions in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2D95A66FBAB3DACAEDA91C92 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4E585E8296731297DC76F7B7 /* BroadStartApp.swift */,
+				76EFBED80C455A69CFC2A395 /* DemoLessonRepository.swift */,
+				CA81FE0A09F04C7081FBC912 /* Lesson.swift */,
+				E4680AE96AA9B2B96BD316BD /* LessonListModel.swift */,
+				3E08419D1566F25607960AD4 /* LessonListView.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		CED3E3B2CED2D819A469A7E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40F908C8B1C6A329A83598DE /* BroadStart.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FEDECC531D25250967CBD48F = {
+			isa = PBXGroup;
+			children = (
+				2D95A66FBAB3DACAEDA91C92 /* Sources */,
+				CED3E3B2CED2D819A469A7E8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEEC734A644C199C04D43221 /* BroadStart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E3C64B992BF924A11F2B143C /* Build configuration list for PBXNativeTarget "BroadStart" */;
+			buildPhases = (
+				E02AD48FA4F8C044B7CC0EDF /* Sources */,
+				D6F92C26DF02FB7FD49C19C2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BroadStart;
+			packageProductDependencies = (
+				00AB13EF2A20782B3FC35323 /* BroadCore */,
+				7F7CDD0F91A0C7AE1B2A6C5A /* BroadExtensions */,
+			);
+			productName = BroadStart;
+			productReference = 40F908C8B1C6A329A83598DE /* BroadStart.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6D9D9407E6713524402B416C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					CEEC734A644C199C04D43221 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = FFF45B880027FF86705E62B8 /* Build configuration list for PBXProject "BroadStart" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = FEDECC531D25250967CBD48F;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				3ADC44AA7D4EF6F3528D39EF /* XCRemoteSwiftPackageReference "broad-core-ios" */,
+				73500469001EDE7EAA132C79 /* XCRemoteSwiftPackageReference "broad-extensions-ios" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CED3E3B2CED2D819A469A7E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEEC734A644C199C04D43221 /* BroadStart */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E02AD48FA4F8C044B7CC0EDF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F08E69151BF2805BB4E20D28 /* BroadStartApp.swift in Sources */,
+				5B6A765773B4EAA784ED84D6 /* DemoLessonRepository.swift in Sources */,
+				D16EFB1C9366FC5EC2783A1F /* Lesson.swift in Sources */,
+				C9850C2341C5A759454C7F3F /* LessonListModel.swift in Sources */,
+				E894B0464AABFCAE7ED0C544 /* LessonListView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2A454DAF23A483B33C20E8B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BroadStart;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.broadapps.BroadStart;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		714623DB531B856EF5A5FF2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		7A07F5EC4538240735FA200C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BroadStart;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.broadapps.BroadStart;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F3CE154188874652F9468269 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E3C64B992BF924A11F2B143C /* Build configuration list for PBXNativeTarget "BroadStart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A07F5EC4538240735FA200C /* Debug */,
+				2A454DAF23A483B33C20E8B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FFF45B880027FF86705E62B8 /* Build configuration list for PBXProject "BroadStart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3CE154188874652F9468269 /* Debug */,
+				714623DB531B856EF5A5FF2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3ADC44AA7D4EF6F3528D39EF /* XCRemoteSwiftPackageReference "broad-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BroadApps-official/broad-core-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.0;
+			};
+		};
+		73500469001EDE7EAA132C79 /* XCRemoteSwiftPackageReference "broad-extensions-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BroadApps-official/broad-extensions-ios.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00AB13EF2A20782B3FC35323 /* BroadCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3ADC44AA7D4EF6F3528D39EF /* XCRemoteSwiftPackageReference "broad-core-ios" */;
+			productName = BroadCore;
+		};
+		7F7CDD0F91A0C7AE1B2A6C5A /* BroadExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73500469001EDE7EAA132C79 /* XCRemoteSwiftPackageReference "broad-extensions-ios" */;
+			productName = BroadExtensions;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 6D9D9407E6713524402B416C /* Project object */;
+}

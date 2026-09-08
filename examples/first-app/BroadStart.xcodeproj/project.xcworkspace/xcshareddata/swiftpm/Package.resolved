@@ -1,0 +1,33 @@
+{
+  "originHash" : "8d3df4df345ce05f4bdeb809b9c6176a1259632a99f028a08f21ed1f40f562b2",
+  "pins" : [
+    {
+      "identity" : "broad-core-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BroadApps-official/broad-core-ios.git",
+      "state" : {
+        "revision" : "913eee1fe0108ee94763ae93495fbc4e0e3f235b",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "broad-extensions-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BroadApps-official/broad-extensions-ios.git",
+      "state" : {
+        "revision" : "51a2172ce87980bf99a9cf2badadf45675a3664b",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject.git",
+      "state" : {
+        "revision" : "b685b549fe4d8ae265fc7a2f27d0789720425d69",
+        "version" : "2.10.0"
+      }
+    }
+  ],
+  "version" : 3
+}

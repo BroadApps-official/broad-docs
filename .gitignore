@@ -39,3 +39,7 @@ yarn-error.log*
 /outputs/
 /work/
 /.build/
+
+# Local Xcode state; keep shared schemes and Package.resolved in the example.
+xcuserdata/
+*.xcuserstate
