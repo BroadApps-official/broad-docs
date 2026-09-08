@@ -1,6 +1,147 @@
 {
   "schema": 1,
   "assets": {
+    "guides/paywall-ui/5092-normal.jpg": {
+      "sha256": "33fc3068dce8da9294bdeb1ac3ebaf397e13df3e8f91780610b2ff8faa353860",
+      "bytes": 180924,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/5092-normal.mp4": {
+      "sha256": "e89690c6641caeacb00b5e8b309280303f88283b9470a88fd2220fff609b5aed",
+      "bytes": 3418824,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/5092-normal.vtt": {
+      "sha256": "c15bd3b3aca07d3ae7207ae9a9836de506f18ee26b64eaab8999dc57027ac1a5",
+      "bytes": 666,
+      "source": {
+        "repository": "https://github.com/mrDankMeme/app5092",
+        "ref": "9ea75a7f698701b5affea547f9e1e86057142801",
+        "path": "5092/Views/Extra/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/5115-normal.jpg": {
+      "sha256": "8dc1e1ff3aa06bba02bad1d40f3e2d00ceced42cad234ed90e511181a78d63ff",
+      "bytes": 81396,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Paywall/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/5115-normal.mp4": {
+      "sha256": "6efb6a5e2937436d063e35107a850e004e9579db87c987133787e9210aae5d44",
+      "bytes": 842464,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Paywall/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/5115-normal.vtt": {
+      "sha256": "a7451ae2b20ee7ed60f25dfd6fe04c683db1039df35539eaf59ab0231824cef3",
+      "bytes": 611,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Paywall/PaywallView.swift"
+      },
+      "recording": {
+        "captured": "2026-09-08",
+        "device": "iPhone 17 Pro Simulator",
+        "os": "iOS 26.3",
+        "flow": "ordinary Adapty subscription paywall: open, switch products four times, close",
+        "processing": "Original playback speed; H.264 MP4 with fast start. Poster and Russian action captions accompany the recording."
+      }
+    },
+    "guides/paywall-ui/dark-loading.jpg": {
+      "sha256": "88c6a92b3015dfc177485af603fa72c606cbf64df0ab8f67b820d8debfc2f2f6",
+      "bytes": 38518,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
+        "ref": "6164cbacc3b66632c58fe2c0164bb8831a4108a8",
+        "path": "Documentation/Assets/README/PaywallLoader/catalog-loading.gif"
+      },
+      "recording": {
+        "derivedFrom": "guides/readme/PaywallLoader/catalog-loading.gif",
+        "sourceSha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
+        "flow": "existing ordinary paywall catalog loading example",
+        "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
+      }
+    },
+    "guides/paywall-ui/dark-loading.mp4": {
+      "sha256": "4463af64ea3e94d78b3d43e5bec34d0d81ff27b9416c626a7ca550b0336bcf72",
+      "bytes": 305037,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
+        "ref": "6164cbacc3b66632c58fe2c0164bb8831a4108a8",
+        "path": "Documentation/Assets/README/PaywallLoader/catalog-loading.gif"
+      },
+      "recording": {
+        "derivedFrom": "guides/readme/PaywallLoader/catalog-loading.gif",
+        "sourceSha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
+        "flow": "existing ordinary paywall catalog loading example",
+        "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
+      }
+    },
+    "guides/paywall-ui/dark-loading.vtt": {
+      "sha256": "ffff743fbf6618edc3fd52c34baa3c4be1bbb5b94f12f1d1e6db3f55f4dbc680",
+      "bytes": 204,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
+        "ref": "6164cbacc3b66632c58fe2c0164bb8831a4108a8",
+        "path": "Documentation/Assets/README/PaywallLoader/catalog-loading.gif"
+      },
+      "recording": {
+        "derivedFrom": "guides/readme/PaywallLoader/catalog-loading.gif",
+        "sourceSha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
+        "flow": "existing ordinary paywall catalog loading example",
+        "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
+      }
+    },
     "guides/readme/PaywallLoader/catalog-loading.gif": {
       "sha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
       "bytes": 782182,

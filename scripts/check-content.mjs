@@ -130,6 +130,28 @@ function validateSVG(buffer, label) {
   if (/<script\b|\bon\w+\s*=|(?:href|src)\s*=\s*["'](?:https?:|file:|\/\/)/i.test(source)) fail(`${label}: SVG contains executable or remote content.`);
 }
 
+function validateMP4(buffer, label) {
+  const boxes = new Set();
+  let offset = 0;
+  while (offset + 8 <= buffer.length) {
+    const size = buffer.readUInt32BE(offset);
+    const type = buffer.toString("ascii", offset + 4, offset + 8);
+    if (size < 8 || offset + size > buffer.length) return fail(`${label}: invalid or truncated MP4 box ${type}.`);
+    boxes.add(type);
+    offset += size;
+  }
+  if (offset !== buffer.length || !["ftyp", "moov", "mdat"].every((type) => boxes.has(type))) {
+    fail(`${label}: MP4 must contain complete ftyp, moov and mdat boxes.`);
+  }
+}
+
+function validateVTT(buffer, label) {
+  const source = buffer.toString("utf8");
+  if (!source.startsWith("WEBVTT\n") || !/\d{2}:\d{2}:\d{2}\.\d{3} --> \d{2}:\d{2}:\d{2}\.\d{3}/.test(source)) {
+    fail(`${label}: WebVTT must contain a header and timed descriptions.`);
+  }
+}
+
 async function validateMediaFile(publicPath) {
   const label = `public/${publicPath}`;
   const filePath = resolve(publicRoot, publicPath);
@@ -148,6 +170,8 @@ async function validateMediaFile(publicPath) {
   else if (extension === ".jpg" || extension === ".jpeg") validateJPEG(buffer, label);
   else if (extension === ".gif") validateGIF(buffer, label);
   else if (extension === ".svg") validateSVG(buffer, label);
+  else if (extension === ".mp4") validateMP4(buffer, label);
+  else if (extension === ".vtt") validateVTT(buffer, label);
   else return fail(`${label}: unsupported media type ${extension || "without extension"}.`);
 
   const manifestEntry = mediaManifest.assets?.[publicPath];
@@ -176,7 +200,7 @@ async function listMediaFiles(directory, prefix = "") {
     if (entry.name === "media-manifest.json") continue;
     const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
     if (entry.isDirectory()) result.push(...await listMediaFiles(join(directory, entry.name), relativePath));
-    else if (/\.(?:png|jpe?g|gif|svg)$/i.test(entry.name)) result.push(relativePath);
+    else if (/\.(?:png|jpe?g|gif|svg|mp4|vtt)$/i.test(entry.name)) result.push(relativePath);
   }
   return result.sort();
 }
@@ -208,6 +232,11 @@ for (const file of contentFiles) {
   }
 
   for (const match of body.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)) await registerMediaReference(file, match[2], match[1]);
+  for (const match of body.matchAll(/^\[([^\]]+)\]\((\.\.\/public\/[^)]+\.mp4)\)$/gim)) {
+    await registerMediaReference(file, match[2], match[1]);
+    await registerMediaReference(file, match[2].replace(/\.mp4$/i, ".jpg"), match[1]);
+    await registerMediaReference(file, match[2].replace(/\.mp4$/i, ".vtt"), match[1]);
+  }
   for (const match of body.matchAll(/<img\b[^>]*>/gi)) {
     const source = match[0].match(/\bsrc\s*=\s*["']([^"']+)["']/i)?.[1] ?? "";
     const alt = match[0].match(/\balt\s*=\s*["']([^"']*)["']/i)?.[1] ?? "";

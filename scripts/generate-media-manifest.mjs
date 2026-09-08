@@ -19,13 +19,14 @@ async function listMediaFiles(directory, prefix = "") {
     if (entry.name === "media-manifest.json") continue;
     const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
     if (entry.isDirectory()) result.push(...await listMediaFiles(join(directory, entry.name), relativePath));
-    else if (/\.(?:png|jpe?g|gif|svg)$/i.test(entry.name)) result.push(relativePath);
+    else if (/\.(?:png|jpe?g|gif|svg|mp4|vtt)$/i.test(entry.name)) result.push(relativePath);
   }
   return result.sort();
 }
 
 const platformRef = gitRef(platformRoot, "BROADAPPS_PLATFORM_MEDIA_REF");
 const docsRef = gitRef(projectRoot, "BROADAPPS_DOCS_MEDIA_REF");
+const previousManifest = JSON.parse(await readFile(join(publicRoot, "media-manifest.json"), "utf8"));
 const assets = {};
 for (const publicPath of await listMediaFiles(publicRoot)) {
   const buffer = await readFile(join(publicRoot, publicPath));
@@ -33,10 +34,17 @@ for (const publicPath of await listMediaFiles(publicRoot)) {
   const sourcePath = fromPlatform
     ? `Documentation/Assets/README/${publicPath.slice("guides/readme/".length)}`
     : `public/${publicPath}`;
+  const previous = previousManifest.assets?.[publicPath];
+  const sha256 = createHash("sha256").update(buffer).digest("hex");
+  // Keep the original application commit for unchanged simulator recordings.
+  if (previous?.recording && previous.sha256 !== sha256) {
+    throw new Error(`${publicPath}: recording changed; update its source provenance before regenerating.`);
+  }
   assets[publicPath] = {
-    sha256: createHash("sha256").update(buffer).digest("hex"),
+    ...(previous?.recording ? previous : {}),
+    sha256,
     bytes: buffer.length,
-    source: {
+    source: previous?.recording ? previous.source : {
       repository: fromPlatform
         ? "https://github.com/BroadApps-official/broad-platform-integration"
         : "https://github.com/BroadApps-official/broad-docs",

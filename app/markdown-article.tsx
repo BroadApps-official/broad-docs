@@ -39,7 +39,7 @@ function inline(text: string): ReactNode[] {
 }
 
 type Block = {
-  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table" | "image";
+  type: "heading" | "paragraph" | "quote" | "code" | "ul" | "ol" | "table" | "image" | "video" | "video-gallery";
   level?: number;
   text?: string;
   items?: string[];
@@ -48,7 +48,10 @@ type Block = {
   alt?: string;
   src?: string;
   language?: string;
+  videos?: { alt: string; src: string }[];
 };
+
+const videoLink = /^\[([^\]]+)\]\((\.\.\/public\/[^)]+\.mp4)\)$/i;
 
 function tableCells(line: string): string[] | null {
   const value = line.trim();
@@ -82,6 +85,21 @@ function parse(markdown: string): Block[] {
       continue;
     }
     if (code) { code.push(line); continue; }
+    // Standalone MP4 links remain usable in the canonical Markdown on GitHub.
+    // Each recording ships with a JPEG poster and Russian WebVTT descriptions.
+    const video = line.match(videoLink);
+    if (video) {
+      flushParagraph(); flushList();
+      const videos = [{ alt: video[1], src: video[2] }];
+      while (lineIndex + 1 < lines.length) {
+        const next = lines[lineIndex + 1].match(videoLink);
+        if (!next) break;
+        videos.push({ alt: next[1], src: next[2] });
+        lineIndex += 1;
+      }
+      blocks.push(videos.length > 1 ? { type: "video-gallery", videos } : { type: "video", ...videos[0] });
+      continue;
+    }
     const image = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) {
       flushParagraph(); flushList();
@@ -132,6 +150,23 @@ function parse(markdown: string): Block[] {
   return blocks;
 }
 
+function VideoFigure({ src: rawSource, alt }: { src: string; alt: string }) {
+  const src = normalizeMediaSource(rawSource);
+  const base = src.replace(/\.mp4$/i, "");
+  return (
+    <figure className="docs-media docs-media-video">
+      <div className="docs-media-frame">
+        <video aria-label={alt} controls playsInline preload="metadata" poster={`${base}.jpg`}>
+          <source src={src} type="video/mp4" />
+          <track kind="captions" src={`${base}.vtt`} srcLang="ru" label="Действия на экране" />
+          <a href={src}>Открыть видео</a>
+        </video>
+      </div>
+      <figcaption><b>{alt}</b><a href={src} download>Скачать MP4</a></figcaption>
+    </figure>
+  );
+}
+
 export function MarkdownArticle({ markdown }: { markdown: string }) {
   const blocks = parse(markdown);
   return <>{blocks.map((block, index) => {
@@ -155,6 +190,14 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       return <blockquote className={`docs-note${tone}`} key={index}><p>{inline(block.text ?? "")}</p></blockquote>;
     }
     if (block.type === "code") return <CodeBlock code={block.text ?? ""} language={block.language} key={index} />;
+    if (block.type === "video-gallery") return (
+      <div className="docs-video-gallery" role="group" aria-label="Сравнение трёх вариантов paywall" key={index}>
+        {block.videos?.map((video) => <VideoFigure {...video} key={video.src} />)}
+      </div>
+    );
+    if (block.type === "video") {
+      return <VideoFigure src={block.src ?? ""} alt={block.alt ?? ""} key={index} />;
+    }
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
