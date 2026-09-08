@@ -1147,3 +1147,38 @@ button, input { font: inherit; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .docs-reveal { opacity: 1; transform: none; }
 }
+/* RU A/B configuration examples are interactive, with explicit fixture data. */
+.ru-ab-lab { margin: 1.5rem 0 2rem; color: var(--text, #19263d); }
+.ru-ab-lab-heading > span { color: #315fea; font: 700 11px/1.5 monospace; letter-spacing: .12em; }
+.ru-ab-lab fieldset { min-width: 0; margin: 0; padding: 16px; border: 1px solid #dce3f0; border-radius: 12px; background: #f8faff; }
+.ru-ab-lab legend { padding: 0 6px; font-weight: 700; font-size: 14px; }
+.ru-ab-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ru-ab-lab label { display: block; font-size: 14px; margin: 8px 0; }
+.ru-ab-lab input:not([type="checkbox"]), .ru-ab-lab textarea, .ru-ab-lab select { display: block; width: 100%; min-width: 0; padding: 9px 10px; margin-top: 7px; border: 1px solid #bbc9df; border-radius: 7px; background: white; color: #19263d; font: inherit; }
+.ru-ab-lab textarea { font: 12px/1.7 monospace; resize: vertical; }
+.ru-ab-lab input[type="checkbox"] { margin-right: 6px; accent-color: #315fea; }
+.ru-ab-lab small { display: block; font-size: 12px; line-height: 1.6; color: #596d89; }
+.ru-ab-lab button { cursor: pointer; font: inherit; }
+.ru-ab-lab .ru-ab-text-button { padding: 5px 0; border: 0; background: none; color: #2459d6; font-size: 12px; }
+.ru-ab-lab .ru-ab-products { margin-top: 20px; }
+.ru-ab-catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 18px 0; }
+.docs-article .ru-ab-catalog h3 { margin: 0 0 10px; font-size: 15px; }
+.docs-article .ru-ab-catalog p { margin: 0 0 8px; font-size: 12px; }
+.ru-ab-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 9px 0; border-top: 1px solid #dce3f0; font-size: 12px; }
+.ru-ab-row code { font-size: 11px; }
+.ru-ab-row span { flex: 1 1 110px; }
+.ru-ab-row b { color: #00785c; font: 600 10px monospace; }
+.ru-ab-row.selected { border-radius: 6px; padding: 9px; margin-bottom: 5px; background: #eaf7f2; border: 1px solid #c9e8dc; }
+.ru-ab-missing { color: #9a5900; overflow-wrap: anywhere; }
+.ru-ab-response { max-width: 430px; }
+.ru-ab-result { margin-top: 18px; padding: 18px; border-left: 3px solid #315fea; background: #edf3ff; border-radius: 0 10px 10px 0; }
+.ru-ab-result.backend { border-color: #008366; background: #eef9f5; }
+.ru-ab-result.none { border-color: #be7800; background: #fff8ea; }
+.docs-article .ru-ab-result p { margin: 8px 0; font-size: 13px; }
+.ru-ab-result strong { font-size: 15px; }
+.ru-ab-method { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+.ru-ab-method button { border: 1px solid #c3cfe3; border-radius: 8px; background: white; color: #405575; padding: 9px 12px; font-size: 13px; }
+.ru-ab-method button[aria-pressed="true"] { background: #315fea; border-color: #315fea; color: white; }
+.docs-article .ru-ab-footnote { font-size: 12px; color: #596d89; }
+.ru-ab-lab :focus-visible { outline: 2px solid #315fea; outline-offset: 3px; }
+@media (max-width: 680px) { .ru-ab-controls, .ru-ab-catalog { grid-template-columns: 1fr; } }

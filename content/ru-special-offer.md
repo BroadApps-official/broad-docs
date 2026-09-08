@@ -52,3 +52,4 @@ RU checkout принимает продукт из каталога backend:
 - [RU Billing: карта и СБП](./ru-billing.md)
 - [RU Billing: продукты с backend](./backend-product-catalog.md)
 - [Аккаунт-менеджеру: спешл оффер](./ru-billing-account-manager.md)
+- [RU Billing A/B в платформе](./ru-billing-ab-platform.md) — подключение и выбор отмеченных продуктов варианта

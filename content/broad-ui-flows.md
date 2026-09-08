@@ -86,7 +86,7 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 Adapty и Swinject загрузятся автоматически. Не добавляйте их повторно, если
 приложение не импортирует их API напрямую.
 
-Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.1.0) в составе [platform set 1.3.0](./compatibility.md).
+Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.1.0) в составе [platform set 1.4.0](./compatibility.md).
 
 ## Стандарт, который должен сохраняться при любом дизайне
 

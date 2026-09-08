@@ -181,7 +181,17 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 
 В target выберите product `BroadMonetization`. Xcode автоматически загрузит совместимые `BroadCore`, Adapty и Swinject. Обязательного общего `BroadPlatform` нет.
 
-Текущая проверенная версия — [`1.3.1`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.3.1) в составе [platform set 1.3.0](./compatibility.md).
+Текущая проверенная версия — [`1.4.1`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.4.1) в составе [platform set 1.4.0](./compatibility.md).
+
+## RU Billing A/B
+
+С 1.4.0 можно подключить optional tracker через существующий RU composition:
+платформа отправит assign → shown, защитит от повторных callbacks и сохранит
+авторизацию checkout. Отдельный selector выбирает backend-продукты варианта
+с fallback на `isDefault` и прежний полный раздел.
+
+Обновление без tracker сохраняет старое поведение.
+[Настройка кодом, с агентом и интерактивный пример](./ru-billing-ab-platform.md).
 
 ## Проверка интеграции
 

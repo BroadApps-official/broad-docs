@@ -39,14 +39,14 @@
 
 | Что проверяется | Текущий проверенный вариант |
 |---|---:|
-| Общий platform set | `1.3.0` |
+| Общий platform set | `1.4.0` |
 | Минимальная версия iOS | 17.0 |
 | Режим языка Swift | 5 |
 | `BroadCore` | [`1.2.0`](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.2.0) |
 | `BroadExtensions` | [`1.0.1`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) |
-| `BroadMonetization` | [`1.3.1`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.3.1) |
+| `BroadMonetization` | [`1.4.1`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.4.1) |
 | `BroadUIFlows` | [`1.1.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.1.0) |
-| Последняя общая проверка | 4 сентября 2026 года |
+| Последняя общая проверка | 8 сентября 2026 года |
 
 **Не надо подключать все четыре библиотеки.** Таблица показывает версии всех
 частей платформы, но приложение берёт только те верхние библиотеки, которые
@@ -119,4 +119,4 @@
 [`Compatibility/current.yml`](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 Агент должен читать этот файл перед подключением или обновлением библиотек.
 
-[Открыть проверенный integration release 1.3.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.3.0)
+[Открыть проверенный integration release 1.4.0](https://github.com/BroadApps-official/broad-platform-integration/releases/tag/1.4.0)

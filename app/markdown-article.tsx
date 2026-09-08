@@ -2,6 +2,7 @@
 import type { ReactNode } from "react";
 import { slugifyHeading } from "@/lib/docs";
 import { CodeBlock } from "./code-block";
+import { RUExperimentConfigurator } from "./ru-experiment-configurator";
 
 function normalizeDocumentHref(href: string) {
   const localDocument = href.match(/^\.\/([a-z0-9-]+)\.md(#[^)]+)?$/i);
@@ -180,6 +181,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       return <h3 id={id} key={index}><a className="heading-anchor" href={`#${id}`}><span>{inline(block.text ?? "")}</span><span aria-hidden="true">#</span></a></h3>;
     }
     if (block.type === "paragraph") {
+      if (block.text === "[ru-billing-ab-configurator]") return <RUExperimentConfigurator key={index} />;
       const previous = blocks[index - 1];
       const afterHeading = previous?.type === "heading" && (previous.level === 2 || previous.level === 3);
       return <p className={afterHeading ? "docs-section-lead" : undefined} key={index}>{inline(block.text ?? "")}</p>;
