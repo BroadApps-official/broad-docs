@@ -78,7 +78,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   return (
     <div className="site-shell">
       <SiteHeader />
-      <main className={`docs-main${doc.group === "Старт" ? " docs-start" : ""}`}>
+      <main className={`docs-main${["Старт", "Архитектура", "Разработка"].includes(doc.group) ? " docs-guide" : ""}`}>
         <section className="docs-hero">
           <div className="docs-hero-inner section-wrap">
             <div className="docs-hero-copy">
@@ -92,7 +92,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <div className="docs-hero-meta"><span>{headings.length} разделов</span><span>≈ {readingMinutes} мин чтения</span><span>сверено с GitHub</span></div>
                 <div className="docs-hero-actions">
                   <a className="docs-primary-action" href={sourceHref} target="_blank" rel="noreferrer">Открыть Markdown <span>↗</span></a>
-                  <a href={historyHref} target="_blank" rel="noreferrer">История публикаций</a>
+                  <a href={historyHref} target="_blank" rel="noreferrer">История статьи</a>
                 </div>
               </div>
             </div>
