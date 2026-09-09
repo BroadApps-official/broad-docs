@@ -228,7 +228,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       const src = normalizeMediaSource(block.src ?? "");
       const tutorial = src.includes("/guides/start/");
       const desktop = tutorial && src.includes("xcode-");
-      const compact = src.includes("/guides/settings-support/");
+      const compact = src.includes("/guides/settings-support/") || src.includes("/guides/modules/");
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
       const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
       const wideFlowGif = flowGif && src.includes("/sample-editor/");

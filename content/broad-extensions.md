@@ -1,35 +1,32 @@
 # BroadExtensions
 
-`BroadExtensions` — маленький независимый набор SwiftUI/UIKit-утилит. Он решает локальные UI-задачи: прочитать HEX-цвет, зарегистрировать шрифт, закрыть клавиатуру по tap и вернуть системный жест назад.
+`BroadExtensions` — **четыре небольшие утилиты для интерфейса**: HEX-цвета, свои шрифты, закрытие клавиатуры и системный свайп назад. Модуль независим: не подключает Core, Adapty, Swinject или готовые экраны платформы.
 
-> Пример: дизайн передал цвет `#4F8CFF`. Вместо копирования собственного HEX-parser в очередное приложение разработчик подключает только `BroadExtensions` и получает `Color(broadHex: "#4F8CFF")`.
+## Как это выглядит
 
-## Почему это отдельный модуль
+![BroadExtensionsGallery: четыре формата HEX-цвета, поле ввода и переход на экран со свайпом назад](../public/guides/modules/extensions-gallery.png)
 
-Для таких маленьких функций не нужны запуск платформы, платёжная система или готовые экраны. Поэтому `BroadExtensions` не зависит от других BroadApps-библиотек и не тянет Adapty, StoreKit или Swinject.
+Это настоящий экран `BroadExtensionsGallery` из репозитория модуля. На нём можно сравнить цвета, открыть клавиатуру и проверить возврат с экрана **Open detail**. Цвета и оформление своего приложения вы задаёте отдельно.
 
-Это важно для небольших приложений и отдельных targets: можно взять одну полезную утилиту, не превращая её в скрытое подключение всей платформы.
-
-## Четыре готовые задачи
-
-### HEX-цвет без собственного parser
+## HEX-цвета
 
 ```swift
+import BroadExtensions
+import SwiftUI
+import UIKit
+
 let accent = Color(broadHex: "#4F8CFF")
 let overlay = UIColor(broadHex: "101828CC")
-let shortGreen = BroadRGBAColor(hex: "#0F08")
+let channels = BroadRGBAColor(hex: "#0F08")
 ```
 
-Поддерживаются формы RGB, RGBA, RRGGBB и RRGGBBAA. Решётка `#` необязательна. Неверная строка возвращает `nil`, поэтому приложение не получает случайный «запасной» цвет и может сразу заметить ошибку конфигурации.
+Поддерживаются `RGB`, `RGBA`, `RRGGBB` и `RRGGBBAA`; решётка `#` необязательна. В вариантах с прозрачностью alpha находится **в конце** строки.
 
-| Строка | Смысл |
-|---|---|
-| `#0AF` | Короткие RGB-каналы |
-| `#0AF8` | Короткие RGB + alpha |
-| `#4F8CFF` | Полный RGB |
-| `101828CC` | Полный RGB + alpha |
+> **Неверный HEX возвращает `nil`.** Все три примера дают optional-значение. Обработайте ошибку или явно задайте запасной цвет, например `Color(broadHex: value) ?? .clear`.
 
-### Свои шрифты и Dynamic Type
+## Свои шрифты
+
+Добавьте файлы шрифта в ресурсы target и зарегистрируйте их перед использованием:
 
 ```swift
 try BroadFontRegistrar.register(
@@ -42,11 +39,15 @@ let title = Font.broadCustom("Inter-Bold", size: 28, relativeTo: .title)
 let body = UIFont.broadCustom("Inter-Regular", size: 16)
 ```
 
-Registrar ищет конкретные ресурсы в переданном bundle и сообщает typed-ошибку, если файл отсутствует или не зарегистрировался. `relativeTo` сохраняет поддержку системного Dynamic Type — пользователь может увеличить текст в настройках iPhone.
+Имена в `resourceNames` — имена файлов без расширения. В `broadCustom` передаётся внутреннее имя шрифта (PostScript name); оно не обязательно совпадает с именем файла. Файлы Inter в пакет не входят — здесь это пример ресурсов приложения.
 
-Шрифты и их файлы принадлежат приложению. Модуль знает только безопасный способ регистрации и создания `Font`/`UIFont`.
+Registrar сообщает ошибку, если ресурс отсутствует или его не удалось зарегистрировать. `UIFont.broadCustom` возвращает `nil`, если шрифт с таким именем недоступен. Для SwiftUI отдельной ошибки от `Font.broadCustom` нет, поэтому регистрацию и имя нужно проверить заранее.
 
-### Закрытие клавиатуры по tap
+Оба помощника поддерживают Dynamic Type — увеличение текста из настроек iPhone. В SwiftUI базовый стиль задаёт `relativeTo`, в UIKit — параметр `textStyle`.
+
+## Закрытие клавиатуры
+
+Примените модификатор к контейнеру с полем ввода. Переменная `email` в примере — состояние вашей формы.
 
 ```swift
 Form {
@@ -55,9 +56,11 @@ Form {
 .broadDismissKeyboardOnTap()
 ```
 
-Modifier добавляет simultaneous gesture: tap закрывает клавиатуру, но не «съедает» нажатие дочерней кнопки или строки. Это удобнее, чем добавлять глобальный gesture поверх всего приложения.
+Модификатор добавляет одновременный жест нажатия, чтобы закрытие клавиатуры могло работать вместе с действиями дочерних элементов. Проверьте свою форму: нажатие вне поля должно закрывать клавиатуру, а кнопки — продолжать работать.
 
-### Системный swipe-back при скрытой кнопке Back
+## Свайп назад
+
+Если у экрана своя кнопка Back, системный жест от левого края может перестать работать. Добавьте модификатор к экрану внутри навигационного стека:
 
 ```swift
 DetailView()
@@ -65,66 +68,32 @@ DetailView()
     .broadInteractiveSwipeBack()
 ```
 
-Когда приложение рисует собственную кнопку назад, SwiftUI может потерять системный свайп от левого края. Modifier локально возвращает этот gesture для нужного экрана, сохраняет прежний delegate и восстанавливает его после закрытия.
+Он временно настраивает жест текущего navigation controller и восстанавливает прежние настройки после закрытия экрана. Это локальное дополнение к навигации, а не замена `NavigationStack`.
 
-> Важно: это не новая навигационная система и не глобальный swizzling. Modifier применяется только к экрану, которому действительно нужен системный жест.
+## Как подключить и запустить пример
 
-## Что выбрать для конкретной задачи
-
-| Нужно | Используйте | Не нужно подключать |
-|---|---|---|
-| Превратить HEX в `Color` или `UIColor` | `Color.init?(broadHex:)`, `UIColor.init?(broadHex:)` | Core и оплату |
-| Разобрать цвет без UI-типа | `BroadRGBAColor` | SwiftUI view |
-| Зарегистрировать bundled fonts | `BroadFontRegistrar.register(...)` | Собственный registrar в каждом app |
-| Создать масштабируемый custom font | `Font.broadCustom(...)`, `UIFont.broadCustom(...)` | Жёсткий размер без Dynamic Type |
-| Закрыть клавиатуру по tap | `.broadDismissKeyboardOnTap()` | Глобальный прозрачный overlay |
-| Вернуть edge swipe-back | `.broadInteractiveSwipeBack()` | Собственный navigation coordinator |
-
-## Чего здесь намеренно нет
-
-- bootstrap, кеша, timeout и логирования — это `BroadCore`;
-- purchase, restore и Premium — это `BroadMonetization`;
-- onboarding, paywall и готовых экранов — это `BroadUIFlows`;
-- фирменных цветов, картинок и шрифтов конкретного приложения;
-- product IDs, placements, URL или ключей;
-- общих extensions без префикса `broad`, которые могли бы конфликтовать с кодом приложения;
-- глобального изменения поведения всех navigation controllers.
-
-## Как подключить
-
-В Xcode откройте `File → Add Package Dependencies…` и вставьте:
+В Xcode откройте **File → Add Package Dependencies…** и вставьте:
 
 ```text
 https://github.com/BroadApps-official/broad-extensions-ios.git
 ```
 
-Выберите product `BroadExtensions` только для target, где нужны helpers, затем добавьте:
+Выберите product **BroadExtensions** для нужного target. Для согласованного набора версий используйте [таблицу совместимости](./compatibility.md).
 
-```swift
-import BroadExtensions
-```
-
-Текущая проверенная версия — [`1.0.1`](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1).
-
-## Что проверить после подключения
-
-1. Xcode скачивает package по публичному HTTPS без логина и токена.
-2. В dependency graph не появились Core, Adapty, StoreKit или UIFlows.
-3. Неверный HEX возвращает `nil`, а корректные 3/4/6/8-digit варианты дают ожидаемые каналы.
-4. Отсутствующий файл шрифта возвращает ошибку, а не молча подменяется системным шрифтом.
-5. Tap вне поля закрывает клавиатуру и не блокирует кнопку внутри формы.
-6. Swipe-back работает только на нужном экране и корректно восстанавливается после закрытия.
-7. Приложение собирается в Debug и Release.
-
-## Где посмотреть живые примеры
-
-В репозитории есть `BroadExtensionsGallery`. Она запускается на iPhone Simulator и показывает реальные production helpers: набор HEX-цветов, форму с закрытием клавиатуры и detail screen со swipe-back.
+Чтобы открыть Gallery, клонируйте репозиторий и выполните из его корня. Скрипт подготовит нужную версию XcodeGen:
 
 ```bash
 bash Scripts/generate_gallery.sh
 open Examples/BroadExtensionsGallery/BroadExtensionsGallery.xcodeproj
 ```
 
-Gallery проверяет поведение утилит, но не задаёт дизайн конкретного приложения.
+Выберите схему **BroadExtensionsGallery**, iPhone Simulator и нажмите **Run**.
 
-[Открыть README модуля](https://github.com/BroadApps-official/broad-extensions-ios) · [Посмотреть автоматически обновляемый Public API](https://github.com/BroadApps-official/broad-extensions-ios/blob/main/Documentation/PublicAPI.md) · [Предложить правку документации](https://github.com/BroadApps-official/broad-extensions-ios/edit/main/Documentation/BroadExtensions.md)
+## Что проверить
+
+1. Цвет и прозрачность совпадают с дизайном; неверная строка обрабатывается явно.
+2. Шрифт найден по правильному имени, текст увеличивается через Dynamic Type.
+3. Клавиатура закрывается, кнопки формы остаются рабочими.
+4. Свайп назад работает на нужном экране и не меняет поведение соседних экранов.
+
+[README модуля](https://github.com/BroadApps-official/broad-extensions-ios) · [Полный Public API](https://github.com/BroadApps-official/broad-extensions-ios/blob/main/Documentation/PublicAPI.md) · [Как выбрать модуль](./architecture.md)

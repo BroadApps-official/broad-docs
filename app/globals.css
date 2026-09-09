@@ -1250,3 +1250,40 @@ button, input { font: inherit; }
 .docs-article .ru-ab-footnote { font-size: 12px; color: #596d89; }
 .ru-ab-lab :focus-visible { outline: 2px solid #315fea; outline-offset: 3px; }
 @media (max-width: 680px) { .ru-ab-controls, .ru-ab-catalog { grid-template-columns: 1fr; } }
+
+/* Module overviews: readable prose, restrained emphasis and factual screenshots. */
+.docs-module-page .docs-hero p { max-width: 65ch; font-size: 1rem; line-height: 1.6; }
+.docs-module-page .docs-article-content > p,
+.docs-module-page .docs-article-content li,
+.docs-module-page .docs-note p { font-size: 1rem; line-height: 1.65; }
+.docs-module-page .docs-article-content > p { margin: 14px 0; }
+.docs-module-page .docs-article-content > h2 { margin: 32px 0 14px; padding-top: 22px; font-size: 1.4rem; line-height: 1.35; }
+.docs-module-page .docs-article-content > h3 { margin: 24px 0 12px; font-size: 1.125rem; }
+.docs-module-page .docs-article-content strong { background: none; font-weight: 720; }
+.docs-module-page .docs-article-content > ul,
+.docs-module-page .docs-article-content > ol { margin: 16px 0; padding-block: 12px; }
+.docs-module-page .docs-article-content li { margin-block: 8px; }
+.docs-module-page .docs-article-content > ol > li { padding-left: 34px; line-height: 1.65; }
+.docs-module-page .docs-article-content > ol > li::before { top: 3px; }
+.docs-module-page .docs-table-wrap { margin: 18px 0; }
+.docs-module-page .docs-table-wrap th,
+.docs-module-page .docs-table-wrap td { padding: 12px 14px; font-size: .875rem; line-height: 1.55; }
+.docs-module-page .docs-code-block pre { padding: 16px; font-size: .8125rem; line-height: 1.6; }
+.docs-module-page .docs-code-label,
+.docs-module-page .docs-code-label button { font-size: .75rem; }
+.docs-module-page .docs-code-label button { min-height: 32px; }
+.docs-module-page .docs-media { margin-block: 24px; }
+.docs-module-page .docs-media-frame { background: #f5f7fb; }
+.docs-module-page .docs-media-compact .docs-media-frame { background: transparent; }
+.docs-module-page .docs-media-desktop { margin-inline: 0; box-shadow: none; }
+.docs-module-page .docs-media figcaption { font-size: .875rem; line-height: 1.6; }
+.docs-module-page .docs-media:hover img { transform: none; }
+.docs-module-page .docs-image-gallery { gap: 20px; }
+.docs-module-page .docs-image-gallery .docs-media { margin: 0; }
+@media (max-width: 620px) {
+  .docs-module-page .docs-article-card { padding-inline: 18px; }
+  .docs-module-page .docs-callout-danger { gap: 10px; padding: 16px 12px; border-radius: 12px; }
+  .docs-module-page .docs-callout-danger-icon { flex-basis: 24px; height: 24px; font-size: 16px; }
+  .docs-module-page .docs-image-gallery { grid-template-columns: minmax(0, 1fr); }
+  .docs-module-page .docs-image-gallery .docs-media { max-width: 260px; margin-inline: auto; }
+}

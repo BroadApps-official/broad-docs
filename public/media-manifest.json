@@ -1506,6 +1506,86 @@
         "ref": "a2086dd6056489c5066d233122d0b6db4623bd54",
         "path": "public/og-v2.png"
       }
+    },
+    "guides/modules/core-sandbox.png": {
+      "sha256": "40814facd04a97eb0468ab7995f95d634a7fed499ff83e03222e0e498d820245",
+      "bytes": 209278,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-core-ios",
+        "ref": "913eee1fe0108ee94763ae93495fbc4e0e3f235b",
+        "path": "Examples/BroadCoreSandbox/Sources/CoreSandboxView.swift"
+      },
+      "recording": {
+        "capturedAt": "2026-09-09",
+        "method": "xcrun simctl io screenshot",
+        "device": "iPhone 17 Pro Simulator",
+        "runtime": "iOS 26.3",
+        "scenario": "Local example with fixture data; no financial operations"
+      }
+    },
+    "guides/modules/extensions-gallery.png": {
+      "sha256": "3bc58d92d998afc0cf7e1f6856336d2b26108c152342dc7bf9fdf7206409c7c7",
+      "bytes": 219010,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-extensions-ios",
+        "ref": "51a2172ce87980bf99a9cf2badadf45675a3664b",
+        "path": "Examples/BroadExtensionsGallery/Sources/GalleryView.swift"
+      },
+      "recording": {
+        "capturedAt": "2026-09-09",
+        "method": "xcrun simctl io screenshot",
+        "device": "iPhone 17 Pro Simulator",
+        "runtime": "iOS 26.3",
+        "scenario": "Local example with fixture data; no financial operations"
+      }
+    },
+    "guides/modules/ui-paywall.png": {
+      "sha256": "bdf961d51b76fafcdc410a84ddde90f47d7f677b73535252a2f9c6b6946c1719",
+      "bytes": 246188,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-ui-flows-ios",
+        "ref": "2bfce7cddefd500bcb7f034e9fba39d4ad2b7d7f",
+        "path": "Examples/BroadUIFlowsGallery/Sources/MonetizationGallery.swift"
+      },
+      "recording": {
+        "capturedAt": "2026-09-09",
+        "method": "xcrun simctl io screenshot",
+        "device": "iPhone 17 Pro Simulator",
+        "runtime": "iOS 26.3",
+        "scenario": "Local example with fixture data; no financial operations"
+      }
+    },
+    "guides/modules/ui-special-offer.png": {
+      "sha256": "f840b7c18fdcc7aab892c0cc297f1c3500e6580916a357de7f1ead7bea999b37",
+      "bytes": 280438,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-ui-flows-ios",
+        "ref": "2bfce7cddefd500bcb7f034e9fba39d4ad2b7d7f",
+        "path": "Examples/BroadUIFlowsGallery/Sources/MonetizationGallery.swift"
+      },
+      "recording": {
+        "capturedAt": "2026-09-09",
+        "method": "xcrun simctl io screenshot",
+        "device": "iPhone 17 Pro Simulator",
+        "runtime": "iOS 26.3",
+        "scenario": "Local example with fixture data; no financial operations"
+      }
+    },
+    "guides/modules/ui-loadable.png": {
+      "sha256": "d934e1b257ad29bbb911ddb018d23cf76ff61651f3f0292eef5cc71154f0a581",
+      "bytes": 243597,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-ui-flows-ios",
+        "ref": "2bfce7cddefd500bcb7f034e9fba39d4ad2b7d7f",
+        "path": "Examples/BroadUIFlowsGallery/Sources/LoadableAndOnboardingGallery.swift"
+      },
+      "recording": {
+        "capturedAt": "2026-09-09",
+        "method": "xcrun simctl io screenshot",
+        "device": "iPhone 17 Pro Simulator",
+        "runtime": "iOS 26.3",
+        "scenario": "Local example with fixture data; no financial operations"
+      }
     }
   }
 }
