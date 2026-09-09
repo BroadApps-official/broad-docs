@@ -8,17 +8,17 @@
 
 | Параметр | Значение | Как применять |
 |---|---|---|
-| Номер набора — platform set | `1.5.0` | Обозначает сочетание ниже, не устанавливается как пакет |
+| Номер набора — platform set | `1.5.1` | Обозначает сочетание ниже, не устанавливается как пакет |
 | Минимальная iOS | `17.0` | Установить для iPhone target приложения |
 | Swift language mode | `5` | Режим языка исходников, а не номер установленного Xcode |
 | Swift tools | `6.0` | Нужен toolchain, который умеет читать такой Package.swift |
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.2.0) | `1.2.0` | Общие состояния, запуск, кеш и ошибки |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.5.2) | `1.5.2` | Покупки, восстановление, RU Billing, A/B и серверный резерв при недоступном Adapty |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.5.3) | `1.5.3` | Покупки, восстановление, RU Billing, A/B и серверный резерв при недоступном Adapty или пустых продуктах |
 | [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.1.0) | `1.1.0` | Общие экраны и переходы |
 | Общая проверка | `passed`, 9 сентября 2026 | Результат относится к указанному сочетанию |
 
-**Не нужно ставить всем модулям номер 1.5.0.** У каждого свой выпуск. Не нужно и подключать все четыре модуля: сначала выберите [нужные возможности](./module-selection.md).
+**Не нужно ставить всем модулям номер 1.5.1.** У каждого свой выпуск. Не нужно и подключать все четыре модуля: сначала выберите [нужные возможности](./module-selection.md).
 
 ## Что именно подтверждает passed
 
