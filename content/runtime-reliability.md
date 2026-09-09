@@ -132,7 +132,7 @@ state = state.beginLoading()
 | Ранее подтверждённый доступ | Доверить решение Entitlement Engine с его сроками и привязкой к пользователю | Произвольное бессрочное `isPremium = true` в UserDefaults |
 | Баланс токенов | Показать допустимый снимок с корректным состоянием обновления | Начислить или списать токены без серверного результата |
 
-Важно различать постоянный кеш платформы и текущий ответ Adapty, который может использовать внутренний кеш SDK. Последний может разрешать Special Offer; для `ru_pay` нужен отдельно доказанный свежий удалённый ответ. [Контракты кеша](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/CachingAndOffline.md).
+Важно различать постоянный кеш платформы и текущий ответ Adapty, который может использовать внутренний кеш SDK. Последний может разрешать Special Offer; обычный `ru_pay` требует подтверждённого свежего ответа. При недоступном Adapty есть отдельно подключаемый [резерв с серверным каталогом](./ru-billing.md): российский Storefront или регион iPhone, без обхода полученного `false`. Кеш не восстанавливает это разрешение. [Контракты кеша](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/CachingAndOffline.md).
 
 У Entitlement Engine есть специальное ограниченное продолжение ранее подтверждённого `active` без сети — **offline grace**. Оно действует только в рамках настроенной политики, того же пользователя и срока права. Это не новая покупка и не возможность UI самостоятельно продлевать доступ. Просроченный `inactive` такого продления не получает. [Правила проверки доступа](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/Entitlements.md).
 
