@@ -106,7 +106,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
                 <i aria-hidden="true" />
                 <span>Сверено с <a href={sourceHref} target="_blank" rel="noreferrer">Markdown в GitHub</a> при публикации</span>
               </div>
-              <div className="docs-article-content"><MarkdownArticle markdown={doc.body} compactScreens={doc.group === "Части платформы"} /></div>
+              <div className="docs-article-content"><MarkdownArticle markdown={doc.body} /></div>
               <section className="docs-source-card" aria-labelledby="source-card-title">
                 <div>
                   <span>ПЕРВОИСТОЧНИК</span>

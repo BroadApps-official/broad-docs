@@ -27,7 +27,7 @@ function inline(text: string): ReactNode[] {
     const image = part.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (image) {
       const src = normalizeMediaSource(image[2]);
-      return <img alt={image[1]} className={isScreenMediaSource(src) ? "docs-screen-image" : undefined} decoding="async" key={index} loading="lazy" src={src} />;
+      return <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${image[1]}`} key={index}><img alt={image[1]} className={isScreenMediaSource(src) ? "docs-screen-image" : undefined} decoding="async" loading="lazy" src={src} /></a>;
     }
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (link) {
@@ -172,7 +172,7 @@ function VideoFigure({ src: rawSource, alt }: { src: string; alt: string }) {
   );
 }
 
-export function MarkdownArticle({ markdown, compactScreens = false }: { markdown: string; compactScreens?: boolean }) {
+export function MarkdownArticle({ markdown }: { markdown: string }) {
   const blocks = parse(markdown);
   return <>{blocks.map((block, index) => {
     if (block.type === "heading") {
@@ -226,16 +226,13 @@ export function MarkdownArticle({ markdown, compactScreens = false }: { markdown
     );
     if (block.type === "image") {
       const src = normalizeMediaSource(block.src ?? "");
-      const tutorial = src.includes("/guides/start/");
-      const desktop = tutorial && src.includes("xcode-");
-      const compact = src.includes("/guides/settings-support/") || src.includes("/guides/modules/") || (compactScreens && isScreenMediaSource(src) && !desktop);
+      const desktop = src.includes("/guides/start/xcode-") || src.includes("pm-data-sanitized");
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
-      const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
-      const wideFlowGif = flowGif && src.includes("/sample-editor/");
+      const compact = reference && !desktop;
       const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
-        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}${desktop ? " docs-media-desktop" : ""}${compact ? " docs-media-compact" : ""}`} key={index}>
-          <div className="docs-media-frame">{tutorial || compact ? <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${block.alt ?? "скриншот"}`}><img alt={block.alt ?? ""} decoding="async" loading="lazy" src={src} /></a> : <img alt={block.alt ?? ""} className={reference ? "docs-screen-image" : undefined} decoding="async" loading="eager" src={src} />}</div>
+        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${desktop ? " docs-media-desktop" : ""}${compact ? " docs-media-compact" : ""}`} key={index}>
+          <div className="docs-media-frame"><a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${block.alt ?? "изображение"}`}><img alt={block.alt ?? ""} decoding="async" loading="lazy" src={src} /></a></div>
           {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
       );
