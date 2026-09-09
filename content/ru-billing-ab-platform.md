@@ -130,6 +130,11 @@ let selection = RUExperimentCatalogSelector().select(
 принимают `isDefault`, `default`, `is_default`; отсутствующий/неверный тип даёт false.
 Цена, валюта, supported methods и checkout ID остаются из backend-строки.
 
+Это правило выбора используется и без A/B-тестов: с BroadMonetization 1.5.4
+подключённый [резервный RU-загрузчик](./ru-billing.md) показывает все defaults,
+если Adapty недоступен, вернул `[]` или ни один ID не совпал. Исходный каталог
+сохраняется полностью, а checkout проверяет выбранную серверную строку.
+
 ## Как считается показ
 
 При открытом RU-gate и корректных кодах отправляется `assign`, затем

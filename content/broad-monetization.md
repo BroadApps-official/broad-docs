@@ -184,7 +184,7 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 
 В target выберите product `BroadMonetization`. Xcode автоматически загрузит совместимые `BroadCore`, Adapty и Swinject. Обязательного общего `BroadPlatform` нет.
 
-Текущая проверенная версия — [`1.4.1`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.4.1) в составе [platform set 1.4.0](./compatibility.md).
+Текущая проверенная версия — [`1.5.4`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.5.4) в составе [platform set 1.5.2](./compatibility.md).
 
 ## RU Billing A/B
 
@@ -193,7 +193,9 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 авторизацию checkout. Отдельный selector выбирает backend-продукты варианта
 с fallback на `isDefault` и прежний полный раздел.
 
-Обновление без tracker сохраняет старое поведение.
+Обновление без tracker не включает отчёты A/B. С 1.5.4 тот же выбор `isDefault`
+применяется в отдельно подключённом [резервном RU-загрузчике](./ru-billing.md),
+если продуктов Adapty нет или ни один ID не совпал с backend.
 [Настройка кодом, с агентом и интерактивный пример](./ru-billing-ab-platform.md).
 
 ## Проверка интеграции
