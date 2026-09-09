@@ -66,8 +66,9 @@ Adapty связывает приложение с подписками в App St
 
 Разработчик реализует fallback в общей логике загрузки. В Adapty должен быть
 создан `main` с опубликованным paywall и продуктами. Для показа и покупки
-используется фактически полученный paywall вместе с его продуктами и Remote
-Config. Если недоступен и `main`, дальнейшее поведение определяется настройками
+используется фактически полученный paywall вместе с его продуктами.
+Все Remote Config ключи читаются только из выбранного paywall `main`.
+Если недоступен и `main`, дальнейшее поведение определяется настройками
 оплаты приложения, включая подключённый [RU Billing](./ru-billing.md).
 Если данные для оплаты получить не удалось, покажите ошибку с повторной
 попыткой, без циклического перехода на `main`.
@@ -86,11 +87,11 @@ Config. Если недоступен и `main`, дальнейшее повед
 В общем [сценарии Special Offer](./special-offer.md) они называются одинаково,
 но выполняют разные задачи:
 
-- **Ключ `special_offer` в Remote Config основного paywall** разрешает показ
+- **Ключ `special_offer` в Remote Config выбранного paywall `main`** разрешает показ
   второго экрана только при точном булевом `true`.
 - **Отдельный placement `special_offer`** отдаёт продукты для этого экрана.
 
-Одного создания placement недостаточно: нужен и флаг в основном paywall.
+Одного создания placement недостаточно: нужен и флаг в выбранном paywall `main`.
 Дальше показ следует правилам окна и cooldown из статьи Special Offer.
 При настройке нового приложения ориентируйтесь на этот общий сценарий;
 ниже отдельно разобраны имена, согласованные для существующего проекта 5007.
@@ -123,10 +124,17 @@ try await Adapty.activate(with: configuration)
 
 ## 2. Получение пейвола и продуктов
 
-Приложение запрашивает пейвол по идентификатору `placement`:
+Приложение сначала получает настройки из `main`, затем продукты нужного
+`placement`. В BroadMonetization 2.0.0 это уже делает адаптер:
 
 ```swift
-let paywall = try await Adapty.getPaywall(placementId: placementId)
+let mainPaywall = try await Adapty.getPaywall(placementId: "main")
+let remoteConfig = mainPaywall.remoteConfig?.dictionary ?? [:]
+let paywall = if placementId == "main" {
+    mainPaywall
+} else {
+    try await Adapty.getPaywall(placementId: placementId)
+}
 let products = try await Adapty.getPaywallProducts(paywall: paywall)
 ```
 
@@ -134,6 +142,12 @@ let products = try await Adapty.getPaywallProducts(paywall: paywall)
 > вернул для текущего `placement`. Не фильтруйте их по `productId`, цене,
 > периоду или локальному списку — иначе приложение изменит состав выбранного
 > варианта A/B-теста.
+
+Это сокращённый пример успешного пути. Обработку ошибок, fallback и provenance
+выполняет адаптер платформы. `ru_pay`, `auto_revenue_view`, `special_offer`,
+`experiment_code`, `segment_code` и остальные настройки берутся из `remoteConfig`
+выше. Конфигурации других placements не участвуют. Показ логируется только
+для реально показанного `paywall`; запрос `main` ради настроек не является показом.
 
 Из полученных продуктов берутся цена, период подписки и другая информация для интерфейса. В приложениях BroadApps trial не используется. Не следует прописывать цену вручную: она может отличаться в зависимости от страны и валюты пользователя.
 

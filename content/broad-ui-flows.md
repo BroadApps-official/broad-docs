@@ -86,7 +86,7 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 Adapty и Swinject загрузятся автоматически. Не добавляйте их повторно, если
 приложение не импортирует их API напрямую.
 
-Текущая проверенная версия — [`1.1.0`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/1.1.0) в составе [platform set 1.4.0](./compatibility.md).
+Текущая проверенная версия — [`2.0.1`](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/2.0.1) в составе [platform set 2.0.0](./compatibility.md).
 
 ## Стандарт, который должен сохраняться при любом дизайне
 
@@ -94,7 +94,7 @@ Adapty и Swinject загрузятся автоматически. Не доб�
 |---|---|
 | Онбординг | показывает переданные страницы по порядку и завершает маршрут один раз |
 | Обычный paywall | показывает все продукты платёжного слоя и не покупает при выборе карточки |
-| Special Offer | строгий `special_offer = true` из основного paywall разрешает оффер в окне 24 часа; затем экран закрывается и идут 24 часа cooldown; все Adapty-продукты берутся из отдельного placement `special_offer` |
+| Special Offer | строгий `special_offer = true` из выбранного paywall `main` разрешает оффер в окне 24 часа; затем экран закрывается и идут 24 часа cooldown; все Adapty-продукты берутся из отдельного placement `special_offer` |
 | Главный экран приложения | открывается после завершения бесплатного пути или подтверждённого Premium |
 | Settings | явно разделяет Upgrade, Restore, Support, legal и управление подпиской |
 | Support | готовит обращение или открывает согласованный чат, но ничего не отправляет скрытно |

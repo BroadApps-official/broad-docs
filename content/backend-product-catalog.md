@@ -379,7 +379,7 @@ RU methods сам по себе. Нужен российский Storefront/ре
 Если backend отдаёт Special Offer, не выбирайте одну строку сортировкой.
 RU-продукт Special Offer приходит именно из платёжного каталога backend: строка
 выбирается по отметке `isSpecialOffer`, а показ разрешает булев флаг в Remote
-Config основного paywall. Ни Adapty, ни App Store не являются источником этого
+Config выбранного paywall плейсмента `main`. Ни Adapty, ни App Store не являются источником этого
 RU-продукта. Полный маршрут с циклом «окно оффера → cooldown»:
 [«RU Billing: спешл оффер»](./ru-special-offer.md).
 

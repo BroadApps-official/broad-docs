@@ -70,7 +70,7 @@ Continue. Это переход в записанном примере, а не 
 окно показа и дополнительные условия. Запись не подтверждает общий цикл 24/24
 и не служит инструкцией по выбору RU-продукта.
 
-Для новой интеграции действуют общие статьи: флаг основного paywall и цикл
+Для новой интеграции действуют общие статьи: флаг выбранного paywall `main` и цикл
 24/24 — из [Special Offer](./special-offer.md), выбор RU-продукта по
 `isSpecialOffer` — из [RU Billing Special Offer](./ru-special-offer.md).
 
@@ -116,7 +116,7 @@ RU-варианте.
 
 | Проверяем | Ожидаемый результат |
 |---|---|
-| Крестик обычного paywall | Special Offer открывается только при строгом `special_offer = true` в Remote Config основного paywall и активном окне |
+| Крестик обычного paywall | Special Offer открывается только при строгом `special_offer = true` в Remote Config выбранного paywall `main` и активном окне |
 | Продукты Special Offer | Приходят из Adapty placement `special_offer`; платёжный каталог backend в общем flow не вызывается |
 | Успешные purchase и restore | Второе предложение не открывается |
 | Повторное открытие внутри окна | Оффер появляется снова; после истечения окна начинается cooldown, затем цикл повторяется |
@@ -129,7 +129,7 @@ RU-варианте.
 
 | Проверяем | Ожидаемый результат |
 |---|---|
-| Gate показа | строгий `special_offer = true` в Remote Config основного paywall и активное окно |
+| Gate показа | строгий `special_offer = true` в Remote Config выбранного paywall `main` и активное окно |
 | Продукт RU Billing Special Offer | каталог backend возвращает продукт с отметкой `isSpecialOffer`; Adapty и App Store не выбирают RU-продукт |
 | Цикл показа | внутри окна оффер показывается, после истечения — cooldown, затем цикл повторяется |
 

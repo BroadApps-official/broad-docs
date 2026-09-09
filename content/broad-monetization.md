@@ -94,14 +94,16 @@ verified-покупку своего bundle, которая завершилас
 Общий сценарий описан в [статье Special Offer](./special-offer.md):
 
 1. Обычный paywall закрыт без подтверждённой покупки или restore.
-2. Из Remote Config **этого основного paywall** читается `special_offer`.
+2. Из Remote Config **выбранного paywall плейсмента `main`** читается `special_offer`,
+   независимо от того, какой обычный paywall пользователь закрыл.
    Только точное булево `true` разрешает продолжить.
 3. Проверяется окно показа: во время cooldown второй экран не открывается.
 4. Для второго экрана загружается **отдельный placement `special_offer`**,
    все его продукты показываются в исходном порядке.
 
-Флаг основного paywall и продукты оффера приходят из разных ответов. Remote
-Config отдельного оффера не заменяет разрешение из основного paywall.
+Все флаги и RU A/B-коды берутся из `main`, а продукты оффера — из отдельного
+placement. При загрузке оффера адаптер обновляет `main` ещё раз. Более новый
+запрет отменяет первоначальное разрешение; UI получает последние настройки `main`.
 Подтверждённые purchase или restore ведут на главный экран приложения без оффера.
 
 Контракт показа — флаг плюс цикл окно/cooldown:
@@ -184,7 +186,7 @@ https://github.com/BroadApps-official/broad-monetization-ios.git
 
 В target выберите product `BroadMonetization`. Xcode автоматически загрузит совместимые `BroadCore`, Adapty и Swinject. Обязательного общего `BroadPlatform` нет.
 
-Текущая проверенная версия — [`1.5.4`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/1.5.4) в составе [platform set 1.5.2](./compatibility.md).
+Текущая проверенная версия — [`2.0.0`](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/2.0.0) в составе [platform set 2.0.0](./compatibility.md).
 
 ## RU Billing A/B
 
