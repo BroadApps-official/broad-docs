@@ -1538,6 +1538,40 @@
         "runtime": "iOS 26.3",
         "scenario": "Local example with fixture data; no financial operations"
       }
+    },
+    "guides/tokens/pending.png": {
+      "sha256": "116ff5aa2a99e69e7736ea76b054d0b94b9bcf8c0a554a617de07a8bd79e593e",
+      "bytes": 301542,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
+        "ref": "55ffa6ebed260a7412ccee084fec2e188b5014a1",
+        "path": "Examples/BroadAppTemplate/BroadAppTemplate/Infrastructure/Monetization/ExampleTokenFixtures.swift"
+      },
+      "recording": {
+        "captured": "2026-09-09",
+        "device": "BroadDocs Paywall Demo iPhone Simulator",
+        "os": "iOS 26.3",
+        "flow": "Pending fulfillment; unchanged balance 120; retry confirms the saved purchase.",
+        "build": "Preinstalled BroadAppTemplate fixture; exact binary build revision unavailable. Source identifies the reference implementation.",
+        "processing": "Native simulator PNG; no cropping, image edits or real payment. Status bar set to 9:41."
+      }
+    },
+    "guides/tokens/credited.png": {
+      "sha256": "991482f75497125d9f96f844a15ecdfcd8152f7f6a7f72931cfe0d29b7730ede",
+      "bytes": 296425,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
+        "ref": "55ffa6ebed260a7412ccee084fec2e188b5014a1",
+        "path": "Examples/BroadAppTemplate/BroadAppTemplate/Infrastructure/Monetization/ExampleTokenFixtures.swift"
+      },
+      "recording": {
+        "captured": "2026-09-09",
+        "device": "BroadDocs Paywall Demo iPhone Simulator",
+        "os": "iOS 26.3",
+        "flow": "Same saved purchase confirmed by the fixture backend; full balance 620; no second purchase.",
+        "build": "Preinstalled BroadAppTemplate fixture; exact binary build revision unavailable. Source identifies the reference implementation.",
+        "processing": "Native simulator PNG; no cropping, image edits or real payment. Status bar set to 9:41."
+      }
     }
   }
 }
