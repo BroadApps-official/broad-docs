@@ -228,13 +228,14 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       const src = normalizeMediaSource(block.src ?? "");
       const tutorial = src.includes("/guides/start/");
       const desktop = tutorial && src.includes("xcode-");
+      const compact = src.includes("/guides/settings-support/");
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
       const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
       const wideFlowGif = flowGif && src.includes("/sample-editor/");
       const captionLabel = src.includes("pm-data-sanitized") ? "ВХОДНЫЕ ДАННЫЕ" : reference ? "ПРИМЕР ЭКРАНА" : "СХЕМА";
       return (
-        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}${desktop ? " docs-media-desktop" : ""}`} key={index}>
-          <div className="docs-media-frame">{tutorial ? <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${block.alt ?? "скриншот"}`}><img alt={block.alt ?? ""} decoding="async" loading="lazy" src={src} /></a> : <img alt={block.alt ?? ""} className={reference ? "docs-screen-image" : undefined} decoding="async" loading="eager" src={src} />}</div>
+        <figure className={`docs-media${reference ? " docs-media-reference" : ""}${flowGif ? " docs-media-flow-gif" : ""}${wideFlowGif ? " docs-media-flow-gif-wide" : ""}${desktop ? " docs-media-desktop" : ""}${compact ? " docs-media-compact" : ""}`} key={index}>
+          <div className="docs-media-frame">{tutorial || compact ? <a className="docs-screenshot-link" href={src} target="_blank" rel="noreferrer" aria-label={`Увеличить: ${block.alt ?? "скриншот"}`}><img alt={block.alt ?? ""} decoding="async" loading="lazy" src={src} /></a> : <img alt={block.alt ?? ""} className={reference ? "docs-screen-image" : undefined} decoding="async" loading="eager" src={src} />}</div>
           {block.alt ? <figcaption><span>{captionLabel}</span>{block.alt}</figcaption> : null}
         </figure>
       );

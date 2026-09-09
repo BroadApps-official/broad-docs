@@ -925,6 +925,14 @@ button, input { font: inherit; }
 }
 .docs-media figcaption { padding: 12px 16px; display: flex; align-items: center; gap: 10px; border-top: 1px solid #e2e8f1; color: #617087; background: #fff; font-size: 11px; line-height: 1.45; }
 .docs-media figcaption span { padding: 4px 6px; border-radius: 5px; color: #6651a0; background: #f0ebff; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; font-weight: 850; letter-spacing: .08em; }
+.docs-media-compact { display: grid; grid-template-columns: minmax(0, 230px) minmax(0, 280px); align-items: center; gap: 24px; width: min(100%, 534px); margin-inline: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.docs-media-compact .docs-media-frame { min-width: 0; padding: 0; background: transparent; }
+.docs-media-compact img { display: block; width: 100%; max-width: 100%; height: auto; }
+.docs-media-compact figcaption { min-width: 0; padding: 0; flex-direction: column; align-items: flex-start; gap: 12px; border: 0; background: transparent; font-size: 14px; line-height: 1.6; }
+.docs-media-compact figcaption span { font-size: 9px; }
+@media (max-width: 620px) {
+  .docs-media-compact { grid-template-columns: minmax(0, 1fr); width: min(100%, 250px); gap: 16px; }
+}
 .simple-doc-visual .pipeline-card b { font-size: 14px; line-height: 1.25; }
 .simple-doc-visual .pipeline-card small { font-size: 10px; line-height: 1.5; }
 .simple-doc-visual .visual-callout b { flex: 0 0 auto; font-size: 10px; }
