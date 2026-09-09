@@ -191,6 +191,13 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       return <p className={afterHeading ? "docs-section-lead" : undefined} key={index}>{inline(block.text ?? "")}</p>;
     }
     if (block.type === "quote") {
+      const caution = (block.text ?? "").match(/^\[!CAUTION\]\s+([\s\S]+)$/);
+      if (caution) return (
+        <aside className="docs-callout-danger" aria-label="Обязательное правило" key={index}>
+          <span className="docs-callout-danger-icon" aria-hidden="true">!</span>
+          <p>{inline(caution[1])}</p>
+        </aside>
+      );
       const normalized = (block.text ?? "").toLocaleLowerCase("ru-RU");
       const tone = normalized.includes("пример") ? " example" : normalized.includes("важно") || normalized.includes("правило") || normalized.includes("не ") ? " important" : "";
       return <blockquote className={`docs-note${tone}`} key={index}><p>{inline(block.text ?? "")}</p></blockquote>;

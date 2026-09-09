@@ -779,6 +779,34 @@ button, input { font: inherit; }
 .docs-article blockquote.docs-note.example::before { content: "→"; color: #087455; background: #dff7ed; }
 .docs-article blockquote.docs-note.important { border-left-color: #f59e0b; background: #fff9ed; }
 .docs-article blockquote.docs-note.important::before { content: "!"; color: #8a5b00; background: #ffedbd; }
+
+.docs-article .docs-callout-danger {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 24px 0;
+  padding: clamp(16px, 3vw, 24px);
+  border: 2px solid #ef3340;
+  border-left-width: 6px;
+  border-radius: 16px;
+  background: linear-gradient(115deg, #fff1f2, #fff8f8);
+  box-shadow: 0 8px 24px rgba(190, 18, 60, .08);
+}
+.docs-callout-danger-icon {
+  flex: 0 0 28px;
+  display: grid;
+  place-items: center;
+  height: 28px;
+  border-radius: 50%;
+  background: #dc2638;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1;
+}
+.docs-article .docs-callout-danger p { min-width: 0; margin: 0; color: #752334; font-size: 1rem; line-height: 1.65; overflow-wrap: anywhere; }
+.docs-article .docs-callout-danger p > strong:first-child { display: block; margin-bottom: 8px; color: #a31329; font-size: 1.1rem; line-height: 1.4; }
+.docs-article .docs-callout-danger code { color: #a31329; background: #ffe0e5; }
 .docs-article code { border: 1px solid #dbe4f0; background: #eef3f9; color: #1e477c; }
 .docs-code-block { margin: 12px 0; overflow: hidden; border: 1px solid #263957; border-radius: 10px; background: #0b1526; box-shadow: 0 7px 20px rgba(7,17,31,.09); }
 .docs-code-label { padding: 6px 7px 6px 11px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; border-bottom: 1px solid #263957; color: #7991b4; background: #101d31; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; font-weight: 800; letter-spacing: .08em; }
