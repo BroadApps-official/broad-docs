@@ -172,7 +172,7 @@ function VideoFigure({ src: rawSource, alt }: { src: string; alt: string }) {
   );
 }
 
-export function MarkdownArticle({ markdown }: { markdown: string }) {
+export function MarkdownArticle({ markdown, compactScreens = false }: { markdown: string; compactScreens?: boolean }) {
   const blocks = parse(markdown);
   return <>{blocks.map((block, index) => {
     if (block.type === "heading") {
@@ -228,7 +228,7 @@ export function MarkdownArticle({ markdown }: { markdown: string }) {
       const src = normalizeMediaSource(block.src ?? "");
       const tutorial = src.includes("/guides/start/");
       const desktop = tutorial && src.includes("xcode-");
-      const compact = src.includes("/guides/settings-support/") || src.includes("/guides/modules/");
+      const compact = src.includes("/guides/settings-support/") || src.includes("/guides/modules/") || (compactScreens && isScreenMediaSource(src) && !desktop);
       const reference = isScreenMediaSource(src) || src.includes("/References/") || src.includes("/Screenshots/") || src.includes("/Usedesk/") || src.includes("/ui-flows/");
       const flowGif = src.includes("/ui-flows/") && src.toLowerCase().endsWith(".gif");
       const wideFlowGif = flowGif && src.includes("/sample-editor/");

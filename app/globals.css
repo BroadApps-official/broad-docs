@@ -1278,8 +1278,9 @@ button, input { font: inherit; }
 .docs-module-page .docs-media-desktop { margin-inline: 0; box-shadow: none; }
 .docs-module-page .docs-media figcaption { font-size: .875rem; line-height: 1.6; }
 .docs-module-page .docs-media:hover img { transform: none; }
-.docs-module-page .docs-image-gallery { gap: 20px; }
+.docs-module-page .docs-image-gallery { max-width: 440px; margin-inline: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .docs-module-page .docs-image-gallery .docs-media { margin: 0; }
+.docs-module-page .docs-image-gallery img { max-width: 200px; border: 1px solid #e4e8ef; box-shadow: none; }
 @media (max-width: 620px) {
   .docs-module-page .docs-article-card { padding-inline: 18px; }
   .docs-module-page .docs-callout-danger { gap: 10px; padding: 16px 12px; border-radius: 12px; }
