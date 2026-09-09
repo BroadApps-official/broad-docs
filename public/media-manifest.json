@@ -1490,6 +1490,22 @@
         "ref": "f8ef9a037cfa20b9948f8e4209342c332168806b",
         "path": "public/og-v2.png"
       }
+    },
+    "guides/settings-support/5115-company-info.png": {
+      "sha256": "b14222dcf110f5bd112938ce61dbbcb45a5c38a6b05d43530134833ef9c47d3a",
+      "bytes": 378023,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/5115Copilot",
+        "ref": "6da728e2ec0c1e25366bbac859a4722470c35268",
+        "path": "5115Copilot/Features/Settings/Components/CompanyInfoSheet.swift"
+      },
+      "recording": {
+        "captured": "2026-09-09",
+        "device": "iPhone 17 Pro Simulator (BroadDocs Paywall Demo)",
+        "os": "iOS 26.3",
+        "flow": "Settings → Company Information. Original application screen; no payments or messages.",
+        "processing": "Unmodified PNG captured with Simulator Save Screen, 1206x2622. No recreated UI or substituted company details."
+      }
     }
   }
 }
