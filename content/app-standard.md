@@ -42,11 +42,42 @@
 и special offer сохраняют свой каталог. Подробные примеры для разработчика
 и аккаунт-менеджера — в [настройке Adapty](./adapty-setup.md).
 
-## Запустите одну проверку
-
 Для RU checkout без отдельного статуса платежа подключите [account-policy
 подтверждение](./ru-billing.md): подписка по активности и тарифу, токены по росту
 баланса; проверка после возврата или закрытия оплаты, до 8 попыток по 2 секунды.
+
+## Запустите общий пример
+
+Для первого знакомства достаточно [BroadStart](./getting-started.md).
+Когда нужно посмотреть onboarding, paywall, Special Offer, токены и RU flow
+вместе, откройте **BroadAppTemplate** из integration repository:
+
+```bash
+git clone https://github.com/BroadApps-official/broad-platform-integration.git
+cd broad-platform-integration
+bash Scripts/install_build_tools.sh
+bash Scripts/generate_example.sh
+open Examples/BroadAppTemplate/BroadAppTemplate.xcodeproj
+```
+
+Если repository уже скачан, работайте в своей копии. Скрипт установки готовит
+проверенные XcodeGen и SwiftLint внутри `.build`, затем генератор создаёт проект.
+В Xcode выберите схему **BroadAppTemplate**, iPhone Simulator и **Team = None**.
+Нужны iOS 17+ и инструменты SwiftPM 6.0; исходники остаются в режиме Swift 5.
+
+| Что открыть в примере | Что посмотреть |
+|---|---|
+| Onboarding / App Flow | Завершение страниц, переход к paywall и главному экрану |
+| Subscription Paywall | Пустой каталог, один или много продуктов, загрузка и ошибка |
+| Special Offer | Второй paywall после закрытия первого без покупки |
+| Token Paywall / RU Billing | Pending, повторная проверка и выход из платёжного экрана |
+
+Пример использует локальные сценарии. Его экран успешной покупки не доказывает
+настоящее списание; production RU boundary в примере отключён.
+Параметры отдельных сценариев и полный список экранов — в
+[README примера](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/README.md).
+
+## Запустите одну проверку
 
 Команды выполняются из checkout
 [broad-platform-integration](https://github.com/BroadApps-official/broad-platform-integration).
@@ -77,6 +108,30 @@ bash Scripts/agent_review_and_fix.sh platform
 Явные режимы только проверяют; `--fix` разрешает минимальные исправления.
 Платформа не публикует отчёты конкретных приложений.
 [Полная инструкция и запуск внутри открытого агента](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AgentReview.md).
+
+### Если меняли общий код
+
+Владелец изменения определяет команду: в репозитории модуля выполните
+`bash Scripts/module_gate.sh`, в integration repository — `bash Scripts/agent_gate.sh`.
+Полный integration gate проверяет контракты, форматирование и lint,
+документацию, сборки Debug/Release для iPhone Simulator и generic iOS без подписи.
+Две live Adapty-конфигурации проверяются только компиляцией.
+
+Эти команды можно выполнить в уже открытом агенте. Wrapper
+`agent_review_and_fix.sh` запускают из Terminal: внутри агента он создаст
+ненужный вложенный запуск. Для общего изменения нескольких модулей следуйте
+[порядку выпуска и проверки совместимости](./release-process.md).
+
+| Результат | Что он подтверждает |
+|---|---|
+| Module gate прошёл | Проверки одного модуля успешны |
+| Integration gate прошёл | Выбранные версии собираются вместе и проходят общие контракты |
+| Reviewer приложения выдал PASS | В рамках указанного аудита приложения нет открытых замечаний |
+| QA приложения | Проверено поведение конкретного приложения в согласованных сценариях |
+
+Один результат не заменяет остальные. Новые unit tests, XCTest, Swift Testing
+и test targets не нужны. Проверки не выполняют настоящую покупку, restore или
+RU-платёж и не требуют подписанного архива.
 
 ## Передайте разработчику короткий результат
 

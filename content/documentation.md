@@ -11,11 +11,17 @@
 | Общую инструкцию или объяснение сценария | [broad-docs/content](https://github.com/BroadApps-official/broad-docs/tree/main/content) | Порядок первого подключения, поведение при ошибке |
 | Подключение отдельной библиотеки | README её репозитория | URL, product, минимальная версия |
 | Название метода и его параметры | DocC рядом с исходниками модуля и отчёт public API | Initializer OnboardingViewModel |
-| Сочетание проверенных версий | [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml) | Core 1.2.0 вместе с Monetization 1.4.1 |
+| Сочетание проверенных версий | [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml) | Набор 3.0.0: Core 1.2.0, Extensions 1.0.1, Monetization и UIFlows 3.0.0 |
 | Общую инженерную проверку | README, Scripts и AgentChecks integration repository | Что именно выполняет agent gate |
 | Особенность одного приложения | Документы его собственного репозитория | Backend, тексты, идентификаторы и частный дизайн |
 
 Markdown — обычный текст с обозначениями заголовков, ссылок и кода. README объясняет вход в репозиторий. DocC описывает API рядом с кодом. Отчёт `Documentation/PublicAPI.md` показывает публичные объявления, но не заменяет объяснение применения.
+
+**Самая актуальная документация для применения платформы — на этом сайте.**
+README integration repository содержит только модули, проверенные версии,
+запуск примера и команды проверки. Подробные правила не нужно снова копировать
+в README: исправьте соответствующую статью здесь и документ владельца поведения.
+Инженерные инструкции и шаблоны остаются в Git и доступны через поиск сайта.
 
 Если статья описывает API выпущенной версии, проверяйте исходник по её **тегу**, а не только текущий `main`. В main уже может находиться следующая разработка. Для общих процессов можно ссылаться на main и указать дату сверки.
 
