@@ -41,7 +41,7 @@ Adapty, включая выбранный им A/B-вариант. Не сорт
 > **Не подменяйте токены подпиской.** Для `tokens` fallback на `main` запрещён.
 > При недоступном placement или пустом ответе покажите объяснение и повтор загрузки.
 
-Общие настройки Remote Config читаются из выбранного paywall `main`, а продукты
+Remote Config читается из paywall токенового placement с fallback отсутствующих ключей на `main`, а продукты
 и их порядок — из `tokens`. Поэтому настройте оба placement и явно сопоставьте
 имена приложения в `AdaptyPlacementRegistry`.
 [Ключ Adapty, placements и Remote Config](./adapty-setup.md).

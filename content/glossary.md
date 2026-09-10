@@ -146,7 +146,7 @@
 | Adapty | SDK и сервис управления paywall, продуктами, событиями и экспериментами | [Начальные настройки](./adapty-setup.md) |
 | Placement ID | Идентификатор места показа в Adapty; его конкретное имя задаёт приложение | [Настройка Adapty](./adapty-setup.md) |
 | Product / SKU | Вариант покупки / его идентификатор; одинаковый SKU может встретиться в нескольких строках ответа | [Экран подписки](./paywall-ui.md) |
-| Remote Config | Общие настройки из выбранного paywall `main`; продукты каждого экрана приходят отдельно из его placement | [Adapty](./adapty-integration-guide.md) |
+| Remote Config | Настройки выбранного paywall текущего placement; main заполняет отсутствующие ключи | [Adapty](./adapty-integration-guide.md) |
 | Feature flag | Настройка включения функции; отсутствие разрешения не равно true | [RU Billing](./ru-billing.md) |
 | Access level / entitlement | Подтверждённое право на возможности, например Premium | [Monetization](./broad-monetization.md) |
 | Purchase / restore | Новая покупка / восстановление ранее приобретённых прав Apple | [Adapty](./adapty-integration-guide.md) |

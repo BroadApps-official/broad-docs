@@ -2,23 +2,23 @@
 
 Для нового подключения или обновления возьмите **точные версии из проверенного набора**, затем убедитесь, что именно их выбрал Xcode. Номер версии в настройках пакета и фактически разрешённые зависимости могут различаться: нижние библиотеки часто объявляют диапазон допустимых версий.
 
-Эта инструкция подходит для работы вручную и через агента. Актуальный источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml). Таблица ниже сверена с ним 9 сентября 2026 года.
+Эта инструкция подходит для работы вручную и через агента. Актуальный источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml). Таблица ниже сверена с ним 10 сентября 2026 года.
 
 ## Текущий проверенный набор
 
 | Параметр | Значение | Как применять |
 |---|---|---|
-| Номер набора — platform set | `2.0.0` | Обозначает сочетание ниже, не устанавливается как пакет |
+| Номер набора — platform set | `2.0.1` | Обозначает сочетание ниже, не устанавливается как пакет |
 | Минимальная iOS | `17.0` | Установить для iPhone target приложения |
 | Swift language mode | `5` | Режим языка исходников, а не номер установленного Xcode |
 | Swift tools | `6.0` | Нужен toolchain, который умеет читать такой Package.swift |
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/1.2.0) | `1.2.0` | Общие состояния, запуск, кеш и ошибки |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/2.0.0) | `2.0.0` | Покупки, восстановление, RU Billing, A/B и все резервные `isDefault` при отсутствии продуктов или совпадений ID |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/2.0.1) | `2.0.1` | Покупки, RU Billing, A/B; Remote Config текущего placement с fallback на main |
 | [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/2.0.1) | `2.0.1` | Общие экраны и переходы |
-| Общая проверка | `passed`, 9 сентября 2026 | Результат относится к указанному сочетанию |
+| Общая проверка | `passed`, 10 сентября 2026 | Результат относится к указанному сочетанию |
 
-**Не нужно ставить всем модулям номер 2.0.0.** У каждого свой выпуск. Не нужно и подключать все четыре модуля: сначала выберите [нужные возможности](./module-selection.md).
+**Не нужно ставить всем модулям номер 2.0.1.** У каждого свой выпуск. Не нужно и подключать все четыре модуля: сначала выберите [нужные возможности](./module-selection.md).
 
 ## Что именно подтверждает passed
 

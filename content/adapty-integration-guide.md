@@ -67,7 +67,8 @@ Adapty связывает приложение с подписками в App St
 Разработчик реализует fallback в общей логике загрузки. В Adapty должен быть
 создан `main` с опубликованным paywall и продуктами. Для показа и покупки
 используется фактически полученный paywall вместе с его продуктами.
-Все Remote Config ключи читаются только из выбранного paywall `main`.
+Remote Config читается из выбранного paywall текущего placement;
+только отсутствующие ключи берутся из `main`.
 Если недоступен и `main`, дальнейшее поведение определяется настройками
 оплаты приложения, включая подключённый [RU Billing](./ru-billing.md).
 Если данные для оплаты получить не удалось, покажите ошибку с повторной
@@ -87,11 +88,11 @@ Adapty связывает приложение с подписками в App St
 В общем [сценарии Special Offer](./special-offer.md) они называются одинаково,
 но выполняют разные задачи:
 
-- **Ключ `special_offer` в Remote Config выбранного paywall `main`** разрешает показ
+- **Ключ `special_offer` в Remote Config текущего paywall с fallback на `main`** разрешает показ
   второго экрана только при точном булевом `true`.
 - **Отдельный placement `special_offer`** отдаёт продукты для этого экрана.
 
-Одного создания placement недостаточно: нужен и флаг в выбранном paywall `main`.
+Одного создания placement недостаточно: нужен и флаг в Remote Config соответствующего paywall с fallback на `main`.
 Дальше показ следует правилам окна и cooldown из статьи Special Offer.
 При настройке нового приложения ориентируйтесь на этот общий сценарий;
 ниже отдельно разобраны имена, согласованные для существующего проекта 5007.
@@ -124,17 +125,14 @@ try await Adapty.activate(with: configuration)
 
 ## 2. Получение пейвола и продуктов
 
-Приложение сначала получает настройки из `main`, затем продукты нужного
-`placement`. В BroadMonetization 2.0.0 это уже делает адаптер:
+Приложение получает paywall текущего `placement` и его продукты.
+BroadMonetization 2.0.1 читает его Remote Config и берёт из `main` только
+отсутствующие ключи. SDK-пример ниже показывает загрузку самого paywall;
+правила merge и aliases реализованы в платформенном адаптере.
 
 ```swift
-let mainPaywall = try await Adapty.getPaywall(placementId: "main")
-let remoteConfig = mainPaywall.remoteConfig?.dictionary ?? [:]
-let paywall = if placementId == "main" {
-    mainPaywall
-} else {
-    try await Adapty.getPaywall(placementId: placementId)
-}
+let paywall = try await Adapty.getPaywall(placementId: placementId)
+let placementRemoteConfig = paywall.remoteConfig?.dictionary ?? [:]
 let products = try await Adapty.getPaywallProducts(paywall: paywall)
 ```
 
