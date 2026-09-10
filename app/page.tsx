@@ -108,7 +108,7 @@ export default function Home() {
               <h2 id="platform-intro-title">Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h2>
               <p>BroadApps iOS — четыре открытые библиотеки с готовым общим кодом, который не нужно заново писать в каждом приложении.</p>
             </div>
-            <Link href="/docs/getting-started"><i className="status-dot green" />Я здесь впервые <b>→</b></Link>
+            <Link href="/docs/app-standard"><i className="status-dot green" />Стандарт приложения <b>→</b></Link>
           </div>
           <div className="home-quick-routes-grid">
             <Link className="intro-module-core" href="/docs/broad-core">

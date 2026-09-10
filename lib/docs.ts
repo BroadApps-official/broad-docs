@@ -1,4 +1,5 @@
 import architecture from "@/content/architecture.md?raw";
+import appStandard from "@/content/app-standard.md?raw";
 import appCreation from "@/content/app-creation.md?raw";
 import broadCore from "@/content/broad-core.md?raw";
 import broadExtensions from "@/content/broad-extensions.md?raw";
@@ -44,6 +45,7 @@ export type DocEntry = {
 };
 
 export const docs: DocEntry[] = [
+  { slug: "app-standard", title: "Стандарт приложения", description: "Общие компоненты, конфигурация и одна команда проверки платформы или приложения.", purpose: "Применить стандарт к обычному приложению без повторной реализации общих сценариев.", when: "В начале разработки или при проверке готового приложения.", outcome: "Выбраны общие компоненты, настроены placements и получен отчёт с конкретными замечаниями.", group: "Старт", body: appStandard },
   { slug: "getting-started", title: "Первое подключение", description: "Работающий BroadStart: реальные скриншоты Xcode, подключение библиотек и первый запуск на iPhone Simulator.", purpose: "Подключить готовый общий код без лишних и продублированных зависимостей.", when: "Когда добавляете BroadApps в новый или существующий Xcode-проект.", outcome: "Выбранные библиотеки загружены, приложение собирается и нужные функции открываются.", group: "Старт", body: gettingStarted },
   { slug: "app-creation", title: "Создание приложения", description: "От требований до работающего сценария: разбор BroadStart, код, состояния, работа вручную и с агентом.", purpose: "Провести новое приложение от исходных требований до передачи в QA.", when: "До первого изменения Swift-кода нового приложения.", outcome: "Есть подтверждённый план, один рабочий сценарий и список оставшихся проверок.", group: "Старт", body: appCreation },
   { slug: "module-selection", title: "Какие части платформы выбрать", description: "Четыре модуля, пять практических наборов и точное различие между пакетом, product и target.", purpose: "Подключить все нужные возможности без лишних и продублированных зависимостей.", when: "До добавления библиотек в Xcode.", outcome: "Для каждой функции выбран модуль, а каждому прямому import соответствует product в target.", group: "Старт", body: moduleSelection },
