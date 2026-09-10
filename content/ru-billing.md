@@ -1,5 +1,52 @@
 # RU Billing: карта и СБП
 
+## Подтверждение через состояние аккаунта — с 3.0.0
+
+Если backend использует `GET /v1/policy/effective`, отдельный endpoint статуса
+платежа не нужен. В `RUBillingEndpointConfiguration` оставьте `paymentStatus: nil`
+и задайте `entitlementStatus: .init(rawValue: "/v1/policy/effective")`.
+Factory выберет готовый account-policy режим: flat catalog, CloudPayments
+checkout и проверку подписки/баланса. Для другого backend можно передать свой
+`RUAccountPolicyRepositoryProtocol`; каждый вызов должен получать свежий ответ
+авторизованного аккаунта. Cancellation adapters настраиваются отдельно под backend.
+
+После закрытия встроенной страницы оплаты и после возврата приложения в active
+вызывайте один coordinator:
+
+```swift
+let result = await services.checkout.applicationReturn.applicationDidBecomeActive()
+```
+
+Одновременные вызовы объединяются. По умолчанию выполняется до **8 запросов
+с паузой 2 секунды между попытками**, с остановкой после подтверждения.
+
+| Покупка | Условие | Результат |
+|---|---|---|
+| Подписка | Свежий `isSubscribed == true`; `plan` совпадает с выбранным backend ID или периодом; общий entitlement подтверждён backend | `.active(snapshot)` |
+| Токены | Свежий `creditsBalance` больше сохранённого баланса до создания checkout | `.tokensCredited(balance)`, без выдачи Premium |
+| Подтверждения пока нет | Есть ответ, но условие не выполнено | `.pending`, повторная проверка |
+| Backend недоступен | Нет свежего подтверждения | `.unavailable(error)`, понятная ошибка и Retry |
+
+Для RU-токенов используйте `services.catalog.resolveTokenCheckoutMethods` и
+`services.checkout.startSelectedToken`. Исходный баланс сохраняет платформа;
+Retry его не заменяет. Apple-покупка токенов остаётся в `TokenPurchaseManager`.
+Host показывает loader до создания Task, блокирует повторный тап и обрабатывает
+`.tokensCredited` отдельно от подписки. Баланс применяется из ответа, пакет
+локально повторно не начисляется.
+
+После исчерпания попыток paywall можно закрыть, но pending не удаляется:
+таймаут не доказывает отмену оплаты. Retry запускает только проверку, новый
+checkout не создаётся; pending продолжает блокировать финансовые операции.
+Этот режим подтверждает состояние аккаунта: уже активный такой же тариф или
+пополнение из другого источника тоже могут выполнить условие. Для доказательства
+оплаты именно конкретного checkout остаётся режим с `paymentStatus`.
+
+При переходе с 2.x добавьте `.tokensCredited` в exhaustive switches; старый
+pending сначала завершите прежним способом. [Полный контракт и компилируемый
+пример](https://github.com/BroadApps-official/broad-monetization-ios/blob/main/Documentation/RUAccountPolicy.md).
+
+## Каталог и доступность RU Billing
+
 RU Billing позволяет оплатить подписку картой или через СБП через сервер
 приложения. Это работает и при недоступном Adapty — например, когда приложение
 удалено из App Store и магазин больше не возвращает его продукты.
