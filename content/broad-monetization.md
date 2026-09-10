@@ -93,7 +93,7 @@ import BroadMonetization
 1. Ноль, один и несколько продуктов: порядок и связь выбранной карточки с покупкой сохраняются.
 2. Двойное нажатие не создаёт вторую операцию; отмена, ошибка и неизвестный результат различаются.
 3. Покупка и Restore открывают доступ только после проверки entitlement.
-4. Настройки читаются из `main`; обычный fallback не подменяет `tokens` и `special_offer`.
+4. Настройки читаются из paywall текущего placement; `main` заполняет только отсутствующие ключи. Обычный fallback не подменяет `tokens` и `special_offer`.
 5. В логах нет ключей, чеков, платёжных ссылок и полных ответов SDK.
 
 [Подключение Adapty с кодом](./adapty-integration-guide.md) · [Экран подписки](./paywall-ui.md) · [README и API](https://github.com/BroadApps-official/broad-monetization-ios)

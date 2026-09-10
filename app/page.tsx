@@ -2,6 +2,7 @@ import { Link } from "./plain-link";
 import { docs } from "@/lib/docs";
 import { ArchitectureMap } from "./architecture-map";
 import { HomeSectionMap } from "./home-section-map";
+import { HomeQuickStart } from "./home-quick-start";
 import { SearchClient } from "./search/search-client";
 import { SiteFooter, SiteHeader } from "./site-shell";
 
@@ -101,92 +102,7 @@ export default function Home() {
       <SiteHeader />
       <main className="home-main">
         <HomeSectionMap />
-        <section className="home-quick-routes home-platform-intro section-wrap" aria-labelledby="platform-intro-title">
-          <div className="home-quick-routes-head">
-            <div>
-              <span>ПЛАТФОРМА ЗА 30 СЕКУНД</span>
-              <h2 id="platform-intro-title">Готовая основа<br />для iOS-приложений<br /><em>компании.</em></h2>
-              <p>BroadApps iOS — четыре открытые библиотеки с готовым общим кодом, который не нужно заново писать в каждом приложении.</p>
-            </div>
-            <Link href="/docs/app-standard"><i className="status-dot green" />Стандарт приложения <b>→</b></Link>
-          </div>
-          <div className="home-quick-routes-grid">
-            <Link className="intro-module-core" href="/docs/broad-core">
-              <span>CORE</span>
-              <div><b>Запуск и основа</b><small>порядок старта · кеш · логи · повтор запросов</small></div>
-              <i>→</i>
-            </Link>
-            <Link className="intro-module-money" href="/docs/broad-monetization">
-              <span>PAY</span>
-              <div><b>Оплата и подписка</b><small>Adapty · продукты · покупка · восстановление</small></div>
-              <i>→</i>
-            </Link>
-            <Link className="intro-module-flows" href="/docs/broad-ui-flows">
-              <span>UI</span>
-              <div><b>Готовые экраны</b><small>первые страницы · подписка · переходы</small></div>
-              <i>→</i>
-            </Link>
-            <Link className="intro-module-extensions" href="/docs/broad-extensions">
-              <span>EXT</span>
-              <div><b>Swift-утилиты</b><small>цвета · клавиатура · навигация</small></div>
-              <i>→</i>
-            </Link>
-          </div>
-          <div className="home-platform-reason">
-            <b>Почему четыре библиотеки?</b>
-            <p>Чтобы приложение брало только нужные возможности. Иногда достаточно одной библиотеки, иногда нужны несколько; общие зависимости Xcode загрузит автоматически.</p>
-            <Link href="/docs/module-selection">Показать, что выбрать →</Link>
-          </div>
-        </section>
-        <section className="hero section-wrap" id="top">
-          <div className="hero-copy">
-            <div className="eyebrow"><span /> Следующий шаг · выберите сценарий</div>
-            <h1>Выберите функции —<br />подключите нужные<br /><em>библиотеки.</em></h1>
-            <p className="hero-lede">
-              Сверьте справа все задачи приложения. Для одной возможности может
-              хватить одной библиотеки; для нескольких добавьте соответствующие
-              products. Общие зависимости Xcode загрузит сам, а ключи, placements,
-              тексты и изображения останутся в вашем приложении.
-            </p>
-            <div className="hero-actions">
-              <Link className="primary-action" href="/docs/getting-started">Пошаговое подключение <span>↗</span></Link>
-              <Link className="secondary-action" href="/docs/module-selection">Сравнить библиотеки</Link>
-              <Link className="secondary-action" href="/docs/legacy-app-migration">Перенести старое приложение</Link>
-            </div>
-            <Link className="hero-access" href="/docs/public-package-access"><span className="status-dot green" /><b>ПУБЛИЧНЫЙ HTTPS</b> Без аккаунта GitHub, пароля, токена и API key <i>↗</i></Link>
-          </div>
-
-          <div className="hero-system module-selector" aria-label="Как выбрать нужные библиотеки BroadApps">
-            <div className="system-label"><span>КАКУЮ БИБЛИОТЕКУ ДОБАВИТЬ</span><em>iOS 17+</em></div>
-            <div className="selector-question">
-              <span>1</span>
-              <div><b>Какие возможности нужны приложению?</b><small>Выберите одну или несколько строк. Справа указан product для каждой возможности.</small></div>
-            </div>
-            <div className="selector-routes">
-              <Link className="selector-route selector-flows" href="/docs/broad-ui-flows">
-                <span className="selector-route-number">01</span>
-                <div className="selector-route-copy"><b>Готовые экраны и переходы</b><small>первые страницы · подписка · переходы</small></div>
-                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadUIFlows</strong><small>Monetization, Core и Adapty придут автоматически</small></div>
-              </Link>
-              <Link className="selector-route selector-money" href="/docs/broad-monetization">
-                <span className="selector-route-number">02</span>
-                <div className="selector-route-copy"><b>Оплата со своим экраном</b><small>покупка · Premium · восстановление</small></div>
-                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadMonetization</strong><small>Core и Adapty придут автоматически</small></div>
-              </Link>
-              <Link className="selector-route selector-core" href="/docs/broad-core">
-                <span className="selector-route-number">03</span>
-                <div className="selector-route-copy"><b>Запуск и ошибки</b><small>порядок старта · кеш · логи · повтор</small></div>
-                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadCore</strong><small>без Monetization и готовых экранов</small></div>
-              </Link>
-              <Link className="selector-route selector-extensions" href="/docs/broad-extensions">
-                <span className="selector-route-number">04</span>
-                <div className="selector-route-copy"><b>Только Swift-утилиты</b><small>цвета · клавиатура · навигация</small></div>
-                <div className="selector-result"><span>ПОДКЛЮЧИТЬ</span><strong>BroadExtensions</strong><small>самостоятельная библиотека без остальных частей платформы</small></div>
-              </Link>
-            </div>
-            <div className="selector-note"><span className="pulse" /><b>Эти версии уже собирались вместе.</b><Link href="/docs/compatibility">Посмотреть точные номера →</Link></div>
-          </div>
-        </section>
+        <HomeQuickStart />
 
         <section className="architecture-section section-wrap" id="architecture">
           <div className="section-heading">
@@ -309,7 +225,7 @@ export default function Home() {
 
         <section className="release-strip" id="compatibility">
           <div className="section-wrap release-inner">
-            <div><span className="live-dot" /><small>ТЕКУЩИЙ КАТАЛОГ</small><b>Набор 1.0.0</b></div>
+            <div><span className="live-dot" /><small>ТЕКУЩИЙ КАТАЛОГ</small><b>Проверенные версии</b></div>
             <div><small>ПЛАТФОРМА</small><b>iOS 17+</b></div>
             <div><small>ЯЗЫК</small><b>Swift 5</b></div>
             <div><small>ПРОВЕРКА</small><b>Без XCTest</b></div>
