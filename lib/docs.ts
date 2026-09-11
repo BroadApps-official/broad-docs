@@ -31,6 +31,8 @@ import ruBillingABPlatform from "@/content/ru-billing-ab-platform.md?raw";
 import backendProductCatalog from "@/content/backend-product-catalog.md?raw";
 import runtimeReliability from "@/content/runtime-reliability.md?raw";
 import keychainAccountRecovery from "@/content/keychain-account-recovery.md?raw";
+import backendAccountData from "@/content/backend-account-data.md?raw";
+import accountRecovery from "@/content/account-recovery.md?raw";
 import tokenPaywall from "@/content/token-paywall.md?raw";
 import usedesk from "@/content/usedesk.md?raw";
 
@@ -41,7 +43,7 @@ export type DocEntry = {
   purpose: string;
   when: string;
   outcome: string;
-  group: "Старт" | "Части платформы" | "BroadUIFlows" | "Монетизация" | "Архитектура" | "Разработка";
+  group: "Старт" | "Части платформы" | "BroadUIFlows" | "Монетизация" | "Аккаунт и восстановление" | "Архитектура" | "Разработка";
   body: string;
 };
 
@@ -75,7 +77,9 @@ export const docs: DocEntry[] = [
   { slug: "architecture", title: "Как устроена платформа", description: "Библиотеки, слои и ответственность на примере BroadStart: от нажатия до данных, оплаты и выбора места исправления.", purpose: "Понять, какой код принадлежит приложению, модулю и отдельному слою.", when: "Перед разработкой сценария или исправлением общей функции.", outcome: "У каждого действия есть владелец, а зависимости и настройки разделены.", group: "Архитектура", body: architecture },
   { slug: "onboarding-att", title: "Первые экраны и разрешение Apple", description: "Страницы, свой или готовый экран, два независимых отключения, условия ATT и переход к paywall и главной.", purpose: "Настроить первый запуск и системный запрос без повторов и неправильных переходов.", when: "Когда создаёте или меняете onboarding и ATT.", outcome: "Страницы завершаются по конфигурации, ATT появляется только при подходящих условиях.", group: "Архитектура", body: onboardingATT },
   { slug: "runtime-reliability", title: "Запуск, ошибки и восстановление", description: "Состояния BroadStart, ограниченный запуск, сохранение контента, двойной тап и восстановление незавершённой операции.", purpose: "Разделить загрузку, ошибку данных и неопределённый результат оплаты.", when: "Когда добавляете запуск, обновление экрана, кеш или восстановление.", outcome: "Пользователь видит результат и безопасное действие, а приложение не создаёт повторную операцию.", group: "Архитектура", body: runtimeReliability },
-  { slug: "keychain-account-recovery", title: "Keychain: аккаунт и восстановление", description: "Сохранение аккаунта при переустановке и смене iPhone, восстановление покупок и защита серверных лимитов. BroadCore 2.1.0 и подключение в шаблоне 4.1.0.", purpose: "Сохранить связь с аккаунтом и понять границы Keychain перед подключением к оплате и backend.", when: "Когда переустановка сбрасывает лимиты или новый телефон теряет RU-подписку и токены.", outcome: "Определены миграция ID, проверка доступа, серверные лимиты и сценарии восстановления.", group: "Архитектура", body: keychainAccountRecovery },
+  { slug: "backend-account-data", title: "Аккаунт и данные на сервере", description: "Постоянный аккаунт, остаток токенов, история операций, бонусы и использованные лимиты.", purpose: "Определить, какие данные сохраняет backend независимо от установки приложения.", when: "Когда нужно узнавать пользователя и сохранять его баланс после переустановки.", outcome: "Определены серверные данные, проверка доступа и защита от повторной выдачи.", group: "Аккаунт и восстановление", body: backendAccountData },
+  { slug: "keychain-account-recovery", title: "Keychain: стабильный идентификатор", description: "Хранение customer ID, миграция, ошибки и границы iCloud. BroadCore 2.1.0 и шаблон 4.1.0.", purpose: "Сохранить ID и безопасно обработать ошибки Keychain.", when: "Когда подключаете постоянный customer ID или переносите прежнюю идентичность приложения.", outcome: "ID сохраняется, миграция повторяется при ошибке, политика iCloud определена.", group: "Аккаунт и восстановление", body: keychainAccountRecovery },
+  { slug: "account-recovery", title: "Восстановление аккаунта и покупок", description: "Чистая установка, вход, права, серверный баланс, потеря сети и смена пользователя.", purpose: "Вернуть актуальное состояние прежнего аккаунта без повторного начисления покупок.", when: "После переустановки, смены телефона или входа в аккаунт.", outcome: "Приложение восстановило сессию, проверило права и получило подтверждённый баланс.", group: "Аккаунт и восстановление", body: accountRecovery },
   { slug: "usedesk", title: "Чат поддержки Usedesk", description: "Что реально присылает менеджер и как из этих данных открыть готовый чат в приложении.", purpose: "Подключить Usedesk без придуманных требований, собственного экрана и лишней серверной архитектуры.", when: "Когда менеджер прислал Token, Company ID, Channel ID и web-script.", outcome: "Строка в настройках открывает готовый чат нужной компании и канала.", group: "Разработка", body: usedesk },
   { slug: "compatibility", title: "Какие версии ставить", description: "Проверенный набор, Exact Version и диапазоны, Package.resolved, обновление и возврат — вручную и с агентом.", purpose: "Подключить воспроизводимый набор библиотек и проверить фактические версии.", when: "При первом подключении, миграции и обновлении приложения.", outcome: "Ограничения и lockfile согласованы, затронутые сценарии проверены.", group: "Разработка", body: compatibility },
   { slug: "release-process", title: "Как выпускать новые версии", description: "От изменения и проверки кандидата до неизменяемого тега, общего набора и инструкции обновления приложения.", purpose: "Выпустить модуль с понятной совместимостью и доказанным результатом.", when: "Когда меняется общий код или готовится выпуск платформы.", outcome: "Кандидат и опубликованные версии проверены, разработчику понятны действия после обновления.", group: "Разработка", body: releaseProcess },
@@ -83,7 +87,7 @@ export const docs: DocEntry[] = [
   { slug: "documentation", title: "Как исправлять документацию", description: "Правка через GitHub или локально: источники API, понятные примеры, медиа, поиск, проверка и отдельная публикация.", purpose: "Сделать инструкцию применимой и согласовать её с проверенным кодом.", when: "Когда статья непонятна, устарела или меняется поведение платформы.", outcome: "Правка проверена, источники согласованы, состояние публикации известно.", group: "Разработка", body: documentation },
 ];
 
-export const docGroups = ["Старт", "Части платформы", "BroadUIFlows", "Монетизация", "Архитектура", "Разработка"] as const;
+export const docGroups = ["Старт", "Части платформы", "BroadUIFlows", "Монетизация", "Аккаунт и восстановление", "Архитектура", "Разработка"] as const;
 export function getDoc(slug: string) { return docs.find((doc) => doc.slug === slug); }
 export function slugifyHeading(value: string) {
   return value.toLocaleLowerCase("ru-RU").replace(/[`*_]/g, "").replace(/[^a-zа-яё0-9]+/gi, "-").replace(/^-|-$/g, "");

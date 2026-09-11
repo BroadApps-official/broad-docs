@@ -159,8 +159,9 @@ state = state.beginLoading()
 
 После переустановки нельзя рассчитывать на локальные записи как на источник покупок. Подписки Apple восстанавливаются через StoreKit и серверные источники, токены и RU-покупки — через backend того же app account. Transaction ID нужен для однократного учёта операции; он не заменяет вход в аккаунт при обычном восстановлении. [Account Recovery](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AccountRecovery.md).
 
-Подробности сохранения ID, миграции, задержки iCloud и защиты от повторной выдачи
-лимитов — в статье [Keychain: аккаунт и восстановление](./keychain-account-recovery.md).
+Отдельный раздел [«Аккаунт и восстановление»](./backend-account-data.md) объясняет
+серверное хранение, [Keychain и ID](./keychain-account-recovery.md) и
+[порядок действий после переустановки](./account-recovery.md).
 
 ## Ошибка для человека и данные для диагностики
 
