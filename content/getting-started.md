@@ -94,20 +94,20 @@ BroadStart напрямую использует **BroadCore** для состо
 https://github.com/BroadApps-official/broad-core-ios.git
 ```
 
-Выберите **Dependency Rule → Exact Version → 1.2.0**, затем **Add Package**. В следующем окне для product **BroadCore** укажите **Add to Target → BroadStart**. Если выбран **None**, пакет может скачаться, но приложение не получит его библиотеку.
+Выберите **Dependency Rule → Exact Version → 2.0.0**, затем **Add Package**. В следующем окне для product **BroadCore** укажите **Add to Target → BroadStart**. Если выбран **None**, пакет может скачаться, но приложение не получит его библиотеку.
 
-![Xcode: публичный URL BroadCore и правило Exact Version 1.2.0](../public/guides/start/xcode-package.png)
+![Xcode: расположение Exact Version; на историческом снимке 1.2.0, сейчас выбирайте 2.0.0](../public/guides/start/xcode-package.png)
 
 ![Xcode: product BroadCore добавляется в основное приложение BroadStart](../public/guides/start/xcode-product.png)
 
-Точные версии в этом разборе взяты из проверенного набора **platform set 3.0.0**. Для другого проекта смотрите [каталог совместимости](./compatibility.md); номер набора не нужно подставлять как версию каждого модуля.
+Точные версии в этом разборе взяты из проверенного набора **platform set 4.0.0**. Для другого проекта смотрите [каталог совместимости](./compatibility.md); номер набора не нужно подставлять как версию каждого модуля.
 
-| Пакет | Exact Version в наборе 3.0.0 | Product |
+| Пакет | Exact Version в наборе 4.0.0 | Product |
 |---|---|---|
-| `broad-core-ios` | `1.2.0` | `BroadCore` |
+| `broad-core-ios` | `2.0.0` | `BroadCore` |
 | `broad-extensions-ios` | `1.0.1` | `BroadExtensions` |
-| `broad-monetization-ios` | `3.0.0` | `BroadMonetization` |
-| `broad-ui-flows-ios` | `3.0.0` | `BroadUIFlows` |
+| `broad-monetization-ios` | `4.0.0` | `BroadMonetization` |
+| `broad-ui-flows-ios` | `4.0.0` | `BroadUIFlows` |
 
 Повторите добавление для `https://github.com/BroadApps-official/broad-extensions-ios.git`, выберите **1.0.1** и product **BroadExtensions**. Для BroadStart другие модули не нужны. Аккаунт GitHub и пароль для чтения этих публичных адресов не требуются; при запросе входа используйте [диагностику подключения](./public-package-access.md).
 
@@ -157,4 +157,4 @@ https://github.com/BroadApps-official/broad-core-ios.git
 
 Дальше: [разберите создание приложения по шагам](./app-creation.md), [выберите дополнительные модули](./module-selection.md) или [найдите незнакомое слово](./glossary.md).
 
-Первичные источники: [каталог набора 1.4.0](https://github.com/BroadApps-official/broad-platform-integration/blob/1.4.0/Compatibility/current.yml), [LoadableState](https://github.com/BroadApps-official/broad-core-ios/blob/1.2.0/Sources/BroadCore/Domain/States/LoadableState.swift), [добавление зависимостей в Xcode](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
+Первичные источники: [каталог набора 4.0.0](https://github.com/BroadApps-official/broad-platform-integration/blob/4.0.0/Compatibility/current.yml), [LoadableState](https://github.com/BroadApps-official/broad-core-ios/blob/2.0.0/Sources/BroadCore/Domain/States/LoadableState.swift), [добавление зависимостей в Xcode](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).

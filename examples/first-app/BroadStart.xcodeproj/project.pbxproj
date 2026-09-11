@@ -344,7 +344,7 @@
 			repositoryURL = "https://github.com/BroadApps-official/broad-core-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.0;
+				version = 2.0.0;
 			};
 		};
 		73500469001EDE7EAA132C79 /* XCRemoteSwiftPackageReference "broad-extensions-ios" */ = {

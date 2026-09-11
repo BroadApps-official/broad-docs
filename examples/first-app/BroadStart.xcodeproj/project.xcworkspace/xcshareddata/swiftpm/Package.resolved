@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BroadApps-official/broad-core-ios.git",
       "state" : {
-        "revision" : "913eee1fe0108ee94763ae93495fbc4e0e3f235b",
-        "version" : "1.2.0"
+        "revision" : "97c274e7f78654fca7c6be489af315f8e3941c4c",
+        "version" : "2.0.0"
       }
     },
     {
