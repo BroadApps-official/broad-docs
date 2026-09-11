@@ -10,6 +10,35 @@
 | Сохранить и перенести идентификатор приложения | [Keychain: стабильный идентификатор](./keychain-account-recovery.md) |
 | Вернуть сессию, права и остаток после чистой установки | [Восстановление аккаунта и покупок](./account-recovery.md) |
 
+## Предупреждение при сборке шаблона
+
+Начиная с шаблона платформы **4.1.1**, Xcode и platform gate автоматически проверяют `Configuration/AccountIntegration.json`. Незаполненное решение выводится предупреждением со ссылкой на эту страницу. Проверка работает и в Debug, и в Release, включая повторную сборку без изменений.
+
+Разработчик или агент явно указывает, какие функции есть в приложении:
+
+| Поле | Возможные значения | Когда предупреждения нет |
+|---|---|---|
+| `tokens.mode` | `demo`, `backend`, `notUsed` | Подключён серверный баланс либо токенов и баланса нет по требованиям |
+| `accountRecovery.mode` | `unconfigured`, `backend`, `notUsed` | Подключено серверное восстановление либо серверного аккаунта нет |
+| `iCloudIdentity.mode` | `undecided`, `enabled`, `disabled` | Явно выбрана политика переноса ID |
+
+Если **в приложении нет токенов и баланса**, укажите `tokens.mode = notUsed` и объясните это в `tokens.details`. Платформа не требует token endpoint для отсутствующей функции. Наличие личных данных, RU-покупок и серверного аккаунта определяется отдельно.
+
+Пример для приложения без баланса и серверного аккаунта:
+
+```json
+{
+  "schema": 1,
+  "tokens": { "mode": "notUsed", "details": "По требованиям нет расходуемых токенов и баланса." },
+  "accountRecovery": { "mode": "notUsed", "details": "Нет серверного аккаунта и личных данных; Apple-подписка восстанавливается через StoreKit." },
+  "iCloudIdentity": { "mode": "disabled", "details": "Перенос ID не нужен; синхронизация выключена в настройке Keychain." }
+}
+```
+
+Для `backend` в `details` укажите место подключения адаптера и проверку восстановления в плане приложения. Для `enabled` требуется `accountRecovery.mode = backend`. Отсутствующий файл, неизвестные значения и противоречащие друг другу решения останавливают проверку.
+
+Декларация **не меняет код приложения и не проверяет сервер**. При `notUsed` соответствующей функции действительно не должно быть; изменение строки не удаляет демонстрационный экран. Выбор iCloud должен совпадать с настройкой в Swift. Не удаляйте проверку и не отмечайте незавершённую функцию как отсутствующую ради чистой сборки. [Декларация шаблона](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/Configuration/AccountIntegration.json).
+
 ## Аккаунт не должен зависеть от установки
 
 Backend определяет текущего пользователя по подтверждённой сессии. Присланный customer ID помогает связать записи, но сам по себе не доказывает право читать историю или тратить баланс.
@@ -49,7 +78,7 @@ Backend проверяет покупку и учитывает её один р
 
 BroadMonetization предоставляет контракты начисления и восстановления баланса, привязку запросов к текущему пользователю и обработку неопределённых результатов. Реальный серверный адаптер передаёт приложение. [Контракт платформы](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AccountRecovery.md).
 
-В шаблоне `ExampleTokenFulfillmentRepository` начинает с 120 токенов и хранит баланс и обработанные transaction ID в памяти экземпляра. Это демонстрация; она не подтверждает сохранение средств после перезапуска или переустановки. Перед выпуском её нужно заменить backend конкретного приложения. [Подключение примера](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Application/AppCompositionRoot%2BTokens.swift), [демонстрационное хранилище](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Infrastructure/Monetization/ExampleTokenFixtures.swift).
+В шаблоне `ExampleTokenFulfillmentRepository` начинает с 120 токенов и хранит баланс и обработанные transaction ID в памяти экземпляра. Это демонстрация; она не подтверждает сохранение средств после перезапуска или переустановки. Если приложению нужен баланс, перед выпуском её нужно заменить backend конкретного приложения. Если баланса нет, удалите соответствующую демонстрационную функцию и укажите `notUsed`. [Подключение примера](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Application/AppCompositionRoot%2BTokens.swift), [демонстрационное хранилище](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Infrastructure/Monetization/ExampleTokenFixtures.swift).
 
 Готовность backend проверяется отдельно: сохранение остатка после переустановки, повтор одной покупки, одновременное списание с двух устройств и повторная попытка получить бонус. Успешная клиентская сборка этих свойств не доказывает.
 
