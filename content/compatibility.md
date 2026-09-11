@@ -8,17 +8,29 @@
 
 | Параметр | Значение | Как применять |
 |---|---|---|
-| Номер набора — platform set | `4.0.0` | Обозначает сочетание ниже, не устанавливается как пакет |
+| Номер набора — platform set | `4.1.0` | Обозначает сочетание ниже, не устанавливается как пакет |
 | Минимальная iOS | `17.0` | Установить для iPhone target приложения |
 | Swift language mode | `5` | Режим языка исходников, а не номер установленного Xcode |
 | Swift tools | `6.0` | Нужен toolchain, который умеет читать такой Package.swift |
-| [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/2.0.0) | `2.0.0` | Общие состояния и типизированные события приложения в логировании |
+| [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/2.1.0) | `2.1.0` | Общие состояния, логирование и стабильный Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/4.0.0) | `4.0.0` | Повтор начисления по прежней покупке; отдельный окончательный отказ backend |
 | [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/4.0.0) | `4.0.0` | Общие экраны с зависимостями Core 2.x и Monetization 4.x |
 | Общая проверка | `passed`, 11 сентября 2026 | Результат относится к указанному сочетанию |
 
 У каждого модуля свой выпуск. Подключайте [нужные возможности](./module-selection.md) с версиями из таблицы.
+
+## Обновление с набора 4.0.0 на 4.1.0
+
+Измените Core на **Exact 2.1.0** и заново разрешите зависимости. Monetization
+и UIFlows остаются **4.0.0**, Extensions — **1.0.1**. Сохраните обновлённый
+`Package.resolved`. Новый API Core добавлен без изменения существующих сигнатур.
+
+В live-примере шаблона customer ID Adapty сохраняется в Keychain; ошибка чтения
+останавливает активацию и загрузку paywall. Для действующего приложения
+передайте прежний ID через `legacyIdentifier` и подтвердите серверный аккаунт.
+Обновление версии пакета само по себе не подключает эту логику в вашем коде.
+[Порядок подключения и серверное хранение](./keychain-account-recovery.md).
 
 ## Обновление с набора 3.0.0 на 4.0.0
 
@@ -65,14 +77,14 @@
 
 ## Подключение вручную в Xcode
 
-1. Откройте каталог и запишите нужные версии. Для BroadStart это Core 2.0.0 и Extensions 1.0.1.
+1. Откройте каталог и запишите нужные версии. Для BroadStart это Core 2.1.0 и Extensions 1.0.1.
 2. Добавьте публичный HTTPS URL нужного пакета через **File → Add Package Dependencies…**.
 3. Выберите **Exact Version** и номер именно этого модуля.
 4. В следующем диалоге добавьте нужный product в нужный app target.
 5. Разрешите зависимости, затем сравните их фактические версии с выбранным набором.
 6. Сохраните изменение проекта и `Package.resolved` вместе.
 
-![Xcode: расположение правила Exact Version; на историческом снимке Core 1.2.0, сейчас выбирайте 2.0.0](../public/guides/start/xcode-package.png)
+![Xcode: расположение правила Exact Version; на историческом снимке Core 1.2.0, сейчас выбирайте 2.1.0](../public/guides/start/xcode-package.png)
 
 Это настоящий снимок подключения Core для BroadStart. Полная последовательность с выбором product и target находится в [первом подключении](./getting-started.md).
 
@@ -94,7 +106,7 @@ rg --files --hidden -g Package.resolved
 
 | Пакет | Фактическая версия в BroadStart |
 |---|---|
-| broad-core-ios | 2.0.0 |
+| broad-core-ios | 2.1.0 |
 | broad-extensions-ios | 1.0.1 |
 | Swinject | 2.10.0 |
 

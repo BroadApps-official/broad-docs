@@ -88,7 +88,7 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 
 ## Как выбрать версии
 
-Возьмите набор из [каталога совместимости](./compatibility.md), затем посмотрите версию каждого выбранного модуля. Проверенный здесь набор **4.0.0** содержит Core **2.0.0**, Extensions **1.0.1**, Monetization **4.0.0**, UIFlows **4.0.0**.
+Возьмите набор из [каталога совместимости](./compatibility.md), затем посмотрите версию каждого выбранного модуля. Проверенный здесь набор **4.1.0** содержит Core **2.1.0**, Extensions **1.0.1**, Monetization **4.0.0**, UIFlows **4.0.0**.
 
 **Exact Version** фиксирует одну версию. **Up to Next Major Version** разрешает совместимый диапазон по номеру версии; при обновлении Xcode может выбрать более свежий выпуск в нём. Для первого воспроизводимого подключения и миграции используйте exact-версии набора и сохраняйте Package.resolved.
 
@@ -102,7 +102,7 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 dependencies: [
     .package(
         url: "https://github.com/BroadApps-official/broad-core-ios.git",
-        exact: "2.0.0"
+        exact: "2.1.0"
     ),
     .package(
         url: "https://github.com/BroadApps-official/broad-extensions-ios.git",
