@@ -2,7 +2,7 @@
 
 Учебный iPhone-каталог для раздела [«Старт»](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/getting-started).
 Пять Swift-файлов, два экрана, локальные данные и воспроизводимые состояния.
-Core 1.2.0 предоставляет LoadableState и AppError; Extensions 1.0.1 — HEX-цвет.
+Core 2.0.0 предоставляет LoadableState и AppError; Extensions 1.0.1 — HEX-цвет.
 
 ## Открыть
 

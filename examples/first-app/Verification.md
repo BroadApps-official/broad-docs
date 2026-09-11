@@ -1,4 +1,13 @@
-# Проверка BroadStart — 8 сентября 2026
+# Проверка BroadStart
+
+## Обновление зависимостей — 11 сентября 2026
+
+Core 2.0.0, Extensions 1.0.1, Swinject 2.10.0: Debug iPhone Simulator и
+Release generic iOS без подписи — PASS со строгой проверкой package fingerprint.
+Project и Package.resolved содержат те же версии. Swift-исходники примера
+не менялись. Визуальные сценарии ниже относятся к проверке 8 сентября.
+
+## История — 8 сентября 2026
 
 ## Результат
 

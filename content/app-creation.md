@@ -58,7 +58,7 @@ BroadStart — каталог из трёх коротких материало�
 
 ## Создайте минимальный каркас
 
-Создайте iPhone target, выберите [нужные модули](./module-selection.md) и [подключите их](./getting-started.md). Для BroadStart это Core 1.2.0 и Extensions 1.0.1. Оставьте тексты, модели материалов и дизайн внутри приложения.
+Создайте iPhone target, выберите [нужные модули](./module-selection.md) и [подключите их](./getting-started.md). Для BroadStart это Core 2.0.0 и Extensions 1.0.1. Оставьте тексты, модели материалов и дизайн внутри приложения.
 
 ```text
 Sources/
