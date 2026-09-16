@@ -1,88 +1,5 @@
 # RU Billing: карта и СБП
 
-## Подтверждение через состояние аккаунта — с 3.0.0
-
-Если backend использует `GET /v1/policy/effective`, отдельный endpoint статуса
-платежа не нужен. В `RUBillingEndpointConfiguration` оставьте `paymentStatus: nil`
-и задайте `entitlementStatus: .init(rawValue: "/v1/policy/effective")`.
-Factory выберет готовый account-policy режим: flat catalog, CloudPayments
-checkout и проверку подписки/баланса. Для другого backend можно передать свой
-`RUAccountPolicyRepositoryProtocol`; каждый вызов должен получать свежий ответ
-авторизованного аккаунта. Cancellation adapters настраиваются отдельно под backend.
-
-После закрытия встроенной страницы оплаты и после возврата приложения в active
-вызывайте один coordinator:
-
-```swift
-let result = await services.checkout.applicationReturn.applicationDidBecomeActive()
-```
-
-Одновременные вызовы объединяются. По умолчанию выполняется до **8 запросов
-с паузой 2 секунды между попытками**, с остановкой после подтверждения.
-
-| Покупка | Условие | Результат |
-|---|---|---|
-| Подписка | Свежий `isSubscribed == true`; `plan` совпадает с выбранным backend ID или периодом; общий entitlement подтверждён backend | `.active(snapshot)` |
-| Токены | Свежий `creditsBalance` больше сохранённого баланса до создания checkout | `.tokensCredited(balance)`, без выдачи Premium |
-| Подтверждения пока нет | Есть ответ, но условие не выполнено | `.pending`, повторная проверка |
-| Backend недоступен | Нет свежего подтверждения | `.unavailable(error)`, понятная ошибка и Retry |
-
-Для RU-токенов используйте `services.catalog.resolveTokenCheckoutMethods` и
-`services.checkout.startSelectedToken`. Исходный баланс сохраняет платформа;
-Retry его не заменяет. Apple-покупка токенов остаётся в `TokenPurchaseManager`.
-Host показывает loader до создания Task, блокирует повторный тап и обрабатывает
-`.tokensCredited` отдельно от подписки. Баланс применяется из ответа, пакет
-локально повторно не начисляется.
-
-После исчерпания попыток paywall можно закрыть, но pending не удаляется:
-таймаут не доказывает отмену оплаты. Retry запускает только проверку, новый
-checkout не создаётся; pending продолжает блокировать финансовые операции.
-Этот режим подтверждает состояние аккаунта: уже активный такой же тариф или
-пополнение из другого источника тоже могут выполнить условие. Для доказательства
-оплаты именно конкретного checkout остаётся режим с `paymentStatus`.
-
-### Как завершить брошенный checkout — с 4.1.0
-
-`GET /v1/policy/effective` не отвечает на вопрос, может ли конкретный checkout
-ещё списать деньги. Поэтому закрытие payment page, возврат приложения в
-active, device time или локальный `expiresAt` не снимают блокировку сами.
-
-BroadMonetization 4.1.0 добавляет subject-bound
-`RUCheckoutTerminationClientProtocol`. Передайте реализацию в
-`RUBillingCompositionDependencies.checkoutTerminationClient`. Каждый вызов
-должен быть свежим авторизованным backend-запросом. Client возвращает
-`.terminated(.failed/.cancelled/.expired)` только когда backend атомарно
-отменил checkout или доказал, что он уже terminal и не сможет завершиться
-успешно. Повтор с теми же `checkoutSessionID` и `attemptID` должен быть
-идемпотентным.
-
-Когда reconciliation вернул `.pending`, покажите два действия: повторить
-проверку или отменить попытку. После явного подтверждения отмены вызовите:
-
-```swift
-let outcome = await services.checkout.pendingCheckoutTermination
-    .terminatePendingCheckout()
-```
-
-| Результат | Что делает платформа | Что делает UI |
-|---|---|---|
-| `.terminated(status)` | Удаляет ровно тот же `checkoutSessionID` + `attemptID`, освобождает общий operation gate | Закрывает состояние ожидания; разрешает новую purchase/restore |
-| `.pending` | Сохраняет durable pending и блокировку | Показывает, что отмена ещё не подтверждена; не создаёт новую оплату |
-| `.unavailable(error)` | Сохраняет durable pending и блокировку | Показывает понятную ошибку и Retry |
-| `.noPendingCheckout` | Ничего не меняет | Закрывает устаревший UI ожидания |
-
-Не вызывайте termination автоматически из `sceneDidBecomeActive` или просто по закрытию
-web view: пользователь мог продолжить оплату в банковском приложении. Без
-terminal-контракта backend безопасного клиентского сброса нет. До его появления
-используйте authoritative `paymentStatus` или сохраняйте fail-closed pending.
-
-**API 4.1.0 станет выпущенной версией только после публикации тега и
-GitHub Release.** До этого таблица проверенного набора остаётся без изменений.
-
-При переходе с 2.x добавьте `.tokensCredited` в exhaustive switches; старый
-pending сначала завершите прежним способом. [Полный контракт и компилируемый
-пример](https://github.com/BroadApps-official/broad-monetization-ios/blob/main/Documentation/RUAccountPolicy.md).
-
 ## Каталог и доступность RU Billing
 
 RU Billing позволяет оплатить подписку картой или через СБП через сервер
@@ -388,9 +305,6 @@ decoder, разобрано на отдельной странице:
 | сеть пропала после создания операции | pending до сверки с backend |
 | пользователь нажал дважды | вторая операция не создаётся |
 | возврат из браузера | проверка статуса, не мгновенный Premium |
-| payment page закрыта без оплаты | reconciliation; при `.pending` — Retry или явная отмена через backend termination |
-| backend не подтвердил terminal status | pending и общая блокировка сохраняются; новая покупка не создаётся |
-| backend подтвердил `failed/cancelled/expired` | точный pending удаляется; purchase и restore снова доступны |
 
 ## Debug не равен production
 
@@ -413,9 +327,6 @@ Premium. После перезапуска снова используется A
 - ошибка/timeout до создания checkout;
 - двойной tap;
 - возврат в приложение, перезапуск и pending;
-- закрытие payment page без оплаты: без явной отмены pending сохраняется;
-- подтверждённая отмена: `pending`/ошибка backend не снимает блок, terminal status снимает;
-- два одновременных termination-вызова не отменяют checkout дважды;
 - Premium открывается только после подтверждения.
 
 Настоящий платёж не входит в автоматическую проверку платформы и проводится
