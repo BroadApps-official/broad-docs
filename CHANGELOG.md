@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-09-16 — Adapty `ru_pay` работает в обычном SDK-пути
+
+- Источник истины RU Billing обновлён под BroadMonetization 4.1.0: current
+  Adapty provider payload с explicit `ru_pay=true` разрешает карту и СБП, даже
+  если SDK использовал managed cache или Dashboard fallback.
+- Persistent cache BroadMonetization, false, absent, malformed и conflicting
+  значения остаются fail-closed; region, backend, catalog и entitlement gates
+  не ослаблены.
+- Каталог совместимости обновлён до platform set 4.1.2.
+
 ## 2026-09-11 — Предупреждения и необязательный баланс в шаблоне 4.1.1
 
 - Описана автоматическая проверка AccountIntegration.json при сборке Xcode

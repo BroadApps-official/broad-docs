@@ -42,21 +42,22 @@
    Продукты и placement отчёта относятся к фактически показанному paywall.
    Оба кода — строки длиной 1–64,
    без окружающих пробелов и управляющих символов. Числа/bool не приводятся к строке.
-3. `ru_pay = true` из текущего подтверждённо свежего Remote Config (с приоритетом своего placement) и регион iPhone
-   RU/RUS **или** текущий Storefront RU/RUS. Кэш не восстанавливает разрешение
-   и старые коды эксперимента.
+3. `ru_pay = true` из current Adapty provider payload (с приоритетом своего
+   placement) и регион iPhone RU/RUS **или** текущий Storefront RU/RUS.
+   Persistent cache BroadMonetization не восстанавливает разрешение и старые
+   коды эксперимента.
 4. Подтверждённые backend endpoints. `.broadApps` задаёт пути
    `/v1/billing/cloudpayments/experiments/assign` и
    `/v1/billing/cloudpayments/experiments/paywall-shown` относительно вашего
    существующего `http.baseURL`. Другие пути передаются явно.
 
 **Для отчётов A/B нужна актуальная конфигурация эксперимента.** Стандартный
-Adapty 3.17.3 adapter помечает payload как `providerCacheFallbackPossible`:
-успешный SDK callback сам по себе не доказывает свежесть Remote Config.
-В таком приложении добавление tracker не откроет RU-ветку. Сохраните существующий
-проверенный источник `.verifiedFreshRemote`; если его нет, сначала согласуйте
-контракт проверки свежести. Не переименовывайте cache в fresh и не включайте
-Debug override в Release ради A/B-теста.
+Adapty adapter помечает payload как `providerCacheFallbackPossible`, потому что
+SDK не раскрывает network, managed-cache или Dashboard-fallback origin.
+BroadMonetization 4.1.0 принимает такой current provider payload для explicit
+`ru_pay=true`. Tracker сам gate не включает: false/absent/invalid, persistent
+platform cache, non-RU context и backend-запрет по-прежнему закрывают ветку.
+Debug override в Release запрещён.
 
 Если Adapty недоступен, [серверный резерв 1.5.0](./ru-billing.md) позволяет
 показать RU-тарифы при российском Storefront или регионе iPhone. Он не создаёт
