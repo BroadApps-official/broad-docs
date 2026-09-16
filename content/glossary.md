@@ -164,7 +164,7 @@
 | RU Billing | Отдельный сценарий оплаты картой или СБП через backend приложения | [Настройка](./ru-billing.md) |
 | Storefront | Регион текущего App Store; отличается от языка устройства и IP | [Условия RU Billing](./ru-billing.md) |
 | ru_pay | Переключатель обычного RU-сценария; полученный false запрещает RU. При недоступном Adapty отдельно подключается серверный резерв с проверкой региона | [RU Billing](./ru-billing.md) |
-| verifiedFreshRemote | Отметка подтверждённого свежего источника; обычный кеш такого разрешения не даёт | [Надёжность](./runtime-reliability.md) |
+| providerCacheFallbackPossible | Current payload стандартного Adapty SDK; SDK может прозрачно использовать managed cache или Dashboard fallback | [Надёжность](./runtime-reliability.md) |
 | Резерв при недоступном Adapty | Загрузка свежих серверных тарифов при российском Storefront или регионе iPhone; не восстанавливает старый флаг и не подтверждает покупку | [Подключение](./ru-billing.md) |
 | Backend catalog | Полный массив тарифов с сервера приложения; порядок и дубли сохраняются | [Каталог](./backend-product-catalog.md) |
 | isDefault / isSpecialOffer | Признак базового продукта / продукта специального предложения | [RU A/B в платформе](./ru-billing-ab-platform.md) |

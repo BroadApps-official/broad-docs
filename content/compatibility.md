@@ -2,23 +2,32 @@
 
 Для нового подключения или обновления возьмите **точные версии из проверенного набора**, затем убедитесь, что именно их выбрал Xcode. Номер версии в настройках пакета и фактически разрешённые зависимости могут различаться: нижние библиотеки часто объявляют диапазон допустимых версий.
 
-Эта инструкция подходит для работы вручную и через агента. Актуальный источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml). Таблица ниже сверена с ним 11 сентября 2026 года.
+Эта инструкция подходит для работы вручную и через агента. Актуальный источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml). Таблица ниже сверена с ним 16 сентября 2026 года.
 
 ## Текущий проверенный набор
 
 | Параметр | Значение | Как применять |
 |---|---|---|
-| Номер набора — platform set | `4.1.1` | Обозначает сочетание ниже, не устанавливается как пакет |
+| Номер набора — platform set | `4.1.2` | Обозначает сочетание ниже, не устанавливается как пакет |
 | Минимальная iOS | `17.0` | Установить для iPhone target приложения |
 | Swift language mode | `5` | Режим языка исходников, а не номер установленного Xcode |
 | Swift tools | `6.0` | Нужен toolchain, который умеет читать такой Package.swift |
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/2.1.0) | `2.1.0` | Общие состояния, логирование и стабильный Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/4.0.0) | `4.0.0` | Повтор начисления по прежней покупке; отдельный окончательный отказ backend |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/4.1.0) | `4.1.0` | Current Adapty payload с explicit `ru_pay=true` открывает RU Billing; platform cache нет |
 | [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/4.0.0) | `4.0.0` | Общие экраны с зависимостями Core 2.x и Monetization 4.x |
-| Общая проверка | `passed`, 11 сентября 2026 | Результат относится к указанному сочетанию |
+| Общая проверка | `passed`, 16 сентября 2026 | Результат относится к указанному сочетанию |
 
 У каждого модуля свой выпуск. Подключайте [нужные возможности](./module-selection.md) с версиями из таблицы.
+
+## Обновление шаблона с 4.1.1 на 4.1.2
+
+Измените BroadMonetization на **Exact 4.1.0** и заново разрешите зависимости.
+Стандартный Adapty adapter теперь авторизует RU Billing по explicit
+`ru_pay=true`, включая managed cache и Dashboard fallback, которые SDK не
+различает в public API. Persistent cache BroadMonetization, false, absent и
+malformed значения остаются fail-closed. Проверьте RU-контекст, backend gate,
+каталог и entitlement отдельно.
 
 ## Обновление шаблона с 4.1.0 на 4.1.1
 
