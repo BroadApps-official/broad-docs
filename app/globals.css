@@ -824,6 +824,8 @@ button, input { font: inherit; }
 .docs-article .docs-callout-danger p { min-width: 0; margin: 0; color: #752334; font-size: 1rem; line-height: 1.65; overflow-wrap: anywhere; }
 .docs-article .docs-callout-danger p > strong:first-child { display: block; margin-bottom: 8px; color: #a31329; background: none; font-size: 1.1rem; line-height: 1.4; }
 .docs-article .docs-callout-danger code { color: #a31329; background: #ffe0e5; }
+.docs-callout-danger .docs-screenshot-link { margin-top: 16px; }
+.docs-callout-danger .docs-screenshot-link img { display: block; width: 100%; height: auto; border-radius: 8px; }
 .docs-article :not(pre) > code { overflow-wrap: anywhere; }
 .docs-article code { border: 1px solid #dbe4f0; background: #eef3f9; color: #1e477c; }
 .docs-code-block { margin: 12px 0; overflow: hidden; border: 1px solid #263957; border-radius: 10px; background: #0b1526; box-shadow: 0 7px 20px rgba(7,17,31,.09); }
