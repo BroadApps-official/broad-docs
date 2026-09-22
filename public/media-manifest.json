@@ -742,21 +742,21 @@
       }
     },
     "guides/readme/architecture-light.svg": {
-      "sha256": "f27fe31288f1f0c8144f8d20621e796a2847a1f542b3bdd634925bdcc9ff9308",
-      "bytes": 5269,
+      "sha256": "27693399db8c2dcefba6e1b3e982f5e6dff3adf247aed5bdf2829d772128171f",
+      "bytes": 3771,
       "source": {
-        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
-        "ref": "cd3678e89946e41f79ced7bce8571b16e7f5b829",
-        "path": "Documentation/Assets/README/architecture-light.svg"
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "749f299dd2312ad3e51776b39988a3c2f7d6e39c",
+        "path": "public/guides/readme/architecture-light.svg"
       }
     },
     "guides/readme/composition-root-light.svg": {
-      "sha256": "a0501107484352c32fc94eb2ba0016b483a711d5e695708b293381105c74d0f4",
-      "bytes": 7039,
+      "sha256": "3e73b9886222666a4c254ed2be22516d2e0755daa4d6633c904b533a20efccf9",
+      "bytes": 7026,
       "source": {
-        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
-        "ref": "cd3678e89946e41f79ced7bce8571b16e7f5b829",
-        "path": "Documentation/Assets/README/composition-root-light.svg"
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "749f299dd2312ad3e51776b39988a3c2f7d6e39c",
+        "path": "public/guides/readme/composition-root-light.svg"
       }
     },
     "guides/readme/debug-feedback-light.svg": {
@@ -769,12 +769,12 @@
       }
     },
     "guides/readme/full-flow-light.svg": {
-      "sha256": "d86fb613e5cfda590554af7c06537235507dd4cd3c47f213ec10a295e43a7ff6",
-      "bytes": 4939,
+      "sha256": "5f73a6a82c9503b1692b661ac5589b0addfa1f9be2d0ecd130d1b134cd60c453",
+      "bytes": 5039,
       "source": {
-        "repository": "https://github.com/BroadApps-official/broad-platform-integration",
-        "ref": "cd3678e89946e41f79ced7bce8571b16e7f5b829",
-        "path": "Documentation/Assets/README/full-flow-light.svg"
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "749f299dd2312ad3e51776b39988a3c2f7d6e39c",
+        "path": "public/guides/readme/full-flow-light.svg"
       }
     },
     "guides/readme/full-flow.gif": {
