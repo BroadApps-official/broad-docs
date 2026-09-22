@@ -12,7 +12,6 @@
 | **BroadCore** | Состояния загрузки и ошибки, последовательность запуска, кеш, ограниченные повторы, логи, механизм ATT | Не рисует paywall и не даёт готовый backend приложения |
 | **BroadMonetization** | Покупка, восстановление, подтверждение доступа, Adapty, токены | Не создаёт дизайн вашего экрана и не знает реквизиты вашего сервера |
 | **BroadUIFlows** | Готовый onboarding, paywall, переходы между ними, общие экраны состояний; управление onboarding с собственным дизайном | Не определяет число слайдов, бренд, юридические ссылки и условия вашего продукта |
-
 | **BroadRUBilling / BroadRUBillingUI** | RU-каталог, checkout, подтверждение оплаты, A/B и готовый RU-интерфейс | Не подключается автоматически; backend и авторизацию задаёт приложение |
 
 Код модулей: [Extensions](https://github.com/BroadApps-official/broad-extensions-ios), [Core](https://github.com/BroadApps-official/broad-core-ios), [Monetization](https://github.com/BroadApps-official/broad-monetization-ios), [UIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios), [RUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios). Общие инструкции: [части платформы](./architecture.md).
@@ -50,13 +49,15 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 
 Явно указанный product не означает вторую копию пакета. Дубли появляются, например, когда одновременно подключены новый публичный пакет и старый BroadCore с теми же модулями или скопированными исходниками. Это разбирается в [миграции](./legacy-app-migration.md).
 
-## Пять практических наборов
+## Практические наборы
 
 | Приложение | С чего начать | Дополнительные products по прямому API |
 |---|---|---|
 | Учебный каталог BroadStart | Core + Extensions | Никаких: код использует состояния и HEX-цвет |
 | Свой интерфейс подписки | Monetization | Core, если приложение создаёт его состояния, логи или bootstrap; Extensions для утилит |
 | Готовый onboarding и paywall | UIFlows | Monetization и Core, если приложение напрямую собирает их конфигурацию или сервисы |
+| Карта и СБП со своим интерфейсом | Monetization + BroadRUBilling | RU Billing — отдельный подмодуль монетизации |
+| Готовые RU-экраны | BroadRUBillingUI | BroadRUBilling, Monetization и Core при прямом использовании их API |
 | Только цвет, шрифты, клавиатура | Extensions | Core и монетизация не нужны |
 | Уже есть готовая собственная покупка | Сначала аудит существующих сервисов | Не создавайте второй центр управления покупкой только ради подключения платформы |
 
@@ -96,7 +97,7 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 
 **Exact Version** фиксирует одну версию. **Up to Next Major Version** разрешает совместимый диапазон по номеру версии; при обновлении Xcode может выбрать более свежий выпуск в нём. Для первого воспроизводимого подключения и миграции используйте exact-версии набора и сохраняйте Package.resolved.
 
-Репозиторий [broad-platform-integration](https://github.com/BroadApps-official/broad-platform-integration) хранит каталог и проверки сочетаний. Он не является пятой библиотекой, которую нужно добавить в app target. Старый [BroadCore](./legacy-broadcore.md) тоже не является актуальным общим пакетом для всего приложения.
+Репозиторий [broad-platform-integration](https://github.com/BroadApps-official/broad-platform-integration) хранит каталог и проверки сочетаний. Его не добавляют как библиотеку в app target. Старый [BroadCore](./legacy-broadcore.md) тоже не является актуальным общим пакетом для всего приложения.
 
 ## Если подключаете через Package.swift
 

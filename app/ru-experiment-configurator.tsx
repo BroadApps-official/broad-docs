@@ -61,33 +61,19 @@ export function RUExperimentConfigurator() {
     : response === "shown-error" ? "Назначение получено, отправка показа не удалась. Повтор — при следующем открытии."
     : isMismatch ? `Показ учитывается в stored-b. На экране остаётся вариант ${String(remote.segment_code)} из Adapty; расхождение нужно проверить.`
     : "Assign → paywall-shown. Один показ учитывается на backend RU Billing.";
-  const code = method === "code" ? `// В существующем composition root
-${enabled ? `let experiments = ruFactory.makeExperimentTracker(
-    configuration: .broadApps
-)` : "// Без optional tracker остаётся прежний lifecycle."}
+  const code = method === "code" ? `1. Подключите отдельный BroadRUBilling по проверенному набору версий.
+2. Используйте каталог и авторизацию backend своего приложения.
+3. ${enabled ? "Подключите один tracker A/B к общей отчётности показов." : "Оставьте обычный учёт показов Adapty без tracker A/B."}
+4. Передайте продукты выбранного варианта в RU-экран.
+5. Для готового интерфейса добавьте BroadRUBillingUI.
 
-let adaptyFactory = AdaptyMonetizationFactory(
-    configuration: adaptyConfiguration,
-    identityProvider: identityProvider,
-    placementRegistry: placementRegistry,
-    messages: messages,
-    context: adaptyContext${enabled ? ",\n    ruBillingExperiments: experiments" : ""}
-)
-
-// Для существующего UI backend-каталога
-let selection = RUExperimentCatalogSelector().select(
-    productIDs: paywall.products.map(\\.productID),
-    in: fullBackendCatalog,
-    kind: .${section}
-)` : `Подключи opt-in RU Billing A/B из BroadMonetization 1.4.1.
-Прочитай руководство модуля Documentation/RUBillingExperiments.md
-и текущий AppIntegrationPlan. Сначала проверь существующие RU-gate,
-доказательство свежести, авторизацию checkout, endpoints, matching ID
-и старые A/B callbacks. Недостающий backend-контракт вынеси на review.
-После принятия этапа подключи один tracker; замени старую отправку,
-сохрани обычную оплату. Selector подключи только к backend RU UI.
-Проверь disabled, defaults, ошибки, reopen и смену аккаунта.
-Продолжай по staged workflow host repository.`;
+Точный код — в руководстве модуля по ссылке ниже.` : `Подключи A/B в отдельном модуле BroadRUBilling.
+Прочитай Documentation/RUBillingExperiments.md в broad-ru-billing-ios
+и план интеграции приложения. Сохрани действующую оплату, каталог,
+ID пользователя и авторизацию. Подключи один tracker без двойного учёта.
+Для готовых RU-экранов используй BroadRUBillingUI.
+Проверь отключённый эксперимент, ошибки, повторное открытие и смену аккаунта.
+Недостающие настройки backend не придумывай.`;
 
   return <section className="ru-ab-lab" aria-label="Проверка конфигурации RU Billing A/B">
     <div className="ru-ab-lab-heading"><span>ИНТЕРАКТИВНЫЙ ПРИМЕР</span><p>Все данные здесь учебные. Выберите условия вашего сценария и посмотрите результат.</p></div>
@@ -124,8 +110,8 @@ let selection = RUExperimentCatalogSelector().select(
       <option value="match">Assign и shown успешны</option><option value="mismatch">Backend уже назначил stored-b</option><option value="assign-error">Ошибка assign</option><option value="shown-error">Ошибка paywall-shown</option>
     </select></label>
     <div className={`ru-ab-result ${route}`} role="status"><strong>{status}</strong><p>{route === "backend" && response !== "assign-error" ? `segmentCode показа: ${shownCode}. ` : ""}Повторные callbacks одного открытия не создают новую попытку. Закрыли и открыли снова — новый presentationID.</p><small>Backend-вызовы здесь не выполняются. Таймаут RU-отчёта не переключает показ в Adapty.</small></div>
-    <div className="ru-ab-method" role="group" aria-label="Способ подключения"><button type="button" aria-pressed={method === "code"} onClick={() => setMethod("code")}>Подключить кодом</button><button type="button" aria-pressed={method === "agent"} onClick={() => setMethod("agent")}>Задание для агента</button></div>
-    <CodeBlock code={code} language={method === "code" ? "swift" : "text"} />
-    <p className="ru-ab-footnote">Код использует объекты вашего composition root. Выбор условий в примере не сохраняет настройки приложения.</p>
+    <div className="ru-ab-method" role="group" aria-label="Способ подключения"><button type="button" aria-pressed={method === "code"} onClick={() => setMethod("code")}>Шаги подключения</button><button type="button" aria-pressed={method === "agent"} onClick={() => setMethod("agent")}>Задание для агента</button></div>
+    <CodeBlock code={code} language="text" />
+    <p className="ru-ab-footnote"><a href="https://github.com/BroadApps-official/broad-ru-billing-ios/blob/main/Documentation/RUBillingExperiments.md" target="_blank" rel="noreferrer">Код подключения в BroadRUBilling ↗</a>. Выбор условий в примере не сохраняет настройки приложения.</p>
   </section>;
 }

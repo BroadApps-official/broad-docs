@@ -231,6 +231,14 @@ button, input { font: inherit; }
 .map-choice-row b { color: #f2f7ff; font-size: 12px; line-height: 1.35; }
 .map-choice-product b { color: currentColor; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; overflow-wrap: anywhere; }
 .map-choice-row p { margin: 5px 0 0; color: #8294ae; font-size: 9px; line-height: 1.45; }
+.map-ru-module { margin-top: 14px; padding: 20px; border: 1px dashed #4da98c; border-radius: 16px; background: #102c2c; color: #eaf8f2; }
+.map-ru-module span { color: #8be6c2; font-size: 12px; letter-spacing: .05em; }
+.map-ru-module h3 { margin: 8px 0; font-size: 20px; }
+.map-ru-module p { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: #c1dcd3; }
+.map-ru-module a { color: #9eeece; text-decoration: underline; text-underline-offset: 3px; }
+.map-ru-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; margin: 16px 0; }
+.map-ru-products > div { padding: 14px; border-radius: 10px; background: #0a2022; }
+.map-ru-products b { font-size: 16px; overflow-wrap: anywhere; }
 .map-example { margin-top: 14px; padding: 17px; border: 1px solid rgba(240,98,173,.5); border-radius: 16px; background: linear-gradient(120deg, rgba(240,98,173,.08), rgba(37,99,235,.08)); }
 .map-example-title { margin-bottom: 13px; display: flex; align-items: center; gap: 10px; }
 .map-example-title span { padding: 5px 8px; border-radius: 7px; color: #ffd2e8; background: rgba(240,98,173,.18); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 850; letter-spacing: .09em; }

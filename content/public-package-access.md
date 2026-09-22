@@ -15,7 +15,7 @@
 
 `https://github.com/BroadApps-official/BroadCore.git` — старый адрес. Имя Swift-модуля **BroadCore** сохранилось, но актуальный репозиторий называется **broad-core-ios**. Поэтому одного поиска `import BroadCore` недостаточно для проверки подключения.
 
-![В поле Package URL указан полный публичный адрес broad-core-ios](../public/guides/start/xcode-package.png)
+![В поле Package URL указан публичный broad-core-ios. Номер на снимке исторический; актуальную версию выбирайте из каталога совместимости](../public/guides/start/xcode-package.png)
 
 ## Различайте три вида доступа
 

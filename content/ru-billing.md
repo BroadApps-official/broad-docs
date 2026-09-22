@@ -1,6 +1,6 @@
 # RU Billing: карта и СБП
 
-RU Billing поставляется отдельным пакетом [broad-ru-billing-ios](https://github.com/BroadApps-official/broad-ru-billing-ios). Подключите `BroadRUBilling` для логики и `BroadRUBillingUI` для готовых экранов. Без этого пакета RU-код и обработчики оплаты в сборку не входят. [Набор версий и миграция](./compatibility.md).
+RU Billing — необязательный подмодуль монетизации из отдельного пакета [broad-ru-billing-ios](https://github.com/BroadApps-official/broad-ru-billing-ios). Подключите `BroadRUBilling` для логики и, если нужны готовые экраны, `BroadRUBillingUI`. Без этого пакета RU-код и обработчики оплаты в сборку не входят. [Набор версий и миграция](./compatibility.md).
 
 ## Каталог и доступность RU Billing
 
@@ -8,7 +8,7 @@ RU Billing позволяет оплатить подписку картой и�
 приложения. Это работает и при недоступном Adapty — например, когда приложение
 удалено из App Store и магазин больше не возвращает его продукты.
 
-**Правило обновлено 16 сентября 2026 года, BroadMonetization 4.1.0 (резервный API с 1.5.0).** Резервный
+**Сценарий входит в BroadRUBilling 1.0.0.** Резервный
 сценарий подключается явно и не включается одним обновлением пакета. Старые
 сигнатуры API сохранены. В 1.5.2 также исправлена подмена `tokens` и
 `special_offer` обычными подписками при ошибке загрузки. Ниже — условия,
@@ -70,23 +70,12 @@ cooldown».
 
 ## Как подключить резерв при сбое Adapty
 
-1. Подключите **BroadRUBilling 1.0.0** вместе с [проверенным набором платформы](./compatibility.md).
-2. Сохраните существующий `RUBillingCompositionFactory`: URL, формат каталога,
-   пользователя и авторизацию именно вашего приложения.
-3. Если сервисы собирает `AdaptyMonetizationFactory`, передайте в `makeServices`
-   аргумент `paywallLoaderFactory: ruFactory`. Парсер конфигурации подключите как
-   `RemotePaywallConfigurationParser(providers: [RUBillingRemoteConfigurationParser()])`.
-4. Если сервисы собираются вручную, передайте новый загрузчик в
-   `BroadMonetizationServices.loadPaywall`:
+1. Добавьте **BroadRUBilling** из [отдельного репозитория](https://github.com/BroadApps-official/broad-ru-billing-ios) по [проверенному набору версий](./compatibility.md).
+2. Подключите каталог, оплату и проверку результата к backend своего приложения. Сохраните его ID пользователя и авторизацию.
+3. Включите резервную загрузку RU-каталога в общей настройке монетизации.
+4. Для готовых RU-экранов добавьте **BroadRUBillingUI**; свой интерфейс может использовать только логику BroadRUBilling.
 
-```swift
-let loadPaywall = ruFactory.makePaywallLoader(
-    provider: adaptyPaywallRepository,
-    cache: paywallCache,
-    presentationLifecycle: adaptyLifecycle,
-    staleLoadError: errors.stalePaywallLoad
-)
-```
+Точный код подключения и порядок сборки сервисов — в [README модуля](https://github.com/BroadApps-official/broad-ru-billing-ios#composition).
 
 Для обычных подписок сохраняется переход с недоступного дополнительного placement
 на `main`. Если настроенный `main` тоже недоступен или не вернул продукты,
@@ -94,10 +83,6 @@ let loadPaywall = ruFactory.makePaywallLoader(
 Если сам `main` не настроен, исправьте конфигурацию приложения.
 `tokens` и `special_offer` используют свои продукты и цены: их нельзя заменить
 основным paywall или резервным каталогом обычных RU-подписок.
-
-Здесь используются уже созданные зависимости приложения. Checkout подключается
-через ту же RU-композицию, как и раньше. Готовый RU-экран подключается через `BroadRUPaywallView` из `BroadRUBillingUI`;
-конфигурация RU-интерфейса передаётся отдельно от `BroadPaywallConfiguration`.
 
 В резервной ветке ID, цена, валюта и период берутся с сервера. Порядок и дубли
 сохраняются. Обычный paywall исключает отмеченные сервером Special Offer;

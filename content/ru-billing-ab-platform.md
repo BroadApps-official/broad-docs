@@ -19,15 +19,7 @@
 
 ## Обновление существующего приложения
 
-Обновление зависимости само по себе ничего не включает. Оба initializer
-`AdaptyMonetizationFactory` получили последний optional-параметр
-`ruBillingExperiments = nil`. Без него остаётся прежний lifecycle Adapty,
-запросов эксперимента нет. Старые initializer каталога работают без `isDefault`,
-старый JSON декодируется с `isDefault = false`. Зависимости на Adapty 3.17.3
-и остальные модули не изменены.
-
-Версия 1.4.1 сохраняет и точные старые подписи initializer: передача
-конструктора как функции продолжает компилироваться без новых аргументов.
+A/B подключается отдельно внутри **BroadRUBilling**. Обновление базовой монетизации или добавление RU-пакета само по себе эксперимент не включает. Без tracker сохраняется обычный учёт показов Adapty.
 
 Если приложение уже отправляет `assign`/`paywall-shown`, оставьте его путь
 до отдельного переключения. При включении платформенного tracker уберите
@@ -56,38 +48,23 @@
 **Для отчётов A/B нужна актуальная конфигурация эксперимента.** Стандартный
 Adapty adapter помечает payload как `providerCacheFallbackPossible`, потому что
 SDK не раскрывает network, managed-cache или Dashboard-fallback origin.
-BroadMonetization 4.1.0 принимает такой current provider payload для explicit
+BroadRUBilling принимает такой current provider payload для explicit
 `ru_pay=true`. Tracker сам gate не включает: false/absent/invalid, persistent
 platform cache, non-RU context и backend-запрет по-прежнему закрывают ветку.
 Debug override в Release запрещён.
 
-Если Adapty недоступен, [серверный резерв 1.5.0](./ru-billing.md) позволяет
+Если Adapty недоступен, [серверный резерв](./ru-billing.md) позволяет
 показать RU-тарифы при российском Storefront или регионе iPhone. Он не создаёт
 выдуманный вариант эксперимента и не отправляет назначение/показ без актуальных
 кодов. Ошибка отчётности не должна блокировать уже разрешённую серверную оплату.
 
-## Подключить кодом
+## Подключение
 
-В composition root используйте **существующие** RU factory, Adapty identity,
-configuration, registry, context и messages. Имена переменных ниже обозначают
-объекты приложения, а не готовые credentials или endpoints.
+Используйте уже настроенный RU Billing своего приложения. Подключите один tracker к общей отчётности показов; готовый RU-интерфейс находится в **BroadRUBillingUI**. Для собственного экрана регистрируйте фактическое появление и закрытие paywall.
 
-```swift
-let experiments = ruFactory.makeExperimentTracker(configuration: .broadApps)
+Код и точные параметры — в [руководстве BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/blob/main/Documentation/RUBillingExperiments.md).
 
-let adaptyFactory = AdaptyMonetizationFactory(
-    configuration: adaptyConfiguration,
-    identityProvider: identityProvider,
-    placementRegistry: placementRegistry,
-    messages: messages,
-    context: adaptyContext,
-    ruBillingExperiments: experiments
-)
-```
-
-Дальше создавайте services прежним `makeServices`. Готовые экраны BroadUIFlows
-и собственный UI через `TrackPaywallEventUseCase` используют этот lifecycle.
-Он резервирует один показ по `presentationID` и запускает отчёт в фоне:
+Tracker резервирует один показ по `presentationID` и запускает отчёт в фоне:
 ошибка или медленный backend не задерживает крестик, переключение продуктов,
 закрытие и checkout. Отчёт начинается при фактическом появлении, не при prefetch.
 Resolved placement переводится через `AdaptyPlacementRegistry` в dashboard ID;
@@ -136,7 +113,7 @@ let selection = RUExperimentCatalogSelector().select(
 принимают `isDefault`, `default`, `is_default`; отсутствующий/неверный тип даёт false.
 Цена, валюта, supported methods и checkout ID остаются из backend-строки.
 
-Это правило выбора используется и без A/B-тестов: с BroadMonetization 1.5.4
+Это правило выбора используется и без A/B-тестов: в BroadRUBilling
 подключённый [резервный RU-загрузчик](./ru-billing.md) показывает все defaults,
 если Adapty недоступен, вернул `[]` или ни один ID не совпал. Исходный каталог
 сохраняется полностью, а checkout проверяет выбранную серверную строку.

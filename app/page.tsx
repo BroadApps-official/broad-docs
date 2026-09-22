@@ -27,7 +27,7 @@ const modules = [
     name: "BroadUIFlows",
     code: "FLOWS",
     tone: "flows",
-    summary: "Готовые первые экраны, подписка, выбор оплаты и переходы.",
+    summary: "Готовые первые экраны, paywall Apple и переходы. RU-экраны подключаются отдельно.",
     repository: "broad-ui-flows-ios",
     href: "/docs/broad-ui-flows",
   },
@@ -45,9 +45,15 @@ const repositoryGroups = [
   {
     label: "ПОДКЛЮЧАЮТСЯ В XCODE",
     title: "Код общих возможностей",
-    description: "Четыре Swift Package. Каждый владеет своим кодом, API и версиями.",
+    description: "Четыре базовых пакета и отдельный RU Billing для приложений с оплатой картой и СБП.",
     tone: "packages",
     repositories: [
+      {
+        name: "broad-ru-billing-ios",
+        product: "BroadRUBilling + BroadRUBillingUI",
+        summary: "Необязательный подмодуль монетизации: RU-оплата и готовые RU-экраны. Подключается отдельно.",
+        href: "https://github.com/BroadApps-official/broad-ru-billing-ios",
+      },
       {
         name: "broad-core-ios",
         product: "BroadCore",
@@ -107,7 +113,7 @@ export default function Home() {
         <section className="architecture-section section-wrap" id="architecture">
           <div className="section-heading">
             <div><span className="section-index">01</span><h2>Что добавить в приложение</h2></div>
-            <p>BroadApps iOS — четыре Swift-библиотеки с готовым общим кодом. Отметьте все задачи: схема покажет нужные products, автоматические зависимости и то, что настраивает само приложение.</p>
+            <p>BroadApps iOS — базовые библиотеки и отдельно подключаемый RU Billing. Отметьте все задачи: схема покажет нужные products, автоматические зависимости и то, что настраивает само приложение.</p>
           </div>
           <ArchitectureMap showLink />
           <div className="benefit-grid" aria-label="Что это даёт разработчику на практике">
@@ -135,7 +141,7 @@ export default function Home() {
 
         <section className="module-section section-wrap" id="modules">
           <div className="section-heading">
-            <div><span className="section-index">03</span><h2>Четыре части платформы</h2></div>
+            <div><span className="section-index">03</span><h2>Базовые части платформы</h2></div>
             <p>У каждой своя задача, отдельный проект GitHub и версия. Вы подключаете только то, что использует приложение.</p>
           </div>
           <div className="module-grid">
@@ -148,12 +154,13 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          <p>Для карты и СБП добавьте <Link href="/docs/ru-billing">RU Billing — отдельный подмодуль монетизации →</Link></p>
         </section>
 
         <section className="repository-section section-wrap" id="repositories">
           <div className="section-heading">
             <div><span className="section-index">04</span><h2>Карта Git-репозиториев</h2></div>
-            <p>В рабочей папке семь Git-папок: шесть актуальных публичных репозиториев и один архив старой платформы.</p>
+            <p>Пять репозиториев библиотек, интеграционные проверки и документация. Старый BroadCore хранится отдельно как архив.</p>
           </div>
           <div className="repository-map">
             <div className="repository-map-grid">
