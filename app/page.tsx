@@ -181,7 +181,7 @@ export default function Home() {
             </div>
             <div className="repository-legacy">
               <div><span>АРХИВ · НЕ ДЛЯ НОВЫХ ПРОЕКТОВ</span><code>BroadCore</code><small>локальная папка и старый BroadApps-official/BroadCore</small></div>
-              <p>Исторический монолит: оставлен для анализа и миграции. Новое приложение берёт код из четырёх <code>broad-*-ios</code>, а не отсюда.</p>
+              <p>Исторический монолит: оставлен для анализа и миграции. Новое приложение подключает нужные пакеты <code>broad-*-ios</code>.</p>
               <Link href="/docs/legacy-broadcore">Куда переехал старый BroadCore →</Link>
             </div>
             <div className="repository-rule"><b>Короткое правило</b><span>Код функции меняем в её <code>broad-*-ios</code> модуле; совместимость — в integration; общее объяснение — в <code>broad-docs</code>; уникальные тексты, дизайн и бизнес-правила — в репозитории самого приложения.</span><Link href="/docs/architecture#как-понять-какой-репозиторий-менять">Подробная схема →</Link></div>
@@ -200,6 +200,7 @@ export default function Home() {
               <div><b>Запуск, кеш и логи</b><span>→</span><strong>Core</strong></div>
               <div><b>Свой UI для оплаты</b><span>→</span><strong>Monetization</strong></div>
               <div><b>Готовые экраны и переходы</b><span>→</span><strong>UIFlows</strong></div>
+              <div><b>Карта и СБП</b><span>→</span><strong>+ RUBilling</strong></div>
             </div>
           </div>
         </section>
