@@ -1,5 +1,11 @@
 # Проверка BroadStart
 
+## Обновление зависимостей — 22 сентября 2026
+
+Core 3.0.0, Extensions 1.0.1: Debug iPhone Simulator и Release generic iOS
+без подписи — PASS. Project и Package.resolved обновлены вместе с инструкцией
+подключения набора 5.0.0. Swift-исходники и сценарии каталога не менялись.
+
 ## Обновление зависимостей — 11 сентября 2026
 
 Core 2.0.0, Extensions 1.0.1, Swinject 2.10.0: Debug iPhone Simulator и

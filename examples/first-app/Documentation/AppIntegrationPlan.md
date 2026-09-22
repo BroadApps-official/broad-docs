@@ -11,9 +11,9 @@
 ## Подключение
 
 - iPhone, iOS 17+, Swift language mode 5, Team None.
-- BroadCore 2.0.0: LoadableState и AppError.
+- BroadCore 3.0.0: LoadableState и AppError.
 - BroadExtensions 1.0.1: Color(broadHex:).
-- Источник: Compatibility/current.yml из broad-platform-integration, set 1.4.0.
+- Источник: Compatibility/current.yml из broad-platform-integration, set 5.0.0.
 - Монетизация, аккаунт, сервер, ATT и поддержка: N/A для этого учебного каталога.
 - Оба product явно подключаются к BroadStart, поскольку оба импортируются его кодом.
 

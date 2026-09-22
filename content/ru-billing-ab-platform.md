@@ -1,6 +1,8 @@
 # RU Billing: A/B в платформе
 
-Доступно в BroadMonetization **1.4.1**. Это эксперименты оплаты через RU backend.
+С набора 5.0.0 этот сценарий принадлежит отдельному `BroadRUBilling 1.0.0`. [Подключение RU-модуля](./ru-billing.md) · [Версии и миграция](./compatibility.md).
+
+Доступно в BroadRUBilling **1.0.0**. Это эксперименты оплаты через RU backend.
 Вариант по-прежнему назначает Adapty; backend связывает показ с RU-платежом
 по текущему авторизованному пользователю. Нового распределения пользователей
 в платформе нет.
@@ -166,7 +168,7 @@ backend endpoint показа не обещает идемпотентность
 небольшими изменениями; новый backend или дизайн от него не требуется.
 
 ```text
-Добавь opt-in RU Billing A/B из BroadMonetization 1.4.1 в существующее приложение.
+Добавь opt-in RU Billing A/B из BroadRUBilling 1.0.0 в существующее приложение.
 Сначала прочитай Documentation/RUBillingExperiments.md модуля и текущий
 AppIntegrationPlan. Зафиксируй текущие RU-gate/freshness, JWT session binding,
 показ Adapty, backend endpoints, matching ID и существующие A/B callbacks.

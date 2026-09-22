@@ -6,6 +6,7 @@ const sources = [
   { repository: "broad-extensions-ios", ref: "main", label: "BroadExtensions" },
   { repository: "broad-monetization-ios", ref: "main", label: "BroadMonetization" },
   { repository: "broad-ui-flows-ios", ref: "main", label: "BroadUIFlows" },
+  { repository: "broad-ru-billing-ios", ref: "main", label: "BroadRUBilling" },
   { repository: "broad-platform-integration", ref: "main", label: "Integration" },
   { repository: "broad-docs", ref: "main", label: "Docs" },
 ];
@@ -15,6 +16,7 @@ const localDirectories = {
   "broad-extensions-ios": "broad-extensions-ios",
   "broad-monetization-ios": "broad-monetization-ios",
   "broad-ui-flows-ios": "broad-ui-flows-ios",
+  "broad-ru-billing-ios": "broad-ru-billing-ios",
   "broad-platform-integration": "BroadAppsIOSPlatform",
 };
 

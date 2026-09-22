@@ -1,5 +1,7 @@
 # RU Billing: карта и СБП
 
+RU Billing поставляется отдельным пакетом [broad-ru-billing-ios](https://github.com/BroadApps-official/broad-ru-billing-ios). Подключите `BroadRUBilling` для логики и `BroadRUBillingUI` для готовых экранов. Без этого пакета RU-код и обработчики оплаты в сборку не входят. [Набор версий и миграция](./compatibility.md).
+
 ## Каталог и доступность RU Billing
 
 RU Billing позволяет оплатить подписку картой или через СБП через сервер
@@ -68,12 +70,12 @@ cooldown».
 
 ## Как подключить резерв при сбое Adapty
 
-1. Обновите BroadMonetization до **2.0.0** вместе с [проверенным набором платформы](./compatibility.md).
+1. Подключите **BroadRUBilling 1.0.0** вместе с [проверенным набором платформы](./compatibility.md).
 2. Сохраните существующий `RUBillingCompositionFactory`: URL, формат каталога,
    пользователя и авторизацию именно вашего приложения.
-3. Если сервисы собирает `AdaptyMonetizationFactory`, замените `makeServices`
-   на `makeServicesWithRUFallback` и добавьте аргумент `ruBillingFallback: ruFactory`.
-   Остальные аргументы остаются прежними.
+3. Если сервисы собирает `AdaptyMonetizationFactory`, передайте в `makeServices`
+   аргумент `paywallLoaderFactory: ruFactory`. Парсер конфигурации подключите как
+   `RemotePaywallConfigurationParser(providers: [RUBillingRemoteConfigurationParser()])`.
 4. Если сервисы собираются вручную, передайте новый загрузчик в
    `BroadMonetizationServices.loadPaywall`:
 
@@ -94,8 +96,8 @@ let loadPaywall = ruFactory.makePaywallLoader(
 основным paywall или резервным каталогом обычных RU-подписок.
 
 Здесь используются уже созданные зависимости приложения. Checkout подключается
-через ту же RU-композицию, как и раньше. UIFlows получает привычную модель
-paywall; отдельную копию экрана делать не требуется.
+через ту же RU-композицию, как и раньше. Готовый RU-экран подключается через `BroadRUPaywallView` из `BroadRUBillingUI`;
+конфигурация RU-интерфейса передаётся отдельно от `BroadPaywallConfiguration`.
 
 В резервной ветке ID, цена, валюта и период берутся с сервера. Порядок и дубли
 сохраняются. Обычный paywall исключает отмеченные сервером Special Offer;
@@ -104,7 +106,7 @@ paywall; отдельную копию экрана делать не требу
 со свежим каталогом: изменение цены или порядка требует обновить выбор.
 
 [Полный контракт и пример шаблона](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/RUProviderFallback.md)
-· [Исходный загрузчик](https://github.com/BroadApps-official/broad-monetization-ios/blob/main/Sources/BroadMonetization/Application/Paywalls/LoadPaywallWithRUFallbackUseCase.swift).
+· [Исходный загрузчик](https://github.com/BroadApps-official/broad-ru-billing-ios/blob/main/Sources/BroadRUBilling/Application/Paywalls/LoadPaywallWithRUFallbackUseCase.swift).
 
 ## Что означает `ru_pay`
 

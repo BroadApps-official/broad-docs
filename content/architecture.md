@@ -12,8 +12,10 @@
 |---|---|---|
 | [BroadCore](./broad-core.md) | Запуск шагов, состояния загрузки, кеш, ограниченные повторы, безопасные ошибки и адаптер ATT | Какие шаги запускать, какие данные хранить, как показать результат |
 | [BroadExtensions](./broad-extensions.md) | Небольшие функции для цвета, шрифтов, клавиатуры и навигации | Дизайн и выбор мест, где применять утилиты |
-| [BroadMonetization](./broad-monetization.md) | Каталог paywall, покупка, восстановление, проверка доступа, RU Billing | Ключи SDK, placements, backend-контракт, учётная запись и правила продукта |
+| [BroadMonetization](./broad-monetization.md) | Каталог paywall, покупка, восстановление, проверка доступа | Ключи SDK, placements, backend-контракт, учётная запись и правила продукта |
 | [BroadUIFlows](./broad-ui-flows.md) | Готовые экраны и общие переходы onboarding, paywall и AppFlow | Тексты, изображения, тема, конфигурация и собственные экраны |
+
+RU-оплату содержит отдельный [BroadRUBilling](./ru-billing.md). Приложение явно подключает его логику и, при необходимости, product `BroadRUBillingUI`. Базовые пакеты от него не зависят.
 
 Отдельно существуют [интеграционный репозиторий](https://github.com/BroadApps-official/broad-platform-integration) с проверенным набором версий и примерами и [репозиторий сайта](https://github.com/BroadApps-official/broad-docs) с инструкциями. Их не добавляют как библиотеку в app target.
 
