@@ -7,6 +7,12 @@ import { fileURLToPath } from "node:url";
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const publicRoot = join(projectRoot, "public");
 const platformRoot = join(projectRoot, "..", "BroadAppsIOSPlatform");
+// These diagrams are maintained here to match the site's high-level guidance.
+const docsOwnedDiagrams = new Set([
+  "guides/readme/architecture-light.svg",
+  "guides/readme/composition-root-light.svg",
+  "guides/readme/full-flow-light.svg",
+]);
 
 function gitRef(directory, fallbackVariable) {
   if (process.env[fallbackVariable]) return process.env[fallbackVariable];
@@ -30,7 +36,7 @@ const previousManifest = JSON.parse(await readFile(join(publicRoot, "media-manif
 const assets = {};
 for (const publicPath of await listMediaFiles(publicRoot)) {
   const buffer = await readFile(join(publicRoot, publicPath));
-  const fromPlatform = publicPath.startsWith("guides/readme/");
+  const fromPlatform = publicPath.startsWith("guides/readme/") && !docsOwnedDiagrams.has(publicPath);
   const sourcePath = fromPlatform
     ? `Documentation/Assets/README/${publicPath.slice("guides/readme/".length)}`
     : `public/${publicPath}`;
@@ -44,7 +50,7 @@ for (const publicPath of await listMediaFiles(publicRoot)) {
     ...(previous?.recording ? previous : {}),
     sha256,
     bytes: buffer.length,
-    source: previous?.recording ? previous.source : {
+    source: previous?.sha256 === sha256 ? previous.source : {
       repository: fromPlatform
         ? "https://github.com/BroadApps-official/broad-platform-integration"
         : "https://github.com/BroadApps-official/broad-docs",

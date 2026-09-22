@@ -89,6 +89,15 @@ export function ArchitectureMap({ showLink = false }: ArchitectureMapProps) {
         ))}
       </div>
 
+      <section className="map-ru-module" aria-label="RU Billing — необязательный подмодуль монетизации">
+        <div><span>ДОПОЛНЕНИЕ К МОНЕТИЗАЦИИ</span><h3>Нужна оплата картой или СБП?</h3><p>RU Billing подключается отдельно из <Link href="https://github.com/BroadApps-official/broad-ru-billing-ios">broad-ru-billing-ios ↗</Link>.</p></div>
+        <div className="map-ru-products">
+          <div><b>BroadRUBilling</b><p>Каталог, оплата и подтверждение результата. Для своего интерфейса достаточно этого product.</p></div>
+          <div><b>+ BroadRUBillingUI</b><p>Добавьте, если нужны готовые RU-экраны. Они используют общие экраны BroadUIFlows.</p></div>
+        </div>
+        <p><strong>RU-оплата не нужна — пакет не добавляем.</strong> В сборку не попадут её код, экраны и обработчики возврата. <Link href="/docs/ru-billing">Подключение RU Billing →</Link></p>
+      </section>
+
       <div className="map-example" aria-label="Разобранный пример для готового paywall">
         <div className="map-example-title"><span>ПРИМЕР</span><b>Нужен готовый экран подписки</b></div>
         <div className="map-example-flow">

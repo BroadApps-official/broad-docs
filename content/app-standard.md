@@ -14,11 +14,13 @@
 
 ## Что брать готовым
 
+![Структура платформы: RU Billing — отдельно подключаемый подмодуль монетизации. Без RU-пакета его код и экраны не входят в приложение.](../public/guides/readme/architecture-light.svg)
+
 | Часть | Общая реализация | Что задаёт приложение |
 |---|---|---|
 | Онбординг | BroadUIFlows: страницы, переходы и ATT lifecycle | Содержимое, количество страниц и дизайн |
 | Пейвол | BroadMonetization + BroadUIFlows: загрузка, выбор, оплата, restore и ошибки | Placements, оформление, тексты и legal links |
-| RU-оплата | Общие правила, каталог, checkout и подтверждение доступа | Подтверждённые backend endpoints, DTO и авторизация |
+| RU-оплата | Отдельный BroadRUBilling; готовые RU-экраны — BroadRUBillingUI | Подключение только при необходимости, каталог и авторизация своего backend |
 | Tokens и special offer | Отдельные общие сценарии, если нужны продукту | Включение, свои placements и backend tokens |
 | Загрузка и ошибки | LoadableState, общие UI-состояния, retry и loader | Понятные тексты и действие повтора |
 | Стиль кода | SwiftFormat, SwiftLint и правила зависимостей | Применение правил к исходникам приложения |
@@ -104,7 +106,7 @@ PASS означает, что в рамках аудита нет открыты
 bash Scripts/agent_review_and_fix.sh platform
 ```
 
-Он проверяет четыре module repositories рядом с integration и сам integration.
+Он проверяет пять репозиториев модулей рядом с integration и сам integration, включая сборку без RU Billing.
 Явные режимы только проверяют; `--fix` разрешает минимальные исправления.
 Платформа не публикует отчёты конкретных приложений.
 [Полная инструкция и запуск внутри открытого агента](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AgentReview.md).

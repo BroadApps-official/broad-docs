@@ -16,7 +16,7 @@
 
 В Xcode посмотрите **Project → Package Dependencies → URL**. Название `BroadCore` в левой панели и строка `import` сами по себе не показывают, используется старый репозиторий или новый.
 
-![Так выглядит актуальный источник Core: broad-core-ios и точная версия](../public/guides/start/xcode-package.png)
+![Где добавить публичный broad-core-ios. Снимок исторический; актуальную версию выбирайте из каталога совместимости](../public/guides/start/xcode-package.png)
 
 ## Где теперь искать нужную функцию
 

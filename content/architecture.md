@@ -6,6 +6,8 @@
 
 ## Две карты, которые нельзя смешивать
 
+![Карта ответственности: базовые модули и необязательный RU Billing внутри области монетизации. Это состав платформы, а не граф всех технических зависимостей.](../public/guides/readme/architecture-light.svg)
+
 У платформы есть **библиотеки** — то, что Xcode подключает к приложению. Внутри библиотеки и приложения есть **слои кода** — способ разделить ответственность. Это разные разрезы: BroadCore не является «всем Domain», а BroadUIFlows — «всем UI» вашего приложения.
 
 | Библиотека | Какую работу берёт | Что остаётся у приложения |
@@ -15,7 +17,7 @@
 | [BroadMonetization](./broad-monetization.md) | Каталог paywall, покупка, восстановление, проверка доступа | Ключи SDK, placements, backend-контракт, учётная запись и правила продукта |
 | [BroadUIFlows](./broad-ui-flows.md) | Готовые экраны и общие переходы onboarding, paywall и AppFlow | Тексты, изображения, тема, конфигурация и собственные экраны |
 
-RU-оплату содержит отдельный [BroadRUBilling](./ru-billing.md). Приложение явно подключает его логику и, при необходимости, product `BroadRUBillingUI`. Базовые пакеты от него не зависят.
+RU Billing — **необязательный подмодуль монетизации в отдельном репозитории**. Приложение явно подключает [BroadRUBilling](./ru-billing.md) для оплаты картой и СБП и, при необходимости, `BroadRUBillingUI` для готовых экранов. Без этого пакета RU-код и обработчики возврата не входят в сборку. Базовые пакеты от него не зависят.
 
 Отдельно существуют [интеграционный репозиторий](https://github.com/BroadApps-official/broad-platform-integration) с проверенным набором версий и примерами и [репозиторий сайта](https://github.com/BroadApps-official/broad-docs) с инструкциями. Их не добавляют как библиотеку в app target.
 
@@ -29,6 +31,7 @@ RU-оплату содержит отдельный [BroadRUBilling](./ru-billin
 | BroadCore | Swinject — инструмент сборки зависимостей |
 | BroadMonetization | BroadCore, Adapty, Swinject |
 | BroadUIFlows | BroadCore, BroadMonetization, Swinject |
+| BroadRUBilling — отдельный пакет | BroadCore, BroadMonetization, BroadUIFlows, Swinject; готовый UI используется только product BroadRUBillingUI |
 
 Таким образом, **даже для одного onboarding пакет BroadUIFlows сейчас приводит Adapty через BroadMonetization**. Возможности можно не использовать, но они остаются зависимостями пакета. Если нужны только свои экраны и состояние списка, как в BroadStart, достаточно Core и Extensions.
 

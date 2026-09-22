@@ -3,9 +3,9 @@
 С набора 5.0.0 этот сценарий принадлежит отдельному `BroadRUBilling 1.0.0`. [Подключение RU-модуля](./ru-billing.md) · [Версии и миграция](./compatibility.md).
 
 Эта страница показывает, **как получить тарифы с backend**, кто пишет сетевой
-запрос и какую часть уже делает `BroadMonetization`.
+запрос и какую часть уже делает `BroadRUBilling`.
 
-Для A/B-тестов RU Billing с 1.4.0 есть отдельный
+Для A/B-тестов RU Billing есть отдельный
 [selector продуктов и настройка tracker](./ru-billing-ab-platform.md).
 Полный каталог по этой инструкции сохраняется; выбор набора для варианта
 выполняется уже после его получения в существующем RU UI.
@@ -14,7 +14,7 @@
 > приложения: у него могут быть другой сервер, единицы цены и способы оплаты.
 
 > Готовый `FlatRUCatalogResponseDecoder` доступен в проверенной версии
-> `BroadMonetization 1.4.1` из [platform set 1.4.0](./compatibility.md).
+> `BroadRUBilling 1.0.0` из [текущего набора](./compatibility.md).
 > Пример ниже относится к этому decoder. Для другого формата ответа нужен
 > собственный `RUCatalogResponseDecoderProtocol` с тем же контрактом массива.
 
@@ -142,13 +142,13 @@ backend
 конфигурация конкретного приложения
   передаёт URL, заголовки, авторизацию и timeout
         ↓
-URLSession repository + decoder BroadMonetization
-  выполняют запрос, проверяют JSON и создают одну модель на каждую строку
+BroadRUBilling
+  загружает каталог backend, сохраняя все строки продуктов
         ↓
-общая логика оплаты
-  связывает продукт по точному ID и предлагает Apple / СБП / карту
+RU-оплата
+  использует выбранный серверный тариф и доступный способ: карту или СБП
         ↓
-экран приложения или BroadUIFlows
+экран приложения или BroadRUBillingUI
   показывает продукты своего сценария: обычный paywall или Special Offer
 ```
 
@@ -335,7 +335,7 @@ Adapty product ID = backend appStoreProductID или catalogProductID
 
 **Если ни одного совпадения нет, в том числе Adapty не вернул продукты после
 удаления приложения из App Store, RU-экран показывает все обычные подписки с
-`isDefault=true`.** В BroadMonetization 1.5.4 это делает подключённый
+`isDefault=true`.** В BroadRUBilling это делает подключённый
 `LoadPaywallWithRUFallbackUseCase`. Российский Storefront **или** регион телефона
 и правила `ru_pay` по-прежнему обязательны; [подключение и условия](./ru-billing.md).
 

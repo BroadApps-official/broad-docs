@@ -18,15 +18,12 @@
 
 ## Обновление на набор 5.0.0
 
-1. Обновите ограничения Core, Monetization и UIFlows вместе. Extensions остаётся 1.0.1. Разрешите зависимости в Xcode и сохраните `Package.resolved`.
-2. Если RU-оплата не нужна, не добавляйте RU-пакет. Удалите RU-конфигурацию, обработчики возврата и RU imports приложения. [Apple-only пример](https://github.com/BroadApps-official/broad-platform-integration/tree/main/Examples/BroadAppleOnlyTemplate) проверяет отсутствие RU-зависимости, символов и ресурсов в Debug/Release.
-3. Если RU нужна, добавьте `BroadRUBilling`; для готовых экранов — также `BroadRUBillingUI`. Подключите `RemotePaywallConfigurationParser(providers: [RUBillingRemoteConfigurationParser()])`. Вызов `makeServicesWithRUFallback` заменяется на `makeServices(paywallLoaderFactory: ruFactory, ...)`. Tracker передаётся как `viewReporting`.
-4. Общий checkout получает `RUBillingCheckoutAdapter` через `additionalCheckout`. Передавайте один и тот же `MonetizationOperationGate` в Apple и RU сервисы. Создавайте RU-композицию до открытия покупки/restore, чтобы сохранённая попытка зарегистрировала блокировку.
-5. Готовый RU paywall — `BroadRUPaywallView`; `BroadRUBillingPresentationConfiguration` передаётся ему отдельно. Базовый `BroadPaywallConfiguration` больше не содержит RU-настроек. Подключайте callbacks и foreground-сверку только в RU-композиции.
-6. Не меняйте app/account ID, ключи и хранилище pending. Старые записи читаются новым модулем. Конец локального ожидания account policy разблокирует новую попытку, но не означает отмены старого платежа. Payment-status режим ждёт окончательного статуса сервера.
-7. Для собственных `switch` учтите расширяемые `CheckoutMethod`, `EntitlementSource`, `CatalogSource` и operation kind: это теперь типизированные raw values, нужен `default`. RU-события в exhaustive analytics switch заменены на общие `providerCheckout…`; RU log factories находятся в RU-модуле и используют `.host`.
+1. Обновите Core, Monetization и UIFlows вместе по таблице выше. Сохраните разрешённые версии в проекте.
+2. Если нужна оплата картой или СБП, отдельно добавьте `BroadRUBilling`; для готовых RU-экранов — `BroadRUBillingUI`. Без RU-оплаты удалите старое RU-подключение и не добавляйте новый пакет.
+3. При переносе сохраните ID пользователя, настройки сервера и незавершённые покупки. Смена модуля не должна терять ожидающий платёж.
+4. Соберите приложение и проверьте покупку, отмену, ожидание и возврат из оплаты. Для приложения без RU проверьте, что RU-пакет отсутствует.
 
-[Полный порядок композиции](https://github.com/BroadApps-official/broad-ru-billing-ios#composition) · [Инструкция миграции](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/OptionalRUBilling.md).
+Точные изменения API и порядок подключения — в [инструкции миграции модуля](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/OptionalRUBilling.md) и [README BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios).
 
 ## Обновление шаблона с 4.1.1 на 4.1.2
 
@@ -96,18 +93,18 @@ malformed значения остаются fail-closed. Проверьте RU-�
 
 `from` не значит «скачать ровно это». Само наличие диапазона также не обновляет уже установленное приложение у пользователей: изменения попадают в следующую собранную и выпущенную версию приложения.
 
-**Точная версия UIFlows не фиксирует всю цепочку.** У UIFlows 4.0.0 зависимости Core и Monetization заданы диапазонами. Чтобы воспроизвести набор, проверьте все фактические pins. При необходимости добавьте в проект ограничения Exact Version для уже участвующих нижних пакетов; соответствующие products в app target нужны только при прямых imports. Это ограничение версии существующей зависимости, а не требование импортировать весь API.
+**Точная версия UIFlows не фиксирует всю цепочку.** У UIFlows 5.0.0 зависимости Core и Monetization заданы диапазонами. Чтобы воспроизвести набор, проверьте все фактические pins. При необходимости добавьте в проект ограничения Exact Version для уже участвующих нижних пакетов; соответствующие products в app target нужны только при прямых imports. Это ограничение версии существующей зависимости, а не требование импортировать весь API.
 
 ## Подключение вручную в Xcode
 
-1. Откройте каталог и запишите нужные версии. Для BroadStart это Core 2.1.0 и Extensions 1.0.1.
+1. Откройте каталог и запишите нужные версии. Для BroadStart это Core 3.0.0 и Extensions 1.0.1.
 2. Добавьте публичный HTTPS URL нужного пакета через **File → Add Package Dependencies…**.
 3. Выберите **Exact Version** и номер именно этого модуля.
 4. В следующем диалоге добавьте нужный product в нужный app target.
 5. Разрешите зависимости, затем сравните их фактические версии с выбранным набором.
 6. Сохраните изменение проекта и `Package.resolved` вместе.
 
-![Xcode: расположение правила Exact Version; на историческом снимке Core 1.2.0, сейчас выбирайте 2.1.0](../public/guides/start/xcode-package.png)
+![Xcode: расположение правила Exact Version; на историческом снимке Core 1.2.0, сейчас выбирайте 3.0.0](../public/guides/start/xcode-package.png)
 
 Это настоящий снимок подключения Core для BroadStart. Полная последовательность с выбором product и target находится в [первом подключении](./getting-started.md).
 
@@ -129,7 +126,7 @@ rg --files --hidden -g Package.resolved
 
 | Пакет | Фактическая версия в BroadStart |
 |---|---|
-| broad-core-ios | 2.1.0 |
+| broad-core-ios | 3.0.0 |
 | broad-extensions-ios | 1.0.1 |
 | Swinject | 2.10.0 |
 
@@ -144,7 +141,7 @@ rg --files --hidden -g Package.resolved
 5. Соберите Debug и Release для iPhone Simulator, затем пройдите затронутые сценарии приложения.
 6. Сохраните настройки и lockfile одним согласованным изменением. В описании укажите, что было проверено, а что ещё требует данных проекта.
 
-Новая необязательная возможность подключается отдельно. Например, обновление Monetization до версии с RU A/B не должно само включить эксперимент: у приложения остаётся работающая оплата, а tracker и настройки добавляются явно. [Подключение RU A/B](./ru-billing-ab-platform.md).
+Новая необязательная возможность подключается отдельно. Например, обновление RU Billing не должно само включить эксперимент: у приложения остаётся работающая оплата, а tracker и настройки добавляются явно. [Подключение RU A/B](./ru-billing-ab-platform.md).
 
 Для возврата восстановите предыдущие согласованные настройки пакетов и lockfile из сохранённого изменения, снова разрешите зависимости и соберите приложение. Откат только `Package.resolved` при новых Exact Version ограничениях не вернёт прежний набор. Откат кода также не отменяет уже выполненные серверные операции или миграции данных.
 
