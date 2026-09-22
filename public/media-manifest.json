@@ -561,6 +561,15 @@
         "processing": "Existing GIF converted to MP4 at original playback speed, with a poster and Russian action caption. Original capture rate: 5 fps."
       }
     },
+    "guides/project-standard/file-header-comments.png": {
+      "sha256": "177ee1ab8197a64f817e4122d2167349a2f178a6bb43dc0eb32f26f98aa9422d",
+      "bytes": 322569,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "6ad6d07ab4c7ff77486ca5f5fe1b85253873bc0f",
+        "path": "public/guides/project-standard/file-header-comments.png"
+      }
+    },
     "guides/readme/PaywallLoader/catalog-loading.gif": {
       "sha256": "39616809d6d29101bfaf1eee4447ee62d24ace65fd00f3d9307aad5a0e8da5d4",
       "bytes": 782182,
