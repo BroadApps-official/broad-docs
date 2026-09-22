@@ -274,7 +274,7 @@ const allFiles = await readdir(projectRoot);
 if (allFiles.some((name) => name.toLowerCase() === "tests")) fail("Tests directories are forbidden.");
 if (/"test"\s*:/.test(await readFile(new URL("../package.json", import.meta.url), "utf8"))) fail("Test scripts are forbidden.");
 
-for (const repository of ["broad-core-ios", "broad-extensions-ios", "broad-monetization-ios", "broad-ui-flows-ios", "broad-platform-integration", "broad-docs"]) {
+for (const repository of ["broad-core-ios", "broad-extensions-ios", "broad-monetization-ios", "broad-ui-flows-ios", "broad-ru-billing-ios", "broad-platform-integration", "broad-docs"]) {
   if (!githubIndex.includes(`"repository": "${repository}"`)) fail(`GitHub search index is missing ${repository}.`);
 }
 if ((githubIndex.match(/"id":/g) ?? []).length < 20) fail("GitHub search index must contain at least twenty public documents.");

@@ -1,24 +1,32 @@
 # Какие версии ставить
 
-Для нового подключения или обновления возьмите **точные версии из проверенного набора**, затем убедитесь, что именно их выбрал Xcode. Номер версии в настройках пакета и фактически разрешённые зависимости могут различаться: нижние библиотеки часто объявляют диапазон допустимых версий.
+Для нового подключения используйте точные версии из набора 5.0.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-Эта инструкция подходит для работы вручную и через агента. Актуальный источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml). Таблица ниже сверена с ним 16 сентября 2026 года.
+Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 
 ## Текущий проверенный набор
 
-| Параметр | Значение | Как применять |
+| Пакет | Версия | Назначение |
 |---|---|---|
-| Номер набора — platform set | `4.1.2` | Обозначает сочетание ниже, не устанавливается как пакет |
-| Минимальная iOS | `17.0` | Установить для iPhone target приложения |
-| Swift language mode | `5` | Режим языка исходников, а не номер установленного Xcode |
-| Swift tools | `6.0` | Нужен toolchain, который умеет читать такой Package.swift |
-| [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/2.1.0) | `2.1.0` | Общие состояния, логирование и стабильный Keychain ID |
+| [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/4.1.0) | `4.1.0` | Current Adapty payload с explicit `ru_pay=true` открывает RU Billing; platform cache нет |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/4.0.0) | `4.0.0` | Общие экраны с зависимостями Core 2.x и Monetization 4.x |
-| Общая проверка | `passed`, 16 сентября 2026 | Результат относится к указанному сочетанию |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.0.0) | `5.0.0` | Adapty, Apple purchase/restore, доступ и токены |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/5.0.0) | `5.0.0` | Общие экраны и сценарии |
+| [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.0) | `1.0.0` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-У каждого модуля свой выпуск. Подключайте [нужные возможности](./module-selection.md) с версиями из таблицы.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **5.0.0** обозначает сочетание пакетов, а не общий runtime package.
+
+## Обновление на набор 5.0.0
+
+1. Обновите ограничения Core, Monetization и UIFlows вместе. Extensions остаётся 1.0.1. Разрешите зависимости в Xcode и сохраните `Package.resolved`.
+2. Если RU-оплата не нужна, не добавляйте RU-пакет. Удалите RU-конфигурацию, обработчики возврата и RU imports приложения. [Apple-only пример](https://github.com/BroadApps-official/broad-platform-integration/tree/main/Examples/BroadAppleOnlyTemplate) проверяет отсутствие RU-зависимости, символов и ресурсов в Debug/Release.
+3. Если RU нужна, добавьте `BroadRUBilling`; для готовых экранов — также `BroadRUBillingUI`. Подключите `RemotePaywallConfigurationParser(providers: [RUBillingRemoteConfigurationParser()])`. Вызов `makeServicesWithRUFallback` заменяется на `makeServices(paywallLoaderFactory: ruFactory, ...)`. Tracker передаётся как `viewReporting`.
+4. Общий checkout получает `RUBillingCheckoutAdapter` через `additionalCheckout`. Передавайте один и тот же `MonetizationOperationGate` в Apple и RU сервисы. Создавайте RU-композицию до открытия покупки/restore, чтобы сохранённая попытка зарегистрировала блокировку.
+5. Готовый RU paywall — `BroadRUPaywallView`; `BroadRUBillingPresentationConfiguration` передаётся ему отдельно. Базовый `BroadPaywallConfiguration` больше не содержит RU-настроек. Подключайте callbacks и foreground-сверку только в RU-композиции.
+6. Не меняйте app/account ID, ключи и хранилище pending. Старые записи читаются новым модулем. Конец локального ожидания account policy разблокирует новую попытку, но не означает отмены старого платежа. Payment-status режим ждёт окончательного статуса сервера.
+7. Для собственных `switch` учтите расширяемые `CheckoutMethod`, `EntitlementSource`, `CatalogSource` и operation kind: это теперь типизированные raw values, нужен `default`. RU-события в exhaustive analytics switch заменены на общие `providerCheckout…`; RU log factories находятся в RU-модуле и используют `.host`.
+
+[Полный порядок композиции](https://github.com/BroadApps-official/broad-ru-billing-ios#composition) · [Инструкция миграции](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/OptionalRUBilling.md).
 
 ## Обновление шаблона с 4.1.1 на 4.1.2
 

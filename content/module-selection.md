@@ -1,19 +1,21 @@
 # Какие части платформы выбрать
 
-Сначала перечислите функции приложения, затем отметьте библиотеки, чей код оно будет использовать. **Не обязательно подключать все четыре модуля. Несколько модулей допустимы**, если каждый нужен для конкретной функции.
+Сначала перечислите функции приложения, затем отметьте библиотеки, чей код оно будет использовать. **Не обязательно подключать все модули. Несколько модулей допустимы**, если каждый нужен для конкретной функции.
 
 Есть два разных вопроса: какие пакеты Xcode должен скачать и какие продукты подключить к вашему target. Их различие особенно важно для готовых экранов, которые используют Core и Monetization внутри себя.
 
-## Четыре модуля и их задачи
+## Модули и их задачи
 
 | Модуль | Когда нужен | Чего от него не ожидать |
 |---|---|---|
 | **BroadExtensions** | Цвет из HEX, шрифты, закрытие клавиатуры, жест возврата | Не запускает приложение и не подключает оплату |
 | **BroadCore** | Состояния загрузки и ошибки, последовательность запуска, кеш, ограниченные повторы, логи, механизм ATT | Не рисует paywall и не даёт готовый backend приложения |
-| **BroadMonetization** | Покупка, восстановление, подтверждение доступа, Adapty, токены, RU Billing и его опциональные A/B-тесты | Не создаёт дизайн вашего экрана и не знает реквизиты вашего сервера |
+| **BroadMonetization** | Покупка, восстановление, подтверждение доступа, Adapty, токены | Не создаёт дизайн вашего экрана и не знает реквизиты вашего сервера |
 | **BroadUIFlows** | Готовый onboarding, paywall, переходы между ними, общие экраны состояний; управление onboarding с собственным дизайном | Не определяет число слайдов, бренд, юридические ссылки и условия вашего продукта |
 
-Код модулей: [Extensions](https://github.com/BroadApps-official/broad-extensions-ios), [Core](https://github.com/BroadApps-official/broad-core-ios), [Monetization](https://github.com/BroadApps-official/broad-monetization-ios), [UIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios). Общие инструкции: [части платформы](./architecture.md).
+| **BroadRUBilling / BroadRUBillingUI** | RU-каталог, checkout, подтверждение оплаты, A/B и готовый RU-интерфейс | Не подключается автоматически; backend и авторизацию задаёт приложение |
+
+Код модулей: [Extensions](https://github.com/BroadApps-official/broad-extensions-ios), [Core](https://github.com/BroadApps-official/broad-core-ios), [Monetization](https://github.com/BroadApps-official/broad-monetization-ios), [UIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios), [RUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios). Общие инструкции: [части платформы](./architecture.md).
 
 ## Какие зависимости придут вместе
 
@@ -23,6 +25,8 @@
 | `broad-core-ios` | Swinject |
 | `broad-monetization-ios` | BroadCore, Adapty и Swinject |
 | `broad-ui-flows-ios` | BroadMonetization, BroadCore, Adapty и Swinject |
+
+Пакет `broad-ru-billing-ios` подключается явно. Он объявляет зависимости на базовые пакеты; product `BroadRUBilling` компилирует только логику, а `BroadRUBillingUI` добавляет готовый интерфейс. Без этого пакета RU-код отсутствует в сборке.
 
 **BroadExtensions независим.** Он не появляется автоматически при добавлении UIFlows. Если используете `Color(broadHex:)`, подключите Extensions отдельно.
 
@@ -88,7 +92,7 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 
 ## Как выбрать версии
 
-Возьмите набор из [каталога совместимости](./compatibility.md), затем посмотрите версию каждого выбранного модуля. Проверенный здесь набор **4.1.2** содержит Core **2.1.0**, Extensions **1.0.1**, Monetization **4.1.0**, UIFlows **4.0.0**.
+Возьмите набор из [каталога совместимости](./compatibility.md), затем посмотрите версию каждого выбранного модуля. Проверенный здесь набор **5.0.0** содержит Core **3.0.0**, Extensions **1.0.1**, Monetization **5.0.0**, UIFlows **5.0.0** и опциональный RUBilling **1.0.0**.
 
 **Exact Version** фиксирует одну версию. **Up to Next Major Version** разрешает совместимый диапазон по номеру версии; при обновлении Xcode может выбрать более свежий выпуск в нём. Для первого воспроизводимого подключения и миграции используйте exact-версии набора и сохраняйте Package.resolved.
 
@@ -102,7 +106,7 @@ Swift Package — скачиваемый пакет. **Product** — библи�
 dependencies: [
     .package(
         url: "https://github.com/BroadApps-official/broad-core-ios.git",
-        exact: "2.1.0"
+        exact: "3.0.0"
     ),
     .package(
         url: "https://github.com/BroadApps-official/broad-extensions-ios.git",
