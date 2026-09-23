@@ -19,6 +19,7 @@ const quickQueries = [
 const startSlugs = ["getting-started", "module-selection", "broad-monetization", "legacy-app-migration"];
 
 const intentRules: Array<{ pattern: RegExp; slugs: string[]; weight: number }> = [
+  { pattern: /(релиз|выгруз|app store|testflight|releaseexport|prepare.release)/, slugs: ["app-release-export", "release-process"], weight: 300 },
   { pattern: /(готов.*(paywall|пейвол))/, slugs: ["paywall-ui", "broad-ui-flows", "adapty-setup"], weight: 290 },
   { pattern: /(готов.*экран|onboarding|онборд|ui flow)/, slugs: ["broad-ui-flows", "onboarding-att", "paywall-ui"], weight: 280 },
   { pattern: /(впервые|перв(ое|ый).*подключ|начать|старт.*платформ)/, slugs: ["getting-started", "module-selection", "public-package-access"], weight: 270 },
@@ -42,6 +43,7 @@ const resultReasons: Record<string, string> = {
   "legacy-broadcore": "Объясняет, куда переехал старый BroadCore.",
   compatibility: "Содержит готовый набор совместимых версий библиотек.",
   "release-process": "Объясняет SemVer и выпуск связанных изменений.",
+  "app-release-export": "Одна команда готовит релизный проект приложения с локальными пакетами BroadApps.",
   "runtime-reliability": "Сценарии диагностики запуска, кеша и сетевых сбоев.",
   "broad-core": "Основа запуска, кеширования, логирования и повторов.",
   "broad-ui-flows": "Готовые onboarding, paywall, состояния загрузки и переход в основное приложение.",
