@@ -43,7 +43,7 @@ const resultReasons: Record<string, string> = {
   "legacy-broadcore": "Объясняет, куда переехал старый BroadCore.",
   compatibility: "Содержит готовый набор совместимых версий библиотек.",
   "release-process": "Объясняет SemVer и выпуск связанных изменений.",
-  "app-release-export": "Одна команда готовит релизный проект приложения с локальными пакетами BroadApps.",
+  "app-release-export": "Одна команда загружает релизную ветку, которую затем выбирают в Codemagic.",
   "runtime-reliability": "Сценарии диагностики запуска, кеша и сетевых сбоев.",
   "broad-core": "Основа запуска, кеширования, логирования и повторов.",
   "broad-ui-flows": "Готовые onboarding, paywall, состояния загрузки и переход в основное приложение.",
