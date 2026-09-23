@@ -65,14 +65,20 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   const previousDoc = currentIndex > 0 ? docs[currentIndex - 1] : undefined;
   const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : undefined;
   const headings = documentHeadings(doc.body);
-  const sidebarGroups = docGroups.map((group) => ({
-    label: group,
-    entries: docs.filter((entry) => entry.group === group).map((entry) => ({
+  const sidebarEntry = (entry: typeof doc) => ({
       headings: documentHeadings(entry.body),
       slug: entry.slug,
       title: entry.title,
-    })),
-  }));
+  });
+  const sidebarGroups = docGroups.map((group) => {
+    const groupDocs = docs.filter((entry) => entry.group === group);
+    const subgroups = Array.from(new Set(groupDocs.map((entry) => entry.subgroup).filter((value): value is string => Boolean(value))));
+    return {
+      label: group,
+      entries: groupDocs.filter((entry) => !entry.subgroup).map(sidebarEntry),
+      subgroups: subgroups.map((label) => ({ label, entries: groupDocs.filter((entry) => entry.subgroup === label).map(sidebarEntry) })),
+    };
+  });
   const readingMinutes = Math.max(2, Math.ceil(doc.body.split(/\s+/).filter(Boolean).length / 180));
 
   return (
@@ -83,9 +89,9 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
           <div className="docs-hero-inner section-wrap">
             <div className="docs-hero-copy">
               <nav className="docs-breadcrumbs" aria-label="Путь к документу">
-                <Link href="/">Главная</Link><span aria-hidden="true">/</span><Link href="/docs">Документация</Link><span aria-hidden="true">/</span><b>{doc.group}</b>
+                <Link href="/">Главная</Link><span aria-hidden="true">/</span><Link href="/docs">Документация</Link><span aria-hidden="true">/</span>{doc.subgroup ? <><Link href={`/docs#directory-${doc.group}`}>{doc.group}</Link><span aria-hidden="true">/</span><b>{doc.subgroup}</b></> : <b>{doc.group}</b>}
               </nav>
-              <span className="docs-group-badge"><i aria-hidden="true" />{doc.group.toUpperCase()}</span>
+              <span className="docs-group-badge"><i aria-hidden="true" />{doc.group.toUpperCase()}{doc.subgroup ? ` / ${doc.subgroup.toUpperCase()}` : ""}</span>
               <h1>{doc.title}</h1>
               <p>{doc.description}</p>
               <div className="docs-hero-footer">

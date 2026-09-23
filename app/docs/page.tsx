@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function DocsIndexPage() {
-  const index = docs.map(({ slug, title, description, purpose, when, outcome, group, body }) => ({
+  const index = docs.map(({ slug, title, description, purpose, when, outcome, group, subgroup, body }) => ({
     slug,
     title,
     description,
@@ -18,6 +18,7 @@ export default function DocsIndexPage() {
     when,
     outcome,
     group,
+    subgroup,
     body,
   }));
 

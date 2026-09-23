@@ -5,7 +5,7 @@ const groupDescriptions = {
   "Старт": "Начать и перейти",
   "Части платформы": "Базовые библиотеки",
   "BroadUIFlows": "Готовые сценарии интерфейса",
-  "Монетизация": "Apple, СБП, карта и Premium",
+  "Монетизация": "Общая оплата и подключаемые биллинги",
   "Аккаунт и восстановление": "ID, данные и переустановка",
   "Архитектура": "Как всё устроено",
   "Разработка": "Версии и процессы",
@@ -31,6 +31,7 @@ export function HomeSectionMap() {
       <nav aria-label={`Все ${docs.length} документов по разделам`}>
         {docGroups.map((group, groupIndex) => {
           const groupDocs = docs.filter((doc) => doc.group === group);
+          const subgroups = Array.from(new Set(groupDocs.map((doc) => doc.subgroup).filter((value): value is string => Boolean(value))));
 
           return (
             <section className="home-map-group" aria-labelledby={`home-map-group-${groupIndex}`} key={group}>
@@ -40,7 +41,7 @@ export function HomeSectionMap() {
                 <em>{groupDocs.length}</em>
               </div>
               <div className="home-map-group-links">
-                {groupDocs.map((doc) => {
+                {groupDocs.filter((doc) => !doc.subgroup).map((doc) => {
                   const documentNumber = docs.findIndex((item) => item.slug === doc.slug) + 1;
 
                   return (
@@ -50,6 +51,20 @@ export function HomeSectionMap() {
                       <i aria-hidden="true">→</i>
                     </Link>
                   );
+                })}
+                {subgroups.map((subgroup) => {
+                  const subgroupDocs = groupDocs.filter((doc) => doc.subgroup === subgroup);
+                  return <div className="home-map-subgroup" key={subgroup}>
+                    <div className="home-map-subgroup-head"><b>{subgroup}</b><span>{subgroupDocs.length} статей</span></div>
+                    {subgroupDocs.map((doc) => {
+                      const documentNumber = docs.findIndex((item) => item.slug === doc.slug) + 1;
+                      return <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                        <span className="home-map-node">{String(documentNumber).padStart(2, "0")}</span>
+                        <span className="home-map-copy"><b>{doc.title}</b></span>
+                        <i aria-hidden="true">→</i>
+                      </Link>;
+                    })}
+                  </div>;
                 })}
               </div>
             </section>

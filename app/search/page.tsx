@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function SearchPage() {
-  const index = docs.map(({ slug, title, description, group, body }) => ({ slug, title, description, group, body }));
+  const index = docs.map(({ slug, title, description, group, subgroup, body }) => ({ slug, title, description, group, subgroup, body }));
   return (
     <div className="site-shell">
       <SiteHeader />

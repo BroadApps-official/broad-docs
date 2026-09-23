@@ -13,6 +13,7 @@ type DocsIndexEntry = {
   when: string;
   outcome: string;
   group: string;
+  subgroup?: string;
   body: string;
 };
 
@@ -105,7 +106,7 @@ function searchDocs(docs: DocsIndexEntry[], query: string) {
     .map((doc) => {
       const title = normalize(doc.title);
       const description = normalize(`${doc.description} ${doc.purpose} ${doc.when} ${doc.outcome}`);
-      const searchable = normalize(`${doc.slug} ${doc.group} ${doc.title} ${doc.description} ${doc.purpose} ${doc.when} ${doc.outcome} ${doc.body}`);
+      const searchable = normalize(`${doc.slug} ${doc.group} ${doc.subgroup ?? ""} ${doc.title} ${doc.description} ${doc.purpose} ${doc.when} ${doc.outcome} ${doc.body}`);
       if (!terms.every((term) => siteTermVariants(term).some((variant) => searchable.includes(variant)))) return null;
 
       const score =
@@ -223,7 +224,7 @@ function DocCards({ docs }: { docs: DocsIndexEntry[] }) {
         <Link className="docs-index-card" href={`/docs/${doc.slug}`} key={doc.slug}>
           <span className="docs-index-letter" aria-hidden="true">{firstLetter(doc.title)}</span>
           <div>
-            <span className="section-index">{doc.group.toUpperCase()}</span>
+            <span className="section-index">{doc.group.toUpperCase()}{doc.subgroup ? ` / ${doc.subgroup.toUpperCase()}` : ""}</span>
             <h2>{doc.title}</h2>
             <p>{doc.description}</p>
             <small><b>Результат:</b> {doc.outcome}</small>
@@ -244,7 +245,16 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
   const githubInputRef = useRef<HTMLInputElement>(null);
   const documentGroups = useMemo(() => Array.from(new Set(docs.map((doc) => doc.group))), [docs]);
   const groupedDocs = useMemo(
-    () => documentGroups.map((group) => ({ group, docs: docs.filter((doc) => doc.group === group) })),
+    () => documentGroups.map((group) => {
+      const groupDocs = docs.filter((doc) => doc.group === group);
+      const subgroups = Array.from(new Set(groupDocs.map((doc) => doc.subgroup).filter((value): value is string => Boolean(value))));
+      return {
+        group,
+        docs: groupDocs,
+        directDocs: groupDocs.filter((doc) => !doc.subgroup),
+        subgroups: subgroups.map((label) => ({ label, docs: groupDocs.filter((doc) => doc.subgroup === label) })),
+      };
+    }),
     [docs, documentGroups],
   );
   const searchResults = useMemo(() => searchDocs(docs, query), [docs, query]);
@@ -407,15 +417,21 @@ export function DocsIndexClient({ docs, githubDocs }: { docs: DocsIndexEntry[]; 
           <p>{countLabel(docs.length, "статья", "статьи", "статей")} остаются перед глазами: название объясняет задачу, подпись — что находится внутри.</p>
         </div>
         <div className="docs-directory-columns">
-          {groupedDocs.map(({ group, docs: groupDocs }) => (
+          {groupedDocs.map(({ group, docs: groupDocs, directDocs, subgroups }) => (
             <section className="docs-directory-group" aria-labelledby={`directory-${group}`} key={group}>
               <div className="docs-directory-group-head"><h3 id={`directory-${group}`}>{group}</h3><span>{groupDocs.length}</span></div>
               <nav aria-label={`Раздел ${group}`}>
-                {groupDocs.map((doc) => (
+                {directDocs.map((doc) => (
                   <Link href={`/docs/${doc.slug}`} key={doc.slug}>
                     <span>{doc.title}</span><small>{doc.description}</small><b aria-hidden="true">→</b>
                   </Link>
                 ))}
+                {subgroups.map((subgroup) => <div className="docs-directory-subgroup" key={subgroup.label}>
+                  <div className="docs-directory-subgroup-head"><b>{subgroup.label}</b><span>{subgroup.docs.length} статей</span></div>
+                  {subgroup.docs.map((doc) => <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                    <span>{doc.title}</span><small>{doc.description}</small><b aria-hidden="true">→</b>
+                  </Link>)}
+                </div>)}
               </nav>
             </section>
           ))}

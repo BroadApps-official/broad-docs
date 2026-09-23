@@ -16,9 +16,11 @@ type SidebarEntry = {
 type SidebarGroup = {
   entries: SidebarEntry[];
   label: string;
+  subgroups: { entries: SidebarEntry[]; label: string }[];
 };
 
 const openStorageKey = "broad-docs-sidebar-open";
+const openSubgroupsStorageKey = "broad-docs-sidebar-subgroups-v2";
 const scrollStorageKey = "broad-docs-sidebar-scroll";
 
 function currentHash() {
@@ -30,14 +32,14 @@ function currentHash() {
   }
 }
 
-function storedOpenSlugs(currentSlug: string) {
-  if (typeof window === "undefined") return new Set([currentSlug]);
+function storedOpenSlugs(currentSlug: string, openCurrent: boolean) {
+  if (typeof window === "undefined") return new Set(openCurrent ? [currentSlug] : []);
   try {
     const stored = JSON.parse(window.localStorage.getItem(openStorageKey) ?? "[]");
     const slugs = Array.isArray(stored) ? stored.filter((value): value is string => typeof value === "string") : [];
-    return new Set([...slugs, currentSlug]);
+    return new Set(openCurrent ? [...slugs, currentSlug] : slugs);
   } catch {
-    return new Set([currentSlug]);
+    return new Set(openCurrent ? [currentSlug] : []);
   }
 }
 
@@ -54,10 +56,12 @@ function revealSidebarLink(list: HTMLDivElement, link: HTMLAnchorElement, behavi
 
 export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; groups: SidebarGroup[] }) {
   const listRef = useRef<HTMLDivElement>(null);
-  const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set([currentSlug]));
+  const isSubgroupPage = groups.some((group) => group.subgroups.some((subgroup) => subgroup.entries.some((entry) => entry.slug === currentSlug)));
+  const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set(isSubgroupPage ? [] : [currentSlug]));
+  const [openSubgroups, setOpenSubgroups] = useState<Set<string>>(() => new Set(groups.flatMap((group) => group.subgroups.map((subgroup) => `${group.label}/${subgroup.label}`))));
   const [activeHash, setActiveHash] = useState("");
   const currentHeadings = useMemo(
-    () => groups.flatMap((group) => group.entries).find((entry) => entry.slug === currentSlug)?.headings ?? [],
+    () => groups.flatMap((group) => [...group.entries, ...group.subgroups.flatMap((subgroup) => subgroup.entries)]).find((entry) => entry.slug === currentSlug)?.headings ?? [],
     [currentSlug, groups],
   );
 
@@ -68,7 +72,16 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      setOpenSlugs(storedOpenSlugs(currentSlug));
+      setOpenSlugs(storedOpenSlugs(currentSlug, !isSubgroupPage || Boolean(currentHash())));
+      try {
+        const stored = JSON.parse(window.localStorage.getItem(openSubgroupsStorageKey) ?? "null");
+        const allKeys = groups.flatMap((group) => group.subgroups.map((subgroup) => `${group.label}/${subgroup.label}`));
+        const currentKey = groups.flatMap((group) => group.subgroups.filter((subgroup) => subgroup.entries.some((entry) => entry.slug === currentSlug)).map((subgroup) => `${group.label}/${subgroup.label}`))[0];
+        const keys = Array.isArray(stored) ? stored.filter((value): value is string => typeof value === "string" && allKeys.includes(value)) : allKeys;
+        setOpenSubgroups(new Set(currentKey ? [...keys, currentKey] : keys));
+      } catch {
+        setOpenSubgroups(new Set(groups.flatMap((group) => group.subgroups.map((subgroup) => `${group.label}/${subgroup.label}`))));
+      }
       setActiveHash(currentHash());
 
       window.requestAnimationFrame(() => {
@@ -79,7 +92,12 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
 
         window.requestAnimationFrame(() => {
           const currentPage = list.querySelector<HTMLAnchorElement>('a[aria-current="page"]');
-          if (currentPage) revealSidebarLink(list, currentPage, "auto");
+          const groupLabel = currentPage?.closest(".docs-sidebar-group")?.querySelector<HTMLElement>(".docs-sidebar-group-label");
+          if (currentPage?.closest(".docs-sidebar-subgroup") && groupLabel) {
+            list.scrollTop += groupLabel.getBoundingClientRect().top - list.getBoundingClientRect().top - 8;
+          } else if (currentPage) {
+            revealSidebarLink(list, currentPage, "auto");
+          }
         });
       });
     });
@@ -94,7 +112,7 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
       window.removeEventListener("hashchange", syncHash);
       window.removeEventListener("pagehide", saveBeforeLeave);
     };
-  }, [currentSlug, rememberScroll]);
+  }, [currentSlug, groups, isSubgroupPage, rememberScroll]);
 
   useEffect(() => {
     let frame = 0;
@@ -142,54 +160,81 @@ export function DocsSidebar({ currentSlug, groups }: { currentSlug: string; grou
     });
   }
 
+  function toggleSubgroup(key: string) {
+    setOpenSubgroups((current) => {
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      window.localStorage.setItem(openSubgroupsStorageKey, JSON.stringify(Array.from(next)));
+      return next;
+    });
+  }
+
+  function renderEntry(entry: SidebarEntry) {
+    const isCurrent = entry.slug === currentSlug;
+    const isOpen = openSlugs.has(entry.slug);
+    const panelId = `sidebar-sections-${entry.slug}`;
+
+    if (!entry.headings.length) {
+      return <a aria-current={isCurrent ? "page" : undefined} className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug} onClick={rememberScroll}>{entry.title}</a>;
+    }
+
+    return (
+      <div className={`docs-sidebar-disclosure${isCurrent ? " current" : ""}${isOpen ? " is-open" : ""}`} key={entry.slug}>
+        <div className="docs-sidebar-row">
+          <a aria-current={isCurrent ? "page" : undefined} className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} onClick={rememberScroll}>{entry.title}</a>
+          <button
+            aria-controls={panelId}
+            aria-expanded={isOpen}
+            aria-label={`${isOpen ? "Скрыть" : "Показать"} разделы статьи «${entry.title}»`}
+            className="docs-sidebar-toggle"
+            onClick={() => toggleEntry(entry.slug)}
+            type="button"
+          >
+            <i className="docs-sidebar-chevron" aria-hidden="true" />
+          </button>
+        </div>
+        {isOpen ? (
+          <div className="docs-sidebar-subsections" id={panelId}>
+            {entry.headings.map((heading, headingIndex) => {
+              const isActive = isCurrent && activeHash === heading.id;
+              const href = isCurrent ? `#${heading.id}` : `/docs/${entry.slug}#${heading.id}`;
+              return (
+                <a aria-current={isActive ? "location" : undefined} className={isActive ? "active" : ""} href={href} key={heading.id} onClick={() => {
+                  rememberScroll();
+                  if (isCurrent) setActiveHash(heading.id);
+                }}>
+                  <span>{String(headingIndex + 1).padStart(2, "0")}</span>
+                  <b>{heading.label}</b>
+                </a>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <nav className="docs-sidebar" aria-label="Разделы документации">
-      <div className="docs-sidebar-summary"><span>КАТАЛОГ</span><b>{groups.reduce((count, group) => count + group.entries.length, 0)} статей</b></div>
+      <div className="docs-sidebar-summary"><span>КАТАЛОГ</span><b>{groups.reduce((count, group) => count + group.entries.length + group.subgroups.reduce((sum, subgroup) => sum + subgroup.entries.length, 0), 0)} статей</b></div>
       <div className="docs-sidebar-list" onScroll={rememberScroll} ref={listRef}>
         {groups.map((group) => (
-          <div key={group.label}>
-            <span>{group.label.toUpperCase()}</span>
-            {group.entries.map((entry) => {
-              const isCurrent = entry.slug === currentSlug;
-              const isOpen = openSlugs.has(entry.slug);
-              const panelId = `sidebar-sections-${entry.slug}`;
-
-              if (!entry.headings.length) {
-                return <a aria-current={isCurrent ? "page" : undefined} className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} key={entry.slug} onClick={rememberScroll}>{entry.title}</a>;
-              }
-
+          <div className="docs-sidebar-group" key={group.label}>
+            <span className="docs-sidebar-group-label">{group.label.toUpperCase()}</span>
+            {group.entries.map(renderEntry)}
+            {group.subgroups.map((subgroup) => {
+              const key = `${group.label}/${subgroup.label}`;
+              const isOpen = openSubgroups.has(key);
+              const panelId = `sidebar-subgroup-${group.label}-${subgroup.label}`;
+              const firstSlug = subgroup.entries[0]?.slug;
               return (
-                <div className={`docs-sidebar-disclosure${isCurrent ? " current" : ""}${isOpen ? " is-open" : ""}`} key={entry.slug}>
-                  <div className="docs-sidebar-row">
-                    <a aria-current={isCurrent ? "page" : undefined} className={isCurrent ? "active" : ""} href={`/docs/${entry.slug}`} onClick={rememberScroll}>{entry.title}</a>
-                    <button
-                      aria-controls={panelId}
-                      aria-expanded={isOpen}
-                      aria-label={`${isOpen ? "Скрыть" : "Показать"} разделы статьи «${entry.title}»`}
-                      className="docs-sidebar-toggle"
-                      onClick={() => toggleEntry(entry.slug)}
-                      type="button"
-                    >
-                      <i className="docs-sidebar-chevron" aria-hidden="true" />
-                    </button>
+                <div className={`docs-sidebar-subgroup${subgroup.entries.some((entry) => entry.slug === currentSlug) ? " current" : ""}`} key={key}>
+                  <div className="docs-sidebar-row docs-sidebar-subgroup-head">
+                    <a href={firstSlug ? `/docs/${firstSlug}` : "/docs"} onClick={rememberScroll}>{subgroup.label}</a>
+                    <button aria-controls={panelId} aria-expanded={isOpen} aria-label={`${isOpen ? "Скрыть" : "Показать"} статьи раздела «${subgroup.label}»`} className="docs-sidebar-toggle" onClick={() => toggleSubgroup(key)} type="button"><i className="docs-sidebar-chevron" aria-hidden="true" /></button>
                   </div>
-                  {isOpen ? (
-                    <div className="docs-sidebar-subsections" id={panelId}>
-                      {entry.headings.map((heading, headingIndex) => {
-                        const isActive = isCurrent && activeHash === heading.id;
-                        const href = isCurrent ? `#${heading.id}` : `/docs/${entry.slug}#${heading.id}`;
-                        return (
-                          <a aria-current={isActive ? "location" : undefined} className={isActive ? "active" : ""} href={href} key={heading.id} onClick={() => {
-                            rememberScroll();
-                            if (isCurrent) setActiveHash(heading.id);
-                          }}>
-                            <span>{String(headingIndex + 1).padStart(2, "0")}</span>
-                            <b>{heading.label}</b>
-                          </a>
-                        );
-                      })}
-                    </div>
-                  ) : null}
+                  {isOpen ? <div className="docs-sidebar-subgroup-entries" id={panelId}>{subgroup.entries.map(renderEntry)}</div> : null}
                 </div>
               );
             })}

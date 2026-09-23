@@ -5,7 +5,7 @@ import type { FormEvent } from "react";
 import { Link } from "@/app/plain-link";
 import { SearchIcon } from "@/app/search-icon";
 
-type SearchDoc = { slug: string; title: string; description: string; group: string; body: string };
+type SearchDoc = { slug: string; title: string; description: string; group: string; subgroup?: string; body: string };
 
 const quickQueries = [
   "Подключаю платформу впервые",
@@ -96,7 +96,7 @@ export function SearchClient({ docs, variant = "full" }: { docs: SearchDoc[]; va
       .map((doc) => {
         const title = normalize(doc.title);
         const description = normalize(doc.description);
-        const haystack = normalize(`${doc.slug} ${doc.group} ${doc.title} ${doc.description} ${doc.body}`);
+        const haystack = normalize(`${doc.slug} ${doc.group} ${doc.subgroup ?? ""} ${doc.title} ${doc.description} ${doc.body}`);
         const matchedTerms = terms.filter((term) => haystack.includes(term));
         const intentScore = intentRules.reduce((score, rule) => {
           if (!rule.pattern.test(phrase)) return score;
@@ -142,7 +142,7 @@ export function SearchClient({ docs, variant = "full" }: { docs: SearchDoc[]; va
           <div className="home-search-results" aria-live="polite">
             {results.map((doc) => (
               <Link className="home-search-result" href={`/docs/${doc.slug}`} key={doc.slug}>
-                <span>{doc.group.toUpperCase()}</span>
+                <span>{doc.group.toUpperCase()}{doc.subgroup ? ` / ${doc.subgroup.toUpperCase()}` : ""}</span>
                 <b>{doc.title}</b>
                 <p>{resultReasons[doc.slug] ?? doc.description}</p>
                 <i>Открыть пошаговую инструкцию →</i>
@@ -156,7 +156,7 @@ export function SearchClient({ docs, variant = "full" }: { docs: SearchDoc[]; va
           {results.map((doc) => (
             <Link className="search-result-card" href={`/docs/${doc.slug}`} key={doc.slug}>
               <div>
-                <span className="section-index">{doc.group.toUpperCase()}</span>
+                <span className="section-index">{doc.group.toUpperCase()}{doc.subgroup ? ` / ${doc.subgroup.toUpperCase()}` : ""}</span>
                 <h2>{doc.title}</h2>
                 <p>{resultReasons[doc.slug] ?? doc.description}</p>
                 <small>{doc.description}</small>

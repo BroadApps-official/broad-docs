@@ -136,7 +136,7 @@ export default function Home() {
             </div>
             <div className="knowledge-search-help"><b>Что будет в результате?</b><span>Зачем нужна страница</span><span>Что сделать по шагам</span><span>Где сверить исходник в GitHub</span></div>
           </div>
-          <SearchClient docs={docs.map(({ slug, title, description, group, body }) => ({ slug, title, description, group, body }))} variant="home" />
+          <SearchClient docs={docs.map(({ slug, title, description, group, subgroup, body }) => ({ slug, title, description, group, subgroup, body }))} variant="home" />
         </section>
 
         <section className="module-section section-wrap" id="modules">
