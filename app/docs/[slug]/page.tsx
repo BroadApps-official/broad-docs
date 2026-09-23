@@ -19,6 +19,12 @@ function documentHeadings(markdown: string) {
   });
 }
 
+async function shareImageRevision(title: string, description: string) {
+  const content = new TextEncoder().encode(`${title}\n${description}\nshare-image-v1`);
+  const digest = await crypto.subtle.digest("SHA-256", content);
+  return Array.from(new Uint8Array(digest).slice(0, 6), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const doc = getDoc(slug);
@@ -28,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const canonicalUrl = `${protocol}://${host}/docs/${doc.slug}`;
-  const shareImage = `${canonicalUrl}/opengraph-image`;
+  const shareImage = `${canonicalUrl}/opengraph-image?v=${await shareImageRevision(doc.title, doc.description)}`;
 
   return {
     title: doc.title,
