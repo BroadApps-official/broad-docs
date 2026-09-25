@@ -100,13 +100,13 @@ https://github.com/BroadApps-official/broad-core-ios.git
 
 ![Xcode: product BroadCore добавляется в основное приложение BroadStart](../public/guides/start/xcode-product.png)
 
-Точные версии в этом разборе взяты из проверенного набора **platform set 5.0.0**. Для другого проекта смотрите [каталог совместимости](./compatibility.md); номер набора не нужно подставлять как версию каждого модуля.
+Точные версии в этом разборе взяты из проверенного набора **platform set 5.1.0**. Для другого проекта смотрите [каталог совместимости](./compatibility.md); номер набора не нужно подставлять как версию каждого модуля.
 
-| Пакет | Exact Version в наборе 5.0.0 | Product |
+| Пакет | Exact Version в наборе 5.1.0 | Product |
 |---|---|---|
 | `broad-core-ios` | `3.0.0` | `BroadCore` |
 | `broad-extensions-ios` | `1.0.1` | `BroadExtensions` |
-| `broad-monetization-ios` | `5.0.0` | `BroadMonetization` |
+| `broad-monetization-ios` | `5.1.0` | `BroadMonetization` |
 | `broad-ui-flows-ios` | `5.0.0` | `BroadUIFlows` |
 
 Повторите добавление для `https://github.com/BroadApps-official/broad-extensions-ios.git`, выберите **1.0.1** и product **BroadExtensions**. Для BroadStart другие модули не нужны. Аккаунт GitHub и пароль для чтения этих публичных адресов не требуются; при запросе входа используйте [диагностику подключения](./public-package-access.md).
@@ -157,4 +157,4 @@ https://github.com/BroadApps-official/broad-core-ios.git
 
 Дальше: [разберите создание приложения по шагам](./app-creation.md), [выберите дополнительные модули](./module-selection.md) или [найдите незнакомое слово](./glossary.md).
 
-Первичные источники: [каталог набора 5.0.0](https://github.com/BroadApps-official/broad-platform-integration/blob/5.0.0/Compatibility/current.yml), [LoadableState](https://github.com/BroadApps-official/broad-core-ios/blob/3.0.0/Sources/BroadCore/Domain/States/LoadableState.swift), [добавление зависимостей в Xcode](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
+Первичные источники: [каталог набора 5.1.0](https://github.com/BroadApps-official/broad-platform-integration/blob/5.1.0/Compatibility/current.yml), [LoadableState](https://github.com/BroadApps-official/broad-core-ios/blob/3.0.0/Sources/BroadCore/Domain/States/LoadableState.swift), [добавление зависимостей в Xcode](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).

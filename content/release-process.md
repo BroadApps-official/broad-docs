@@ -100,12 +100,14 @@ bash Scripts/module_gate.sh
 |---|---|
 | `Compatibility/current.yml` | Platform set, версии модулей, ссылки на releases и результаты проверки |
 | Корневой `Package.swift` | Точные ограничения модулей |
-| `Examples/BroadAppTemplate/project.yml` | Точные версии для примера |
-| Сгенерированный `.xcodeproj` | Тот же набор, без временного candidate/local подключения |
-| Оба `Package.resolved` | Реальные версии и ревизии пакета и примера |
+| `Examples/BroadAppTemplate/project.yml` и `Examples/BroadAppleOnlyTemplate/project.yml` | Точные версии для RU-enabled и Apple-only примеров |
+| Оба сгенерированных `.xcodeproj` | Тот же набор, без временного candidate/local подключения |
+| Три `Package.resolved` | Реальные версии и ревизии корневого пакета и обоих примеров |
 | README, changelog и отчёт | Тот же номер набора и честная область проверки |
 
-Проект примера генерируется штатным `Scripts/generate_example.sh`. После согласования файлов в корне integration repository выполните:
+Общий пример генерируется штатным `Scripts/generate_example.sh`, а Apple-only —
+через XcodeGen из его `project.yml`. После согласования файлов в корне integration
+repository выполните:
 
 ```bash
 bash Scripts/agent_gate.sh
