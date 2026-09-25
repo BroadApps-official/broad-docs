@@ -1,6 +1,6 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 5.0.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 5.1.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
 Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 
@@ -10,11 +10,34 @@
 |---|---|---|
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.0.0) | `5.0.0` | Adapty, Apple purchase/restore, доступ и токены |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.1.0) | `5.1.0` | Adapty, Apple purchase/restore, доступ и токены |
 | [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/5.0.0) | `5.0.0` | Общие экраны и сценарии |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.0) | `1.0.0` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **5.0.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **5.1.0** обозначает сочетание пакетов, а не общий runtime package.
+
+## Обновление с набора 5.0.0 на 5.1.0
+
+1. Поставьте **Exact 5.1.0** для BroadMonetization. Core 3.0.0, Extensions
+   1.0.1, UIFlows 5.0.0 и опциональный RU Billing 1.0.0 остаются прежними.
+   Обновите ограничения и `Package.resolved` вместе, затем проверьте фактические pins.
+2. Сохраните идентификатор аккаунта и хранилища незавершённых покупок. Старая
+   попытка с неизвестным исходом не очищается при обновлении или по таймауту:
+   сначала нужна проверка конкретной транзакции или разбор поддержки.
+3. После доказанной отмены или окончательного отказа StoreKit можно снова нажать
+   «Купить». Подтверждённая подписка повторно проверит доступ после сбоя refresh.
+   Приложение может добавить безопасный `diagnosticSnapshot()?.supportText` в
+   обращение в поддержку; чек, JWS и платёжные данные туда не добавляют.
+4. Если приложение использует premium catalog, передайте тот же
+   `ApplePremiumProductCatalog` в Adapty factory как opt-in preflight. Для
+   токенов backend приложения должен сверять и начислять по точному StoreKit
+   transaction ID; общий модуль не знает контракт конкретного webhook.
+5. Соберите Debug и Release и проверьте сценарии отмены, неизвестного исхода,
+   восстановления подписки, перезапуска и начисления токенов с адаптерами
+   своего приложения. Общий platform gate проверяет сборку и контракты, но
+   не выполняет реальную покупку или запрос к production backend.
+
+Подробности и откат — в [инструкции BroadMonetization 5.1.0](https://github.com/BroadApps-official/broad-monetization-ios/blob/5.1.0/Documentation/UpgradeTo5.1.md).
 
 ## Обновление на набор 5.0.0
 
