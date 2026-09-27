@@ -2,6 +2,17 @@
 
 > Общая платформа для iPhone-приложений BroadApps: онбординг, пейвол и покупки через Adapty, RU-оплата, загрузка и ошибки. Документация на русском. Этот файл — вход для ИИ-агента.
 
+## Шаг 0: правила и скиллы компании
+
+Перед работой покажи разработчику, что есть в AgentKit платформы: правила разработки BroadApps и скиллы `broadapps-new-app` (этапы, временные данные аккаунта), `broadapps-figma` (Figma в браузере, экспорт 6x), `broadapps-ipad-check` (проверка iPad и iPhone SE). Спроси: «Поставить их в Claude / Codex?». После «да»:
+
+```bash
+git clone --depth 1 https://github.com/BroadApps-official/broad-platform-integration.git /tmp/broadapps-platform
+bash /tmp/broadapps-platform/AgentKit/install.sh claude   # или codex / both
+```
+
+Уже стоят — эта же команда обновит их на месте. Отказ — продолжай по этому файлу.
+
 ## Агенту: выбери маршрут
 
 - Новое производственное приложение (по Figma или no-code): https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/new-app — работай по этапам: preflight → план → каркас → по одной функции → проверка поведения → внешний вид → передача. Промпты этапов: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AgentPromptPack.md
@@ -16,7 +27,9 @@
 - Главный таб всегда с `.broadAppUpdateAlert(checker)`: алерт новой версии App Store.
 - Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
 - Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
-- По Figma: спроси, с какого раздела начать, и попроси ссылки на кадры Figma этого раздела; иконки и фоны выгружай из Figma сам.
+- По Figma: спроси, с какого раздела начать, и попроси ссылки на кадры Figma этого раздела. Figma открывай в браузере разработчика (MCP не нужен): шрифты, отступы и цвета — с панели свойств, иконки и фоны выгружай сам в 6x.
+- У разработчиков нет TestFlight и доступа к кабинетам Adapty и App Store Connect — всё у аккаунт-менеджеров. Покупки проверяются в Debug запуском из Xcode с локальным `.storekit`. Метка «Жду аккаунт» — с разрешения разработчика временно возьми ключ Adapty, продукты и ссылки похожего приложения компании, помеченные `TEMPORARY`.
+- Каждый экран проверь на iPhone SE и iPad-симуляторе: App Review открывает iPhone-приложение на iPad в окне совместимости.
 - Вёрстка: токены и `.scale`, базовая ширина — устройство макета в Figma: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/layout
 - Только iPhone, Team = None, без test targets. Настоящие покупки, restore и RU-оплату не выполняй.
 - Ключи и токены не коммить.

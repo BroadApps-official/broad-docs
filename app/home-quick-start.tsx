@@ -1,3 +1,4 @@
+import { HomeAgentStart } from "./home-agent-start";
 import { Link } from "./plain-link";
 
 const tasks = [
@@ -48,6 +49,7 @@ export function HomeQuickStart() {
         <p>Используйте общий код для онбординга, оплаты и состояний экрана. Тогда исправления и правила этих сценариев будут общими для приложений компании. Свои экраны, тексты и настройки вы задаёте в приложении.</p>
       </header>
 
+      <HomeAgentStart />
       <p className="home-start-agent">ИИ-агенту: начните с <a href="/llms.txt">/llms.txt</a> — там маршрут, правила и все страницы.</p>
 
       <div className="home-start-entry">
