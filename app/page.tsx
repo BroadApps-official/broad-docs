@@ -216,15 +216,12 @@ export default function Home() {
               <div><span>НЕ ТРОГАЕМ</span><b>Само приложение</b><small>экраны, данные и бизнес-логика остаются на месте</small></div>
             </div>
             <div className="migration-home-grid">
-              <div className="migration-home-flow" aria-label="Четыре шага миграции">
-                <div><span>01</span><b>Проверить приложение</b><small>собрать и запустить его до изменений</small></div>
-                <i>→</i>
-                <div><span>02</span><b>Подключить новые библиотеки</b><small>убрать старый BroadCore и добавить нужные библиотеки</small></div>
-                <i>→</i>
-                <div><span>03</span><b>Проверить одну функцию</b><small>например запуск, оплату или первые экраны</small></div>
-                <i>→</i>
-                <div><span>04</span><b>Удалить остатки старого кода</b><small>только когда приложение снова работает</small></div>
-              </div>
+              <ol className="migration-home-flow" aria-label="Четыре шага миграции">
+                <li><span aria-hidden="true">01</span><div><h3>Проверить приложение</h3><p>Собрать и запустить его до изменений.</p></div></li>
+                <li><span aria-hidden="true">02</span><div><h3>Подключить новые библиотеки</h3><p>Убрать старый BroadCore и добавить нужные библиотеки.</p></div></li>
+                <li><span aria-hidden="true">03</span><div><h3>Проверить одну функцию</h3><p>Например, запуск, оплату или первые экраны.</p></div></li>
+                <li><span aria-hidden="true">04</span><div><h3>Удалить остатки старого кода</h3><p>Только когда приложение снова работает.</p></div></li>
+              </ol>
               <div className="migration-home-routes">
                 <Link href="/docs/legacy-app-migration#порядок-переключения"><span>ЕСЛИ РАЗРАБАТЫВАЕТЕ САМИ</span><b>Пошаговая инструкция для ручной работы</b><small>Что проверить, что заменить и когда безопасно удалить старый код.</small><i>↗</i></Link>
                 <Link href="/docs/legacy-app-migration#работа-с-codex-или-claude"><span>ЕСЛИ ПЕРЕНОСИТЕ С АГЕНТОМ</span><b>Задача для Claude или Codex</b><small>Агент изучит приложение, покажет план и остановится перед изменениями, чтобы вы подтвердили следующий шаг.</small><i>↗</i></Link>
