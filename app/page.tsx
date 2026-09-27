@@ -227,7 +227,7 @@ export default function Home() {
               </div>
               <div className="migration-home-routes">
                 <Link href="/docs/legacy-app-migration#порядок-переключения"><span>ЕСЛИ РАЗРАБАТЫВАЕТЕ САМИ</span><b>Пошаговая инструкция для ручной работы</b><small>Что проверить, что заменить и когда безопасно удалить старый код.</small><i>↗</i></Link>
-                <Link href="/docs/legacy-app-migration#работа-с-codex-или-claude"><span>ЕСЛИ РАЗРАБАТЫВАЕТЕ С АГЕНТОМ</span><b>Задача для Claude или Codex</b><small>Агент изучит приложение, покажет план и остановится перед изменениями, чтобы вы подтвердили следующий шаг.</small><i>↗</i></Link>
+                <Link href="/docs/legacy-app-migration#работа-с-codex-или-claude"><span>ЕСЛИ ПЕРЕНОСИТЕ С АГЕНТОМ</span><b>Задача для Claude или Codex</b><small>Агент изучит приложение, покажет план и остановится перед изменениями, чтобы вы подтвердили следующий шаг.</small><i>↗</i></Link>
               </div>
             </div>
           </section>

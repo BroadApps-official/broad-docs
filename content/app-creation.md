@@ -154,6 +154,8 @@ BroadStart специально показывает маленький неза
 
 ## Работа с агентом
 
+Короткий маршрут и готовое сообщение агенту — [Новое приложение с агентом](./new-app.md).
+
 Агент работает в папке вашего приложения. Платформа и приложения-примеры служат источниками для чтения; бизнес-логику нельзя незаметно перенести в общий модуль. Для нового проекта используйте [точный стартовый запрос](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AgentPreflight.md) и [запросы по этапам](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Documentation/AgentPromptPack.md).
 
 | Этап | Что делает агент | Что проверяет разработчик перед продолжением |

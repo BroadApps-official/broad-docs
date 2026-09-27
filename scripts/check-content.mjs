@@ -9,6 +9,7 @@ const publicRoot = join(projectRoot, "public");
 const contentFiles = (await readdir(contentRoot)).filter((name) => name.endsWith(".md")).sort();
 const registry = await readFile(new URL("../lib/docs.ts", import.meta.url), "utf8");
 const githubIndex = await readFile(new URL("../lib/github-docs.generated.ts", import.meta.url), "utf8");
+const llmsIndex = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
 const mediaManifest = JSON.parse(await readFile(new URL("../public/media-manifest.json", import.meta.url), "utf8"));
 const failures = [];
 const referencedMedia = new Set();
@@ -212,6 +213,7 @@ for (const file of contentFiles) {
   const body = await readFile(join(contentRoot, file), "utf8");
   if (!body.startsWith("# ")) fail(`${file}: first line must be an H1.`);
   if (!registry.includes(`slug: "${slug}"`)) fail(`${file}: slug is missing from lib/docs.ts.`);
+  if (!llmsIndex.includes(`/docs/${slug})`)) fail(`${file}: page is missing from public/llms.txt.`);
   if (/\b(?:sk_live|secret|bearer)\b/i.test(body)) fail(`${file}: possible secret-bearing text.`);
   if (/\]\(\/docs\//.test(body)) fail(`${file}: site-root document links break the GitHub Markdown fallback; use ./slug.md.`);
   if (!githubIndex.includes(JSON.stringify(body))) fail(`${file}: GitHub search index is stale; run pnpm run github-index:refresh.`);

@@ -48,10 +48,18 @@ export function HomeQuickStart() {
         <p>Используйте общий код для онбординга, оплаты и состояний экрана. Тогда исправления и правила этих сценариев будут общими для приложений компании. Свои экраны, тексты и настройки вы задаёте в приложении.</p>
       </header>
 
+      <p className="home-start-agent">ИИ-агенту: начните с <a href="/llms.txt">/llms.txt</a> — там маршрут, правила и все страницы.</p>
+
       <div className="home-start-entry">
+        <div className="home-start-new">
+          <span className="home-start-label">НОВОЕ ПРИЛОЖЕНИЕ</span>
+          <h2>Делаете приложение с агентом</h2>
+          <p>Отправьте агенту одно сообщение со ссылками на Kaiten, дизайн и backend. Он пройдёт этапы платформы и будет останавливаться для вашей проверки.</p>
+          <Link className="home-start-primary" href="/docs/new-app">Маршрут нового приложения <span aria-hidden="true">→</span></Link>
+        </div>
         <div className="home-start-example">
-          <span className="home-start-label">ВПЕРВЫЕ ПОДКЛЮЧАЕТЕ ПЛАТФОРМУ</span>
-          <h2>Сначала запустите BroadStart</h2>
+          <span className="home-start-label">УЧЕБНЫЙ ПРИМЕР</span>
+          <h2>Запустите BroadStart</h2>
           <p>Это небольшой готовый проект для Xcode: список материалов, загрузка, пустой ответ и ошибка с повтором. На нём видно, как общий код связан с экраном.</p>
           <Link className="home-start-primary" href="/docs/getting-started#вариант-1-откройте-готовый-проект">Открыть проект и шаги запуска <span aria-hidden="true">→</span></Link>
         </div>

@@ -1,0 +1,93 @@
+# BroadApps iOS Platform
+
+> Общая платформа для iPhone-приложений BroadApps: онбординг, пейвол и покупки через Adapty, RU-оплата, загрузка и ошибки. Документация на русском. Этот файл — вход для ИИ-агента.
+
+## Агенту: выбери маршрут
+
+- Новое производственное приложение (по Figma или no-code): https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/new-app — работай по этапам: preflight → план → каркас → по одной функции → проверка поведения → внешний вид → передача. Промпты этапов: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AgentPromptPack.md
+- Приложение уже на платформе, нужна проверка: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/app-standard
+- Приложение на старом BroadCore, нужен перенос: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/legacy-app-migration
+- Учебная задача, первое знакомство: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/getting-started (BroadStart — учебный пример, не основа нового приложения)
+
+## Главные правила
+
+- Один этап за раз. На `PLAN REVIEW REQUIRED` и `SKELETON REVIEW REQUIRED` остановись и жди подтверждения разработчика.
+- Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
+- Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
+- Только iPhone, Team = None, без test targets. Настоящие покупки, restore и RU-оплату не выполняй.
+- Ключи и токены не коммить.
+
+## Первоисточники (текст)
+
+- Правила платформы: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/AGENTS.md
+- Порядок создания приложения: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AppCreationWorkflow.md
+- Preflight (этап 0): https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AgentPreflight.md
+- Промпты этапов: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AgentPromptPack.md
+- Шаблон плана: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/Templates/AppIntegrationPlan.md
+- Правила host-приложения, backend и RU Billing: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Examples/BroadAppTemplate/AGENTS.md
+- Текст любой страницы сайта: https://raw.githubusercontent.com/BroadApps-official/broad-docs/main/content/<slug>.md
+
+## Страницы сайта
+
+### Старт
+
+- [Стандарт приложения](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/app-standard): Общие компоненты, конфигурация и одна команда проверки платформы или приложения.
+- [Новое приложение с агентом](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/new-app): Одно сообщение агенту, этапы с остановками для вашей проверки, Figma или no-code.
+- [Первое подключение](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/getting-started): Работающий BroadStart: реальные скриншоты Xcode, подключение библиотек и первый запуск на iPhone Simulator.
+- [Создание приложения](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/app-creation): От требований до работающего сценария: разбор BroadStart, код, состояния, работа вручную и с агентом.
+- [Подготовка к App Store](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/app-release-export): Одна команда готовит проект к выпуску: локальные пакеты платформы, проверка и релизная ветка.
+- [Какие части платформы выбрать](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/module-selection): Базовые модули, отдельный RU Billing, практические наборы и точное различие между пакетом, product и target.
+- [Подключение без пароля](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/public-package-access): Публичные адреса, проверка без аккаунта и диагностика ошибок Xcode, кеша и ревизий.
+- [Старый BroadCore: куда переехал](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/legacy-broadcore): Где теперь находятся функции старой платформы и как отличить имя BroadCore от адреса его репозитория.
+- [Переход со старого BroadCore](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/legacy-app-migration): Аудит зависимостей, сохранение правок приложения, переключение групп и проверка прежнего поведения.
+- [Словарь без жаргона](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/glossary): Термины Xcode, Swift, данных, оплаты и выпуска: понятные определения, примеры и ссылки на инструкции.
+
+### Части платформы
+
+- [BroadCore](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/broad-core): Запуск приложения, состояния загрузки, кеш и ошибки: возможности Core и задачи приложения.
+- [BroadExtensions](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/broad-extensions): HEX-цвета, свои шрифты, клавиатура и свайп назад: четыре независимые утилиты с примерами.
+- [BroadMonetization](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/broad-monetization): Продукты, покупка, Restore и подтверждение Premium: платёжная логика для своего интерфейса.
+- [BroadUIFlows](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/broad-ui-flows): Готовые SwiftUI-экраны: онбординг, paywall, состояния загрузки и переходы между ними.
+
+### BroadUIFlows
+
+- [Онбординг: шесть полных проходов](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ui-flows-onboarding): Все слайды, появление paywall, закрытие оффера и выход на главную в шести приложениях.
+- [BroadUIFlows: paywall и Special Offer](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ui-flows-paywall): Общий сценарий paywall и Special Offer; частные примеры 5007, 5092 и Claude232 с пояснением отличий.
+- [Экран настроек и экран поддержки](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ui-flows-settings-support): Шесть приложений в видео: настройки, чат, письмо и понятный выход при недоступной почте.
+
+### Adapty и Apple
+
+- [Adapty: что нужно передать](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/adapty-setup): Два значения для загрузки экрана оплаты: публичный ключ приложения и имя нужного экрана в Adapty.
+- [Интеграция Adapty в iOS-приложении](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/adapty-integration-guide): Полный путь от активации SDK и загрузки продуктов до регистрации показа, A/B-тестов, покупки и восстановления.
+- [Экран подписки: четыре примера](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/paywall-ui): Четыре видео рядом: появление продуктов, переключение тарифов, крестик, спешл оффер и тестовая покупка.
+- [Спешл оффер (от Adapty)](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/special-offer): Как показать дополнительный экран Adapty после того, как пользователь закрыл первый paywall без покупки.
+- [Покупка токенов](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/token-paywall): Подключение экрана, подтверждение покупки сервером, безопасный повтор и восстановление баланса аккаунта.
+
+### RU Billing
+
+- [RU Billing: карта и СБП](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ru-billing): Отдельно подключаемый подмодуль монетизации: карта, СБП, серверные тарифы и готовые RU-экраны.
+- [RU Billing: продукты с backend](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/backend-product-catalog): Где настраивается запрос, как разобрать JSON и сохранить все RU-тарифы без потерь.
+- [RU Billing: Special Offer — RU-продукт](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ru-special-offer): Откуда берётся RU-продукт для Special Offer: платёжный каталог backend по отметке isSpecialOffer, а не Adapty или App Store.
+- [RU Billing: менеджеру — спешл оффер](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ru-billing-account-manager): Как отметить продукт Special Offer в каталоге backend и включить флаг показа в Remote Config. A/B-тесты пока в разработке.
+- [RU Billing: A/B в платформе](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ru-billing-ab-platform): Подключение экспериментов без изменения работающей оплаты: общий tracker, выбор продуктов, настройка кодом и с агентом.
+- [RU Billing: A/B-тесты для разработчика](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/ru-billing-ab-tests-developer): Adapty выбирает вариант paywall, но RU-платёж проходит мимо StoreKit. Как связать показ варианта с оплатой и посчитать конверсию сегментов.
+
+### Архитектура
+
+- [Как устроена платформа](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/architecture): Библиотеки, слои и ответственность на примере BroadStart: от нажатия до данных, оплаты и выбора места исправления.
+- [Первые экраны и разрешение Apple](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/onboarding-att): Страницы, свой или готовый экран, два независимых отключения, условия ATT и переход к paywall и главной.
+- [Запуск, ошибки и восстановление](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/runtime-reliability): Состояния BroadStart, ограниченный запуск, сохранение контента, двойной тап и восстановление незавершённой операции.
+
+### Аккаунт и восстановление
+
+- [Аккаунт и данные на сервере](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/backend-account-data): Постоянный аккаунт, остаток токенов, история операций, бонусы и использованные лимиты.
+- [Keychain: стабильный идентификатор](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/keychain-account-recovery): Хранение customer ID, миграция, ошибки и границы iCloud. BroadCore 2.1.0 и шаблон 4.1.0.
+- [Восстановление аккаунта и покупок](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/account-recovery): Чистая установка, вход, права, серверный баланс, потеря сети и смена пользователя.
+
+### Разработка
+
+- [Чат поддержки Usedesk](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/usedesk): Что реально присылает менеджер и как из этих данных открыть готовый чат в приложении.
+- [Какие версии ставить](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/compatibility): Проверенный набор, Exact Version и диапазоны, Package.resolved, обновление и возврат — вручную и с агентом.
+- [Как выпускать новые версии](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/release-process): От изменения и проверки кандидата до неизменяемого тега, общего набора и инструкции обновления приложения.
+- [Почему платформу разделили](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/migration): Какие проблемы решило разделение, что осталось общим и как это влияет на новые и существующие приложения.
+- [Как исправлять документацию](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/documentation): Правка через GitHub или локально: источники API, понятные примеры, медиа, поиск, проверка и отдельная публикация.
