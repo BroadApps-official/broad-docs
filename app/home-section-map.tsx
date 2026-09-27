@@ -1,31 +1,13 @@
 import { docs, docGroups } from "@/lib/docs";
+import { HomeMapPanel } from "./home-map-panel";
 import { Link } from "./plain-link";
-
-const groupDescriptions = {
-  "Старт": "Начать и перейти",
-  "Части платформы": "Базовые библиотеки",
-  "BroadUIFlows": "Готовые сценарии интерфейса",
-  "Монетизация": "Общая оплата и подключаемые биллинги",
-  "Аккаунт и восстановление": "ID, данные и переустановка",
-  "Архитектура": "Как всё устроено",
-  "Разработка": "Версии и процессы",
-} as const;
 
 export function HomeSectionMap() {
   return (
-    <aside className="home-section-map" aria-label="Карта сайта со всеми документами">
-      <div className="home-map-heading">
-        <span>КАРТА САЙТА</span>
-        <b>{docs.length} ДОКУМЕНТА</b>
-      </div>
-
+    <HomeMapPanel count={docs.length}>
       <div className="home-map-roots" aria-label="Основные страницы сайта">
-        <Link className="home-map-root active" href="#top" aria-current="page">
-          <span>00</span><b>Главная</b><i aria-hidden="true">→</i>
-        </Link>
-        <Link className="home-map-root" href="/search">
-          <span>⌕</span><b>Поиск</b><i aria-hidden="true">→</i>
-        </Link>
+        <Link className="home-map-root active" href="#top" aria-current="page">Главная</Link>
+        <Link className="home-map-root" href="/search">Поиск <span aria-hidden="true">↗</span></Link>
       </div>
 
       <nav aria-label={`Все ${docs.length} документов по разделам`}>
@@ -35,47 +17,32 @@ export function HomeSectionMap() {
 
           return (
             <section className="home-map-group" aria-labelledby={`home-map-group-${groupIndex}`} key={group}>
-              <div className="home-map-group-title" id={`home-map-group-${groupIndex}`}>
-                <span>{String(groupIndex + 1).padStart(2, "0")}</span>
-                <div><b>{group}</b><small>{groupDescriptions[group]}</small></div>
-                <em>{groupDocs.length}</em>
-              </div>
+              <h2 className="home-map-group-title" id={`home-map-group-${groupIndex}`}>
+                {group}<span>{groupDocs.length}</span>
+              </h2>
               <div className="home-map-group-links">
-                {groupDocs.filter((doc) => !doc.subgroup).map((doc) => {
-                  const documentNumber = docs.findIndex((item) => item.slug === doc.slug) + 1;
-
-                  return (
-                    <Link href={`/docs/${doc.slug}`} key={doc.slug}>
-                      <span className="home-map-node">{String(documentNumber).padStart(2, "0")}</span>
-                      <span className="home-map-copy"><b>{doc.title}</b></span>
-                      <i aria-hidden="true">→</i>
-                    </Link>
-                  );
-                })}
-                {subgroups.map((subgroup) => {
-                  const subgroupDocs = groupDocs.filter((doc) => doc.subgroup === subgroup);
-                  return <div className="home-map-subgroup" key={subgroup}>
-                    <div className="home-map-subgroup-head"><b>{subgroup}</b><span>{subgroupDocs.length} статей</span></div>
-                    {subgroupDocs.map((doc) => {
-                      const documentNumber = docs.findIndex((item) => item.slug === doc.slug) + 1;
-                      return <Link href={`/docs/${doc.slug}`} key={doc.slug}>
-                        <span className="home-map-node">{String(documentNumber).padStart(2, "0")}</span>
-                        <span className="home-map-copy"><b>{doc.title}</b></span>
-                        <i aria-hidden="true">→</i>
-                      </Link>;
-                    })}
-                  </div>;
-                })}
+                {groupDocs.filter((doc) => !doc.subgroup).map((doc) => (
+                  <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                    <span>{doc.title}</span><i aria-hidden="true" />
+                  </Link>
+                ))}
+                {subgroups.map((subgroup) => (
+                  <div className="home-map-subgroup" key={subgroup}>
+                    <h3>{subgroup}</h3>
+                    {groupDocs.filter((doc) => doc.subgroup === subgroup).map((doc) => (
+                      <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                        <span>{doc.title}</span><i aria-hidden="true" />
+                      </Link>
+                    ))}
+                  </div>
+                ))}
               </div>
             </section>
           );
         })}
       </nav>
 
-      <Link className="home-map-docs-link" href="/docs">
-        <span>{docs.length} / {docs.length} В КАРТЕ</span>
-        <b>Каталог и поиск →</b>
-      </Link>
-    </aside>
+      <Link className="home-map-docs-link" href="/docs">Вся документация <span aria-hidden="true">→</span></Link>
+    </HomeMapPanel>
   );
 }

@@ -44,7 +44,7 @@ export function HomeQuickStart() {
     <section className="home-start section-wrap" id="top" aria-labelledby="home-start-title">
       <header className="home-start-heading">
         <span>РАЗРАБОТЧИКУ ПРИЛОЖЕНИЯ</span>
-        <h1 id="home-start-title">Что взять из платформы<br />и как это подключить</h1>
+        <h1 id="home-start-title">Что взять из платформы и как это подключить</h1>
         <p>Используйте общий код для онбординга, оплаты и состояний экрана. Тогда исправления и правила этих сценариев будут общими для приложений компании. Свои экраны, тексты и настройки вы задаёте в приложении.</p>
       </header>
 
