@@ -1,10 +1,12 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 6.0.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 6.2.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**Уже используете набор 5.1.x?** Обновите BroadUIFlows до 6.0.0 (и RU Billing до 1.0.1,
-если он подключён): подписки на пейволе пойдут от длинной к короткой, самая длинная
-будет выбрана. **На наборе 5.0.0?** Сначала перейдите на 5.1.0. Ниже есть шаги для Xcode.
+**На наборе 6.0.0 или 6.1.0?** Обновите BroadUIFlows до 6.2.0: свои экраны пейвола,
+токенов и настроек рисуются внутри хостов, появился алерт обновления, а «Повторить» на
+токен-пейволе больше не покупает второй раз. **На 5.1.x?** Обновите BroadUIFlows сразу
+до 6.2.0 и RU Billing до 1.0.1.
+**На наборе 5.0.0?** Сначала перейдите на 5.1.0. Ниже есть шаги для Xcode.
 
 Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 
@@ -15,18 +17,32 @@
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.1.0) | `5.1.0` | Adapty, Apple purchase/restore, доступ и токены |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.0.0) | `6.0.0` | Общие экраны и сценарии |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.2.0) | `6.2.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.1) | `1.0.1` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.0.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.2.0** обозначает сочетание пакетов, а не общий runtime package.
 
-## Обновление с набора 5.1.x на 6.0.0
+## Обновление с набора 6.0.0 или 6.1.0 на 6.2.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.0.0**;
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.2.0**.
+   Остальные пакеты не меняйте. Код компилируется без правок.
+2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
+3. Свой экран пейвола переведите на `BroadPaywallHost { screen in … }`: рисуйте из
+   `screen.plans`, вызывайте `screen.purchase()`, `restore()`, `close()`. Свою
+   обвязку (таймер оффера, закрытие, Safari, sheet оплаты, событие завершения)
+   удалите — это делает хост. Так же токены — `BroadTokenPaywallHost`, настройки —
+   `BroadSettingsHost`. [Примеры](./broad-ui-flows.md).
+4. На главный таб добавьте `.broadAppUpdateAlert(updateChecker)`.
+5. Проверьте покупку, Restore, крестик, оффер, токены и настройки: поведение как
+   раньше, двойное нажатие в настройках срабатывает один раз.
+
+## Обновление с набора 5.1.x на 6.2.0
+
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.2.0**;
    **BroadRUBilling**, если подключён, — **1.0.1**. Остальные пакеты не меняйте.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
-3. Если у вас свой экран пейвола: показывайте `viewModel.displayedProducts` вместо
-   `payload.products` и уберите свою сортировку и выбор тарифа при открытии.
+3. Если у вас свой экран пейвола: переведите его на `BroadPaywallHost` (шаг 3
+   выше) и уберите свою сортировку и выбор тарифа при открытии.
 4. Проверьте: сверху самая длинная подписка, и она выбрана.
 
 > Важно: прежний порядок Adapty остаётся доступен — `productOrder: .provider` в

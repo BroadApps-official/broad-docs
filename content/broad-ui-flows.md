@@ -1,8 +1,8 @@
 # BroadUIFlows
 
-**Логика экранов, которые есть в каждом приложении:** первый запуск, онбординг, пейвол
-и покупка токенов. Экран по Figma вы рисуете сами и подключаете к этой логике —
-поведение писать заново не нужно.
+**Логика экранов, которые есть в каждом приложении:** первый запуск, онбординг, пейвол,
+покупка токенов, настройки и алерт обновления. Экран по Figma вы рисуете сами, а хост отдаёт ему готовые данные
+и действия. **Экран = только вёрстка**: поведение писать заново не нужно.
 
 ![BroadUIFlows даёт логику первого запуска, онбординга, пейвола и токенов; экран по Figma получает данные и вызывает методы ViewModel](../public/guides/readme/ui-flows-logic-light.svg)
 
@@ -12,36 +12,81 @@
 |---|---|---|
 | Первый запуск | `BroadAppFlowView` | Сплэш → онбординг → пейвол → главный экран; Special Offer после закрытия пейвола |
 | Онбординг | `BroadOnboardingFlowHost` | Страницы из `OnboardingConfiguration.pages`, запрос ATT после первого слайда |
-| Пейвол | `PaywallViewModel` | Подписки от длинной к короткой, выбрана самая длинная, крестик через 5 с, покупка и Restore без двойного нажатия |
-| Токены | `BroadTokenPaywallViewModel` | Пакеты токенов, покупка, подтверждение баланса |
+| Пейвол и Special Offer | `BroadPaywallHost` | Подписки от длинной к короткой, выбрана самая длинная, цена за неделю и экономия, крестик через 5 с, покупка и Restore без двойного нажатия, таймер оффера, ссылки на документы |
+| Токены | `BroadTokenPaywallHost` | Пакеты, покупка и зачисление, баланс с сервера, безопасная проверка покупки без повторного списания |
+| Настройки | `BroadSettingsHost` | Restore, управление подпиской, документы, письмо в поддержку, копирование ID, оценка, «поделиться»; одно касание за раз |
+| Алерт обновления | `.broadAppUpdateAlert(checker)` | На главном табе: новая версия в App Store → «Отмена» / «Обновить»; первый запуск молчит |
 | Загрузка и ошибки | `BroadLoadableView` | Загрузка, пустой ответ, ошибка с повтором |
-| Письмо в поддержку | `BroadSupportEmailComposer` | Письмо по шаблону поддержки |
 
 ## Свой экран пейвола
 
-Экран только рисует: берёт тарифы из `displayedProducts` и вызывает методы ViewModel.
+Хост ведёт всю логику и отдаёт экрану готовый `screen`. Экран его только раскладывает.
 
 ```swift
-ForEach(viewModel.displayedProducts, id: \.presentationID) { product in
-    PlanRow(
-        product: product,
-        isSelected: product.presentationID == viewModel.selectedProductPresentationID
-    )
-    .contentShape(Rectangle())
-    .onTapGesture { viewModel.selectProduct(presentationID: product.presentationID) }
-}
-
-Button("Продолжить") { viewModel.purchaseButtonTapped() }
-    .disabled(!viewModel.canPurchase)
-
-Button("Восстановить") { viewModel.restorePurchases() }
-
-if viewModel.isCloseAvailable {
-    CloseButton { _ = viewModel.requestClose() }
+BroadPaywallHost(viewModel: viewModel, onClose: close, onCompleted: finish) { screen in
+    MyPaywall(screen: screen)
 }
 ```
 
-> Важно: не сортируйте тарифы на экране и не выбирайте тариф при открытии сами — это уже делает ViewModel.
+```swift
+struct MyPaywall: View {
+    let screen: BroadPaywallScreen
+
+    var body: some View {
+        ForEach(screen.plans) { plan in
+            PlanRow(plan: plan) // plan.price, plan.weeklyPrice, plan.savingsPercent, plan.isSelected
+                .contentShape(Rectangle())
+                .onTapGesture { screen.select(plan) }
+        }
+        Button("Продолжить") { screen.purchase() }
+            .disabled(!screen.canPurchase)
+        Button("Восстановить") { screen.restore() }
+        if let message = screen.noticeMessage { Text(message) }
+        if screen.canClose { CloseButton { screen.close() } }
+    }
+}
+```
+
+| `screen` даёт | Что это |
+|---|---|
+| `content` | `.loading`, `.plans`, `.empty`, `.failed(error)` — что показать |
+| `plans` | Тарифы в порядке показа: цена, цена за неделю, % экономии, `isBestValue`, `isSelected` |
+| `activity` | `.idle`, `.purchasing`, `.restoring` — для лоадера на кнопке |
+| `notice`, `noticeMessage` | Итог покупки или Restore и готовый текст к нему |
+| `canPurchase`, `canClose` | Когда кнопка покупки активна и когда показать крестик |
+| `legalLinks`, `specialOfferEndsAt` | Privacy и Terms (`screen.open(link)`), конец окна оффера для таймера |
+
+> [!TIP]
+> **Превью без Adapty.** `MyPaywall(screen: .preview(.purchasing))` рисует экран в любом
+> состоянии: `.plans`, `.loading`, `.pending`, `.failed`, `.specialOffer` и другие.
+
+> Важно: не сортируйте тарифы, не выбирайте тариф при открытии и не считайте цену за
+> неделю сами — всё это уже в `screen.plans`.
+
+## Остальные хосты — так же
+
+Каждый хост отдаёт экрану готовый `screen`. Экран только раскладывает его.
+
+```swift
+BroadTokenPaywallHost(viewModel: tokens, tokenAmount: { amounts[$0.productID.rawValue] }, onClose: close) { screen in
+    MyTokenStore(screen: screen)   // screen.packages, balanceText, purchase(), confirm()
+}
+
+BroadSettingsHost(configuration: settings, restorePurchases: restore) { screen in
+    MySettings(screen: screen)     // screen.restore(), manageSubscription(), contactSupport() …
+}
+
+MainTabView()
+    .broadAppUpdateAlert(updateChecker) // @StateObject var updateChecker = BroadAppUpdateChecker()
+```
+
+> [!CAUTION]
+> **Токены: `confirm()`, а не вторая покупка.** Если покупка ждёт подтверждения,
+> `screen.needsConfirmation == true` — главная кнопка вызывает `screen.confirm()`.
+> Он проверяет сохранённую покупку и никогда не списывает деньги повторно.
+
+Превью любого состояния без Adapty и сети: `BroadTokenPaywallScreen.preview(.pending)`,
+`BroadSettingsScreen.preview(.restored)`, `BroadAppUpdateChecker.preview(.updateAvailable)`.
 
 ## Готовые экраны
 
@@ -90,5 +135,10 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 3. Дважды нажать кнопку покупки: активная операция должна остаться одна.
 4. Проверить разрешённый оффер, запрет флага и завершение таймера.
 5. Открыть настройки, Restore, поддержку и ссылки на документы; убедиться, что можно вернуться.
+   Нажать две строки настроек одновременно — сработает одна.
+6. Токены: купить пакет, дождаться зачисления; в состоянии «ждёт подтверждения» кнопка
+   проверяет покупку, а не покупает заново.
+7. Алерт обновления: первый запуск — без алерта; версия в App Store выше — алерт на
+   главном табе; без сети — без алерта.
 
 [README и API](https://github.com/BroadApps-official/broad-ui-flows-ios) · [Платёжная логика](./broad-monetization.md) · [Как устроена платформа](./architecture.md)

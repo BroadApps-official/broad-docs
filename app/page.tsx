@@ -69,7 +69,7 @@ const repositoryGroups = [
       {
         name: "broad-ui-flows-ios",
         product: "BroadUIFlows",
-        summary: "Готовые SwiftUI-экраны: onboarding, paywall, loader, Special Offer и переходы.",
+        summary: "Логика онбординга, пейвола, токенов и настроек. Свой экран по Figma — только вёрстка поверх хоста.",
         href: "https://github.com/BroadApps-official/broad-ui-flows-ios",
       },
       {
