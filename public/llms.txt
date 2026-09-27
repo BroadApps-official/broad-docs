@@ -14,6 +14,7 @@
 - Один этап за раз. На `PLAN REVIEW REQUIRED` и `SKELETON REVIEW REQUIRED` остановись и жди подтверждения разработчика.
 - Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
 - Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
+- Вёрстка: токены и `.scale`, базовая ширина — устройство макета в Figma: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/layout
 - Только iPhone, Team = None, без test targets. Настоящие покупки, restore и RU-оплату не выполняй.
 - Ключи и токены не коммить.
 
@@ -87,6 +88,7 @@
 ### Разработка
 
 - [Чат поддержки Usedesk](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/usedesk): Что реально присылает менеджер и как из этих данных открыть готовый чат в приложении.
+- [Вёрстка по макету](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/layout): Базовая ширина из Figma, токены и .scale, шрифты и зоны нажатия.
 - [Какие версии ставить](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/compatibility): Проверенный набор, Exact Version и диапазоны, Package.resolved, обновление и возврат — вручную и с агентом.
 - [Как выпускать новые версии](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/release-process): От изменения и проверки кандидата до неизменяемого тега, общего набора и инструкции обновления приложения.
 - [Почему платформу разделили](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/migration): Какие проблемы решило разделение, что осталось общим и как это влияет на новые и существующие приложения.

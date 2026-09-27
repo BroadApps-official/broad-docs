@@ -1,10 +1,11 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 5.1.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 5.1.1. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**Уже используете набор 5.0.0?** Для перехода на 5.1.0 обновите только
-BroadMonetization с 5.0.0 до 5.1.0. Ниже есть короткие шаги для Xcode и готовое
-задание для ИИ-агента.
+**Уже используете набор 5.1.0?** Обновите только BroadUIFlows с 5.0.0 до 5.0.1:
+из письма в поддержку уходит строка `Bundle`, код менять не нужно.
+**На наборе 5.0.0?** Сначала перейдите на 5.1.0, затем на 5.1.1. Ниже есть шаги
+для Xcode и готовое задание для ИИ-агента.
 
 Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
 
@@ -15,10 +16,22 @@ BroadMonetization с 5.0.0 до 5.1.0. Ниже есть короткие шаг
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.1.0) | `5.1.0` | Adapty, Apple purchase/restore, доступ и токены |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/5.0.0) | `5.0.0` | Общие экраны и сценарии |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/5.0.1) | `5.0.1` | Общие экраны и сценарии |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.0) | `1.0.0` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **5.1.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **5.1.1** обозначает сочетание пакетов, а не общий runtime package.
+
+## Обновление с набора 5.1.0 на 5.1.1
+
+1. В Xcode откройте настройки проекта → **Package Dependencies**. Для
+   **BroadUIFlows** установите **Exact Version 5.0.1** вместо 5.0.0. Остальные
+   пакеты не меняйте.
+2. Выполните **File → Packages → Resolve Package Versions** и сохраните
+   `Package.resolved` вместе с настройками проекта.
+3. Откройте письмо в поддержку: в блоке `--- App info ---` нет строки `Bundle`.
+
+Новой настройки не требуется: параметр `bundleIdentifier` остался, в письмо он
+больше не попадает. [Изменения 5.0.1](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/5.0.1).
 
 ## Обновление с набора 5.0.0 на 5.1.0
 
