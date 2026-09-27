@@ -1285,22 +1285,22 @@
       }
     },
     "guides/start/xcode-package.png": {
-      "sha256": "19d0ff455e9990f5f1313aca5f09c817c983ce09e1b27d9dc411738a91f86883",
-      "bytes": 319309,
+      "sha256": "c2858c718be3f8609d34f0c3086481babf861aed1316db4299b06aa7330afad1",
+      "bytes": 110624,
       "source": {
         "repository": "https://github.com/BroadApps-official/broad-docs",
-        "ref": "6a8ef55ac28d8487a4e1e237b0b77abbf7591bd9",
+        "ref": "main",
         "path": "public/guides/start/xcode-package.png"
       },
       "recording": {
         "kind": "xcode-screenshot",
         "application": "BroadStart",
-        "capturedAt": "2026-09-08",
-        "environment": "Xcode 26.3; iPhone Simulator 26.3",
+        "capturedAt": "2026-09-27",
+        "environment": "Xcode 27.0 (27A266a)",
         "sourceProject": "examples/first-app/BroadStart.xcodeproj",
-        "sourceCommit": "6a8ef55ac28d8487a4e1e237b0b77abbf7591bd9",
+        "sourceCommit": "e589a45bd7e9264124d11fc28e767cb88ae6131f",
         "data": "Local teaching materials; no backend or payment operations.",
-        "notes": "Authentic capture. Xcode screenshots converted from JPEG to PNG without changing visible contents."
+        "notes": "Authentic Add Package Dependencies capture for BroadStart: Exact Version 3.0.0. Xcode reports that this dependency already exists. Captured at 2168×1210 and resized to 1084×605; the dialog was cancelled without changing the project."
       }
     },
     "guides/start/xcode-product.png": {

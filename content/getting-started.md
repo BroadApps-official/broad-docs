@@ -96,7 +96,7 @@ https://github.com/BroadApps-official/broad-core-ios.git
 
 Выберите **Dependency Rule → Exact Version → 3.0.0**, затем **Add Package**. В следующем окне для product **BroadCore** укажите **Add to Target → BroadStart**. Если выбран **None**, пакет может скачаться, но приложение не получит его библиотеку.
 
-![Xcode: расположение Exact Version; на историческом снимке 1.2.0, сейчас выбирайте 3.0.0](../public/guides/start/xcode-package.png)
+![Xcode: Dependency Rule → Exact Version 3.0.0](../public/guides/start/xcode-package.png)
 
 ![Xcode: product BroadCore добавляется в основное приложение BroadStart](../public/guides/start/xcode-product.png)
 
