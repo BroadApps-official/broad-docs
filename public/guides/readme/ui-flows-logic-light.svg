@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="600" viewBox="0 0 1280 600" role="img" aria-labelledby="title description">
+  <title id="title">Логика из платформы, экран по Figma</title><desc id="description">BroadUIFlows даёт логику первого запуска, онбординга, пейвола и покупки токенов. Экран по макету рисует приложение: он получает от ViewModel данные и состояние и вызывает её методы по нажатиям. Готовые экраны модуля нужны для no-code и как образец.</desc>
+  <defs><filter id="shadow" x="-20%" y="-25%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.12"/></filter><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#64748B"/></marker></defs>
+  <rect width="1280" height="600" rx="32" fill="#F8FAFC"/>
+  <text x="52" y="58" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="29" font-weight="800">Логика — из платформы, экран — по Figma</text>
+  <text x="52" y="88" fill="#64748B" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="15">Ваш экран получает готовую ViewModel: данные, состояние и действия. Поведение писать заново не нужно.</text>
+  <g filter="url(#shadow)"><rect x="52" y="120" width="660" height="376" rx="26" fill="#EC4899"/><rect x="872" y="120" width="356" height="376" rx="26" fill="#0F172A"/></g>
+  <text x="80" y="160" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="19" font-weight="800">BroadUIFlows — логика</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+    <rect x="80" y="180" width="604" height="68" rx="16" fill="#FFFFFF"/>
+    <text x="100" y="208" fill="#0F172A" font-size="16" font-weight="800">Первый запуск</text><text x="238" y="208" fill="#BE185D" font-size="13" font-weight="700">BroadAppFlowView</text>
+    <text x="100" y="232" fill="#475569" font-size="13">сплэш → онбординг → пейвол → главный экран; Special Offer после закрытия</text>
+    <rect x="80" y="258" width="604" height="68" rx="16" fill="#FFFFFF"/>
+    <text x="100" y="286" fill="#0F172A" font-size="16" font-weight="800">Онбординг</text><text x="202" y="286" fill="#BE185D" font-size="13" font-weight="700">BroadOnboardingFlowHost</text>
+    <text x="100" y="310" fill="#475569" font-size="13">страницы из конфигурации, запрос ATT после первого слайда</text>
+    <rect x="80" y="336" width="604" height="68" rx="16" fill="#FFFFFF"/>
+    <text x="100" y="364" fill="#0F172A" font-size="16" font-weight="800">Пейвол</text><text x="176" y="364" fill="#BE185D" font-size="13" font-weight="700">PaywallViewModel</text>
+    <text x="100" y="388" fill="#475569" font-size="13">подписки от длинной к короткой, крестик через 5 с, покупка и Restore</text>
+    <rect x="80" y="414" width="604" height="68" rx="16" fill="#FFFFFF"/>
+    <text x="100" y="442" fill="#0F172A" font-size="16" font-weight="800">Токены</text><text x="176" y="442" fill="#BE185D" font-size="13" font-weight="700">BroadTokenPaywallViewModel</text>
+    <text x="100" y="466" fill="#475569" font-size="13">пакеты токенов, покупка, подтверждение баланса</text>
+  </g>
+  <path d="M722 270H862" stroke="#64748B" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M862 356H722" stroke="#64748B" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="792" y="256" text-anchor="middle" fill="#334155" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13" font-weight="700">данные и состояние</text>
+  <text x="792" y="384" text-anchor="middle" fill="#334155" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13" font-weight="700">нажатия</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+    <text x="900" y="160" fill="#FFFFFF" font-size="19" font-weight="800">Ваш экран по Figma</text>
+    <text x="900" y="200" fill="#CBD5E1" font-size="14">• вёрстка, картинки и иконки</text>
+    <text x="900" y="232" fill="#CBD5E1" font-size="14">• тексты и анимации</text>
+    <text x="900" y="264" fill="#CBD5E1" font-size="14">• токены дизайна и .scale</text>
+    <rect x="900" y="300" width="300" height="168" rx="18" fill="#1E293B"/>
+    <text x="920" y="330" fill="#F472B6" font-size="13" font-weight="700">экран только рисует</text>
+    <text x="920" y="358" fill="#E2E8F0" font-size="13">и вызывает методы ViewModel:</text>
+    <text x="920" y="388" fill="#E2E8F0" font-size="13" font-family="SFMono-Regular,Menlo,monospace">selectProduct(…)</text>
+    <text x="920" y="414" fill="#E2E8F0" font-size="13" font-family="SFMono-Regular,Menlo,monospace">purchaseButtonTapped()</text>
+    <text x="920" y="440" fill="#E2E8F0" font-size="13" font-family="SFMono-Regular,Menlo,monospace">restorePurchases()</text>
+  </g>
+  <rect x="52" y="520" width="1176" height="52" rx="16" fill="#FEF3C7"/>
+  <text x="76" y="552" fill="#713F12" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="14"><tspan font-weight="800">Готовые экраны</tspan> BroadPaywallView и BroadOnboardingView — для no-code и как образец поведения. Для проекта по Figma рисуйте свой экран поверх той же логики.</text>
+</svg>

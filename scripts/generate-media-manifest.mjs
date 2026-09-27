@@ -12,6 +12,7 @@ const docsOwnedDiagrams = new Set([
   "guides/readme/architecture-light.svg",
   "guides/readme/composition-root-light.svg",
   "guides/readme/full-flow-light.svg",
+  "guides/readme/ui-flows-logic-light.svg",
 ]);
 
 function gitRef(directory, fallbackVariable) {

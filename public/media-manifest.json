@@ -822,6 +822,15 @@
         "path": "Documentation/Assets/README/startup-cache-light.svg"
       }
     },
+    "guides/readme/ui-flows-logic-light.svg": {
+      "sha256": "d613779237c160483598e0634b05f9cc44901417c864a77f2e03e34bf3587d9c",
+      "bytes": 5995,
+      "source": {
+        "repository": "https://github.com/BroadApps-official/broad-docs",
+        "ref": "7761f125f1d6551849a34f33d73dd38bceb475e2",
+        "path": "public/guides/readme/ui-flows-logic-light.svg"
+      }
+    },
     "guides/settings-support/232-settings.jpg": {
       "sha256": "b1b99946aac797f0c566dcd6761dbfe3e8daf2606df94d270f4c3389418a72ec",
       "bytes": 74382,

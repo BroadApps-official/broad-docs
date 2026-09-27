@@ -11,7 +11,8 @@
 
 ## Главные правила
 
-- Один этап за раз. На `PLAN REVIEW REQUIRED` и `SKELETON REVIEW REQUIRED` остановись и жди подтверждения разработчика.
+- Один этап за раз. Каждый этап заканчивай русской фразой «НУЖНА ПРОВЕРКА ПЛАНА», «НУЖНА ПРОВЕРКА КАРКАСА», «НУЖНА ПРОВЕРКА ФУНКЦИИ» и т. п., одной строкой напиши, что проверить, и жди ответа разработчика.
+- Подписки на пейволе — от длинного периода к короткому, при открытии выбрана самая длинная (делает BroadUIFlows, экран сам не сортирует). Экран по Figma подключай к логике BroadUIFlows: BroadAppFlowView, BroadOnboardingFlowHost, PaywallViewModel.
 - Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
 - Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
 - По Figma: спроси, с какого раздела начать, и попроси ссылки на кадры Figma этого раздела; иконки и фоны выгружай из Figma сам.

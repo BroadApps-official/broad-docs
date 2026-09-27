@@ -189,7 +189,7 @@ Public-библиотека не должна хранить production URL и �
    поля, payment methods, email source, offline policy и backend authority.
 5. Задай мне только вопросы, ответы на которые меняют реализацию.
 6. До моего ответа не меняй Swift. Заверши отчёт строкой:
-   BACKEND CONTRACT REVIEW REQUIRED.
+   НУЖНА ПРОВЕРКА КОНТРАКТА BACKEND.
 7. После подтверждения используй платформенный adapter; сохрани весь массив,
    порядок и дубли. Browser return не считай успешной оплатой.
 ```
