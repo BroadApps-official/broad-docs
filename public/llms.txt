@@ -14,6 +14,7 @@
 - Один этап за раз. На `PLAN REVIEW REQUIRED` и `SKELETON REVIEW REQUIRED` остановись и жди подтверждения разработчика.
 - Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
 - Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
+- По Figma: спроси, с какого раздела начать, и попроси ссылки на кадры Figma этого раздела; иконки и фоны выгружай из Figma сам.
 - Вёрстка: токены и `.scale`, базовая ширина — устройство макета в Figma: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/layout
 - Только iPhone, Team = None, без test targets. Настоящие покупки, restore и RU-оплату не выполняй.
 - Ключи и токены не коммить.
