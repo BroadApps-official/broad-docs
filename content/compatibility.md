@@ -1,12 +1,13 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 6.3.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 6.4.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**На наборе 6.2.0?** Обновите BroadUIFlows до 6.3.0 и BroadMonetization до 5.2.0:
-спецоффер появляется сразу по крестику, пейвол с кнопки PRO открывается уже с
-тарифами, зачёркнутая цена оффера считается сама. **На 6.0.0 или 6.1.0?** Те же
-версии; свои экраны пейвола, токенов и настроек рисуются внутри хостов, появился алерт
-обновления. **На 5.1.x?** Те же версии и RU Billing 1.0.1.
+**На наборе 6.3.0?** Обновите BroadUIFlows до 6.4.0 и BroadMonetization до 5.2.1:
+спецоффер показывает одну карточку (`screen.specialOfferPlan`). **На 6.2.0?** Те же
+версии: ещё спецоффер сразу по крестику, пейвол с кнопки PRO уже с тарифами,
+зачёркнутая цена оффера считается сама. **На 6.0.0 или 6.1.0?** Те же версии; свои
+экраны пейвола, токенов и настроек рисуются внутри хостов, появился алерт обновления.
+**На 5.1.x?** Те же версии и RU Billing 1.0.1.
 **На наборе 5.0.0?** Сначала перейдите на 5.1.0. Ниже есть шаги для Xcode.
 
 Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
@@ -17,16 +18,24 @@
 |---|---|---|
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
-| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.2.0) | `5.2.0` | Adapty, Apple purchase/restore, доступ, токены, спецоффер |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.3.0) | `6.3.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
+| [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.2.1) | `5.2.1` | Adapty, Apple purchase/restore, доступ, токены, спецоффер |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.4.0) | `6.4.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.1) | `1.0.1` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.3.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.4.0** обозначает сочетание пакетов, а не общий runtime package.
 
-## Обновление с набора 6.2.0 на 6.3.0
+## Обновление с набора 6.3.0 на 6.4.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.3.0**,
-   **BroadMonetization** — **5.2.0**. Остальные пакеты не меняйте. Код компилируется
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+   **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте.
+2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
+3. Свой экран спецоффера рисует одну карточку `screen.specialOfferPlan` и заголовок
+   скидки из неё же; выбор тарифа на оффере уберите — хост сам выбирает эту карточку.
+
+## Обновление с набора 6.2.0 на 6.4.0
+
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+   **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте. Код компилируется
    без правок.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
 3. Спецоффер: держите один `ResolveSpecialOfferUseCase` на всё приложение и вызывайте
@@ -40,10 +49,10 @@
 6. Проверьте в Debug: на пейволе столько тарифов, сколько в Adapty (иначе допишите
    продукты в `.storekit`), оффер выезжает сразу и целиком, PRO — уже с тарифами.
 
-## Обновление с набора 6.0.0 или 6.1.0 на 6.3.0
+## Обновление с набора 6.0.0 или 6.1.0 на 6.4.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.3.0**,
-   **BroadMonetization** — **5.2.0**. Остальные пакеты не меняйте. Код компилируется
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+   **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте. Код компилируется
    без правок.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
 3. Свой экран пейвола переведите на `BroadPaywallHost { screen in … }`: рисуйте из
@@ -55,10 +64,10 @@
 5. Проверьте покупку, Restore, крестик, оффер, токены и настройки: поведение как
    раньше, двойное нажатие в настройках срабатывает один раз.
 
-## Обновление с набора 5.1.x на 6.3.0
+## Обновление с набора 5.1.x на 6.4.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.3.0**,
-   **BroadMonetization** — **5.2.0**; **BroadRUBilling**, если подключён, — **1.0.1**.
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+   **BroadMonetization** — **5.2.1**; **BroadRUBilling**, если подключён, — **1.0.1**.
    Остальные пакеты не меняйте.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
 3. Если у вас свой экран пейвола: переведите его на `BroadPaywallHost` (шаг 3
