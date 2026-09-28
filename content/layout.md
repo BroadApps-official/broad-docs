@@ -6,6 +6,23 @@
 и [AppTokens.swift](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Core/DesignSystem/AppTokens.swift).
 Скопируйте их в приложение на этапе каркаса.
 
+## Если работаете через агента
+
+**Правила вёрстки агенту объяснять не нужно.** С правилами BroadApps он сам заводит
+размеры из макета, масштабирует их под любой iPhone и проверяет iPhone SE и iPad. От
+вас — ссылки на кадры и просьба показать экраны:
+
+```text
+Сверстай по кадрам Figma: <ссылки>. Покажи скриншоты на большом iPhone, iPhone SE и iPad.
+```
+
+На скриншотах проверьте: текст не обрезан, крестик, Restore, Privacy и Terms видны и
+нажимаются, на iPad под картинкой нет белой полосы, на iPhone SE текст не наезжает на
+картинку. Если что-то не так, пришлите скриншот и одну фразу: «на iPad крестик под
+кнопками окна», «на SE текст налез на картинку», «отступ больше, чем в Figma».
+
+Ниже — правила для ручной вёрстки.
+
 ## Базовая ширина
 
 Задаётся один раз — `LayoutScale.designWidth` в `Scalable.swift`.
