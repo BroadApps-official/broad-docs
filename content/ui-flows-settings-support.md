@@ -55,8 +55,9 @@
 > App Store не показываются, даже если нарисованы в Figma. «Получить Premium»,
 > статус подписки и «Manage subscription» открывают пейвол приложения — обычно
 > placement `settings`. В коде это обработчик `showPaywall` у `BroadSettingsHost`:
-> его вызывают `screen.showPaywall()` и `screen.manageSubscription()` (BroadUIFlows
-> после 6.5.0; на 6.5.0 строка вызывает пейвол приложения сама).
+> его вызывают `screen.showPaywall()` и `screen.manageSubscription()`, и пейвол
+> проходит общую защиту от двойного нажатия. Это BroadUIFlows после 6.5.0: в 6.5.0
+> `manageSubscription()` открывает App Store, строки подписки к нему не подключайте.
 > Отмена существует только в RU Billing и идёт через backend — [управление
 > RU-подпиской](./ru-billing.md).
 

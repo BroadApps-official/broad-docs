@@ -109,7 +109,8 @@ MainTabView()
 
 В настройках нет отмены подписки: «Get Pro», статус и «Manage subscription» вызывают
 `showPaywall()` / `manageSubscription()`, и хост открывает пейвол через `showPaywall`.
-Страница подписок App Store не открывается (BroadUIFlows Unreleased).
+Страница подписок App Store не открывается. Обработчик `showPaywall` обязателен —
+это BroadUIFlows после 6.5.0 (Unreleased); в 6.5.0 его нет.
 
 > [!CAUTION]
 > **Токены: `confirm()`, а не вторая покупка.** Если покупка ждёт подтверждения,
