@@ -24,6 +24,7 @@ bash /tmp/broadapps-platform/AgentKit/install.sh claude   # или codex / both
 
 - Один этап за раз. Каждый этап заканчивай русской фразой «НУЖНА ПРОВЕРКА ПЛАНА», «НУЖНА ПРОВЕРКА КАРКАСА», «НУЖНА ПРОВЕРКА ФУНКЦИИ» и т. п., одной строкой напиши, что проверить, и жди ответа разработчика.
 - Подписки на пейволе — от длинного периода к короткому, при открытии выбрана самая длинная (делает BroadUIFlows, экран сам не сортирует). Экран по Figma = только вёрстка: оборачивай его в хост BroadUIFlows (BroadAppFlowView, BroadOnboardingFlowHost, BroadPaywallHost, BroadTokenPaywallHost, BroadSettingsHost) и рисуй из готового `screen`; покупки, порядок тарифов, крестик и защиту от двойного нажатия сам не пиши.
+- Нехватка токенов в любом действии и тап по балансу сразу открывают пейвол, не алерт: без подписки — подписочный (обычно `pro_icon`), с подпиской — `tokens`; после покупки обнови подтверждённый баланс с сервера без автоповтора действия, а если сервер требует подписку для токенов — синхронизируй её после покупки, Restore и при запуске.
 - Главный таб всегда с `.broadAppUpdateAlert(checker)`: алерт новой версии App Store.
 - Неизвестные экран, endpoint, product ID или значение — `BLOCKED`, не придумывай.
 - Версии модулей бери только из https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Compatibility/current.yml
