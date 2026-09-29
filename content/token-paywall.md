@@ -118,9 +118,9 @@ let tokenManager = TokenPurchaseManager(
     operationGate: services.operationGate
 )
 
-// ViewModel и состояние интерфейса создаются на MainActor.
+// Create the ViewModel and UI state on MainActor.
 let tokenModel = BroadTokenPaywallViewModel(
-    configuration: BroadTokenPaywallConfiguration(copy: .russian),
+    configuration: BroadTokenPaywallConfiguration(copy: .english),
     dependencies: BroadTokenPaywallViewModelDependencies(
         loadPaywall: services.loadPaywall,
         selectProduct: services.selectProduct,
@@ -146,14 +146,21 @@ BroadTokenPaywallView(
 
 `appPaywallTheme` — тема приложения типа `BroadPaywallTheme`,
 `closeTokenScreen` — его действие закрытия. Тексты задаёт `BroadTokenPaywallCopy`;
-замените учебные формулировки `.russian`, в том числе название кнопки покупки,
-перед выпуском своего приложения.
+для английского приложения доступны `.english` и `.standard`, для русского —
+`.russian`. Перед выпуском проверьте тексты, в том числе название кнопки покупки,
+на соответствие своему приложению.
 
 Готовый View сам вызывает `viewDidAppear()`: загружает каталог, запрашивает
 баланс и проверяет сохранённую покупку. По умолчанию выбирается первый доступный
 пакет; изменить предпочтение можно через `defaultSelectionIndex`. Длинный
 список прокручивается, основная кнопка остаётся внизу. Пока выполняется операция,
 выбор и повторное нажатие блокируются.
+
+Если по макету крестик должен стать доступен позже, задайте `closeDelay` в
+`BroadTokenPaywallConfiguration` (по умолчанию 0): хост и готовый экран сами
+выдержат задержку, таймер во view не нужен. Автоматическая сверка баланса при
+открытии не показывает уведомление; уведомление о результате появляется только
+после нажатия пользователем обновления баланса (Restore).
 
 [Пример композиции в BroadAppTemplate](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Examples/BroadAppTemplate/BroadAppTemplate/Application/AppCompositionRoot%2BTokens.swift)
 показывает эти связи на учебных данных. Его `Example…`-репозитории и

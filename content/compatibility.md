@@ -1,16 +1,20 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 6.4.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 6.5.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**На наборе 6.3.0?** Обновите BroadUIFlows до 6.4.0 и BroadMonetization до 5.2.1:
-спецоффер показывает одну карточку (`screen.specialOfferPlan`). **На 6.2.0?** Те же
-версии: ещё спецоффер сразу по крестику, пейвол с кнопки PRO уже с тарифами,
-зачёркнутая цена оффера считается сама. **На 6.0.0 или 6.1.0?** Те же версии; свои
-экраны пейвола, токенов и настроек рисуются внутри хостов, появился алерт обновления.
-**На 5.1.x?** Те же версии и RU Billing 1.0.1.
+**На наборе 6.4.0?** Обновите BroadUIFlows до 6.5.0: появились готовые английские
+тексты токен-пейвола, задержка крестика через `closeDelay`, а фоновая сверка баланса
+больше не показывает уведомление. Остальные пакеты не меняйте.
+
+**На наборе 6.3.0?** Обновите BroadUIFlows до 6.5.0 и BroadMonetization до 5.2.1:
+спецоффер показывает одну карточку (`screen.specialOfferPlan`); учтите и изменения
+токен-пейвола из 6.5.0. **На 6.2.0?** Те же версии: ещё спецоффер сразу по крестику,
+пейвол с кнопки PRO уже с тарифами, зачёркнутая цена оффера считается сама.
+**На 6.0.0 или 6.1.0?** Те же версии; свои экраны пейвола, токенов и настроек рисуются
+внутри хостов, появился алерт обновления. **На 5.1.x?** Те же версии и RU Billing 1.0.1.
 **На наборе 5.0.0?** Сначала перейдите на 5.1.0. Ниже есть шаги для Xcode.
 
-Источник — [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/main/Compatibility/current.yml).
+Источник — [Compatibility/current.yml набора 6.5.0](https://github.com/BroadApps-official/broad-platform-integration/blob/6.5.0/Compatibility/current.yml).
 
 ## Текущий проверенный набор
 
@@ -19,22 +23,40 @@
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.2.1) | `5.2.1` | Adapty, Apple purchase/restore, доступ, токены, спецоффер |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.4.0) | `6.4.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.5.0) | `6.5.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.1) | `1.0.1` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.4.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.5.0** обозначает сочетание пакетов, а не общий runtime package.
 
-## Обновление с набора 6.3.0 на 6.4.0
+## Обновление с набора 6.4.0 на 6.5.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.5.0**.
+   Core 3.0.0, Extensions 1.0.1, Monetization 5.2.1 и опциональный RU Billing
+   1.0.1 не меняйте. Код на 6.4.0 компилируется без правок.
+2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
+3. В английском приложении свой набор текстов токен-пейвола можно заменить на
+   `BroadTokenPaywallCopy.english` (или `.standard`).
+4. Если задержку крестика токен-пейвола ведёт свой таймер во view, замените его на
+   `BroadTokenPaywallConfiguration(closeDelay:)`: хост и готовый экран учитывают
+   задержку сами. По умолчанию `closeDelay` равен 0.
+5. Если приложение скрывает уведомление «баланс актуален» при открытии
+   токен-пейвола, уберите эту обработку. Автоматическая сверка баланса больше не
+   выставляет notice; уведомление о результате показывается только после ручного
+   обновления (Restore).
+
+## Обновление с набора 6.3.0 на 6.5.0
+
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.5.0**,
    **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
 3. Свой экран спецоффера рисует одну карточку `screen.specialOfferPlan` и заголовок
    скидки из неё же; выбор тарифа на оффере уберите — хост сам выбирает эту карточку.
+4. Для английских текстов токен-пейвола, задержки крестика и уведомления о балансе
+   выполните шаги 3–5 [перехода с 6.4.0](#обновление-с-набора-6-4-0-на-6-5-0).
 
-## Обновление с набора 6.2.0 на 6.4.0
+## Обновление с набора 6.2.0 на 6.5.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.5.0**,
    **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте. Код компилируется
    без правок.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
@@ -48,10 +70,12 @@
    на `screen.noticeMessage` и `dismissNotice()`.
 6. Проверьте в Debug: на пейволе столько тарифов, сколько в Adapty (иначе допишите
    продукты в `.storekit`), оффер выезжает сразу и целиком, PRO — уже с тарифами.
+7. Для изменений токен-пейвола выполните шаги 3–5
+   [перехода с 6.4.0](#обновление-с-набора-6-4-0-на-6-5-0).
 
-## Обновление с набора 6.0.0 или 6.1.0 на 6.4.0
+## Обновление с набора 6.0.0 или 6.1.0 на 6.5.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.5.0**,
    **BroadMonetization** — **5.2.1**. Остальные пакеты не меняйте. Код компилируется
    без правок.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
@@ -63,16 +87,20 @@
 4. На главный таб добавьте `.broadAppUpdateAlert(updateChecker)`.
 5. Проверьте покупку, Restore, крестик, оффер, токены и настройки: поведение как
    раньше, двойное нажатие в настройках срабатывает один раз.
+6. Для изменений токен-пейвола выполните шаги 3–5
+   [перехода с 6.4.0](#обновление-с-набора-6-4-0-на-6-5-0).
 
-## Обновление с набора 5.1.x на 6.4.0
+## Обновление с набора 5.1.x на 6.5.0
 
-1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.4.0**,
+1. В Xcode → **Package Dependencies**: **BroadUIFlows** — Exact Version **6.5.0**,
    **BroadMonetization** — **5.2.1**; **BroadRUBilling**, если подключён, — **1.0.1**.
    Остальные пакеты не меняйте.
 2. **File → Packages → Resolve Package Versions**, сохраните `Package.resolved`.
 3. Если у вас свой экран пейвола: переведите его на `BroadPaywallHost` (шаг 3
    выше) и уберите свою сортировку и выбор тарифа при открытии.
 4. Проверьте: сверху самая длинная подписка, и она выбрана.
+5. Для изменений токен-пейвола выполните шаги 3–5
+   [перехода с 6.4.0](#обновление-с-набора-6-4-0-на-6-5-0).
 
 > Важно: прежний порядок Adapty остаётся доступен — `productOrder: .provider` в
 > `BroadPaywallConfiguration`. По правилам компании его не используют.
