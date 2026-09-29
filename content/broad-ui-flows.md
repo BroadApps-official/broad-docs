@@ -40,7 +40,7 @@
 | Онбординг | `BroadOnboardingFlowHost` | Страницы из `OnboardingConfiguration.pages`, запрос ATT после первого слайда |
 | Пейвол и Special Offer | `BroadPaywallHost` | Подписки от длинной к короткой, выбрана самая длинная, цена за неделю и экономия, крестик через 5 с, покупка и Restore без двойного нажатия, таймер оффера, ссылки на документы |
 | Токены | `BroadTokenPaywallHost` | Пакеты, покупка и зачисление, баланс с сервера, безопасная проверка покупки без повторного списания |
-| Настройки | `BroadSettingsHost` | Restore, управление подпиской, документы, письмо в поддержку, копирование ID, оценка, «поделиться»; одно касание за раз |
+| Настройки | `BroadSettingsHost` | Restore, пейвол подписки (без отмены и App Store), документы, письмо в поддержку, копирование ID, оценка, «поделиться»; одно касание за раз |
 | Алерт обновления | `.broadAppUpdateAlert(checker)` | На главном табе: новая версия в App Store → «Отмена» / «Обновить»; первый запуск молчит |
 | Загрузка и ошибки | `BroadLoadableView` | Загрузка, пустой ответ, ошибка с повтором |
 
@@ -98,13 +98,18 @@ BroadTokenPaywallHost(viewModel: tokens, tokenAmount: { amounts[$0.productID.raw
     MyTokenStore(screen: screen)   // screen.packages, balanceText, purchase(), confirm()
 }
 
-BroadSettingsHost(configuration: settings, restorePurchases: restore) { screen in
-    MySettings(screen: screen)     // screen.restore(), manageSubscription(), contactSupport() …
+BroadSettingsHost(configuration: settings, restorePurchases: restore,
+                  showPaywall: { router.showPaywall(placement: .settings) }) { screen in
+    MySettings(screen: screen)     // screen.restore(), showPaywall(), contactSupport() …
 }
 
 MainTabView()
     .broadAppUpdateAlert(updateChecker) // @StateObject var updateChecker = BroadAppUpdateChecker()
 ```
+
+В настройках нет отмены подписки: «Get Pro», статус и «Manage subscription» вызывают
+`showPaywall()` / `manageSubscription()`, и хост открывает пейвол через `showPaywall`.
+Страница подписок App Store не открывается (BroadUIFlows Unreleased).
 
 > [!CAUTION]
 > **Токены: `confirm()`, а не вторая покупка.** Если покупка ждёт подтверждения,
