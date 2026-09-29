@@ -16,6 +16,7 @@ bash /tmp/broadapps-platform/AgentKit/install.sh claude   # или codex / both
 ## Агенту: выбери маршрут
 
 - Новое производственное приложение (по Figma или no-code): https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/new-app — работай по этапам: preflight → план → каркас → по одной функции → проверка поведения → внешний вид → передача. Промпты этапов: https://raw.githubusercontent.com/BroadApps-official/broad-platform-integration/main/Documentation/AgentPromptPack.md
+- Новое приложение с готовым backend из референса: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/new-app#backend-уже-есть-в-другом-приложении
 - Приложение уже на платформе, нужна проверка: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/app-standard
 - Приложение на старом BroadCore, нужен перенос: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/legacy-app-migration
 - Учебная задача, первое знакомство: https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/getting-started (BroadStart — учебный пример, не основа нового приложения)

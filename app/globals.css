@@ -102,6 +102,7 @@ button, input { font: inherit; }
 .home-agent-tabs .home-agent-copy.copied { background: #1f8a4c; }
 .home-agent-prompt { margin: 0; padding: 14px 16px; overflow-x: auto; color: #1b2b44; font-size: 12.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
 @media (max-width: 760px) { .home-agent { grid-template-columns: 1fr; padding: 16px; } .home-agent-tabs .home-agent-copy { margin-left: 0; } }
+@media (max-width: 480px) { .home-agent-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .home-agent-tabs button { min-width: 0; white-space: normal; } .home-agent-tabs .home-agent-copy { grid-column: 1 / -1; } }
 .home-start-agent { margin: 14px 0 0; color: #355386; font-size: 12px; line-height: 1.5; }
 .home-start-agent a { color: #2157d5; font-weight: 700; }
 .home-start-label { display: block; color: #355386; font-size: 10px; font-weight: 750; line-height: 1.5; }
