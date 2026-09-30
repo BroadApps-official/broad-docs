@@ -1,12 +1,13 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 7.0.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 7.1.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**На наборе 6.5.0?** Выполните [переход на 7.0.0](#обновление-с-набора-6-5-0-на-7-0-0).
+**На наборе 7.0.0?** Выполните [переход на 7.1.0](#обновление-с-набора-7-0-0-на-7-1-0) — код менять не нужно.
+**На наборе 6.5.0?** Выполните [переход на 7.0.0](#обновление-с-набора-6-5-0-на-7-0-0), сразу поставив BroadUIFlows 7.1.0.
 **На 6.4.0 или раньше?** Сначала выполните шаги до 6.5.0 из разделов ниже,
-затем переход на 7.0.0.
+затем переход на 7.0.0 с BroadUIFlows 7.1.0.
 
-Источник — [Compatibility/current.yml набора 7.0.0](https://github.com/BroadApps-official/broad-platform-integration/blob/7.0.0/Compatibility/current.yml).
+Источник — [Compatibility/current.yml набора 7.1.0](https://github.com/BroadApps-official/broad-platform-integration/blob/7.1.0/Compatibility/current.yml).
 
 ## Текущий проверенный набор
 
@@ -15,23 +16,45 @@
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.2.1) | `5.2.1` | Adapty, Apple purchase/restore, доступ, токены, спецоффер |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/7.0.0) | `7.0.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/7.1.0) | `7.1.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
 | [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.2) | `1.0.2` | Только если нужна RU-оплата: products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **7.0.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **7.1.0** обозначает сочетание пакетов, а не общий runtime package.
+
+## Обновление с набора 7.0.0 на 7.1.0
+
+Что нового в 7.1.0 — на странице [«Что нового»](./whats-new.md).
+
+1. В Xcode → **Package Dependencies** установите **BroadUIFlows — Exact Version 7.1.0**
+   (или измените `exact` в `Package.swift`). Остальные пакеты не меняйте.
+2. Выполните **File → Packages → Resolve Package Versions** и проверьте в
+   `Package.resolved`, что UIFlows — 7.1.0.
+3. Код менять не нужно: все прежние вызовы собираются. Реальные приложения на 7.0.0
+   и шаблон собрались без правок.
+
+После обновления можно упростить приложение:
+
+- **Нет App Store ID.** Передайте `appStoreLink: nil` через
+  `BroadSettingsConfiguration.withAppStoreLink(userID:appStoreLink:…)` вместо временной
+  ссылки: «Поделиться» и «Оценить» скроются. [Настройки](./ui-flows-settings-support.md#как-подключить-хост)
+- **Своё окно «нет почты».** Хост настроек теперь показывает его сам — своё окно
+  уберите, чтобы не было двух.
+- **Увеличенная задержка ATT.** Задержка считается после перехода к первому слайду;
+  поправку на длительность перехода можно убрать. [Первые экраны и ATT](./onboarding-att.md)
 
 ## Обновление с набора 6.5.0 на 7.0.0
 
 Что нового в 7.0.0 простыми словами — на странице [«Что нового»](./whats-new.md).
 
-1. В Xcode → **Package Dependencies** установите **BroadUIFlows — Exact Version 7.0.0**.
+1. В Xcode → **Package Dependencies** установите **BroadUIFlows — Exact Version 7.1.0**
+   (текущая версия; миграция та же, что для 7.0.0).
    Если зависимости заданы в `Package.swift`, измените соответствующее ограничение
    `exact` там. Core 3.0.0, Extensions 1.0.1 и Monetization 5.2.1 не меняйте.
 2. Если нужна RU-оплата и BroadRUBilling уже подключён, установите ему
    **Exact Version 1.0.2**. Без RU этот пакет не добавляйте. В 1.0.2 только расширен
    допустимый диапазон BroadUIFlows до верхней границы 8.0.0; поведение RU-оплаты не меняется.
 3. Выполните **File → Packages → Resolve Package Versions**. В `Package.resolved`
-   проверьте pins: UIFlows 7.0.0, опциональный RU Billing 1.0.2 и прежние версии
+   проверьте pins: UIFlows 7.1.0, опциональный RU Billing 1.0.2 и прежние версии
    остальных пакетов из таблицы. Сохраните зависимости проекта и `Package.resolved` вместе.
 4. В каждом `BroadSettingsHost` добавьте обязательный `showPaywall` сразу после
    `configuration`, перед `restorePurchases`. Он должен вызывать настоящий
