@@ -27,26 +27,23 @@
 
 Проверьте, есть ли в репозитории приложения файл `Scripts/prepare_release.sh`. Его **один раз добавляет владелец приложения** из актуального [инструмента платформы](https://github.com/BroadApps-official/broad-platform-integration/blob/main/ReleaseTools/install.sh). Каждому разработчику отдельно устанавливать его не нужно.
 
-Если файла нет, владелец приложения открывает актуальный `broad-platform-integration` и из его корня запускает одну из команд. После пути к приложению укажите путь к проекту или workspace относительно корня приложения и имя схемы:
+Если файла нет, владелец приложения открывает актуальный `broad-platform-integration` и из его корня запускает подходящую команду. Замените `/path/to/App` на путь к приложению, пути `ios/App…` — на пути относительно его корня, `AppScheme` — на имя схемы.
 
-```bash
-# Xcode project only
-bash ReleaseTools/install.sh /path/to/App ios/App.xcodeproj AppScheme
+| Как устроено приложение | Какую команду запустить |
+|---|---|
+| Только проект | `bash ReleaseTools/install.sh /path/to/App ios/App.xcodeproj AppScheme` |
+| CocoaPods (например, Usedesk) | `bash ReleaseTools/install.sh /path/to/App ios/App.xcodeproj AppScheme --workspace ios/App.xcworkspace` |
+| Свой workspace без CocoaPods | `bash ReleaseTools/install.sh /path/to/App ios/App.xcworkspace AppScheme` |
 
-# CocoaPods workspace; it may not exist before pod install
-bash ReleaseTools/install.sh /path/to/App ios/App.xcodeproj AppScheme --workspace ios/App.xcworkspace
+Для CocoaPods workspace может ещё не существовать. Если в своём workspace несколько проектов приложения, добавьте `--project ios/App.xcodeproj`. Если `Podfile` лежит не рядом с проектом или workspace, добавьте `--podfile path/to/Podfile`. Пути с пробелами заключите в кавычки.
 
-# Custom workspace without CocoaPods
-bash ReleaseTools/install.sh /path/to/App ios/App.xcworkspace AppScheme
-```
+Схема должна быть **Shared**: в Xcode откройте **Product → Scheme → Manage Schemes**, включите **Shared** и сохраните `.xcscheme` в Git.
 
-Для workspace с несколькими проектами приложения добавьте `--project ios/App.xcodeproj`. Если Podfile лежит не рядом с проектом или workspace, добавьте `--podfile path/to/Podfile`. Пути с пробелами заключите в кавычки. Схема должна быть **Shared**: в Xcode откройте **Product → Scheme → Manage Schemes**, включите **Shared** и сохраните `.xcscheme` в Git.
+Установщик добавит шаблон `Scripts/codemagic.release.yaml`, если файла ещё нет. Укажите в нём пути `XCODE_PROJECT`, `XCODE_WORKSPACE` (оставьте пустым для сборки проекта), при необходимости `XCODE_PODFILE`, схему, подпись и публикацию. Проверьте настройку и сохраните файлы в коммит приложения. Уже установленный инструмент обновите вручную: установщик его не перезаписывает.
 
-Установщик сам добавляет универсальный шаблон `Scripts/codemagic.release.yaml`, если файла ещё нет. Настройте в нём пути `XCODE_PROJECT`, `XCODE_WORKSPACE` (пустая строка означает сборку проекта), при необходимости `XCODE_PODFILE`, схему, подпись и публикацию. После проверки сохраните добавленные файлы в коммит приложения. Если старый релизный инструмент уже есть, установщик не перезапишет его: владелец сравнивает его с актуальным и обновляет вручную.
+### CocoaPods и Xcode 27
 
-### Приложение на CocoaPods (например, с Usedesk)
-
-Скрипт работает и с `.xcworkspace`: установщику можно передать и `App.xcworkspace`, и `App.xcodeproj` — Podfile рядом он найдёт сам. Для Xcode 27 и новее проверьте `Podfile`: у старых подов минимальная версия iOS ниже 15, и сборка падает с ошибкой `The iOS deployment target ... is set to 12.0, but the range of supported deployment target versions is 15.0 to ...`. Добавьте в конец `Podfile` и выполните `pod install`:
+Если на Xcode 27 и новее сборка падает из-за слишком низкой версии iOS у подов (`The iOS deployment target ... is set to 12.0, but the range of supported deployment target versions is 15.0 to ...`), добавьте в `Podfile` блок ниже. Если `post_install` уже есть, добавьте код в него. Вместо `16.0` укажите минимальную версию iOS приложения.
 
 ```ruby
 post_install do |installer|
@@ -59,9 +56,7 @@ post_install do |installer|
 end
 ```
 
-Сохраните изменённые `Podfile` и `Podfile.lock` в коммит — без этого не соберётся ни скрипт, ни Codemagic.
-
-При подготовке релиза Pods устанавливаются в копии приложения до resolve. Сборка использует workspace, если он задан или создан CocoaPods; иначе использует проект. Codemagic умеет собирать workspace — прежняя проблема была в скрипте подготовки. Если в workspace несколько проектов с пакетами BroadApps, скрипт переключит ссылки во всех. Если он не может однозначно выбрать проект приложения, передайте `--project`.
+Выполните `pod install` и сохраните изменённые `Podfile` и `Podfile.lock` в коммит приложения, чтобы скрипт и Codemagic использовали эту настройку.
 
 Версия Swift-пакетов платформы в приложении может быть старой. **Обновлять пакеты только ради появления скрипта не нужно:** инструмент берёт версии, закреплённые в приложении. Если конкретную старую версию он не сможет подготовить, команда остановится с ошибкой — тогда обратитесь к владельцу платформы.
 

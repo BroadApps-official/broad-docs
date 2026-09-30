@@ -88,10 +88,14 @@ struct MyPaywall: View {
 > состоянии: `.plans`, `.loading`, `.pending`, `.failed`, `.specialOffer` и другие.
 
 > Важно: не сортируйте тарифы, не выбирайте тариф при открытии и не считайте цену за
-> неделю сами — всё это уже в `screen.plans`. Название тарифа тоже готовое: `plan.name` собрано
-> из периода, `package.name` — из количества токенов (BroadUIFlows после 6.5.0,
-> Unreleased; в 6.5.0 соберите название сами — по `plan.period` и числу токенов). Не
-> показывайте `title`: это имя из App Store, а менеджер обычно пишет туда ID товара.
+> неделю сами — всё это уже в `screen.plans`.
+
+С BroadUIFlows 7.0.0 берите название из `plan.name` — по периоду подписки,
+`package.name` — по количеству токенов. Готовые экраны показывают эти названия со
+встроенными текстами `.standard`, `.english` и `.russian`. Со своими текстами
+поведение остаётся прежним, пока вы не добавите в них названия. На 6.5.0 собирайте
+название сами по `plan.period` и числу токенов. Не показывайте `title`: в App Store
+туда обычно пишут ID товара.
 
 ## Остальные хосты — так же
 
@@ -99,7 +103,7 @@ struct MyPaywall: View {
 
 ```swift
 BroadTokenPaywallHost(viewModel: tokens, tokenAmount: { amounts[$0.productID.rawValue] }, onClose: close) { screen in
-    MyTokenStore(screen: screen)   // screen.packages (package.name — «2000 Tokens»), balanceText, purchase(), confirm()
+    MyTokenStore(screen: screen)   // screen.packages (package.name: "2000 Tokens"), balanceText, purchase(), confirm()
 }
 
 BroadSettingsHost(configuration: settings, restorePurchases: restore,
@@ -111,10 +115,19 @@ MainTabView()
     .broadAppUpdateAlert(updateChecker) // @StateObject var updateChecker = BroadAppUpdateChecker()
 ```
 
-В настройках нет отмены подписки: «Get Pro», статус и «Manage subscription» вызывают
-`showPaywall()` / `manageSubscription()`, и хост открывает пейвол через `showPaywall`.
-Страница подписок App Store не открывается. Обработчик `showPaywall` обязателен —
-это BroadUIFlows после 6.5.0 (Unreleased); в 6.5.0 его нет.
+С BroadUIFlows 7.0.0 параметр `showPaywall` у `BroadSettingsHost` обязателен:
+старый вызов без него не соберётся. Для миграции добавьте одну строку:
+
+```swift
+showPaywall: { /* Present the settings-placement paywall. */ }
+```
+
+«Get Pro», статус и «Manage subscription» вызывают `screen.showPaywall()` /
+`screen.manageSubscription()` и открывают пейвол приложения. Отмену App Store-подписки
+в настройки не добавляйте. На 6.5.0 подключайте строки подписки к пейволу напрямую.
+
+Это единственное ломающее изменение выпуска (набор 7.0.0); всё остальное совместимо
+со старым кодом.
 
 > [!CAUTION]
 > **Токены: `confirm()`, а не вторая покупка.** Если покупка ждёт подтверждения,
