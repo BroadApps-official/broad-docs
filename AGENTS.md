@@ -1,5 +1,6 @@
 # BroadDocs agent rules
 
+- Перед правкой сайта обязательно прочитать [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Сайт, repository и весь content публичны.
 - Canonical страницы лежат в `content/*.md`.
 - Не добавлять `tests/`, unit tests, test runners и test scripts.

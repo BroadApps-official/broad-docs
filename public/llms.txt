@@ -2,9 +2,13 @@
 
 > Общая платформа для iPhone-приложений BroadApps: онбординг, пейвол и покупки через Adapty, RU-оплата, загрузка и ошибки. Документация на русском. Этот файл — вход для ИИ-агента.
 
-## Шаг 0: правила и скиллы компании
+## Правка сайта документации
 
-Перед работой покажи разработчику, что есть в AgentKit платформы: правила разработки BroadApps и скиллы `broadapps-new-app` (этапы, временные данные аккаунта), `broadapps-figma` (Figma в браузере, экспорт 6x), `broadapps-ipad-check` (проверка iPad и iPhone SE). Спроси: «Поставить их в Claude / Codex?». После «да»:
+Перед правкой сайта обязательно прочитай [AGENTS.md broad-docs](https://github.com/BroadApps-official/broad-docs/blob/main/AGENTS.md) и [CONTRIBUTING.md — регламент правки сайта](https://github.com/BroadApps-official/broad-docs/blob/main/CONTRIBUTING.md). Работай с исходниками `content/*.md`, сверяй объяснение с версиями приложения и документом владельца поведения. После любой правки текста обнови поисковый индекс, при изменении названия или описания страницы — этот файл; выполни `pnpm run check`. В результате отдельно укажи готовность исходников и состояние публикации сайта.
+
+## Разработка приложения — шаг 0: правила и скиллы компании
+
+Перед работой над приложением покажи разработчику, что есть в AgentKit платформы: правила разработки BroadApps и скиллы `broadapps-new-app` (этапы, временные данные аккаунта), `broadapps-figma` (Figma в браузере, экспорт 6x), `broadapps-ipad-check` (проверка iPad и iPhone SE). Спроси: «Поставить их в Claude / Codex?». После «да»:
 
 ```bash
 git clone --depth 1 https://github.com/BroadApps-official/broad-platform-integration.git /tmp/broadapps-platform
@@ -119,4 +123,4 @@ bash /tmp/broadapps-platform/AgentKit/install.sh claude   # или codex / both
 - [Какие версии ставить](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/compatibility): Проверенный набор, Exact Version и диапазоны, Package.resolved, обновление и возврат — вручную и с агентом.
 - [Как выпускать новые версии](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/release-process): От изменения и проверки кандидата до неизменяемого тега, общего набора и инструкции обновления приложения.
 - [Почему платформу разделили](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/migration): Какие проблемы решило разделение, что осталось общим и как это влияет на новые и существующие приложения.
-- [Как исправлять документацию](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/documentation): Правка через GitHub или локально: источники API, понятные примеры, медиа, поиск, проверка и отдельная публикация.
+- [Нашли ошибку в документации](https://broadapps-ios-docs.nkhsnv.chatgpt.site/docs/documentation): Непонятный шаг, неверный пример или устаревший текст: что передать агенту и как сообщить об ошибке.
