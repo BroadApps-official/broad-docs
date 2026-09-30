@@ -22,6 +22,8 @@
 
 ## Обновление с набора 6.5.0 на 7.0.0
 
+Что нового в 7.0.0 простыми словами — на странице [«Что нового»](./whats-new.md).
+
 1. В Xcode → **Package Dependencies** установите **BroadUIFlows — Exact Version 7.0.0**.
    Если зависимости заданы в `Package.swift`, измените соответствующее ограничение
    `exact` там. Core 3.0.0, Extensions 1.0.1 и Monetization 5.2.1 не меняйте.
