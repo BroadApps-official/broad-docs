@@ -28,6 +28,7 @@
 | Тарифы идут не от длинного к короткому или выбран не самый длинный | «Порядок и выбор тарифа — из `screen.plans`, сам не сортируй» |
 | У спецоффера несколько карточек или можно выбирать | «Спецоффер — одна карточка `screen.specialOfferPlan`» |
 | Пейвол с кнопки PRO выезжает пустым, потом прыгает | «Загрузи пейвол PRO заранее через `BroadPaywallPreloader`» |
+| Вместо названия тарифа — ID продукта (`yearly_59.99_nottrial`) | «Название тарифа бери из `plan.name` / `package.name`, не из `title`» |
 
 Ниже — как это устроено, для тех, кто пишет код руками или хочет понять, что делает
 агент.
@@ -60,7 +61,7 @@ struct MyPaywall: View {
 
     var body: some View {
         ForEach(screen.plans) { plan in
-            PlanRow(plan: plan) // plan.price, plan.weeklyPrice, plan.savingsPercent, plan.isSelected
+            PlanRow(plan: plan) // plan.name, plan.price, plan.weeklyPrice, plan.savingsPercent, plan.isSelected
                 .contentShape(Rectangle())
                 .onTapGesture { screen.select(plan) }
         }
@@ -76,7 +77,7 @@ struct MyPaywall: View {
 | `screen` даёт | Что это |
 |---|---|
 | `content` | `.loading`, `.plans`, `.empty`, `.failed(error)` — что показать |
-| `plans` | Тарифы в порядке показа: цена, цена за неделю, % экономии, `isBestValue`, `isSelected` |
+| `plans` | Тарифы в порядке показа: название `name` («Yearly», «Weekly»), цена, цена за неделю, % экономии, `isBestValue`, `isSelected` |
 | `activity` | `.idle`, `.purchasing`, `.restoring` — для лоадера на кнопке |
 | `notice`, `noticeMessage` | Итог покупки или Restore и готовый текст к нему |
 | `canPurchase`, `canClose` | Когда кнопка покупки активна и когда показать крестик |
@@ -87,7 +88,9 @@ struct MyPaywall: View {
 > состоянии: `.plans`, `.loading`, `.pending`, `.failed`, `.specialOffer` и другие.
 
 > Важно: не сортируйте тарифы, не выбирайте тариф при открытии и не считайте цену за
-> неделю сами — всё это уже в `screen.plans`.
+> неделю сами — всё это уже в `screen.plans`. Название тарифа тоже готовое: `plan.name` собрано
+> из периода, `package.name` — из количества токенов. Не показывайте `title`: это имя
+> из App Store, а менеджер обычно пишет туда ID товара.
 
 ## Остальные хосты — так же
 
@@ -95,7 +98,7 @@ struct MyPaywall: View {
 
 ```swift
 BroadTokenPaywallHost(viewModel: tokens, tokenAmount: { amounts[$0.productID.rawValue] }, onClose: close) { screen in
-    MyTokenStore(screen: screen)   // screen.packages, balanceText, purchase(), confirm()
+    MyTokenStore(screen: screen)   // screen.packages (package.name — «2000 Tokens»), balanceText, purchase(), confirm()
 }
 
 BroadSettingsHost(configuration: settings, restorePurchases: restore,
