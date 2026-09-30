@@ -1,20 +1,12 @@
 # Какие версии ставить
 
-Для нового подключения используйте точные версии из набора 6.5.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
+Для нового подключения используйте точные версии из набора 7.0.0. Подключайте только нужные продукты; integration repository не добавляется в приложение.
 
-**На наборе 6.4.0?** Обновите BroadUIFlows до 6.5.0: появились готовые английские
-тексты токен-пейвола, задержка крестика через `closeDelay`, а фоновая сверка баланса
-больше не показывает уведомление. Остальные пакеты не меняйте.
+**На наборе 6.5.0?** Выполните [переход на 7.0.0](#обновление-с-набора-6-5-0-на-7-0-0).
+**На 6.4.0 или раньше?** Сначала выполните шаги до 6.5.0 из разделов ниже,
+затем переход на 7.0.0.
 
-**На наборе 6.3.0?** Обновите BroadUIFlows до 6.5.0 и BroadMonetization до 5.2.1:
-спецоффер показывает одну карточку (`screen.specialOfferPlan`); учтите и изменения
-токен-пейвола из 6.5.0. **На 6.2.0?** Те же версии: ещё спецоффер сразу по крестику,
-пейвол с кнопки PRO уже с тарифами, зачёркнутая цена оффера считается сама.
-**На 6.0.0 или 6.1.0?** Те же версии; свои экраны пейвола, токенов и настроек рисуются
-внутри хостов, появился алерт обновления. **На 5.1.x?** Те же версии и RU Billing 1.0.1.
-**На наборе 5.0.0?** Сначала перейдите на 5.1.0. Ниже есть шаги для Xcode.
-
-Источник — [Compatibility/current.yml набора 6.5.0](https://github.com/BroadApps-official/broad-platform-integration/blob/6.5.0/Compatibility/current.yml).
+Источник — [Compatibility/current.yml набора 7.0.0](https://github.com/BroadApps-official/broad-platform-integration/blob/7.0.0/Compatibility/current.yml).
 
 ## Текущий проверенный набор
 
@@ -23,10 +15,64 @@
 | [BroadCore](https://github.com/BroadApps-official/broad-core-ios/releases/tag/3.0.0) | `3.0.0` | Общие состояния, логирование, Keychain ID |
 | [BroadExtensions](https://github.com/BroadApps-official/broad-extensions-ios/releases/tag/1.0.1) | `1.0.1` | Независимые утилиты |
 | [BroadMonetization](https://github.com/BroadApps-official/broad-monetization-ios/releases/tag/5.2.1) | `5.2.1` | Adapty, Apple purchase/restore, доступ, токены, спецоффер |
-| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/6.5.0) | `6.5.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
-| [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.1) | `1.0.1` | Опциональные products `BroadRUBilling` и `BroadRUBillingUI` |
+| [BroadUIFlows](https://github.com/BroadApps-official/broad-ui-flows-ios/releases/tag/7.0.0) | `7.0.0` | Логика онбординга, пейвола, токенов и настроек; хосты для своих экранов |
+| [BroadRUBilling](https://github.com/BroadApps-official/broad-ru-billing-ios/releases/tag/1.0.2) | `1.0.2` | Только если нужна RU-оплата: products `BroadRUBilling` и `BroadRUBillingUI` |
 
-Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **6.5.0** обозначает сочетание пакетов, а не общий runtime package.
+Минимальная iOS — 17.0, устройство — iPhone, Swift language mode — 5, Swift tools — 6.0. Номер platform set **7.0.0** обозначает сочетание пакетов, а не общий runtime package.
+
+## Обновление с набора 6.5.0 на 7.0.0
+
+1. В Xcode → **Package Dependencies** установите **BroadUIFlows — Exact Version 7.0.0**.
+   Если зависимости заданы в `Package.swift`, измените соответствующее ограничение
+   `exact` там. Core 3.0.0, Extensions 1.0.1 и Monetization 5.2.1 не меняйте.
+2. Если нужна RU-оплата и BroadRUBilling уже подключён, установите ему
+   **Exact Version 1.0.2**. Без RU этот пакет не добавляйте. В 1.0.2 только расширен
+   допустимый диапазон BroadUIFlows до верхней границы 8.0.0; поведение RU-оплаты не меняется.
+3. Выполните **File → Packages → Resolve Package Versions**. В `Package.resolved`
+   проверьте pins: UIFlows 7.0.0, опциональный RU Billing 1.0.2 и прежние версии
+   остальных пакетов из таблицы. Сохраните зависимости проекта и `Package.resolved` вместе.
+4. В каждом `BroadSettingsHost` добавьте обязательный `showPaywall` сразу после
+   `configuration`, перед `restorePurchases`. Он должен вызывать настоящий
+   маршрутизатор пейвола вашего приложения, как в примере ниже.
+
+Фрагмент вставляется в экран настроек: `settings` — его конфигурация, `restore` —
+действие восстановления, `router` — существующий маршрутизатор приложения.
+
+```swift
+BroadSettingsHost(
+    configuration: settings,
+    showPaywall: { router.showPaywall(placement: .settings) },
+    restorePurchases: restore
+) { screen in
+    MySettings(screen: screen)
+}
+```
+
+Это **единственное ломающее изменение UIFlows 7.0.0**. `screen.showPaywall()` и
+`screen.manageSubscription()` открывают один пейвол приложения через общий gate
+нажатий; страница подписок App Store не открывается. Проверьте обе кнопки
+по отдельности и одновременное нажатие: открывается только один экран.
+Остальные прежние варианты `init` сохранены; токен-каталог ведёт себя как в 6.5.0.
+В сборке реальных приложений переход с 6.5.0 потребовал только этой одной строки:
+без неё возникала единственная ошибка `missing argument for parameter 'showPaywall'`,
+после добавления приложение собиралось. Шаблон без хоста настроек собрался без правок.
+
+Если приложение пока остаётся на 6.5.0, собирайте название подписки по
+`plan.period`, название пакета — по количеству токенов. Строки подписки
+подключайте к маршрутизатору пейвола напрямую: старый `manageSubscription()`
+открывает App Store. Для предзагрузки токенов обновите UIFlows до 7.0.0.
+
+Необязательные улучшения:
+
+- **Названия тарифов.** В 7.0.0 доступны `plan.name` и `package.name`;
+  готовые экраны показывают их со встроенными текстами `.standard`, `.english`,
+  `.russian`. Свои тексты сохраняют прежнее поведение; подключение названий —
+  отдельная настройка. [Названия и свои тексты](./broad-ui-flows.md#названия-тарифов-и-свои-тексты).
+- **Предзагрузка токен-пейвола.** Пока виден баланс, вызовите
+  `preloader.preload(.tokens)`, а модель создайте при открытии с
+  `initialPayload: preloader.take(.tokens)`. При завершённой предзагрузке экран
+  открывается с пакетами; иначе показывает загрузку и обработку ошибки.
+  [Пример подключения](./token-paywall.md#как-подключить-готовый-экран).
 
 ## Обновление с набора 6.4.0 на 6.5.0
 

@@ -11,7 +11,7 @@
 | Общую инструкцию или объяснение сценария | [broad-docs/content](https://github.com/BroadApps-official/broad-docs/tree/main/content) | Порядок первого подключения, поведение при ошибке |
 | Подключение отдельной библиотеки | README её репозитория | URL, product, минимальная версия |
 | Название метода и его параметры | DocC рядом с исходниками модуля и отчёт public API | Initializer OnboardingViewModel |
-| Сочетание проверенных версий | [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/6.5.0/Compatibility/current.yml) | Набор 6.5.0: Core 3.0.0, Extensions 1.0.1, Monetization 5.2.1, UIFlows 6.5.0, опциональный RU Billing 1.0.1 |
+| Сочетание проверенных версий | [Compatibility/current.yml](https://github.com/BroadApps-official/broad-platform-integration/blob/7.0.0/Compatibility/current.yml) | Набор 7.0.0: Core 3.0.0, Extensions 1.0.1, Monetization 5.2.1, UIFlows 7.0.0, RU Billing 1.0.2 только при RU-оплате; [переход с 6.5.0](./compatibility.md#обновление-с-набора-6-5-0-на-7-0-0) |
 | Общую инженерную проверку | README, Scripts и AgentChecks integration repository | Что именно выполняет agent gate |
 | Особенность одного приложения | Документы его собственного репозитория | Backend, тексты, идентификаторы и частный дизайн |
 

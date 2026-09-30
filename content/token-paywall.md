@@ -9,8 +9,8 @@
 сразу покажите пейвол. Нажатие на баланс токенов в шапке тоже открывает его.
 Если подписки нет, покажите подписку (обычно экран кнопки PRO); если она есть —
 пакеты токенов. Алерт «Not enough tokens… top up later» здесь не подходит.
-Экран с пакетами открывается сразу с ценами, как пейвол с кнопки PRO:
-приложение загружает его заранее, пока виден баланс.
+Приложение загружает токен-пейвол заранее, пока виден баланс. При завершённой
+предзагрузке экран открывается с пакетами; иначе показывает загрузку и обработку ошибки.
 В Debug агент покупает пакет из локального `.storekit` запуском из Xcode и
 проверяет обновление подтверждённого сервером баланса.
 
@@ -30,7 +30,7 @@
 | Видите | Скажите агенту |
 |---|---|
 | Вместо пейвола появляется алерт | «Если подписки нет, открой подписочный пейвол; если есть — пакеты токенов. Убери алерт» |
-| После нажатия экран пакетов открывается пустым и грузится | «Загружай токен-пейвол заранее, как пейвол с кнопки PRO: он должен открываться сразу с пакетами» |
+| После нажатия экран пакетов открывается пустым и грузится | «Подключи предзагрузку токен-пейвола: при готовых данных открывай с пакетами, иначе покажи загрузку и ошибку с повтором» |
 | После покупки прежнее действие началось само | «Обнови баланс с сервера; повторное действие запущу сам» |
 
 Ниже — как подключить экран, если вы пишете код сами.
@@ -77,14 +77,14 @@ Adapty, включая выбранный им A/B-вариант. Не сорт
 ## Что подготовить
 
 1. Подключите BroadMonetization и BroadUIFlows из [проверенного набора версий](./compatibility.md).
-2. Создайте расходуемые покупки **Consumable** в App Store Connect, свяжите их с продуктами Adapty и добавьте в paywall, назначенный placement `tokens`.
+2. Попросите аккаунт-менеджера создать **Consumable**-продукты в App Store Connect,
+   связать их с Adapty и назначить их placement `tokens`; получите точные product ID.
 3. На backend задайте соответствие **product ID → количество токенов**. Например, один продукт начисляет 100, другой — 500. Количество для начисления нельзя брать из цены, заголовка карточки или присланного клиентом числа.
 4. Подготовьте устойчивый аккаунт пользователя, проверку покупок и получение его баланса. Adapty identity, StoreKit `appAccountToken` и серверная авторизация должны относиться к одному пользователю.
 
 С BroadUIFlows 7.0.0 берите готовое название из `package.name`. Готовый экран
 показывает его со встроенными текстами `.standard`, `.english` и `.russian`.
-В свои тексты добавьте названия; до этого поведение останется прежним.
-На 6.5.0 собирайте название сами по количеству токенов.
+Свои тексты сохраняют прежнее поведение; [настройка названий](./broad-ui-flows.md#названия-тарифов-и-свои-тексты).
 
 Цена — из данных магазина с его валютой и локалью.
 Купить можно только `consumable` с корректной числовой ценой. Пакеты без такой цены
@@ -112,10 +112,23 @@ Backend и хранилище незавершённой покупки пред
 | `fulfillment` | Реализация `TokenFulfillmentRepositoryProtocol`: отправляет доказательство покупки на backend |
 | `recoverAccount` | Реализация `RecoverTokenAccountUseCaseProtocol`: загружает полный серверный баланс авторизованного аккаунта |
 | `applyConfirmedBalance` | Обновляет состояние интерфейса целиком из `TokenBalanceSnapshot`, не прибавляет покупку повторно |
+| `preloader` | Один `BroadPaywallPreloader` приложения с тем же загрузчиком paywall; предзагрузка и открытие используют один экземпляр |
 
 Ниже — фрагмент сборки с уже подготовленными зависимостями из таблицы.
 `services.operationGate` должен быть общим с другими покупками и Restore
 в этом приложении.
+
+Пока экран с балансом виден, запустите предзагрузку из его `.task`:
+
+```swift
+.task {
+    preloader.preload(.tokens)
+}
+```
+
+Менеджер создаётся один раз после подготовки аккаунта. Модель создайте на
+`MainActor` **при нажатии на баланс или нехватке токенов**, перед показом экрана:
+так `take(.tokens)` получает результат предзагрузки к моменту открытия.
 
 ```swift
 import BroadMonetization
@@ -130,23 +143,28 @@ let tokenManager = TokenPurchaseManager(
     operationGate: services.operationGate
 )
 
-// Create the ViewModel and UI state on MainActor.
-let tokenModel = BroadTokenPaywallViewModel(
-    configuration: BroadTokenPaywallConfiguration(copy: .english),
-    dependencies: BroadTokenPaywallViewModelDependencies(
-        loadPaywall: services.loadPaywall,
-        selectProduct: services.selectProduct,
-        purchaseManager: tokenManager,
-        recoverTokenAccount: recoverAccount,
-        onBalanceConfirmed: { snapshot in
-            applyConfirmedBalance(snapshot)
-        }
+// Call this factory on MainActor when the token paywall is requested.
+@MainActor
+func makeTokenPaywallModel() -> BroadTokenPaywallViewModel {
+    BroadTokenPaywallViewModel(
+        configuration: BroadTokenPaywallConfiguration(copy: .english),
+        dependencies: BroadTokenPaywallViewModelDependencies(
+            loadPaywall: services.loadPaywall,
+            selectProduct: services.selectProduct,
+            purchaseManager: tokenManager,
+            recoverTokenAccount: recoverAccount,
+            onBalanceConfirmed: { snapshot in
+                applyConfirmedBalance(snapshot)
+            }
+        ),
+        initialPayload: preloader.take(.tokens)
     )
-)
+}
 ```
 
-Сохраните `tokenManager` и `tokenModel` в объекте композиции. Не создавайте их
-заново при каждом вычислении SwiftUI `body`. Из экрана приложения покажите:
+При открытии вызовите `makeTokenPaywallModel()` и сохраните возвращённый `tokenModel`
+на всё время показа. `tokenManager` остаётся в объекте композиции. Не создавайте
+модель заново при каждом вычислении SwiftUI `body`. Из экрана приложения покажите:
 
 ```swift
 BroadTokenPaywallView(
@@ -172,7 +190,9 @@ BroadTokenPaywallView(
 вызовите `preloader.preload(.tokens)`, а при открытии передайте
 `initialPayload: preloader.take(.tokens)` в `BroadTokenPaywallViewModel`.
 Если предзагрузка ещё не закончилась или данные устарели, экран загрузит пакеты
-при открытии. На 6.5.0 обновите модуль до 7.0.0, чтобы подключить предзагрузку токенов.
+при открытии: покажет загрузку, а при ошибке — сообщение и повтор.
+При завершённой предзагрузке экран открывается с пакетами.
+[Переход со старых версий](./compatibility.md#обновление-с-набора-6-5-0-на-7-0-0).
 
 Если по макету крестик должен стать доступен позже, задайте `closeDelay` в
 `BroadTokenPaywallConfiguration` (по умолчанию 0): хост и готовый экран сами

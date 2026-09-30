@@ -90,12 +90,43 @@ struct MyPaywall: View {
 > Важно: не сортируйте тарифы, не выбирайте тариф при открытии и не считайте цену за
 > неделю сами — всё это уже в `screen.plans`.
 
+## Названия тарифов и свои тексты
+
 С BroadUIFlows 7.0.0 берите название из `plan.name` — по периоду подписки,
 `package.name` — по количеству токенов. Готовые экраны показывают эти названия со
 встроенными текстами `.standard`, `.english` и `.russian`. Со своими текстами
-поведение остаётся прежним, пока вы не добавите в них названия. На 6.5.0 собирайте
-название сами по `plan.period` и числу токенов. Не показывайте `title`: в App Store
-туда обычно пишут ID товара.
+старый вызов `Products` из трёх параметров оставляет названия выключенными и
+сохраняет прежнее отображение. Не показывайте `title`: в App Store туда обычно
+пишут ID товара.
+
+Чтобы включить названия, передайте `planNames` для подписок и `tokenName` для
+пакетов токенов:
+
+```swift
+let subscriptionProducts = BroadPaywallCopy.Products(
+    fallbackTitle: "Подписка",
+    unavailablePriceTitle: "Цена недоступна",
+    selectedAccessibilityValue: "Выбрано",
+    planNames: .russian
+)
+
+let tokenProducts = BroadTokenPaywallCopy.Products(
+    fallbackTitle: "Пакет токенов",
+    unavailablePriceTitle: "Цена недоступна",
+    selectedAccessibilityValue: "Выбрано",
+    tokenName: BroadCountedNameCopy(
+        one: "токен", few: "токена", many: "токенов",
+        usesRussianPluralRules: true
+    )
+)
+```
+
+В своём `BroadPaywallCopy` передайте `subscriptionProducts` в `products:`,
+а в `BroadTokenPaywallCopy` — `tokenProducts`. Остальные группы текстов оставьте
+своими. Для английских названий подписок используйте `planNames: .english`,
+для других формулировок — свой `BroadPaywallPlanNameCopy`.
+
+[Переход со старых версий](./compatibility.md#обновление-с-набора-6-5-0-на-7-0-0).
 
 ## Остальные хосты — так же
 
@@ -106,8 +137,11 @@ BroadTokenPaywallHost(viewModel: tokens, tokenAmount: { amounts[$0.productID.raw
     MyTokenStore(screen: screen)   // screen.packages (package.name: "2000 Tokens"), balanceText, purchase(), confirm()
 }
 
-BroadSettingsHost(configuration: settings, restorePurchases: restore,
-                  showPaywall: { router.showPaywall(placement: .settings) }) { screen in
+BroadSettingsHost(
+    configuration: settings,
+    showPaywall: { router.showPaywall(placement: .settings) },
+    restorePurchases: restore
+) { screen in
     MySettings(screen: screen)     // screen.restore(), showPaywall(), contactSupport() …
 }
 
@@ -116,15 +150,17 @@ MainTabView()
 ```
 
 С BroadUIFlows 7.0.0 параметр `showPaywall` у `BroadSettingsHost` обязателен:
-старый вызов без него не соберётся. Для миграции добавьте одну строку:
+старый вызов без него не соберётся. Для миграции добавьте одну строку сразу после
+`configuration`, перед `restorePurchases` (и `onRestored`, если он передан):
 
 ```swift
-showPaywall: { /* Present the settings-placement paywall. */ }
+showPaywall: { router.showPaywall(placement: .settings) }
 ```
 
 «Get Pro», статус и «Manage subscription» вызывают `screen.showPaywall()` /
-`screen.manageSubscription()` и открывают пейвол приложения. Отмену App Store-подписки
-в настройки не добавляйте. На 6.5.0 подключайте строки подписки к пейволу напрямую.
+`screen.manageSubscription()` и открывают один пейвол приложения через общий gate.
+Страница подписок App Store не открывается. Отмену App Store-подписки
+в настройки не добавляйте.
 
 Это единственное ломающее изменение выпуска (набор 7.0.0); всё остальное совместимо
 со старым кодом.
@@ -184,6 +220,8 @@ https://github.com/BroadApps-official/broad-ui-flows-ios.git
 3. Дважды нажать кнопку покупки: активная операция должна остаться одна.
 4. Проверить разрешённый оффер, запрет флага и завершение таймера.
 5. Открыть настройки, Restore, поддержку и ссылки на документы; убедиться, что можно вернуться.
+   Обе кнопки — `screen.showPaywall()` и `screen.manageSubscription()` — открывают
+   один пейвол через общий gate, без страницы подписок App Store.
    Нажать две строки настроек одновременно — сработает одна.
 6. Токены: купить пакет, дождаться зачисления; в состоянии «ждёт подтверждения» кнопка
    проверяет покупку, а не покупает заново.

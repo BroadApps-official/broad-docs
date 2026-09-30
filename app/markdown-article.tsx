@@ -89,6 +89,7 @@ function parse(markdown: string): Block[] {
       continue;
     }
     if (code) { code.push(line); continue; }
+    if (/^\s*<!--.*-->\s*$/.test(line)) { flushParagraph(); flushList(); continue; }
     // Standalone MP4 links remain usable in the canonical Markdown on GitHub.
     // Each recording ships with a JPEG poster and Russian WebVTT descriptions.
     const video = line.match(videoLink);
